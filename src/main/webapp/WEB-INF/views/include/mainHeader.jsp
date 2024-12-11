@@ -63,34 +63,43 @@
 
 	    menuButton.on("click", function() {
 	        // 하얀색 창 표시 및 애니메이션 실행
-	        whiteBox.css("display", "block");
+	        whiteBox.css({
+	            "display": "block",
+	            "z-index": "1000" // 하얀색 창이 가장 앞에 보이도록
+	        });
 
-	        // 애니메이션이 내려오는 중 (50%)
+	        // 애니메이션이 내려오는 중간에 JSP 파일 로드
 	        setTimeout(function() {
 	            $.ajax({
-	                url: "${ctp}/login", // 불러올 JSP 경로 (수정 필요)
+	                url: "${ctp}/login", // 불러올 JSP 경로
 	                type: "GET",
 	                success: function(data) {
-	                		$("body").hide();
-	                		demo.show();
-	                    // JSP 페이지를 미리 로드
+	                		$("body > *").not("#demo, .white-box").hide();
 	                    demo.html(data);
+	                    demo.css({
+	                        "display": "block",
+	                        "opacity": "0", // 처음에는 투명
+	                        "z-index": "999" // 하얀 창보다 한 단계 뒤에 위치
+	                    });
 	                },
 	                error: function(xhr, status, error) {
 	                    console.error("Error loading content:", error);
 	                }
 	            });
-	        }, 500); // 0.5초 후 AJAX 요청 실행 (애니메이션 중간 시점)
+	        }, 500); // 0.5초 후 JSP를 불러옴
 
-	        // 애니메이션 끝 감지
+	        // 애니메이션 끝나기 전에 로그인창 서서히 표시
 	        whiteBox.on("animationend", function(event) {
 	            if (event.originalEvent.animationName === "slideWhiteBox") {
-	                // 하얀 창 숨기기
-	                whiteBox.css("display", "none");
+	                // 하얀 창이 올라가는 동안 opacity를 점진적으로 변경
+	                demo.animate({ opacity: 1 }, 100, function() {
+	                });
 	            }
 	        });
 	    });
 	});
+
+
 
 
 
@@ -299,6 +308,50 @@
 	}
 		50%	{transform:	translateY(-10px);}
 	}
+	
+	#demo {
+    display: none; /* 초기에는 숨겨진 상태 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999; /* 하얀 창보다 한 단계 아래 */
+    width: 90%;
+    max-width: 400px;
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    opacity: 0; /* 처음에는 투명 */
+    transition: opacity 0.5s ease-in-out; /* 부드러운 전환 효과 */
+	}
+
+	.white-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 1000; /* 로그인 창보다 위에 위치 */
+    display: none;
+    animation: slideWhiteBox 1s ease-in-out forwards;
+	}
+
+@keyframes slideWhiteBox {
+    0% {
+        transform: translateY(-100%);
+    }
+    50% {
+        transform: translateY(0%);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+	
 </style>
 
 
