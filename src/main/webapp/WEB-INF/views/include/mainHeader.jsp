@@ -10,31 +10,26 @@
 <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
 <script type="text/javascript">
 	document.addEventListener("DOMContentLoaded", function() {
-    // 햄버거 버튼 클릭 시 메뉴와 배경 토글
     function toggleSidebar() {
     	const menu = document.querySelector(".menu");
-      const sideMenu = document.querySelector(".side-menu");
+      const sideMenu = document.querySelector(".side-menu-login");
       const overlay = document.querySelector(".overlay");
 
-        // 햄버거 아이콘과 메뉴 상태를 토글
       menu.classList.toggle("active");
       sideMenu.classList.toggle("open");
       overlay.classList.toggle("active");
     }
 
-    // 배경 클릭 시 메뉴 닫기
     document.querySelector(".overlay").addEventListener("click", function() {
       const menu = document.querySelector(".menu");
-      const sideMenu = document.querySelector(".side-menu");
+      const sideMenu = document.querySelector(".side-menu-login");
       const overlay = document.querySelector(".overlay");
 
-       // 메뉴와 배경 숨기기
     	menu.classList.remove("active");
     	sideMenu.classList.remove("open");
     	overlay.classList.remove("active");
     });
 
-    // 네비게이션바 고정 처리 (스크롤에 따라)
     const navbar = document.querySelector("#navbar");
     
     document.addEventListener("scroll", () => {
@@ -47,7 +42,6 @@
   		}
     });
 
-    // 햄버거 버튼 클릭 시 메뉴 열고 닫기
     const menuButton = document.querySelector(".menu");
     if (menuButton) {
     	menuButton.addEventListener("click", toggleSidebar);
@@ -57,41 +51,37 @@
 
 	
 	$(document).ready(function() {
-	    const menuButton = $(".menu");
+	    const menuButton = $(".login");
 	    const whiteBox = $(".white-box");
-	    const demo = $("#demo"); // JSP 내용이 보여질 영역
+	    const demo = $("#demo");
 
 	    menuButton.on("click", function() {
-	        // 하얀색 창 표시 및 애니메이션 실행
 	        whiteBox.css({
 	            "display": "block",
-	            "z-index": "1000" // 하얀색 창이 가장 앞에 보이도록
+	            "z-index": "1000"
 	        });
 
-	        // 애니메이션이 내려오는 중간에 JSP 파일 로드
 	        setTimeout(function() {
 	            $.ajax({
-	                url: "${ctp}/login", // 불러올 JSP 경로
+	                url: "${ctp}/member/login",
 	                type: "GET",
 	                success: function(data) {
 	                		$("body > *").not("#demo, .white-box").hide();
 	                    demo.html(data);
 	                    demo.css({
 	                        "display": "block",
-	                        "opacity": "0", // 처음에는 투명
-	                        "z-index": "999" // 하얀 창보다 한 단계 뒤에 위치
+	                        "opacity": "0",
+	                        "z-index": "999"
 	                    });
 	                },
 	                error: function(xhr, status, error) {
 	                    console.error("Error loading content:", error);
 	                }
 	            });
-	        }, 500); // 0.5초 후 JSP를 불러옴
+	        }, 500);
 
-	        // 애니메이션 끝나기 전에 로그인창 서서히 표시
 	        whiteBox.on("animationend", function(event) {
 	            if (event.originalEvent.animationName === "slideWhiteBox") {
-	                // 하얀 창이 올라가는 동안 opacity를 점진적으로 변경
 	                demo.animate({ opacity: 1 }, 100, function() {
 	                });
 	            }
@@ -99,58 +89,80 @@
 	    });
 	});
 
-
-
-
-
 </script>
 <style>
-	#navbar {
-		display: flex;
-		justify-content: space-between;
-		position: fixed;
-		width: 100%;
-		z-index: 100;
-		top: 0;
-		left: 0;
-		color: var(- -color-dark-gray);
-		background: linear-gradient(to top, rgba(255, 255, 255, 0) 0%,
-				rgba(0, 0, 0, 0.3) 100%);
-		transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
-		padding: 1%;
+	/* 네비게이션 바 스타일 */
+	.main-nav {
+	    display: flex;
+	    justify-content: space-between; /* 좌우 정렬 */
+	    align-items: center; /* 세로 정렬 */
+	    width: 100%;
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    padding: 10px 5%; /* 상하, 좌우 여백 */
+	    z-index: 1000;
 	}
 	
+	/* 메뉴 스타일 */
 	.nav {
-		list-style: none;
-		display: flex;
+	    display: flex;
+	    gap: 30px; /* 메뉴 항목 간격 */
+	    align-items: center;
+	    list-style: none;
+	    margin: 0;
+	    padding: 0;
 	}
 	
+	/* 메뉴 링크 스타일 */
+	.nav a {
+	    color: white;
+	    text-decoration: none;
+	    font-size: 18px;
+	    font-weight: bold;
+	    transition: color 0.3s;
+	}
+	
+	.nav a:hover {
+	    color: #f8f9fa;
+	}
+	
+	/* 로고 스타일 */
 	.Logo {
-		font-family: "Playfair Display", serif;
-		font-size: 30px;
-		color: white; /* 기본 글자 색상 */
-		text-decoration: none; /* 기본 밑줄 제거 */
+	    font-family: "Playfair Display", serif;
+	    font-size: 32px;
+	    font-weight: bold;
+	    color: white;
+	    text-decoration: none;
+	    margin: 0 auto; /* 중앙 정렬 */
 	}
 	
-	.Logo:hover {
-		color: white; /* 마우스를 올려도 색상 변화 없음 */
-		text-decoration: none; /* 밑줄 제거 */
+	/* 아이콘 스타일 */
+	.nav a i {
+	    color: white;
+	    font-size: 22px;
+	    transition: color 0.3s;
 	}
 	
+	.nav a i:hover {
+	    color: #f8f9fa;
+	}
+	
+	/* 햄버거 메뉴 스타일 */
 	.menu {
-		cursor: pointer;
-		width: 25px;
-		height: 30px;
-		position: relative;
+	    display: flex;
+	    flex-direction: column;
+	    gap: 5px;
+	    cursor: pointer;
 	}
 	
 	.menu .bar {
-		width: 25px;
-		height: 3px;
-		background-color: white;
-		margin: 6px 0;
-		transition: 0.3s ease-in-out;
+	    width: 25px;
+	    height: 3px;
+	    background-color: white;
+	    transition: all 0.3s ease;
 	}
+
 	
 	.nav a {
 		text-decoration: none;
@@ -183,6 +195,17 @@
 		left: 0;
 	}
 	
+  	.side-menu-login {
+	    position: fixed;
+	    right: -400px;
+	    height: calc(100%);
+	    width: 400px;
+	    background-color: white;
+	    overflow-x: hidden;
+	    transition: right 0.3s ease-in-out;
+	    z-index: 99;
+    }
+	
 	
 	.side-menu-login.open {
 			right: 0;
@@ -204,11 +227,8 @@
     0% {
       transform: translateY(-100%);
     }
-    50% {
-      transform: translateY(0%);
-    }
     100% {
-      transform: translateY(-100%);
+      transform: translateY(0%);
     }
 	}
 	.overlay.active {
@@ -233,7 +253,7 @@
 	}
 	
 	.menu-list li {
-		width: 45%; /* 각 항목이 2개씩 한 행에 배치되도록 설정 */
+		width: 45%;
 		list-style: none;
 	}
 	
@@ -296,35 +316,32 @@
 		right: 3.9%;
 		font-size: 24px;
 		color: white;
-		animation: bounce 1.5s infinite; /* 애니메이션 */
+		animation: bounce 1.5s infinite;
 		z-index: 1000;
 		font-family: 'EliceDigitalBaeum-Bd';
 	}
 	
 	/* 화살표 점프 애니메이션 */
-	@
-	keyframes bounce { 0%, 100% {
+	@keyframes bounce { 0%, 100% {
 		transform: translateY(0);
 	}
 		50%	{transform:	translateY(-10px);}
 	}
 	
 	#demo {
-    display: none; /* 초기에는 숨겨진 상태 */
+    display: none;
     position: fixed;
     top: 50%;
-    left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 999; /* 하얀 창보다 한 단계 아래 */
-    width: 90%;
-    max-width: 400px;
+    z-index: 999;
     background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     padding: 20px;
     border-radius: 10px;
-    text-align: center;
-    opacity: 0; /* 처음에는 투명 */
-    transition: opacity 0.5s ease-in-out; /* 부드러운 전환 효과 */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    left: 50%;
+    height: 590px;
 	}
 
 	.white-box {
@@ -334,7 +351,7 @@
     width: 100%;
     height: 100%;
     background-color: white;
-    z-index: 1000; /* 로그인 창보다 위에 위치 */
+    z-index: 1000;
     display: none;
     animation: slideWhiteBox 1s ease-in-out forwards;
 	}
@@ -358,44 +375,50 @@
 </head>
 <body>
 <div id="demo"></div>
-	<header class="header-area header-sticky wow slideInDown animated" data-wow-duration="0.75s" data-wow-delay="0s">
-		<div class="row">
-			<nav class="main-nav" id="navbar">
-				<a href="main.main" class="Logo" style="padding-left: 3.6%; padding-right: 0">Min's</a>
-					<ul class="nav" style="padding-top: 0.5%; padding-left: 5%; padding-right: 30%;">
-						<li class="nav_menu" style="padding: 0 25px;"><a href="#" class="active">Best</a></li>
-						<li class="nav_menu" style="padding: 0 25px;"><a href="#">NEW</a></li>
-						<li class="nav_menu" style="padding: 0 25px;"><a href="#">Brand</a></li>
-						<li class="nav_menu" style="padding: 0 25px;"><a href="#">Collection</a></li>
-					</ul>
-					<ul class="nav" style="padding-top: 0.5%; padding-right: 3%;">
-						<li><a href="#"><i class="fa-solid fa-magnifying-glass fa-lg"></i></a></li>
-						<li><a href="FurnitureShoppingList.fu" style="padding: 0 20px;"><i class="fa-solid fa-cart-shopping fa-lg"></i></a></li>
-						<li><a href="Love.ap?industry=ALL" style="padding-right: 20px;"><i class="fa-regular fa-heart fa-lg"></i></a></li>
-						<li>
-							<c:if test="${empty sMid}">
-								<div class="pv-box">
-									<div class="menu menu-icon" style="padding-left: 4px;">
-										<div class="bar"></div>
-										<div class="bar"></div>
-										<div class="bar"></div>
-									</div>
-								</div>
-							</c:if>
-							<c:if test="${!empty sMid}">
-								<div class="pv-box">
-									<div class="menu menu-icon" onclick="toggleSidebar()" style="padding-left: 4px;">
-										<div class="bar"></div>
-										<div class="bar"></div>
-										<div class="bar"></div>
-									</div>
-								</div>
-							</c:if>
-						</li>
-					</ul>
-				</nav>
-			</div>
-		</header>
+<header class="header-area header-sticky wow slideInDown animated" data-wow-duration="0.75s" data-wow-delay="0s">
+  <nav class="main-nav" id="navbar">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+      <!-- 왼쪽 메뉴 -->
+      <ul class="nav" style="margin: 0; padding: 0;">
+        <li class="nav_menu"><a href="#" class="menu-item">NEW</a></li>
+        <li class="nav_menu"><a href="#" class="menu-item">BEST</a></li>
+        <li class="nav_menu"><a href="#" class="menu-item">Brand</a></li>
+        <li class="nav_menu"><a href="#" class="menu-item">Collection</a></li>
+      </ul>
+
+      <!-- 중앙 로고 -->
+      <a href="main.main" class="Logo text-center">Min's</a>
+
+      <!-- 오른쪽 아이콘 -->
+      <ul class="nav" style="margin: 0;">
+        <li><a href="#"><i class="fa-solid fa-magnifying-glass fa-lg"></i></a></li>
+        <li><a href="FurnitureShoppingList.fu"><i class="fa-solid fa-cart-shopping fa-lg"></i></a></li>
+        <li><a href="Love.ap?industry=ALL"><i class="fa-regular fa-heart fa-lg"></i></a></li>
+        <li>
+        	<c:if test="${!empty sMid}">
+	          <div class="pv-box">
+	            <div class="menu menu-icon" onclick="toggleSidebar()">
+	              <div class="bar"></div>
+	              <div class="bar"></div>
+	              <div class="bar"></div>
+	            </div>
+	          </div>
+          </c:if>
+        	<c:if test="${empty sMid}">
+	          <div class="pv-box">
+	            <div class="menu menu-icon login">
+	              <div class="bar"></div>
+	              <div class="bar"></div>
+	              <div class="bar"></div>
+	            </div>
+	          </div>
+          </c:if>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
 
 		<div class="overlay"></div>
 
@@ -405,7 +428,7 @@
 
 		<c:if test="${!empty sMid}">
 			<div class="side-menu-login">
-				<div class="container" style="width: 80%; margin-top: 35%;">
+				<div class="container">
 					<div>
 						<div class="sideTitle">GRINTERIOR</div>
 						<ul class="mainMenu">
@@ -442,7 +465,7 @@
 						<div>
 							<hr>
 							<div class="input-group" style="display: flex; justify-content: space-between; width: 100%;">
-								<div class="sideTitle"><a href="MemberLogout.mem">로그아웃</a></div>
+								<div class="sideTitle"><a href="${ctp}/member/logout">로그아웃</a></div>
 								<c:if test="${sLevel == 0}"><div class="sideTitle"><a href="AdminMain.ad">관리자</a></div></c:if>
 							</div>
 						</div>

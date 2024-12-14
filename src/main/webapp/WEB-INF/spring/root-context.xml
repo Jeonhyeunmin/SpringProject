@@ -13,7 +13,7 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-	<!-- <mybatis-spring:scan base-package="com.spring.javaGroupS6.dao" /> -->
+	<mybatis-spring:scan base-package="com.spring.javaGroupS6.dao" />
 	
 	<!-- DataBase 연동을 위한 환경설정(JDBC 설정) -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
