@@ -341,7 +341,7 @@
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
     left: 50%;
-    height: 590px;
+    height: 850px;
 	}
 
 	.white-box {
