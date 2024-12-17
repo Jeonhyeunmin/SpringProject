@@ -507,7 +507,6 @@
     	$("#demoSpin").html('<div style="width: 100px; height: 100px; z-index: 999; position: absolute; top: 50%; left: 50%;" class="spinner-border text-dark"></div>');
 			// 필수 입력란의 체크를 모두 마친 후 인증번호를 메일로 발송한다.
 			let email = joinForm.email1.value + "@" + joinForm.email2.value;
-    	alert(email);
  			$.ajax({
 				type : "post",
 				url : "${ctp}/member/memberEmailCheck",

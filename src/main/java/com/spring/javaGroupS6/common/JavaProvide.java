@@ -38,15 +38,15 @@ public class JavaProvide {
 			messageHelper.setText(content);		// 메일 내용
 			
 			content += "<br><hr><h3>"+mailFlag+"</h3><hr><br>";
-			content += "<p><img src=\"cid:main.jsp\" width='500px'/></p>";
+//			content += "<p><img src=\"cid:main.jsp\" width='500px'/></p>";
 			content += "<p>방문하기 : <a href='http://49.142.157.251:9090/cjgreen'>JavaGroup</a></p>";
 			content += "<hr>";
 			content = content.replace("\n", "<br>");
 			
 			messageHelper.setText(content, true);
 			
-			FileSystemResource file = new FileSystemResource(request.getSession().getServletContext().getRealPath("/resources/images/main.jpg"));
-			messageHelper.addInline("main.jsp", file);
+//			FileSystemResource file = new FileSystemResource(request.getSession().getServletContext().getRealPath("/resources/images/main.jpg"));
+//			messageHelper.addInline("main.jsp", file);
 			
 			// 메일 전송하기
 			mailSender.send(message);
