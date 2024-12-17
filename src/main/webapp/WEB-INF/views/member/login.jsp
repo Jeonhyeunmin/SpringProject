@@ -40,7 +40,7 @@
 		  width: 640px;
 		  height: 100%;
 		  transition: transform 1.2s ease-in-out;
-		  padding: 50px 30px 0;
+		  padding: 20px 30px 0;
 		}
 		
 		.sub-cont {
@@ -78,7 +78,7 @@
 		  top: 0;
 		  width: 260px;
 		  height: 100%;
-		  padding-top: 400px;	/*	사인업 버튼		*/
+		  padding-top: 400px;
 		}
 		
 		.img:before {
@@ -170,7 +170,7 @@
 		label {
 		  display: block;
 		  width: 400px;
-		  margin: 25px auto 0;
+		  margin: 15px auto 0;
 		}
 		
 		label span {
@@ -185,14 +185,13 @@
 		  padding-bottom: 5px;
 		  font-size: 16px;
 		  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-		  text-align: center;
 		}
 		
 		.input-group {
 		    display: flex;
-		    justify-content: center; /* 가운데 정렬 */
-		    gap: 20px; /* 두 요소 사이의 간격 */
-		    margin-top: 10px; /* 위 요소와의 여백 */
+		    justify-content: center;
+		    gap: 20px;
+		    margin-top: 10px;
 		}
 		
 		.forgot-pass {
@@ -204,22 +203,22 @@
 		}
 		
 		.forgot-pass:hover {
-		    color: #000; /* 호버 시 색상 변경 */
+		    color: #000;
 		}
 
 		
 		.submit {
 		  margin-top: 40px;
 		  margin-bottom: 20px;
-		  background: #d4af7a;
+		  background: #5e0000;
 		  text-transform: uppercase;
 		}
 		
 		.back {
 		    margin-top: 40px;
 		    margin-bottom: 20px;
-		    background: #e0e0e0; /* 부드러운 회색 배경 */
-		    color: #333333; /* 어두운 글자색 */
+		    background: #e0e0e0;
+		    color: #333333;
 		    border-radius: 30px;
 		    font-size: 15px;
 		    font-weight: bold;
@@ -229,7 +228,7 @@
 		}
 		
 		.back:hover {
-		    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 강조 */
+		    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 		}
 
 		
@@ -268,8 +267,8 @@
 	    justify-content: center;
 	    width: 400px;
 	    height: 40px;
-	    background-color: #FEE500; /* 카카오 브랜드 컬러 */
-	    color: #000000; /* 검은색 글자 */
+	    background-color: #FEE500;
+	    color: #000000;
 	    border-radius: 20px;
 	    font-size: 15px;
 	    font-weight: bold;
@@ -279,11 +278,11 @@
 		}
 		
 		.kakao-btn:hover {
-	    background-color: #fddb00; /* 호버 효과 */
+	    background-color: #fddb00;
 		}
 		
 		.kakao-btn svg {
-	    margin-right: 10px; /* 로고와 텍스트 간격 */
+	    margin-right: 10px;
 		}
 		.form-container {
 	    background: #fff;
@@ -338,19 +337,98 @@
 		.submit, .kakao-btn {
 	    margin-top: 20px;
 		}
-				
-
-				
 		
+		.disable {
+		  pointer-events: none; /* 커서와 입력 비활성화 */
+		  cursor: default; /* 기본 커서 */
+		}
   </style>
   <script type="text/javascript">
-  	function fCheck() {
-  		let tel = joinForm.tel1.value + "-" + joinForm.tel2.value + "-" + joinForm.tel3.value;
-  		joinForm.tel.value = tel;
-  		let email = joinForm.email1.value + "@" + joinForm.email2.value;
-  		joinForm.email.value = email;
-  		joinForm.submit();
+  	let idCheckSw = 0;
+  	let emailCheckSw = 0;
+  	
+  	let regex1 = /^[a-zA-Z0-9]{4,20}$/; //(아이디) 영문자 또는 숫자 4~20자
+	  let regex2 = /^(?=.*?[0-9])(?=.*?[a-zA-Z])[a-zA-Z0-9!@#$%^&*()._-]{4,20}$/;  //(비밀번호)4자 이상 20자 이하, 영어/숫자 1개 이상 필수, 특수문자 허용
+	  let regex3 = /^[가-힣a-zA-Z]{1,10}$/;  // (성명)한글,영문만 적어도 1자이상 
+		let regex4 = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/; // 이메일 
+		let regex5 = /\d{2,3}-\d{3,4}-\d{4}$/; //(전화번호)
+		let regex6 = /[0-9]{6}$/; //(birthday)
+  
+	 // 아이디 중복 검사 
+		function idCheck() {
+			//let mid = joinForm.mid.value;
+			let mid = document.getElementById("mid").value;
+			
+			if(mid == "") {
+				alert("아이디를 입력하세요");
+				joinForm.mid.focus();
+			}
+			else if(!regex1.test(mid)) {
+				document.getElementById("midError").innerHTML="아이디 형식에 맞춰주세요.(영어/숫자만 4~20자)";
+		    joinForm.mid.focus();
+			}
+			else {
+			  document.getElementById("midError").innerHTML="";
+				let url = "memberIdCheck?mid="+mid;
+				document.getElementById('mid').readOnly = true;
+				window.open(url, "idCheckWindow", "width=500px, height=250px");
+				idCheckSw = 1;
+			}
 		}
+		function midCheck() {
+			//let regex1 = /^[a-zA-Z0-9]{4,20}$/; //(아이디) 영문자 또는 숫자 4~20자 
+			let mid = joinForm.mid.value.trim();
+			document.getElementById("midError").innerHTML="";
+			
+		  // 아이디 확인
+		  if(!regex1.test(mid)) {
+		    document.getElementById("midError").innerHTML="아이디 형식에 맞춰주세요.(영어/숫자만 4~20자)";
+		  } 
+		  else {
+			   document.getElementById("midError").innerHTML="";
+		  }			
+		}
+		
+		function pwd1Check() {
+			//let regex2 = /^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%^&*()._-]{4,20}$/g; //(비밀번호)4자 이상 20자 이하, 영어/숫자 1개 이상 필수, 특수문자 허용
+			let pwd1 = document.getElementById("pwd1").value.trim();
+			
+			document.getElementById("pwdError1").innerHTML="";
+	    document.getElementById("pwdError2").innerHTML="";
+		  // 비밀번호 확인
+		  if(!regex2.test(pwd1)) {
+		    document.getElementById("pwdError1").innerHTML="비밀번호가 올바르지 않습니다.(영어/숫자 필수, 특수문자 가능 4~20자)";
+		  }
+		  else {
+		    document.getElementById("pwdError1").innerHTML="";
+	  	}	
+		}
+		function pwd2Check() {
+			let pwd1 = document.getElementById("pwd1").value.trim();
+			let pwd2 = document.getElementById("pwd2").value.trim();
+			document.getElementById("pwdError1").innerHTML="";
+			document.getElementById("pwdError2").innerHTML="";
+
+			// 비밀번호 확인2
+		  if(pwd1 !== pwd2) {
+		    document.getElementById("pwdError2").innerHTML="비밀번호가 동일하지 않습니다.";
+		  }
+		  else {
+	  	  document.getElementById("pwdError2").innerHTML="";
+		  }
+		}
+		function genderCheck() {
+		    let gender = document.getElementById("gender").value.trim();
+		    document.getElementById("residentError").innerHTML = "";
+
+		    // 성별 값이 1~4 사이에 있는지 확인
+		    if (gender < 1 || gender > 4 || isNaN(gender)) {
+		        document.getElementById("residentError").innerHTML = "주민등록번호가 올바르지 않습니다.(성별은 1~4 사이의 숫자여야 합니다)";
+		    }
+		    else {
+	        document.getElementById("residentError").innerHTML = "";
+		    }
+			}
   
 	  document.querySelector('.img__btn').addEventListener('click', function() {
 		  document.querySelector('.cont').classList.toggle('s--signup');
@@ -370,6 +448,116 @@
         }
 	    }) 
 		});
+	  
+		function nameCheck() {
+			//let regex3 = /^[가-힣a-zA-Z]{1,10}$/;  // (성명)한글,영문만 적어도 1자이상 
+			let name = document.getElementById("name").value.trim();
+			document.getElementById("nameError").innerHTML="";
+			
+		  // 성명 확인
+		  if(!regex3.test(name)){
+		    document.getElementById("nameError").innerHTML="성명이 올바르지 않습니다.(한글/영문만 10자 이하)";
+		  }
+		  else {
+			  document.getElementById("nameError").innerHTML="";
+		  }			
+		}
+		
+		function residentCheck() {
+			//let regex6 = /\d{6}$/; //(resident-고객)
+			let resident = document.getElementById("resident").value.trim();
+			document.getElementById("residentError").innerHTML="";
+			
+		  // 주민번호 확인
+		  if(!regex6.test(resident)){
+		    document.getElementById("residentError").innerHTML="주민등록번호가 올바르지 않습니다.(생년월일 + 성별(1~4))";
+		  }
+		  else {
+			  document.getElementById("residentError").innerHTML="";
+		  }			
+		}
+		
+		function telCheck() {
+			//let regex5 = /\d{2,3}-\d{3,4}-\d{4}$/g; //(전화번호)
+		  let tel1 = joinForm.tel1.value;
+		  let tel2 = joinForm.tel2.value;
+		  let tel3 = joinForm.tel3.value;
+		  let tel = tel1 + "-" + tel2 + "-" + tel3;
+		  
+		  // 전화번호 확인
+		  if (document.getElementById("tel2").value.length >= 4 ) {
+			  joinForm.tel3.focus();
+      }
+		  if(tel2===""){
+		    document.getElementById("telError").innerHTML="전화번호를 입력해주세요.";
+		  }
+		  else if(tel3===""){
+		    document.getElementById("telError").innerHTML="전화번호를 입력해주세요.";
+		  }
+		  else if(!regex5.test(tel)){
+		    document.getElementById("telError").innerHTML="전화번호 형식에 맞게 입력해주세요.";
+		  }
+		  else {
+		    document.getElementById("telError").innerHTML="";
+		  }
+		}
+		
+//	이메일 인증체크		
+    function emailCheck() {
+    	$("#demoSpin").html('<div style="width: 100px; height: 100px; z-index: 999; position: absolute; top: 50%; left: 50%;" class="spinner-border text-dark"></div>');
+			// 필수 입력란의 체크를 모두 마친 후 인증번호를 메일로 발송한다.
+			let email = joinForm.email1.value + "@" + joinForm.email2.value;
+    	alert(email);
+ 			$.ajax({
+				type : "post",
+				url : "${ctp}/member/memberEmailCheck",
+				data : {
+					email : email
+				},
+				success: function(res) {
+					if(res != "0"){
+						alert("인증번호가 발송되었습니다. \n 메일 확인 후 인증번호를 입력해주세요.");
+						let str = '<span class="input-group mt-3">';
+						str += '<input type="text" name="checkKey" style="width: 70%;"/>';
+						str += '<button type="button" tabindex="-1" onclick="emailCheckOk()" style="background-color: lightgray; height: 25px; width: 100px; margin-right: 0; font-size: 12px; color: black;">인증번호 확인</button>';
+						str += '</span>';
+						$("#demoSpin").html(str);
+					}
+					else{
+						alert("인증 번호 받기 버튼을 눌러주세요.");
+					}
+				},
+				error : function() {
+					alert("전송오류");
+				}
+			});
+		}
+		
+    function emailCheckOk() {
+    	let checkKey = $("#checkKey").val();
+    	if(checkKey == "") {
+    		alert("전송받은 메일에서 인증받은 인증키를 입력해주세요");
+    		$("#checkKey").focus();
+    		return false;
+    	}
+    	
+    	$.ajax({
+    		type : "post",
+    		url  : "${ctp}/member/memberEmailCheckOk",
+    		data : {checkKey : checkKey},
+    		success:function(res) {
+    			if(res != "0") {
+		    		alert("인증 확인되었습니다.");
+		    		emailCheckSw = 1;
+		    		$("#demoSpin").hide();
+		    	}
+    			else alert("인증실패~\n메일주소를 확인하시고 다시 인증메일을 전송해 주세요.");
+    		},
+    		error : function() {
+    			alert("전송오류!");
+    		}
+    	});
+    }
   </script>
 </head>
 <body>
@@ -414,59 +602,78 @@
 	      <h2>JOIN</h2>
 	      <label>
 	        <span>이름</span>
-	        <input type="text" />
+	        <input type="text" id="name" name="name" oninput="nameCheck()"/>
+	        <span id="nameError" style="font-size: 13px; color: #5e0000;"></span>
 	      </label>
 				<label>
 				  <span class="input-group">아이디
-				  	<button type="button" style="background-color: #d4af7a; height: 25px; width: 100px;">중복체크</button>
+				  	<button type="button" tabindex="-1" style="background-color: lightgray; height: 25px; width: 100px; margin-right: 0; font-size: 12px; color: black;">중복체크</button>
 				  </span>
-				  <input type="text" id="mid" name="mid"/>
+				  <input type="text" id="mid" name="mid" oninput="midCheck()"/>
+				  <span id="midError" style="font-size: 13px; color: #5e0000;"></span>
 				</label>
-	      <label>
-	        <span>비밀번호</span>
-	        <input type="password" name="pwd" id="pwd"/>
-	      </label>
-	      <label>
-	        <span>비밀번호 확인</span>
-	        <input type="password" name="pwdCheck" id="pwdCheck"/>
-	      </label>
+				<div class="input-group">
+		      <label style="width: 30%; margin-right: 0;">
+		        <span>비밀번호</span>
+		        <input type="password" name="pwd1" id="pwd1" oninput="pwd1Check()"/>
+		      </label>
+		      <label style="width: 30%; margin-left: 5%;">
+		        <span>비밀번호 확인</span>
+		        <input type="password" name="pwd2" id="pwd2" oninput="pwd2Check()"/>
+		      </label>
+	      </div>
+        <span id="pwdError1" style="font-size: 12px; color: #5e0000; margin: 2px 15%;"></span>
+        <span id="pwdError2" style="font-size: 13px; color: #5e0000; margin: 2px 8%;"></span>
 				<label>
 				  <span class="input-group">이메일
-				  	<button type="button" style="background-color: #d4af7a; height: 25px; width: 100px;">이메일 인증</button>
+				    <button type="button" tabindex="-1" onclick="emailCheck()" style="background-color: lightgray; height: 25px; width: 100px; margin-right: 0; font-size: 12px; color: black;">이메일 인증</button>
 				  </span>
 				  <span class="input-group">
-					  <input type="text" style="width: 40%;" id="email1" name="email1"/>
-					  <input type="text" value="@" style="width: 10%;" readonly="readonly"/>
-					  	<select id="selbox" name="selbox" class="form-select" onchange="document.getElementById('email2').value = this.value;">
-					      <option value="gmail.com">gmail.com</option>
-					      <option value="naver.com">naver.com</option>
-					      <option value="daum.net">daum.net</option>
-					      <option value="yahoo.com">yahoo.com</option>
-						    <option value="">직접입력</option>
-							</select>
-					  	<input type="text" id="email2" name="email2" style="width: 40%;"/>
-					  	<input type="hidden" id="email" name="email"/>
+				    <input type="text" style="width: 40%;" id="email1" name="email1"/>
+				    <span style="width: 10%; text-align: center;" class="disable">@</span>
+				    <select id="selbox" name="selbox" class="form-select" onchange="document.getElementById('email2').value = this.value;">
+				      <option value="" selected>직접입력</option>
+				      <option value="gmail.com">gmail.com</option>
+				      <option value="naver.com">naver.com</option>
+				      <option value="daum.net">daum.net</option>
+				      <option value="yahoo.com">yahoo.com</option>
+				    </select>
+				    <input type="text" id="email2" name="email2" style="width: 40%;"/>
+				    <input type="hidden" id="email" name="email"/>
 				  </span>
+					<span id="demoSpin"></span>
 				</label>
 				<label>
 				  <span>전화번호</span>
 				  <span class="input-group">
-				  	<select class="form-select" id="tel1" name="tel1" style="width: 20%;">
-	            <option value="010" selected>010</option>
-	            <option value="02">02</option>
-		          <option value="032">032</option>
-		          <option value="033">033</option>
-		          <option value="041">041</option>
-		          <option value="042">042</option>
-		          <option value="043">043</option>
-						</select>
-					  <input type="text" value="-" style="width: 5%;" readonly="readonly"/>
-					  <input type="text" style="width: 20%;" id="tel2" name="tel2"/>
-					  <input type="text" value="-" style="width: 5%;" readonly="readonly"/>
-					  <input type="text" style="width: 20%;" id="tel3" name="tel3"/>
-					  <input type="hidden" id="tel" name="tel"/>
+				    <select class="form-select" id="tel1" name="tel1" style="width: 20%;">
+				      <option value="010" selected>010</option>
+				      <option value="02">02</option>
+				      <option value="032">032</option>
+				      <option value="033">033</option>
+				      <option value="041">041</option>
+				      <option value="042">042</option>
+				      <option value="043">043</option>
+				    </select>
+				    <span style="width: 5%; text-align: center;" class="disable">-</span>
+				    <input type="text" style="width: 20%;" id="tel2" name="tel2" onkeyup="telCheck()" maxlength="4"/>
+				    <span style="width: 5%; text-align: center;" class="disable">-</span>
+				    <input type="text" style="width: 20%;" id="tel3" name="tel3" onkeyup="telCheck()" maxlength="4"/>
+				    <span id="telError" style="font-size: 13px; color: #5e0000; margin: 2px 8%;"></span>
+				    <input type="hidden" id="tel" name="tel"/>
 				  </span>
 				</label>
+				
+				<label>
+				  <span>주민등록번호</span>
+				  <span class="input-group">
+				    <input type="text" style="width: 40%;" id="resident" name="resident" maxlength="6" oninput="residentCheck()"/>
+				    <span class="disable" style="width: 5%; text-align: center;">-</span>
+				    <input type="text" style="width: 40%;" id="gender" name="gender" maxlength="1" oninput="genderCheck()"/>
+				  </span>
+				  <span id="residentError" style="font-size: 13px; color: #5e0000;"></span>
+				</label>
+
 	      <button type="button" onclick="fCheck()" class="submit">Sign Up</button>
 	  		<button type="button" class="kakao-btn">
 			    <!-- SVG 카카오톡 로고 -->
