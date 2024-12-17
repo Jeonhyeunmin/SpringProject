@@ -50,7 +50,6 @@ public class MemberContoller {
 	@PostMapping("/memberEmailCheck")
 	public String memberEmailCheckPost(HttpSession session ,String email, HttpServletRequest request) throws MessagingException {
 		String emailKey = UUID.randomUUID().toString().substring(0, 8);
-		email = "jhm714@naver.com";
 		session.setAttribute("sEmailKey", emailKey);
 		provide.mailSend(request, email, "이메일 인증키 입니다.", "인증키 : " + emailKey);
 		return "1";
