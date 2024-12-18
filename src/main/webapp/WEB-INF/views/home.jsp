@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" href="${ctp}/images/main/favicon.png">
+<link rel="icon" href="${ctp}/main/favicon.png">
 <title>Min's</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -130,7 +130,12 @@
 		<div class="swiper-wrapper">
 			<div class="swiper-slide">
 				<div class="mainImgCrop">
-					<img src="${ctp}/main/main1.jpg" alt="Slide 1" />
+					<img src="${ctp}/main/main.jpg" alt="Slide 1" />
+				</div>
+			</div>
+			<div class="swiper-slide">
+				<div class="mainImgCrop">
+					<img src="${ctp}/main/main1.jpg" alt="Slide 2" />
 				</div>
 				<div class="mainImgText">
 					<div class="titleEng">MAGICAL HOLIDAYS</div>
@@ -140,7 +145,7 @@
 			</div>
 			<div class="swiper-slide">
 				<div class="mainImgCrop">
-					<img src="${ctp}/main/main2.jpg" alt="Slide 2" />
+					<img src="${ctp}/main/main2.jpg" alt="Slide 3" />
 				</div>
 				<div class="mainImgText">
 					<div class="titleEng">FAMILY SALE</div>
@@ -150,7 +155,7 @@
 			</div>
 			<div class="swiper-slide">
 				<div class="mainImgCrop">
-					<img src="${ctp}/main/main3.jpg" alt="Slide 3" />
+					<img src="${ctp}/main/main3.jpg" alt="Slide 4" />
 				</div>
 				<div class="mainImgText">
 					<div class="titleKor">페리가모 홀리데이 기프트</div>
@@ -159,7 +164,7 @@
 			</div>
 			<div class="swiper-slide">
 				<div class="mainImgCrop">
-					<img src="${ctp}/main/main4.jpg" alt="Slide 4" />
+					<img src="${ctp}/main/main4.jpg" alt="Slide 5" />
 				</div>
 				<div class="mainImgText">
 					<div class="titleKor">노스페이스 키즈 방한대전</div>
@@ -168,7 +173,7 @@
 			</div>
 			<div class="swiper-slide">
 				<div class="mainImgCrop">
-					<img src="${ctp}/main/main5.jpg" alt="Slide 5" />
+					<img src="${ctp}/main/main5.jpg" alt="Slide 6" />
 				</div>
 				<div class="mainImgText">
 					<div class="titleKor">조말론 런던, 라메르, 맥 외</div>
@@ -177,7 +182,7 @@
 			</div>
 			<div class="swiper-slide">
 				<div class="mainImgCrop">
-					<img src="${ctp}/main/main6.jpg" alt="Slide 6" />
+					<img src="${ctp}/main/main6.jpg" alt="Slide 7" />
 				</div>
 				<div class="mainImgText">
 					<div class="titleKor">스포츠 시그니쳐 100</div>
@@ -187,7 +192,7 @@
 			</div>
 			<div class="swiper-slide">
 				<div class="mainImgCrop">
-					<img src="${ctp}/main/main7.jpg" alt="Slide 7" />
+					<img src="${ctp}/main/main7.jpg" alt="Slide 8" />
 				</div>
 				<div class="mainImgText">
 					<div class="titleKor">랄프로렌 in WINTER</div>
@@ -196,7 +201,7 @@
 			</div>
 			<div class="swiper-slide">
 				<div class="mainImgCrop">
-					<img src="${ctp}/main/main8.jpg" alt="Slide 8" />
+					<img src="${ctp}/main/main8.jpg" alt="Slide 9" />
 				</div>
 				<div class="mainImgText">
 					<div class="titleKor">힐링 패스포트</div>
@@ -205,7 +210,7 @@
 			</div>
 			<div class="swiper-slide">
 				<div class="mainImgCrop">
-					<img src="${ctp}/main/main9.jpg" alt="Slide 9" />
+					<img src="${ctp}/main/main9.jpg" alt="Slide 10" />
 				</div>
 				<div class="mainImgText">
 					<div class="titleKor">HYEUNDAI x DIESEL</div>
@@ -214,7 +219,7 @@
 			</div>
 			<div class="swiper-slide">
 				<div class="mainImgCrop">
-					<img src="${ctp}/main/main10.jpg" alt="Slide 10" />
+					<img src="${ctp}/main/main10.jpg" alt="Slide 11" />
 				</div>
 				<div class="mainImgText">
 					<div class="titleEng">PREMIUM STYLING</div>
@@ -224,7 +229,7 @@
 			</div>
 			<div class="swiper-slide">
 				<div class="mainImgCrop">
-					<img src="${ctp}/main/main11.jpg" alt="Slide 11" />
+					<img src="${ctp}/main/main11.jpg" alt="Slide 12" />
 				</div>
 				<div class="mainImgText">
 					<div class="titleKor">백화점 아웃도어 아우터 페어</div>

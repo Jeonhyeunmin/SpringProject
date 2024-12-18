@@ -88,7 +88,7 @@
 		  top: 0;
 		  width: 900px;
 		  height: 100%;
-		  background-image: url('${ctp}/login/login2.jpg');
+		  background-image: url('${ctp}/login/login.jpg');
 		  background-size: cover;
 		  transition: transform 1.2s ease-in-out;
 		}
@@ -342,6 +342,17 @@
 		  pointer-events: none; /* 커서와 입력 비활성화 */
 		  cursor: default; /* 기본 커서 */
 		}
+		.checkButton{
+			background-color: lightgray;
+			height: 25px;
+			width: 100px;
+			margin-right: 0;
+			font-size: 12px;
+			color: black;
+			margin-left: 0;
+			pointer-events: none;
+			pointer-events: auto;
+		}
   </style>
   <script type="text/javascript">
   	let idCheckSw = 0;
@@ -357,7 +368,7 @@
 	 // 아이디 중복 검사 
 		function idCheck() {
 			//let mid = joinForm.mid.value;
-			let mid = document.getElementById("mid").value;
+			let mid = joinForm.("mid").value;
 			
 			if(mid == "") {
 				alert("아이디를 입력하세요");
@@ -504,10 +515,9 @@
 		
 //	이메일 인증체크		
     function emailCheck() {
-    	$("#demoSpin").html('<div style="width: 100px; height: 100px; z-index: 999; position: absolute; top: 50%; left: 50%;" class="spinner-border text-dark"></div>');
+    	$("#demoSpin").html('<div style="width: 100px; height: 100px; z-index: 999; position: absolute; top: 40%; left: 40%;" class="spinner-border text-dark"></div>');
 			// 필수 입력란의 체크를 모두 마친 후 인증번호를 메일로 발송한다.
 			let email = joinForm.email1.value + "@" + joinForm.email2.value;
-    	alert(email);
  			$.ajax({
 				type : "post",
 				url : "${ctp}/member/memberEmailCheck",
@@ -518,7 +528,7 @@
 					if(res != "0"){
 						alert("인증번호가 발송되었습니다. \n 메일 확인 후 인증번호를 입력해주세요.");
 						let str = '<span class="input-group mt-3">';
-						str += '<input type="text" name="checkKey" style="width: 70%;"/>';
+						str += '<input type="text" name="checkKey" id="checkKey" style="width: 70%;"/>';
 						str += '<button type="button" tabindex="-1" onclick="emailCheckOk()" style="background-color: lightgray; height: 25px; width: 100px; margin-right: 0; font-size: 12px; color: black;">인증번호 확인</button>';
 						str += '</span>';
 						$("#demoSpin").html(str);
@@ -528,7 +538,8 @@
 					}
 				},
 				error : function() {
-					alert("전송오류");
+					$("#demoSpin").hide();
+					alert("이메일을 확인해주세요.");
 				}
 			});
 		}
@@ -546,7 +557,7 @@
     		url  : "${ctp}/member/memberEmailCheckOk",
     		data : {checkKey : checkKey},
     		success:function(res) {
-    			if(res != "0") {
+    			if(res == "1") {
 		    		alert("인증 확인되었습니다.");
 		    		emailCheckSw = 1;
 		    		$("#demoSpin").hide();
@@ -558,6 +569,110 @@
     		}
     	});
     }
+    
+ // 회원가입 버튼 클릭시 체크
+	function joinCheck(){
+	  let name = document.getElementById("name").value.trim();
+	  let mid = joinForm.mid.value.trim();
+	  let pwd1 = document.getElementById("pwd1").value.trim();
+	  let pwd2 = document.getElementById("pwd2").value.trim();
+		let resident = document.getElementById("resident").value.trim();
+		let gender = document.getElementById("gender").value.trim();
+		let email = joinForm.email1.value + "@" + joinForm.email2.value;
+  	 
+	  let tel1 = joinForm.tel1.value;
+	  let tel2 = joinForm.tel2.value;
+	  let tel3 = joinForm.tel3.value;
+	  let tel = tel1 + "-" + tel2 + "-" + tel3;
+  	
+	  
+		
+	  // 코스라이브러리 받아주는 서블릿쪽이 멀티파츠로 받아야 합니다 (사진을 넘길때- 업체에서 멀티파츠 갯 파라멬타)
+	  
+	  // 성명 확인
+	  if(!regex3.test(name)){
+	    document.getElementById("nameError").innerHTML="성명이 올바르지 않습니다.(한글/영문만 10자 이내)";
+	    document.getElementById("name").focus();
+	    return false;
+	  }
+	  else {
+		  document.getElementById("nameError").innerHTML="";
+	  }
+	  
+	  // 아이디 확인
+	  if(!regex1.test(mid)) {
+	    document.getElementById("midError").innerHTML="아이디 형식에 맞춰주세요.(영어/숫자만 4~20자)";
+	    joinForm.mid.focus();
+	    return false;
+	  } 
+	  else {
+		   document.getElementById("midError").innerHTML="";
+	  }
+	  
+	  // 비밀번호 확인
+	  if(!regex2.test(pwd1)) {
+	    document.getElementById("pwdError1").innerHTML="비밀번호가 올바르지 않습니다.(영어/숫자 필수, 특수문자 가능 4~20자)";
+	    document.getElementById("pwd1").focus();
+	    return false;
+	  }
+	  else {
+	    document.getElementById("pwdError1").innerHTML="";
+	    
+		  if(pwd2=== "") {
+		    document.getElementById("pwdError2").innerHTML="비밀번호를 다시 입력해주세요.";
+		    document.getElementById("pwd2").focus();
+		    return false;
+		  }
+		  else if(pwd1 !== pwd2) {
+		    document.getElementById("pwdError2").innerHTML="비밀번호가 동일하지 않습니다.";
+		    document.getElementById("pwd2").focus();
+		    return false;
+		  }
+		  else {
+	  	  document.getElementById("pwdError1").innerHTML="";
+	  	  document.getElementById("pwdError2").innerHTML="";
+		  }
+	  }
+			  
+	  // 전화번호 확인
+	  if(tel2==="" || tel3===""){
+	    document.getElementById("telError").innerHTML="전화번호를 입력해주세요.";
+	    document.getElementById("tel2").focus();
+	    return false;
+	  }
+	  else if(!regex5.test(tel)){
+	    document.getElementById("telError").innerHTML="전화번호 형식에 맞게 입력해주세요.";
+	    document.getElementById("tel2").focus();
+	    return false;
+	  }
+	  else {
+	    document.getElementById("telError").innerHTML="";
+	  }
+	  
+	  if(!regex6.test(resident)|| gender < 1 || gender > 4){
+		    document.getElementById("residentError").innerHTML="주민등록번호가 올바르지 않습니다.(생년월일 + 성별(1~4))";
+		    document.getElementById("resident").focus();
+		    resident = resident + "-" + gender;
+		    return false;
+		  }
+	  else {
+		  document.getElementById("residentError").innerHTML="";
+	  }
+	  
+/*     if(idCheckSw == 0) {
+			alert("아이디 중복확인을 해주세요.");
+			document.getElementById("mid").focus();
+		}
+    else if(emailCheckSw == 0) {
+			alert("이메일 인증을 진행해주세요 해주세요.");
+			document.getElementById("email1").focus();
+		}
+		else { */
+	    joinForm.tel.value = tel;
+	    joinForm.resident.value = resident;
+	   	joinForm.submit();
+		/* } */
+	}
   </script>
 </head>
 <body>
@@ -606,10 +721,11 @@
 	        <span id="nameError" style="font-size: 13px; color: #5e0000;"></span>
 	      </label>
 				<label>
-				  <span class="input-group">아이디
-				  	<button type="button" tabindex="-1" style="background-color: lightgray; height: 25px; width: 100px; margin-right: 0; font-size: 12px; color: black;">중복체크</button>
+				  <span class="input-group">
+				  	<span style="margin-right: auto; padding-top: 5px;">아이디</span>
+				  	<button type="button" tabindex="-1" onclick="" class="checkButton">중복체크</button>
 				  </span>
-				  <input type="text" id="mid" name="mid" oninput="midCheck()"/>
+				  <input type="text" id="mid" name="mid" oninput="idCheck()"/>
 				  <span id="midError" style="font-size: 13px; color: #5e0000;"></span>
 				</label>
 				<div class="input-group">
@@ -625,8 +741,9 @@
         <span id="pwdError1" style="font-size: 12px; color: #5e0000; margin: 2px 15%;"></span>
         <span id="pwdError2" style="font-size: 13px; color: #5e0000; margin: 2px 8%;"></span>
 				<label>
-				  <span class="input-group">이메일
-				    <button type="button" tabindex="-1" onclick="emailCheck()" style="background-color: lightgray; height: 25px; width: 100px; margin-right: 0; font-size: 12px; color: black;">이메일 인증</button>
+					<span class="input-group">
+					  <span style="margin-right: auto; padding-top: 5px;">이메일</span>
+				    <button type="button" tabindex="-1" onclick="emailCheck()" class="checkButton" >이메일 인증</button>
 				  </span>
 				  <span class="input-group">
 				    <input type="text" style="width: 40%;" id="email1" name="email1"/>
@@ -674,15 +791,15 @@
 				  <span id="residentError" style="font-size: 13px; color: #5e0000;"></span>
 				</label>
 
-	      <button type="button" onclick="fCheck()" class="submit">Sign Up</button>
+	      <button type="button" onclick="joinCheck()" class="submit">Sign Up</button>
 	  		<button type="button" class="kakao-btn">
 			    <!-- SVG 카카오톡 로고 -->
 			    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" style="margin-right: 10px;">
 			        <path fill="#000000" d="M12.001 2C6.477 2 2 5.862 2 10.5c0 2.808 1.68 5.29 4.315 6.822-.193.703-.693 2.524-.793 2.866 0 0-.015.137.073.186s.177.018.177.018c.234 0 .344-.137.344-.137 0-.015 1.416-.958 2.445-1.545.47.073.95.11 1.438.11 5.524 0 10.001-3.863 10.001-8.5S17.525 2 12.001 2z"/>
 			    </svg>
 			    카카오로 회원가입
-			</button>
-	      <button type="button" class="back" onclick="location.href='${ctp}/'" style="margin-top: 18px;"><span>돌아가기</span></button>
+				</button>
+      	<button type="button" class="back" onclick="location.href='${ctp}/'" style="margin-top: 18px;"><span>돌아가기</span></button>
 	    </div>
     </form>
   </div>
