@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.javaGroupS6.common.JavaProvide;
+import com.spring.javaGroupS6.service.MemberService;
 import com.spring.javaGroupS6.vo.MemberVO;
 
 @Controller
@@ -23,18 +25,30 @@ public class MemberContoller {
 	@Autowired
 	JavaProvide provide;
 	
+	@Autowired
+	MemberService memberservice;
+	
+	
 	@GetMapping("/login")
 	public String loginGet() {
 		return "member/login";
 	}
 	
 	@PostMapping("/login")
-	public String loginPost(HttpSession session, String mid, String pwd, MemberVO vo) {
-		if(mid.equals("admin") && pwd.equals("1234")) {
-			session.setAttribute("sMid", mid);
-		} 
+	public String loginPost(Model model, HttpSession session, String mid, String pwd) {
+		MemberVO vo = memberservice.getMemberIdSearch(mid);
 		
-		return "redirect:/";
+		if(mid.equals(vo.getMid()) && pwd.equals(vo.getPwd())) {
+			session.setAttribute("sMid", mid);
+			session.setAttribute("sLevel", vo.getLevel());
+			session.setAttribute("sNickName", vo.getNickName());
+			model.addAttribute("mid", mid);
+			return "redirect:/message/loginOk";
+		}
+		else {
+			return "redirect:/message/loginNo";
+		}
+		
 	}
 	@GetMapping("/logout")
 	public String logoutGet(HttpSession session) {
@@ -69,5 +83,11 @@ public class MemberContoller {
 			return "2";
 			
 		}
+	}
+	
+	@RequestMapping(value = "/memberIdCheck", method = RequestMethod.GET)
+	public String memberIdCheckGet(Model model, String mid) throws MessagingException {
+		model.addAttribute("mid", mid);
+		return "member/memberIdCheck";
 	}
 }

@@ -368,7 +368,7 @@
 	 // 아이디 중복 검사 
 		function idCheck() {
 			//let mid = joinForm.mid.value;
-			let mid = joinForm.("mid").value;
+			let mid = joinForm.mid.value;
 			
 			if(mid == "") {
 				alert("아이디를 입력하세요");
@@ -380,9 +380,9 @@
 			}
 			else {
 			  document.getElementById("midError").innerHTML="";
-				let url = "memberIdCheck?mid="+mid;
-				document.getElementById('mid').readOnly = true;
-				window.open(url, "idCheckWindow", "width=500px, height=250px");
+				let url = "${ctp}/member/memberIdCheck?mid="+mid;
+				joinForm.mid.readOnly = true;
+				window.open(url, "idCheckWindow", "width=900px, height=800px, top=150px, left=500px;");
 				idCheckSw = 1;
 			}
 		}
@@ -659,7 +659,7 @@
 		  document.getElementById("residentError").innerHTML="";
 	  }
 	  
-/*     if(idCheckSw == 0) {
+     if(idCheckSw == 0) {
 			alert("아이디 중복확인을 해주세요.");
 			document.getElementById("mid").focus();
 		}
@@ -667,11 +667,11 @@
 			alert("이메일 인증을 진행해주세요 해주세요.");
 			document.getElementById("email1").focus();
 		}
-		else { */
+		else {
 	    joinForm.tel.value = tel;
 	    joinForm.resident.value = resident;
 	   	joinForm.submit();
-		/* } */
+		} 
 	}
   </script>
 </head>
@@ -723,9 +723,9 @@
 				<label>
 				  <span class="input-group">
 				  	<span style="margin-right: auto; padding-top: 5px;">아이디</span>
-				  	<button type="button" tabindex="-1" onclick="" class="checkButton">중복체크</button>
+				  	<button type="button" tabindex="-1" onclick="idCheck()" class="checkButton">중복체크</button>
 				  </span>
-				  <input type="text" id="mid" name="mid" oninput="idCheck()"/>
+				  <input type="text" id="mid" name="mid" oninput="midCheck()"/>
 				  <span id="midError" style="font-size: 13px; color: #5e0000;"></span>
 				</label>
 				<div class="input-group">
