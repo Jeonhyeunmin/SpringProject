@@ -30,7 +30,7 @@ public class MemberContoller {
 	public String loginPost(HttpSession session, String mid, String pwd) {
 		if(mid.equals("admin") && pwd.equals("1234")) {
 			session.setAttribute("sMid", mid);
-		}
+		} 
 		return "redirect:/";
 	}
 	@GetMapping("/logout")
