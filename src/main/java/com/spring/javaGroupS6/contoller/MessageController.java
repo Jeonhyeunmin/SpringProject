@@ -21,7 +21,7 @@ public class MessageController {
 		String nickName = (String)session.getAttribute("sNickName");
 		if(msgFlag.equals("loginOk")) {
 			model.addAttribute("message", nickName + "님 반갑습니다.");
-			model.addAttribute("url", "member/login");
+			model.addAttribute("url", "/");
 		}
 		else if(msgFlag.equals("loginNo")) {
 			model.addAttribute("message", "회원님 로그인 실패");

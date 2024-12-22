@@ -6,4 +6,6 @@ public interface MemberService {
 
 	MemberVO getMemberIdSearch(String mid);
 
+	int setMemberJoin(MemberVO vo);
+
 }

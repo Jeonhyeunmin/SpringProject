@@ -7,12 +7,11 @@ public class MemberVO {
 	private int idx;
 	private String mid;
 	private String pwd;
-	private String nickName;
 	private String name;
 	private String gender;
-	private String birthday;
+	private String resident;
 	private String tel;
-	
+	private String address;
 	private String email;
 	private String photo;
 	private int level;

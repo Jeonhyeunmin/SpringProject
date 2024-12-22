@@ -41,7 +41,6 @@ public class MemberContoller {
 		if(mid.equals(vo.getMid()) && pwd.equals(vo.getPwd())) {
 			session.setAttribute("sMid", mid);
 			session.setAttribute("sLevel", vo.getLevel());
-			session.setAttribute("sNickName", vo.getNickName());
 			model.addAttribute("mid", mid);
 			return "redirect:/message/loginOk";
 		}
@@ -58,6 +57,7 @@ public class MemberContoller {
 	
 	@PostMapping("/join")
 	public String joinGet(MemberVO vo) {
+		int res = memberservice.setMemberJoin(vo);
 		return "redirect:/";
 	}
 	
@@ -74,8 +74,6 @@ public class MemberContoller {
 	@RequestMapping(value = "/memberEmailCheckOk", method = RequestMethod.POST)
 	public String memberEmailCheckOkPost(HttpSession session ,String checkKey) throws MessagingException {
 		String emailKey = (String) session.getAttribute("sEmailKey");
-		System.out.println("emailKey : " + emailKey);
-		System.out.println("checkKey : " + checkKey);
 		if(emailKey.equals(checkKey)) {
 			return "1";
 		}
@@ -87,7 +85,15 @@ public class MemberContoller {
 	
 	@RequestMapping(value = "/memberIdCheck", method = RequestMethod.GET)
 	public String memberIdCheckGet(Model model, String mid) throws MessagingException {
-		model.addAttribute("mid", mid);
+		MemberVO vo = memberservice.getMemberIdSearch(mid);
+		if(vo == null) {
+			model.addAttribute("midCheck", "Yes");
+			model.addAttribute("mid", mid);
+		}
+		else {
+			model.addAttribute("midCheck", "No");
+			model.addAttribute("mid", vo.getMid());
+		}
 		return "member/memberIdCheck";
 	}
 }

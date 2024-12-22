@@ -16,4 +16,37 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO getMemberIdSearch(String mid) {
 		return memberDAO.getMemberIdSearch(mid);
 	}
+
+	@Override
+	public int setMemberJoin(MemberVO vo) {
+		
+		String year = vo.getResident().substring(0,2);  
+		String month = vo.getResident().substring(2,4);  
+		String day = vo.getResident().substring(4,6);  
+		
+		
+		if(Integer.parseInt(year) >= 00 && Integer.parseInt(year) < 50) {
+			year = "20" + year;
+		}
+		else if(Integer.parseInt(year) >= 50 && Integer.parseInt(year) <= 99) {
+			year = "19" + year;
+		}
+		
+		vo.setResident(year + "-" + month + "-" + day);
+		
+		if(vo.getGender().equals("1") || vo.getGender().equals("3")) {
+			vo.setGender("남자");
+		}
+		else {
+			vo.setGender("여자");
+		}
+		
+		vo.setLevel(1);
+		
+		if(vo.getPhoto() == null) {
+			vo.setPhoto("noimage.jpg");
+		}
+		
+		return memberDAO.setMemberJoin(vo);
+	}
 }
