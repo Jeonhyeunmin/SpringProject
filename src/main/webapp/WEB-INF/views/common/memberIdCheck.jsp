@@ -143,7 +143,7 @@
         </c:if>
         <c:if test="${midCheck == 'No'}">
             <div class="error">${mid}는 사용 불가능합니다.</div>
-            <form name="childForm" method="get" action="${ctp}/member/memberIdCheck">
+            <form name="childForm" method="get" action="${ctp}/common/memberIdCheck">
                 <input type="text" name="mid" id="mid" oninput="midCheck()" placeholder="아이디를 입력하세요">
                 <span id="midError" style="font-size: 15px; color: #5e0000;"></span>
                 <button type="button" class="btn btn-primary" onclick="idCheck()">아이디 검색</button>

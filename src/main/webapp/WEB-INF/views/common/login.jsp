@@ -380,7 +380,7 @@
 			}
 			else {
 			  document.getElementById("midError").innerHTML="";
-				let url = "${ctp}/member/memberIdCheck?mid="+mid;
+				let url = "${ctp}/common/memberIdCheck?mid="+mid;
 				joinForm.mid.readOnly = true;
 				window.open(url, "idCheckWindow", "width=900px, height=800px, top=150px, left=500px;");
 				idCheckSw = 1;
@@ -479,6 +479,10 @@
 			let resident = document.getElementById("resident").value.trim();
 			document.getElementById("residentError").innerHTML="";
 			
+		  if (document.getElementById("resident").value.length >= 6 ) {
+			  joinForm.gender.focus();
+      }
+			
 		  // 주민번호 확인
 		  if(!regex6.test(resident)){
 		    document.getElementById("residentError").innerHTML="주민등록번호가 올바르지 않습니다.(생년월일 + 성별(1~4))";
@@ -520,7 +524,7 @@
 			let email = joinForm.email1.value + "@" + joinForm.email2.value;
  			$.ajax({
 				type : "post",
-				url : "${ctp}/member/memberEmailCheck",
+				url : "${ctp}/common/memberEmailCheck",
 				data : {
 					email : email
 				},
@@ -554,7 +558,7 @@
     	
     	$.ajax({
     		type : "post",
-    		url  : "${ctp}/member/memberEmailCheckOk",
+    		url  : "${ctp}/common/memberEmailCheckOk",
     		data : {checkKey : checkKey},
     		success:function(res) {
     			if(res == "1") {
@@ -681,7 +685,7 @@
 	<a class="back-arrow" href="${ctp}/">
 	    <i class="fa-solid fa-arrow-left"></i>
 	</a>
-	<form method="post" action="${ctp}/member/login">
+	<form method="post" action="${ctp}/common/login">
 	  <div class="form sign-in align-middle">
 	    <h2>LOGIN</h2>
 	    <label>
@@ -713,7 +717,7 @@
         <span class="m--in">Sign In</span>
       </div>
     </div>
-    <form method="post" action="${ctp}/member/join" name="joinForm">
+    <form method="post" action="${ctp}/common/join" name="joinForm">
 	    <div class="form sign-up">
 	      <h2>JOIN</h2>
 	      <label>

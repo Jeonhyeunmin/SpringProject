@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.javaGroupS6.dao.CommonDAO">
+
+
+
+	<select id="getMemberIdSearch" resultType="com.spring.javaGroupS6.vo.MemberVO">
+		select * from customer where mid = #{mid};
+	</select>
+	
+	<select id="getPartnerIdSearch" resultType="com.spring.javaGroupS6.vo.PartnerVO">
+		select * from partner where mid = #{mid};
+	</select>
+	
+	<select id="getPartnerSearch" resultType="com.spring.javaGroupS6.vo.PartnerVO">
+		select * from partner where company = #{company};
+	</select>
+	
+	
+	<insert id="setMemberJoin">
+	  INSERT INTO customer 
+	  (idx, mid, pwd, name, gender, birthday, tel, address, email, photo, level, userInfor, userDel, point, startDate, lastDate)
+	  VALUES
+	  (default, #{vo.mid}, #{vo.pwd}, #{vo.name}, #{vo.gender}, #{vo.resident}, #{vo.tel}, #{vo.address}, #{vo.email}, #{vo.photo}, #{vo.level}, default, default, default, default, default);
+	</insert>
+	
+</mapper>

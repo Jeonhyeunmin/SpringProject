@@ -1,0 +1,62 @@
+package com.spring.javaGroupS6.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.spring.javaGroupS6.dao.CommonDAO;
+import com.spring.javaGroupS6.vo.MemberVO;
+import com.spring.javaGroupS6.vo.PartnerVO;
+
+@Service
+public class CommonServiceImpl implements CommonService {
+	@Autowired
+	CommonDAO commonDAO;
+	
+	@Override
+	public MemberVO getMemberIdSearch(String mid) {
+		return commonDAO.getMemberIdSearch(mid);
+	}
+
+	@Override
+	public int setMemberJoin(MemberVO vo) {
+		
+		String year = vo.getResident().substring(0,2);  
+		String month = vo.getResident().substring(2,4);  
+		String day = vo.getResident().substring(4,6);  
+		
+		
+		if(Integer.parseInt(year) >= 00 && Integer.parseInt(year) < 50) {
+			year = "20" + year;
+		}
+		else if(Integer.parseInt(year) >= 50 && Integer.parseInt(year) <= 99) {
+			year = "19" + year;
+		}
+		
+		vo.setResident(year + "-" + month + "-" + day);
+		
+		if(vo.getGender().equals("1") || vo.getGender().equals("3")) {
+			vo.setGender("남자");
+		}
+		else {
+			vo.setGender("여자");
+		}
+		
+		vo.setLevel(1);
+		
+		if(vo.getPhoto() == null) {
+			vo.setPhoto("noimage.png");
+		}
+		
+		return commonDAO.setMemberJoin(vo);
+	}
+
+	@Override
+	public PartnerVO getPartnerIdSearch(String mid) {
+		return commonDAO.getPartnerIdSearch(mid);
+	}
+	
+	@Override
+	public PartnerVO getPartnerSearch(String company) {
+		return commonDAO.getPartnerSearch(company);
+	}
+}

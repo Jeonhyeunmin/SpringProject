@@ -18,14 +18,22 @@ public class MessageController {
 			@RequestParam(name="mid", defaultValue = "", required = false) String mid,
 			@RequestParam(name="idx", defaultValue = "0", required = false) int idx
 		) {
-		String nickName = (String)session.getAttribute("sNickName");
+		String name = (String)session.getAttribute("sName");
 		if(msgFlag.equals("loginOk")) {
-			model.addAttribute("message", nickName + "님 반갑습니다.");
+			model.addAttribute("message", name + "님 반갑습니다.");
 			model.addAttribute("url", "/");
 		}
 		else if(msgFlag.equals("loginNo")) {
 			model.addAttribute("message", "회원님 로그인 실패");
-			model.addAttribute("url", "member/login");
+			model.addAttribute("url", "/");
+		}
+		else if(msgFlag.equals("joinOk")) {
+			model.addAttribute("message", "회원가입 성공 \n다시 로그인해주세요");
+			model.addAttribute("url", "/");
+		}
+		else if(msgFlag.equals("joinNo")) {
+			model.addAttribute("message", "회원가입 실패");
+			model.addAttribute("url", "/");
 		}
 		
 		return "include/message";
