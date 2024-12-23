@@ -8,4 +8,6 @@ public interface MemberDAO {
 
 	MemberVO getMemberIdSearch(@Param("mid") String mid);
 
+	int setMemberJoin(@Param("vo") MemberVO vo);
+
 }

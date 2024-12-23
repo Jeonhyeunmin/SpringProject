@@ -402,7 +402,7 @@
 		
 		function pwd1Check() {
 			//let regex2 = /^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%^&*()._-]{4,20}$/g; //(비밀번호)4자 이상 20자 이하, 영어/숫자 1개 이상 필수, 특수문자 허용
-			let pwd1 = document.getElementById("pwd1").value.trim();
+			let pwd1 = joinForm.pwd.value.trim();
 			
 			document.getElementById("pwdError1").innerHTML="";
 	    document.getElementById("pwdError2").innerHTML="";
@@ -415,7 +415,7 @@
 	  	}	
 		}
 		function pwd2Check() {
-			let pwd1 = document.getElementById("pwd1").value.trim();
+			let pwd1 = joinForm.pwd.value.trim();
 			let pwd2 = document.getElementById("pwd2").value.trim();
 			document.getElementById("pwdError1").innerHTML="";
 			document.getElementById("pwdError2").innerHTML="";
@@ -574,7 +574,7 @@
 	function joinCheck(){
 	  let name = document.getElementById("name").value.trim();
 	  let mid = joinForm.mid.value.trim();
-	  let pwd1 = document.getElementById("pwd1").value.trim();
+	  let pwd1 = joinForm.pwd.value.trim();
 	  let pwd2 = document.getElementById("pwd2").value.trim();
 		let resident = document.getElementById("resident").value.trim();
 		let gender = document.getElementById("gender").value.trim();
@@ -612,7 +612,7 @@
 	  // 비밀번호 확인
 	  if(!regex2.test(pwd1)) {
 	    document.getElementById("pwdError1").innerHTML="비밀번호가 올바르지 않습니다.(영어/숫자 필수, 특수문자 가능 4~20자)";
-	    document.getElementById("pwd1").focus();
+	    joinForm.pwd.focus();
 	    return false;
 	  }
 	  else {
@@ -670,6 +670,7 @@
 		else {
 	    joinForm.tel.value = tel;
 	    joinForm.resident.value = resident;
+	    joinForm.email.value = email;
 	   	joinForm.submit();
 		} 
 	}
@@ -731,7 +732,7 @@
 				<div class="input-group">
 		      <label style="width: 30%; margin-right: 0;">
 		        <span>비밀번호</span>
-		        <input type="password" name="pwd1" id="pwd1" oninput="pwd1Check()"/>
+		        <input type="password" name="pwd" id="pwd" oninput="pwd1Check()"/>
 		      </label>
 		      <label style="width: 30%; margin-left: 5%;">
 		        <span>비밀번호 확인</span>

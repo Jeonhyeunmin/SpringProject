@@ -8,106 +8,149 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>.jsp</title>
   <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
-  <style>
-  body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-      margin-top: 5%;
-      overflow-y: hidden; 
-  }
-  .con {
-      width: 100%;
-      max-width: 500px;
-      padding: 30px;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  }
-  .tabs {
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: 20px;
-      border-bottom: 2px solid #ddd;
-  }
-  .tabs button {
-      background: none;
-      border: none;
-      font-size: 16px;
-      font-weight: bold;
-      color: #555;
-      padding: 10px;
-      cursor: pointer;
-      transition: color 0.3s ease, border-bottom 0.3s ease;
-  }
-  .form-group {
-      margin-bottom: 20px;
-  }
-  label {
-      font-size: 14px;
-      color: #555;
-  }
-  .control {
-      width: 100%;
-      height: 45px;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      padding: 10px;
-      font-size: 16px;
-      transition: border-color 0.3s ease;
-  }
-  .nextBtn {
-      background: #a67d3f;
-      color: #fff;
-      border: none;
-      width: 100%;
-      height: 50px;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  .nextBtn:hover {
-      background: #a67d3e;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  }
-  .nextBtn:active {
-      transform: translateY(0);
-      box-shadow: none;
-  }
-</style>
+	<style>
+		body {
+	    font-family: 'Arial', sans-serif;
+	    margin: 0;
+	    padding: 0;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    height: 100vh;
+		}
+		.container {
+		    width: 100%;
+		    max-width: 500px;
+		    padding: 30px;
+		    background: #fff;
+		    border-radius: 12px;
+		    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+		    text-align: center;
+		}
+		h3 {
+		    color: #333;
+		    font-size: 24px;
+		    margin-bottom: 20px;
+		}
+		hr {
+		    border: none;
+		    height: 1px;
+		    background: #ddd;
+		    margin: 20px 0;
+		}
+		input[type="text"] {
+		    width: 100%;
+		    height: 40px;
+		    border-radius: 8px;
+		    border: 1px solid #ddd;
+		    padding: 10px;
+		    font-size: 16px;
+		    margin-bottom: 5px;
+		    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+		}
+		input[type="text"]:focus {
+		    border-color: #6C757D;
+		    box-shadow: 0 0 8px rgba(108, 117, 125, 0.3);
+		}
+		.btn {
+		    width: 100%;
+		    height: 50px;
+		    font-size: 16px;
+		    border-radius: 8px;
+		    cursor: pointer;
+		    margin-bottom: 10px;
+		    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+		}
+		.btn-primary {
+		    background: #6C757D;
+		    color: #fff;
+		    border: none;
+		}
+		.btn-primary:hover {
+		    background: #5A6268;
+		    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+		    transform: translateY(-2px);
+		}
+		.btn-secondary {
+		    background: #E9ECEF;
+		    color: #333;
+		    border: none;
+		}
+		.btn-secondary:hover {
+		    background: #DEE2E6;
+		    transform: translateY(-2px);
+		}
+		.success {
+		    color: #28a745;
+		    font-size: 16px;
+		    font-weight: bold;
+		    margin: 15px 0;
+		}
+		.error {
+		    color: #dc3545;
+		    font-size: 16px;
+		    font-weight: bold;
+		    margin: 15px 0;
+		}
+
+
+	</style>
+  <script type="text/javascript">
+		'use strict';
+		let regex1 = /^[a-zA-Z0-9]{4,20}$/;
+		function midCheck() {
+			//let regex1 = /^[a-zA-Z0-9]{4,20}$/; //(아이디) 영문자 또는 숫자 4~20자 
+			let mid = childForm.mid.value;
+			document.getElementById("midError").innerHTML="";
+			
+		  // 아이디 확인
+		  if(!regex1.test(mid)) {
+			  document.getElementById("midError").innerHTML="아이디 형식에 맞춰주세요.(영어/숫자만 4~20자)";
+		  } 
+		  else {
+			  document.getElementById("midError").innerHTML="";
+		  }			
+		}
+		
+	  function idCheck() {
+			let mid = childForm.mid.value;
+			if(mid.trim() == ""){
+				alert("아이디를 입력하세요.");
+				return false;
+			}
+		  if(!regex1.test(mid)) {
+		    document.getElementById("midError").innerHTML="아이디 형식에 맞춰주세요.(영어/숫자만 4~20자)";
+		    childForm.mid.focus();
+		    return false;
+		  } 
+			childForm.submit();
+		}
+	  
+	  function wClose() {
+			opener.window.joinForm.mid.value = '${mid}';
+			opener.window.joinForm.pwd.focus();
+			window.close();
+		}
+	</script>
 </head>
-<body>
 <div class="container">
-  <div class="tabs">
-      <button class="active" >아이디</button>
-  </div>
-  <div id="findIdForm">
-    <form method="post">
-        <div class="form-group">
-          <c:if test="${empty mid}">
-            <label for="name">아이디</label>
-            <input type="text" class="control" id="mid" name="mid" value="검색된 아이디가 없습니다." readonly>
-          </c:if>
-          <c:if test="${!empty mid}">
-            <label for="name">아이디</label>
-            <input type="text" class="control" id="mid" name="mid" value="${mid}" readonly>
-          </c:if>
-        </div>
-        <c:if test="${empty mid}">
-          <input type="button" onclick="location.href='${ctp}/member/memberFindId'" class="nextBtn" value="돌아가기"/>
+    <h3>아이디 중복 체크</h3>
+    <hr>
+    <div>
+        <c:if test="${midCheck == 'Yes'}">
+            <div class="success">${mid}는 사용 가능합니다.</div>
+            <button class="btn btn-primary" onclick="wClose()">창 닫기</button>
         </c:if>
-        <c:if test="${!empty mid}">
-          <button type="button" onclick="location.href='${ctp}/member/memberLogin'" class="nextBtn" style="margin-bottom: 5px;">로그인으로</button>
-          <input type="button" style="background: gray;" onclick="location.href='${ctp}/member/memberFindPwd'" class="nextBtn" value="비밀번호 찾기"/>
+        <c:if test="${midCheck == 'No'}">
+            <div class="error">${mid}는 사용 불가능합니다.</div>
+            <form name="childForm" method="get" action="${ctp}/member/memberIdCheck">
+                <input type="text" name="mid" id="mid" oninput="midCheck()" placeholder="아이디를 입력하세요">
+                <span id="midError" style="font-size: 15px; color: #5e0000;"></span>
+                <button type="button" class="btn btn-primary" onclick="idCheck()">아이디 검색</button>
+                <button type="button" class="btn btn-secondary" onclick="window.close()">취소</button>
+            </form>
         </c:if>
-    </form>
-  </div>
+    </div>
 </div>
 </body>
 </html>
