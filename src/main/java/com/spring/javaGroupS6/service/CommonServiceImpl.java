@@ -1,8 +1,15 @@
 package com.spring.javaGroupS6.service;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.spring.javaGroupS6.common.JavaProvide;
 import com.spring.javaGroupS6.dao.CommonDAO;
 import com.spring.javaGroupS6.vo.MemberVO;
 import com.spring.javaGroupS6.vo.PartnerVO;
@@ -11,6 +18,9 @@ import com.spring.javaGroupS6.vo.PartnerVO;
 public class CommonServiceImpl implements CommonService {
 	@Autowired
 	CommonDAO commonDAO;
+	
+	@Autowired
+	JavaProvide provide;
 	
 	@Override
 	public MemberVO getMemberIdSearch(String mid) {
@@ -58,5 +68,29 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public PartnerVO getPartnerSearch(String company) {
 		return commonDAO.getPartnerSearch(company);
+	}
+	
+	@Override
+	public int setpartnerJoin(MultipartHttpServletRequest file, PartnerVO vo) {
+		try {
+		MultipartFile f = file.getFile("file");
+		
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
+		
+		String oFileName = f.getOriginalFilename();
+		String sFileName = sdf.format(date) + "_" + oFileName;
+		
+			provide.WriteFile(f, sFileName, "partner/logo");
+			
+			vo.setLogo(oFileName);
+			vo.setSLogo(sFileName);
+			vo.setLevel(2);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return commonDAO.setpartnerJoin(vo);
 	}
 }

@@ -15,4 +15,6 @@ public interface CommonDAO {
 
 	PartnerVO getPartnerSearch(@Param("company") String company);
 
+	int setpartnerJoin(@Param("vo") PartnerVO vo);
+
 }

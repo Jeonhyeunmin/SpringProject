@@ -13,6 +13,7 @@
   	
   	let idCheckSw = 0;
   	let companyCheckSw = 0;
+  	let emailCheckSw = 0;
   	
   	let regex1 = /^[a-zA-Z0-9]{4,20}$/; //(아이디) 영문자 또는 숫자 4~20자
 	  let regex2 = /^(?=.*?[0-9])(?=.*?[a-zA-Z])[a-zA-Z0-9!@#$%^&*()._-]{4,20}$/;  //(비밀번호)4자 이상 20자 이하, 영어/숫자 1개 이상 필수, 특수문자 허용
@@ -57,6 +58,62 @@
 				companyCheckSw = 1;
 			}
 		}
+		
+		function emailCheck() {
+	    	$("#demoSpin").html('<div style="width: 100px; height: 100px; z-index: 999; position: absolute; top: 40%; left: 40%;" class="spinner-border text-dark"></div>');
+				// 필수 입력란의 체크를 모두 마친 후 인증번호를 메일로 발송한다.
+				let email = joinForm.email.value;
+	 			$.ajax({
+					type : "post",
+					url : "${ctp}/common/memberEmailCheck",
+					data : {
+						email : email
+					},
+					success: function(res) {
+						if(res != "0"){
+							alert("인증번호가 발송되었습니다. \n 메일 확인 후 인증번호를 입력해주세요.");
+							let str = '<div class="relative-container" style="margin-top: 10px;">';
+							str += '<input type="text" name="checkKey" id="checkKey"/>';
+							str += '<button type="button" onclick="emailCheckOk()" class="btn-inside">인증번호 확인</button>';
+							str += '</div>';
+							$("#demoSpin").html(str);
+						}
+						else{
+							alert("인증 번호 받기 버튼을 눌러주세요.");
+						}
+					},
+					error : function() {
+						$("#demoSpin").hide();
+						alert("이메일을 확인해주세요.");
+					}
+				});
+			}
+		
+		function emailCheckOk() {
+	    	let checkKey = $("#checkKey").val();
+	    	if(checkKey == "") {
+	    		alert("전송받은 메일에서 인증받은 인증키를 입력해주세요");
+	    		$("#checkKey").focus();
+	    		return false;
+	    	}
+	    	
+	    	$.ajax({
+	    		type : "post",
+	    		url  : "${ctp}/common/memberEmailCheckOk",
+	    		data : {checkKey : checkKey},
+	    		success:function(res) {
+	    			if(res == "1") {
+			    		alert("인증 확인되었습니다.");
+			    		emailCheckSw = 1;
+			    		$("#demoSpin").hide();
+			    	}
+	    			else alert("인증실패~\n메일주소를 확인하시고 다시 인증메일을 전송해 주세요.");
+	    		},
+	    		error : function() {
+	    			alert("전송오류!");
+	    		}
+	    	});
+	    }
 		
 		function midCheck() {
 			//let regex1 = /^[a-zA-Z0-9]{4,20}$/; //(아이디) 영문자 또는 숫자 4~20자 
@@ -224,15 +281,25 @@
 			  document.getElementById("businessNumberError").innerHTML="";
 		  }
 		  
-	     if(idCheckSw == 0) {
+		 if(document.getElementById("sample6_postcode").value == ""){
+			 alert("주소를 입력해주세요");
+			 document.getElementById("sample6_postcode").focus();
+		 }
+		  
+     if(idCheckSw == 0) {
 				alert("아이디 중복확인을 해주세요.");
 				document.getElementById("mid").focus();
 			}
-	    else if(companyCheckSw == 0) {
+	    else if(emailCheckSw == 0) {
 				alert("이메일 인증을 진행해주세요 해주세요.");
+				document.getElementById("email").focus();
+			}
+	    else if(companyCheckSw == 0) {
+				alert("업체명 중복체크를 진행해주세요 해주세요.");
 				document.getElementById("company").focus();
 			}
 			else {
+				joinForm.address.value = document.getElementById("sample6_postcode").value + "/" + document.getElementById("sample6_address").value + "/" + document.getElementById("sample6_extraAddress").value + "/" + document.getElementById("sample6_detailAddress").value
 		    joinForm.tel.value = tel;
 		   	joinForm.submit();
 			} 
@@ -465,13 +532,13 @@
 </head>
 <body>
   <div class="container">
-    <form name="joinForm" method="post" enctype="multipart/form-data">
+    <form name="joinForm" method="post" enctype="multipart/form-data" action="${ctp}/common/partnerJoin">
       <h2>파트너 신청</h2>
 
       <!-- 회사 로고 -->
       <div class="form-group">
         <label>로고</label>
-        <input type="file" id="logo" name="logo" accept=".jpg,.jpeg,.png,.pdf" required>
+        <input type="file" id="file" name="file" accept=".jpg,.jpeg,.png,.pdf" required>
       </div>
       
 			<!-- 아이디 -->
@@ -525,7 +592,9 @@
 			  <label for="email">이메일</label>
 			  <div class="relative-container">
 			    <input type="email" id="email" name="email" placeholder="example@domain.com" required>
+			    <button type="button" class="btn-inside" onclick="emailCheck()">인증</button>
 			  </div>
+				<span id="demoSpin"></span>
 			</div>
 
       <!-- 전화번호 -->
@@ -550,6 +619,7 @@
 					<span id="telError" style="font-size: 13px; color: #5e0000; margin: 2px 8%;"></span>
 				</div>
       </div>
+      <input type="hidden" id="tel" name="tel">
 
       <!-- 주소 -->
 			<div id="homeAddressInput" class="form-group">
@@ -559,11 +629,13 @@
             <input type="text" id="sample6_postcode" name="postcode" onclick="sample6_execDaumPostcode()" placeholder="우편번호" readonly required/>
             <button type="button" class="postcode-button" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
 	        </div>
-	        <input type="text" id="sample6_address" name="address" onclick="sample6_execDaumPostcode()" placeholder="주소" readonly>
+	        <input type="text" id="sample6_address" name="address1" onclick="sample6_execDaumPostcode()" placeholder="주소" readonly>
 	        <input type="text" id="sample6_extraAddress" onclick="sample6_execDaumPostcode()" name="extraAddress" placeholder="참고항목" readonly>
 	        <input type="text" id="sample6_detailAddress" name="detailAddress" placeholder="상세주소">
 		    </div>
 			</div>
+      <input type="hidden" id="address" name="address">
+			
 
       <!-- 소개 -->
       <div class="form-group">

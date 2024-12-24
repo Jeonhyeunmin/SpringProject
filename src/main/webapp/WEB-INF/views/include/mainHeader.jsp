@@ -170,7 +170,6 @@
 				}
 				.submenu li {
 				    padding: 10px 20px;
-				    text-align: center; /* 중앙 정렬 */
 				}
 
         .submenu li a {

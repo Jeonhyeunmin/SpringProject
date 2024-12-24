@@ -6,6 +6,7 @@ import lombok.Data;
 public class PartnerVO {
 	private int idx;
 	private String logo;
+	private String sLogo;
 	private String mid;
 	private String pwd;
 	private String company;

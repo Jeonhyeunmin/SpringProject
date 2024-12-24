@@ -9,15 +9,17 @@ import java.util.ArrayList;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Component
@@ -168,6 +170,49 @@ public class JavaProvide {
 			String copyFilePath = realPath + "ckeditor/" + img.get(i);
 			fileCopyCheck(origFilePath, copyFilePath);
 		}
+	}
+	
+	public void WriteFile(MultipartFile fName, String sFileName, String folder) throws IOException {
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+		String realPath = request.getSession().getServletContext().getRealPath("/resources/data/" + folder + "/");
+		
+		FileOutputStream fos = new FileOutputStream(realPath + sFileName);
+		
+		if(fName.getBytes().length != -1) {
+			fos.write(fName.getBytes());
+		}
+		fos.flush();
+		fos.close();
+	}
+	
+	public void fileDownAction(HttpServletRequest request, HttpServletResponse response , String path, String file) throws IOException {
+		if(path.equals("pds")) {
+			path += "/temp/";
+		}
+		String realPathFile = request.getSession().getServletContext().getRealPath("/resources/data/" + path) + file;
+		
+		File downFile = new File(realPathFile);
+		
+		String downFileName = new String(file.getBytes("UTF-8"), "8859_1");
+		
+		response.setHeader("Content-Disposition", "attachment;filename=" + downFileName);
+		
+		FileInputStream fis = new FileInputStream(downFile);
+		
+		ServletOutputStream sos = response.getOutputStream();
+		
+		byte bytes[] = new byte[2048];
+		int data = 0;
+		
+		while((data = fis.read(bytes, 0, bytes.length)) != -1) {
+			sos.write(bytes, 0, data);
+		}
+		sos.flush();
+		sos.close();
+		fis.close();
+		
+//		다운로드 완료 후에 서버에 저장된 zip 파일을 삭제처리한다.
+		downFile.delete();
 	}
 
 

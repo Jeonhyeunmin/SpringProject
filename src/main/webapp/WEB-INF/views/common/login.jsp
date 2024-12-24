@@ -401,32 +401,20 @@
 		}
 		
 		function pwd1Check() {
-			//let regex2 = /^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%^&*()._-]{4,20}$/g; //(비밀번호)4자 이상 20자 이하, 영어/숫자 1개 이상 필수, 특수문자 허용
-			let pwd1 = joinForm.pwd.value.trim();
-			
-			document.getElementById("pwdError1").innerHTML="";
-	    document.getElementById("pwdError2").innerHTML="";
-		  // 비밀번호 확인
-		  if(!regex2.test(pwd1)) {
-		    document.getElementById("pwdError1").innerHTML="비밀번호가 올바르지 않습니다.(영어/숫자 필수, 특수문자 가능 4~20자)";
-		  }
-		  else {
-		    document.getElementById("pwdError1").innerHTML="";
-	  	}	
-		}
-		function pwd2Check() {
 			let pwd1 = joinForm.pwd.value.trim();
 			let pwd2 = document.getElementById("pwd2").value.trim();
-			document.getElementById("pwdError1").innerHTML="";
-			document.getElementById("pwdError2").innerHTML="";
-
-			// 비밀번호 확인2
-		  if(pwd1 !== pwd2) {
-		    document.getElementById("pwdError2").innerHTML="비밀번호가 동일하지 않습니다.";
+			
+			document.getElementById("pwdError").innerHTML="";
+		  // 비밀번호 확인
+		  if(!regex2.test(pwd1)) {
+		    document.getElementById("pwdError").innerHTML="비밀번호가 올바르지 않습니다.(영어/숫자 필수, 특수문자 가능 4~20자)";
+		  }
+		  else if(pwd1 !== pwd2) {
+		    document.getElementById("pwdError").innerHTML="비밀번호가 동일하지 않습니다.";
 		  }
 		  else {
-	  	  document.getElementById("pwdError2").innerHTML="";
-		  }
+		    document.getElementById("pwdError").innerHTML="";
+	  	}	
 		}
 		function genderCheck() {
 		    let gender = document.getElementById("gender").value.trim();
@@ -494,9 +482,9 @@
 		
 		function telCheck() {
 			//let regex5 = /\d{2,3}-\d{3,4}-\d{4}$/g; //(전화번호)
-		  let tel1 = joinForm.tel1.value;
-		  let tel2 = joinForm.tel2.value;
-		  let tel3 = joinForm.tel3.value;
+		  let tel1 = joinForm.tel1.value();
+		  let tel2 = joinForm.tel2.value();
+		  let tel3 = joinForm.tel3.value();
 		  let tel = tel1 + "-" + tel2 + "-" + tel3;
 		  
 		  // 전화번호 확인
@@ -584,9 +572,9 @@
 		let gender = document.getElementById("gender").value.trim();
 		let email = joinForm.email1.value + "@" + joinForm.email2.value;
   	 
-	  let tel1 = joinForm.tel1.value;
-	  let tel2 = joinForm.tel2.value;
-	  let tel3 = joinForm.tel3.value;
+	  let tel1 = joinForm.tel1.value();
+	  let tel2 = joinForm.tel2.value();
+	  let tel3 = joinForm.tel3.value();
 	  let tel = tel1 + "-" + tel2 + "-" + tel3;
   	
 	  
@@ -615,15 +603,15 @@
 	  
 	  // 비밀번호 확인
 	  if(!regex2.test(pwd1)) {
-	    document.getElementById("pwdError1").innerHTML="비밀번호가 올바르지 않습니다.(영어/숫자 필수, 특수문자 가능 4~20자)";
+	    document.getElementById("pwdError").innerHTML="비밀번호가 올바르지 않습니다.(영어/숫자 필수, 특수문자 가능 4~20자)";
 	    joinForm.pwd.focus();
 	    return false;
 	  }
 	  else {
-	    document.getElementById("pwdError1").innerHTML="";
+	    document.getElementById("pwdError").innerHTML="";
 	    
 		  if(pwd2=== "") {
-		    document.getElementById("pwdError2").innerHTML="비밀번호를 다시 입력해주세요.";
+		    document.getElementById("pwdError").innerHTML="비밀번호를 다시 입력해주세요.";
 		    document.getElementById("pwd2").focus();
 		    return false;
 		  }
@@ -633,8 +621,7 @@
 		    return false;
 		  }
 		  else {
-	  	  document.getElementById("pwdError1").innerHTML="";
-	  	  document.getElementById("pwdError2").innerHTML="";
+	  	  document.getElementById("pwdError").innerHTML="";
 		  }
 	  }
 			  
@@ -743,8 +730,7 @@
 		        <input type="password" name="pwd2" id="pwd2" oninput="pwd2Check()"/>
 		      </label>
 	      </div>
-        <span id="pwdError1" style="font-size: 12px; color: #5e0000; margin: 2px 15%;"></span>
-        <span id="pwdError2" style="font-size: 13px; color: #5e0000; margin: 2px 8%;"></span>
+        <span id="pwdError" style="font-size: 12px; color: #5e0000; margin: 2px 15%;"></span>
 				<label>
 					<span class="input-group">
 					  <span style="margin-right: auto; padding-top: 5px;">이메일</span>

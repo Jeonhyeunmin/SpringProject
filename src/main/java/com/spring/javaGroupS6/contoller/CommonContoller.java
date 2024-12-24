@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.javaGroupS6.common.JavaProvide;
 import com.spring.javaGroupS6.service.CommonService;
@@ -124,8 +125,8 @@ public class CommonContoller {
 	}
 	
 	@PostMapping("/partnerJoin")
-	public String partnerJoinPost(PartnerVO vo) {
-		System.out.println(vo);
-		return "common/partnerJoin";
+	public String partnerJoinPost(MultipartHttpServletRequest file, PartnerVO vo) {
+		int res = commonService.setpartnerJoin(file, vo);
+		return "redirect:/";
 	}
 }
