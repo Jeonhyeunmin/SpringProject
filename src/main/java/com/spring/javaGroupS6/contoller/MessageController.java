@@ -18,9 +18,17 @@ public class MessageController {
 			@RequestParam(name="mid", defaultValue = "", required = false) String mid,
 			@RequestParam(name="idx", defaultValue = "0", required = false) int idx
 		) {
+		
+		String company = (String)session.getAttribute("sCompany");
 		String name = (String)session.getAttribute("sName");
-		if(msgFlag.equals("loginOk")) {
+		int level = (int)session.getAttribute("sLevel");
+		
+		if(level == 1&& msgFlag.equals("loginOk")) {
 			model.addAttribute("message", name + "님 반갑습니다.");
+			model.addAttribute("url", "/");
+		}
+		else if((level == 2 || level == 3) && msgFlag.equals("loginOk")) {
+			model.addAttribute("message", company + "님 반갑습니다.");
 			model.addAttribute("url", "/");
 		}
 		else if(msgFlag.equals("loginNo")) {
@@ -33,6 +41,22 @@ public class MessageController {
 		}
 		else if(msgFlag.equals("joinNo")) {
 			model.addAttribute("message", "회원가입 실패");
+			model.addAttribute("url", "/");
+		}
+		else if(msgFlag.equals("partnerJoinOk")) {
+			model.addAttribute("message", "파트너 신청이 완료되었습니다 \n관리자 승인 후 게시물 등록 가능합니다.");
+			model.addAttribute("url", "/");
+		}
+		else if(msgFlag.equals("partnerJoinOk")) {
+			model.addAttribute("message", "파트너 신청이 완료되었습니다 \n관리자 승인 후 게시물 등록 가능합니다.");
+			model.addAttribute("url", "/");
+		}
+		else if(msgFlag.equals("partnerJoinNo")) {
+			model.addAttribute("message", "신청 실패");
+			model.addAttribute("url", "/");
+		}
+		else if(msgFlag.equals("myPageNo")) {
+			model.addAttribute("message", "누구세요~?");
 			model.addAttribute("url", "/");
 		}
 		

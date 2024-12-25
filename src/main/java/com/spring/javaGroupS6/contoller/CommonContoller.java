@@ -37,13 +37,19 @@ public class CommonContoller {
 	
 	@PostMapping("/login")
 	public String loginPost(Model model, HttpSession session, String mid, String pwd) {
-		MemberVO vo = commonService.getMemberIdSearch(mid);
+		MemberVO memberVO = commonService.getMemberIdSearch(mid);
+		PartnerVO partnerVO = commonService.getPartnerIdSearch(mid);
 		
-		if(mid.equals(vo.getMid()) && pwd.equals(vo.getPwd())) {
+		if(memberVO != null && (memberVO.getMid().equals(mid) && memberVO.getPwd().equals(pwd))) {
 			session.setAttribute("sMid", mid);
-			session.setAttribute("sLevel", vo.getLevel());
-			session.setAttribute("sName", vo.getName());
-			model.addAttribute("mid", mid);
+			session.setAttribute("sLevel", memberVO.getLevel());
+			session.setAttribute("sName", memberVO.getName());
+			return "redirect:/message/loginOk";
+		}
+		else if (partnerVO != null && (partnerVO.getMid().equals(mid) && partnerVO.getPwd().equals(pwd))) {
+			session.setAttribute("sMid", mid);
+			session.setAttribute("sLevel", partnerVO.getLevel());
+			session.setAttribute("sCompany", partnerVO.getCompany());
 			return "redirect:/message/loginOk";
 		}
 		else {
@@ -127,6 +133,27 @@ public class CommonContoller {
 	@PostMapping("/partnerJoin")
 	public String partnerJoinPost(MultipartHttpServletRequest file, PartnerVO vo) {
 		int res = commonService.setpartnerJoin(file, vo);
-		return "redirect:/";
+		if(res != 0) return "redirect:/message/partnerJoinOk";
+		else return "redirect:/message/partnerJoinNo";
+	}
+	
+	@GetMapping("/myPage")
+	public String myPageGet(Model model, HttpSession session) {
+		int level = (int)session.getAttribute("sLevel");
+		String mid = (String)session.getAttribute("sMid");
+		if(level == 1) {
+			MemberVO memberVO = commonService.getMemberIdSearch(mid);
+			model.addAttribute("vo", memberVO);
+			return "common/customerPage";
+		}
+		else if(level == 2 || level == 3) {
+			PartnerVO partnerVO = commonService.getPartnerIdSearch(mid);
+			model.addAttribute("vo", partnerVO);
+			return "common/partnerPage";
+		}
+		else {
+			return "redirect:/message/myPageNo";
+		}
+		
 	}
 }
