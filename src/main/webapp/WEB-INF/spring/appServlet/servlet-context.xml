@@ -21,6 +21,9 @@
 	<resources mapping="/images/**" location="/resources/images/" />
 	<resources mapping="/main/**" location="/resources/images/main/" />
 	<resources mapping="/login/**" location="/resources/images/login/" />
+	<resources mapping="/category/**" location="/resources/data/category/" />
+	<resources mapping="/beauty/**" location="/resources/images/shop/beauty/" />
+	<resources mapping="/luxury/**" location="/resources/images/shop/luxury/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -41,6 +44,19 @@
 	
 	<!-- 트랜젝션을 어노테이션으로 처리하기위한 클래스 등록 -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<!-- Tiles 환경설정 -->
+	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+		<beans:property name="order" value="1"/>
+	</beans:bean>
+	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/WEB-INF/spring/appServlet/tiles-def.xml</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
 	
 	
 	

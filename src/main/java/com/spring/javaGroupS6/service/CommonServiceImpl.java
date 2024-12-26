@@ -71,17 +71,16 @@ public class CommonServiceImpl implements CommonService {
 	}
 	
 	@Override
-	public int setpartnerJoin(MultipartHttpServletRequest file, PartnerVO vo) {
+	public int setpartnerJoin(MultipartFile file, PartnerVO vo) {
 		try {
-		MultipartFile f = file.getFile("file");
 		
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
 		
-		String oFileName = f.getOriginalFilename();
+		String oFileName = file.getOriginalFilename();
 		String sFileName = sdf.format(date) + "_" + oFileName;
 		
-			provide.WriteFile(f, sFileName, "partner/logo");
+			provide.WriteFile(file, sFileName, "partner/logo");
 			
 			vo.setLogo(oFileName);
 			vo.setSLogo(sFileName);

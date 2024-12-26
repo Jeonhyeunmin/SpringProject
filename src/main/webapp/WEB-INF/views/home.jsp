@@ -127,117 +127,117 @@
 <jsp:include page="/WEB-INF/views/include/mainHeader.jsp" />
 	<!-- 본문 영역 -->
 <div class="swiper">
-		<div class="swiper-wrapper">
-			<div class="swiper-slide">
-				<div class="mainImgCrop">
-					<img src="${ctp}/main/main.jpg" alt="Slide 1" />
-				</div>
+	<div class="swiper-wrapper">
+		<div class="swiper-slide">
+			<div class="mainImgCrop">
+				<img src="${ctp}/main/main.jpg" alt="Slide 1" />
 			</div>
-			<div class="swiper-slide">
-				<div class="mainImgCrop">
-					<img src="${ctp}/main/main1.jpg" alt="Slide 2" />
-				</div>
-				<div class="mainImgText">
-					<div class="titleEng">MAGICAL HOLIDAYS</div>
-					<div class="titleKor">꿈같은 연말 준비</div>
-					<div class="titleKor">~60% 브랜드 행사 + 뷰티쿠폰까지</div>
-				</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="mainImgCrop">
+				<img src="${ctp}/main/main1.jpg" alt="Slide 2" />
 			</div>
-			<div class="swiper-slide">
-				<div class="mainImgCrop">
-					<img src="${ctp}/main/main2.jpg" alt="Slide 3" />
-				</div>
-				<div class="mainImgText">
-					<div class="titleEng">FAMILY SALE</div>
-					<div class="titleKor">랩 / 에고이스트 / 플라스틱 아일랜드</div>
-					<div class="titleKor">UP TO 70% + 추가쿠폰</div>
-				</div>
+			<div class="mainImgText">
+				<div class="titleEng">MAGICAL HOLIDAYS</div>
+				<div class="titleKor">꿈같은 연말 준비</div>
+				<div class="titleKor">~60% 브랜드 행사 + 뷰티쿠폰까지</div>
 			</div>
-			<div class="swiper-slide">
-				<div class="mainImgCrop">
-					<img src="${ctp}/main/main3.jpg" alt="Slide 4" />
-				</div>
-				<div class="mainImgText">
-					<div class="titleKor">페리가모 홀리데이 기프트</div>
-					<div class="titleKor">스페셜 캔디참 오너먼트 & 엽서 증정</div>
-				</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="mainImgCrop">
+				<img src="${ctp}/main/main2.jpg" alt="Slide 3" />
 			</div>
-			<div class="swiper-slide">
-				<div class="mainImgCrop">
-					<img src="${ctp}/main/main4.jpg" alt="Slide 5" />
-				</div>
-				<div class="mainImgText">
-					<div class="titleKor">노스페이스 키즈 방한대전</div>
-					<div class="titleKor">한파대비, 인기패딩 / 부츠 특가전</div>
-				</div>
+			<div class="mainImgText">
+				<div class="titleEng">FAMILY SALE</div>
+				<div class="titleKor">랩 / 에고이스트 / 플라스틱 아일랜드</div>
+				<div class="titleKor">UP TO 70% + 추가쿠폰</div>
 			</div>
-			<div class="swiper-slide">
-				<div class="mainImgCrop">
-					<img src="${ctp}/main/main5.jpg" alt="Slide 6" />
-				</div>
-				<div class="mainImgText">
-					<div class="titleKor">조말론 런던, 라메르, 맥 외</div>
-					<div class="titleKor">정품 증정부터 상품권, 추가 할인까지</div>
-				</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="mainImgCrop">
+				<img src="${ctp}/main/main3.jpg" alt="Slide 4" />
 			</div>
-			<div class="swiper-slide">
-				<div class="mainImgCrop">
-					<img src="${ctp}/main/main6.jpg" alt="Slide 7" />
-				</div>
-				<div class="mainImgText">
-					<div class="titleKor">스포츠 시그니쳐 100</div>
-					<div class="titleKor">나이키 / 아디다스 / 뉴발란스 등</div>
-					<div class="titleKor">인기 스포츠 브랜드 총 결산</div>
-				</div>
+			<div class="mainImgText">
+				<div class="titleKor">페리가모 홀리데이 기프트</div>
+				<div class="titleKor">스페셜 캔디참 오너먼트 & 엽서 증정</div>
 			</div>
-			<div class="swiper-slide">
-				<div class="mainImgCrop">
-					<img src="${ctp}/main/main7.jpg" alt="Slide 8" />
-				</div>
-				<div class="mainImgText">
-					<div class="titleKor">랄프로렌 in WINTER</div>
-					<div class="titleKor">롤로 아이코닉 베스트셀러</div>
-				</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="mainImgCrop">
+				<img src="${ctp}/main/main4.jpg" alt="Slide 5" />
 			</div>
-			<div class="swiper-slide">
-				<div class="mainImgCrop">
-					<img src="${ctp}/main/main8.jpg" alt="Slide 9" />
-				</div>
-				<div class="mainImgText">
-					<div class="titleKor">힐링 패스포트</div>
-					<div class="titleKor">춥고 지친 일상으로부터 떠나는 마음의 여행</div>
-				</div>
+			<div class="mainImgText">
+				<div class="titleKor">노스페이스 키즈 방한대전</div>
+				<div class="titleKor">한파대비, 인기패딩 / 부츠 특가전</div>
 			</div>
-			<div class="swiper-slide">
-				<div class="mainImgCrop">
-					<img src="${ctp}/main/main9.jpg" alt="Slide 10" />
-				</div>
-				<div class="mainImgText">
-					<div class="titleKor">HYEUNDAI x DIESEL</div>
-					<div class="titleKor">UP TO 40% OFF + 추가 쿠폰</div>
-				</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="mainImgCrop">
+				<img src="${ctp}/main/main5.jpg" alt="Slide 6" />
 			</div>
-			<div class="swiper-slide">
-				<div class="mainImgCrop">
-					<img src="${ctp}/main/main10.jpg" alt="Slide 11" />
-				</div>
-				<div class="mainImgText">
-					<div class="titleEng">PREMIUM STYLING</div>
-					<div class="titleKor">노스페이스 눕시</div>
-					<div class="titleKor">같이 입어요! 성인 & 키즈 눕시, 패밀리 룩 완성</div>
-				</div>
+			<div class="mainImgText">
+				<div class="titleKor">조말론 런던, 라메르, 맥 외</div>
+				<div class="titleKor">정품 증정부터 상품권, 추가 할인까지</div>
 			</div>
-			<div class="swiper-slide">
-				<div class="mainImgCrop">
-					<img src="${ctp}/main/main11.jpg" alt="Slide 12" />
-				</div>
-				<div class="mainImgText">
-					<div class="titleKor">백화점 아웃도어 아우터 페어</div>
-					<div class="titleKor">노스페이스 / 블랙야크 / 디스커버리 외</div>
-					<div class="titleKor">인기브랜드 UO TO 80%</div>
-				</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="mainImgCrop">
+				<img src="${ctp}/main/main6.jpg" alt="Slide 7" />
 			</div>
-	 </div>
+			<div class="mainImgText">
+				<div class="titleKor">스포츠 시그니쳐 100</div>
+				<div class="titleKor">나이키 / 아디다스 / 뉴발란스 등</div>
+				<div class="titleKor">인기 스포츠 브랜드 총 결산</div>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="mainImgCrop">
+				<img src="${ctp}/main/main7.jpg" alt="Slide 8" />
+			</div>
+			<div class="mainImgText">
+				<div class="titleKor">랄프로렌 in WINTER</div>
+				<div class="titleKor">롤로 아이코닉 베스트셀러</div>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="mainImgCrop">
+				<img src="${ctp}/main/main8.jpg" alt="Slide 9" />
+			</div>
+			<div class="mainImgText">
+				<div class="titleKor">힐링 패스포트</div>
+				<div class="titleKor">춥고 지친 일상으로부터 떠나는 마음의 여행</div>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="mainImgCrop">
+				<img src="${ctp}/main/main9.jpg" alt="Slide 10" />
+			</div>
+			<div class="mainImgText">
+				<div class="titleKor">HYEUNDAI x DIESEL</div>
+				<div class="titleKor">UP TO 40% OFF + 추가 쿠폰</div>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="mainImgCrop">
+				<img src="${ctp}/main/main10.jpg" alt="Slide 11" />
+			</div>
+			<div class="mainImgText">
+				<div class="titleEng">PREMIUM STYLING</div>
+				<div class="titleKor">노스페이스 눕시</div>
+				<div class="titleKor">같이 입어요! 성인 & 키즈 눕시, 패밀리 룩 완성</div>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="mainImgCrop">
+				<img src="${ctp}/main/main11.jpg" alt="Slide 12" />
+			</div>
+			<div class="mainImgText">
+				<div class="titleKor">백화점 아웃도어 아우터 페어</div>
+				<div class="titleKor">노스페이스 / 블랙야크 / 디스커버리 외</div>
+				<div class="titleKor">인기브랜드 UO TO 80%</div>
+			</div>
+		</div>
+ </div>
 </div>
 
 

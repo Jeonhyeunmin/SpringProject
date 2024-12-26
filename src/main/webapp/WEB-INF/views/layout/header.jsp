@@ -124,327 +124,325 @@
 			});
  	  </script>
     <style>
-        body {
-            margin: 0;
-            font-family: 'Georgia', serif;
-            color: #333;
-        }
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #fff;
-            border-bottom: 2px solid #e1c699;
-            z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px 20px;
-        }
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #e1c699;
-            text-decoration: none;
-            font-family: 'Playfair Display', serif;
-        }
-        .nav {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            gap: 25px;
-        }
-        .nav-item {
-            position: relative;
-        }
-        .nav-link {
-            font-size: 16px;
-            font-weight: bold;
-            text-decoration: none;
-            color: #333;
-            padding: 30px 15px;
-            transition: color 0.3s ease, border-bottom 0.3s ease;
-        }
-        .nav-link:hover {
-            color: #e1c699;
-            text-decoration: underline;
-        }
-				
-				.submenu {
-				    display: none;
-				    position: fixed;
-				    top: 100px;
-				    left: 0;
-				    right: 0;
-				    background-color: #fff;
-				    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-				    list-style: none;
-				    margin: 0;
-				    padding: 20px 0;
-				    z-index: 998;
-				    border-top: 1px solid #e1c699;
-				}
-				.submenu li {
-				    padding: 10px 20px;
-				    text-align: center;
-				    display: inline;
-				}
-
-        .submenu li a {
-            text-decoration: none;
-            color: #333;
-            font-size: 14px;
-            padding: 20px;
-        }
-        .submenu li a:hover {
-            color: #e1c699;
-        }
-				.myPage {
-        	  display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0; /* 페이지 오른쪽 끝 */
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            list-style: none;
-            margin: 0;
-            padding: 20px 0;
-            z-index: 1000;
-				    border-top: 1px solid #e1c699;
-				    width: 200px;
-				}
-				.myPage li {
-				    padding: 10px 20px;
-				    width: 200px;
-				}
-
-        .myPage li a {
-            text-decoration: none;
-            color: #333;
-            font-size: 14px;
-            padding: 10px;
-        }
-        .myPage li a:hover {
-            color: #e1c699;
-        }
-
-        .nav-item:hover .submenu {
-            display: flex;
-        }
-        .nav-item:hover .myPage {
-            display: block;
-        }
-        .actions {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
-        .action-link {
-            font-size: 18px;
-            color: #333;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        .action-link:hover {
-            color: #e1c699;
-        }
-        .search-bar {
-            display: flex;
-            align-items: center;
-            border: 1px solid #e1c699;
-            padding: 5px 10px;
-            border-radius: 20px;
-            background-color: #fff;
-        }
-        .search-bar input {
-            border: none;
-            outline: none;
-            font-size: 14px;
-            width: 250px;
-            color: #333;
-        }
-        .search-bar i {
-            font-size: 16px;
-            color: #e1c699;
-        }
-        .tagline {
-            font-size: 14px;
-            color: #888;
-            margin-top: 5px;
-        }
-				
-				/* 하얀색 창 애니메이션 */
-				.white-box {
-					position: fixed;
-					top: 0;
-					left: 0;
-					width: 100%;
-					height: 100%;
-					background-color: white;
-					z-index: 1000;
-					display: none;
-					animation: slideWhiteBox 1s ease-in-out forwards;
-				}
-				
-				#demo {
-			    display: none;
-			    position: fixed;
-			    top: 50%;
-			    transform: translate(-50%, -50%);
-			    z-index: 999;
-			    background-color: white;
-			    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-			    padding: 20px;
-			    border-radius: 10px;
-			    opacity: 0;
-			    transition: opacity 0.5s ease-in-out;
-			    left: 50%;
-			    height: 850px;
-				}
+	    body {
+        margin: 0 !important;
+        font-family: 'Georgia', serif !important;
+        color: #333 !important;
+	    }
+	    .header {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        background-color: #fff !important;
+        border-bottom: 2px solid #e1c699 !important;
+        z-index: 1000 !important;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+	    }
+	    .header-container {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        max-width: 1200px !important;
+        margin: 0 auto !important;
+        padding: 20px 20px !important;
+	    }
+	    .logo {
+        font-size: 28px !important;
+        font-weight: bold !important;
+        color: #e1c699 !important;
+        text-decoration: none !important;
+        font-family: 'Playfair Display', serif !important;
+	    }
+	    .nav {
+        display: flex !important;
+        list-style: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        gap: 25px !important;
+	    }
+	    .nav-item {
+        position: relative !important;
+	    }
+	    .nav-link {
+        font-size: 16px !important;
+        font-weight: bold !important;
+        color: #333 !important;
+        padding: 30px 15px !important;
+        transition: color 0.3s ease, border-bottom 0.3s ease !important;
+        text-decoration: none;
+	    }
+	    .nav-link:hover {
+        color: #e1c699 !important;
+        text-decoration: underline !important;
+	    }
+	            				
+	    .submenu {
+        display: none !important;
+        position: fixed !important;
+        top: 100px !important;
+        left: 0 !important;
+        right: 0 !important;
+        background-color: #fff !important;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+        list-style: none !important;
+        margin: 0 !important;
+        padding: 20px 0 !important;
+        z-index: 998 !important;
+        border-top: 1px solid #e1c699 !important;
+	    }
+	    .submenu li {
+        padding: 10px 20px !important;
+        text-align: center !important;
+        display: inline !important;
+	    }
 	
-			
-			@keyframes slideWhiteBox {
-			    0% {
-			        transform: translateY(-100%);
-			    }
-			    50% {
-			        transform: translateY(0%);
-			    }
-			    100% {
-			        transform: translateY(-100%);
-			    }
-			}
-			
-			/* 기본적으로 서브메뉴 숨김 */
-			.submenu-container {
-			    display: none;
-			    position: fixed;
-			    top: 100px;
-			    left: 0;
-			    right: 0;
-			    background-color: #fff;
-			    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-			    list-style: none;
-			    margin: 0;
-			    padding: 20px 0;
-			    z-index: 998;
-			    border-top: 1px solid #e1c699;
-			}
-			.submenu-container li{
-				text-align: center;
-			}
-			
-			/* 메인 카테고리 스타일 */
-			.main-category {
-			    list-style: none;
-			    margin: 0;
-			    padding: 10px;
-			    width: 30%;
-			}
-			
-			.category-item {
-			    padding: 15px 15px;
-			    cursor: pointer;
-			    font-size: 16px;
-			    font-weight: bold;
-			    color: #333;
-			    transition: background-color 0.3s ease, color 0.3s ease;
-			}
-			
-			.category-item:hover {
-			    background-color: #e1c699;
-			    color: #fff;
-			}
-			
-			/* 구분선 스타일 */
-			.divider {
-			    width: 1px;
-			    background-color: #ccc;
-			    margin: 0 20px;
-			}
-			
-			/* 서브 카테고리 스타일 */
-			.sub-category {
-		    max-height: 500px; /* 최대 높이 설정 */
-    		overflow-y: auto; /* 항목이 넘칠 경우 스크롤 표시 */
-		    flex-direction: column;
-		    margin: 0;
-		    width: 70%;
-		    display: flex;
-		    flex-wrap: wrap;
-		    gap: 20px;
-		    padding: 20px;
-		    background-color: #fff;
-		    list-style: none;
-			}
-			
-			.sub-category-item {
-		    flex: 1 1 calc(33.33% - 20px); /* 세 항목씩 한 줄에 배치 */
-		    background-color: #f9f9f9;
-		    padding: 20px;
-		    border-radius: 8px;
-		    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-		    text-align: left;
-			}
-			
-			.sub-category-item h3 {
-		    font-size: 18px;
-		    font-weight: bold;
-		    color: #333;
-		    margin-bottom: 10px;
-		    border-bottom: 2px solid #e1c699;
-		    padding-bottom: 5px;
-			}
-			
-			.sub-category-item ul {
-		    list-style: none;
-		    padding: 0;
-		    margin: 0;
-			}
-			
-			.sub-category-item ul li {
-		    font-size: 14px;
-		    color: #555;
-		    margin-bottom: 5px;
-		    padding-left: 0;
-		    position: relative;
-			}
-			
-			.sub-category-item ul li:before {
-		    list-style: none;
-		    content: '•';
-		    position: absolute;
-		    left: 0;
-		    color: #e1c699;
-		    font-weight: bold;
-			}
-			
-			.main-category .category-item:hover ~ .sub-category .sub-category-item {
-		    display: none; /* 기본적으로 숨겨진 상태 */
-			}
-			
-			.sub-category-item:hover {
-		    color: #e1c699;
-			}
-			
-			/* 햄버거 버튼에 마우스를 올렸을 때 서브메뉴 표시 */
-			.menuBtn:hover .submenu-container {
-		    display: flex;
-			}
-			
-			.sub-category a{
-				text-decoration: none;
-			}
-			
-			
+	    .submenu li a {
+        text-decoration: none !important;
+        color: #333 !important;
+        font-size: 14px !important;
+        padding: 20px !important;
+	    }
+	    .submenu li a:hover {
+        color: #e1c699 !important;
+	    }
+      .myPage {
+        display: none !important;
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        background-color: #fff !important;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+        list-style: none !important;
+        margin: 0 !important;
+        padding: 20px 0 !important;
+        z-index: 1000 !important;
+        border-top: 1px solid #e1c699 !important;
+        width: 200px !important;
+      }
+      .myPage li {
+        padding: 10px 20px !important;
+        width: 200px !important;
+      }
+	
+	    .myPage li a {
+	      text-decoration: none !important;
+	      color: #333 !important;
+	      font-size: 14px !important;
+	      padding: 10px !important;
+	    }
+	    .myPage li a:hover {
+        color: #e1c699 !important;
+	    }
+	
+	    .nav-item:hover .submenu {
+        display: flex !important;
+	    }
+	    .nav-item:hover .myPage {
+        display: block !important;
+	    }
+	    .actions {
+        display: flex !important;
+        align-items: center !important;
+        gap: 25px !important;
+	    }
+	    .action-link {
+        font-size: 18px !important;
+        color: #333 !important;
+        text-decoration: none !important;
+        transition: color 0.3s ease !important;
+	    }
+	    .action-link:hover {
+        color: #e1c699 !important;
+	    }
+	    .search-bar {
+        display: flex !important;
+        align-items: center !important;
+        border: 1px solid #e1c699 !important;
+        padding: 5px 10px !important;
+        border-radius: 20px !important;
+        background-color: #fff !important;
+	    }
+	    .search-bar input {
+        border: none !important;
+        outline: none !important;
+        font-size: 14px !important;
+        width: 250px !important;
+        color: #333 !important;
+	    }
+	    .search-bar i {
+        font-size: 16px !important;
+        color: #e1c699 !important;
+	    }
+	    .tagline {
+        font-size: 14px !important;
+        color: #888 !important;
+        margin-top: 5px !important;
+	    }
+	            				
+      /* 하얀색 창 애니메이션 */
+      .white-box {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        background-color: white !important;
+        z-index: 1000 !important;
+        display: none !important;
+        animation: slideWhiteBox 1s ease-in-out forwards !important;
+      }
+	            				
+      #demo {
+	      display: none !important;
+	      position: fixed !important;
+	      top: 50% !important;
+	      transform: translate(-50%, -50%) !important;
+	      z-index: 999 !important;
+	      background-color: white !important;
+	      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
+	      padding: 20px !important;
+	      border-radius: 10px !important;
+	      opacity: 0 !important;
+	      transition: opacity 0.5s ease-in-out !important;
+	      left: 50% !important;
+	      height: 850px !important;
+      }
+	    	
+	            
+      @keyframes slideWhiteBox {
+        0% {
+          transform: translateY(-100%) !important;
+        }
+        50% {
+          transform: translateY(0%) !important;
+        }
+        100% {
+          transform: translateY(-100%) !important;
+        }
+      }
+	            				
+      /* 기본적으로 서브메뉴 숨김 */
+      .submenu-container {
+        display: none !important;
+        position: fixed !important;
+        top: 100px !important;
+        left: 0 !important;
+        right: 0 !important;
+        background-color: #fff !important;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+        list-style: none !important;
+        margin: 0 !important;
+        padding: 20px 0 !important;
+        z-index: 998 !important;
+        border-top: 1px solid #e1c699 !important;
+      }
+      .submenu-container li{
+        text-align: center !important;
+      }
+	            				
+      /* 메인 카테고리 스타일 */
+      .main-category {
+        list-style: none !important;
+        margin: 0 !important;
+        padding: 10px !important;
+        width: 30% !important;
+      }
+      				
+	    .category-item {
+        padding: 15px 15px !important;
+        cursor: pointer !important;
+        font-size: 16px !important;
+        font-weight: bold !important;
+        color: #333 !important;
+        transition: background-color 0.3s ease, color 0.3s ease !important;
+	    }
+	            				
+      .category-item:hover {
+        background-color: #e1c699 !important;
+        color: #fff !important;
+      }
+      				
+      /* 구분선 스타일 */
+      .divider {
+        width: 1px !important;
+        background-color: #ccc !important;
+        margin: 0 20px !important;
+      }
+	            				
+      /* 서브 카테고리 스타일 */
+      .sub-category {
+	      max-height: 500px !important; /* 최대 높이 설정 */
+	      overflow-y: auto !important; /* 항목이 넘칠 경우 스크롤 표시 */
+	      flex-direction: column !important;
+	      margin: 0 !important;
+	      width: 70% !important;
+	      display: flex !important;
+	      flex-wrap: wrap !important;
+	      gap: 20px !important;
+	      padding: 20px !important;
+	      background-color: #fff !important;
+	      list-style: none !important;
+      }
+	            				
+      .sub-category-item {
+        flex: 1 1 calc(33.33% - 20px) !important; /* 세 항목씩 한 줄에 배치 */
+        background-color: #f9f9f9 !important;
+        padding: 20px !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+        text-align: left !important;
+      }
+	            				
+      .sub-category-item h3 {
+	      font-size: 18px !important;
+	      font-weight: bold !important;
+	      color: #333 !important;
+	      margin-bottom: 10px !important;
+	      border-bottom: 2px solid #e1c699 !important;
+	      padding-bottom: 5px !important;
+      }
+	            				
+      .sub-category-item ul {
+	      list-style: none !important;
+	      padding: 0 !important;
+	      margin: 0 !important;
+      }
+	            				
+      .sub-category-item ul li {
+	      font-size: 14px !important;
+	      color: #555 !important;
+	      margin-bottom: 5px !important;
+	      padding-left: 0 !important;
+	      position: relative !important;
+      }
+	            				
+      .sub-category-item ul li:before {
+	      list-style: none !important;
+	      content: '•' !important;
+	      position: absolute !important;
+	      left: 0 !important;
+	      color: #e1c699 !important;
+	      font-weight: bold !important;
+      }
+	            				
+      .main-category .category-item:hover ~ .sub-category .sub-category-item {
+      	display: none !important; /* 기본적으로 숨겨진 상태 */
+      }
+      				
+      .sub-category-item:hover {
+      	color: #e1c699 !important;
+      }
+      				
+      /* 햄버거 버튼에 마우스를 올렸을 때 서브메뉴 표시 */
+      .menuBtn:hover .submenu-container {
+      	display: flex !important;
+      }
+      				
+      .sub-category a{
+        text-decoration: none !important;
+      }
     </style>
 </head>
 <body>
@@ -513,7 +511,7 @@
                 <a href="#" class="action-link"><i class="fas fa-shopping-cart"></i></a>
                 <ul class="nav">
                   <li class="nav-item">
-                    <a href="#" class="nav-link login" style="padding-left: 0; padding-right: 0;"><i class="fas fa-user"></i></a>
+                    <a href="#" class="nav-link login" style="padding-left: 0 !important; padding-right: 0 !important;"><i class="fas fa-user"></i></a>
                     <ul class="myPage">
                         <c:if test="${empty sMid}"><li><a href="#" class="login">로그인</a></li></c:if>
                         <c:if test="${!empty sMid}"><li><a href="${ctp}/common/myPage">마이페이지</a></li></c:if>
@@ -522,7 +520,7 @@
                     </ul>
                 </li>
                 <li class="nav-item menuBtn">
-							    <a href="#" class="nav-link" style="padding-left: 0; padding-right: 0;">
+							    <a href="#" class="nav-link" style="padding-left: 0 !important; padding-right: 0 !important;">
 							        <i class="fa-solid fa-bars"></i>
 							    </a>
 							    <div class="submenu-container">
@@ -1047,7 +1045,7 @@
 						        <div class="divider"></div>
 						        <ul class="main-category">
 					            <li class="category-item" data-target="beauty" onclick="location.href='${ctp}/shop/shopList?category=beauty'">뷰티</li>
-					            <li class="category-item" data-target="luxury" onclick="location.href='${ctp}/shop/shopList?category=luxury''">명품잡화</li>
+					            <li class="category-item" data-target="luxury" onclick="location.href='${ctp}/shop/shopList?category=luxury'">명품잡화</li>
 					            <li class="category-item" data-target="womenFashion" onclick="location.href=''">여성패션</li>
 					            <li class="category-item" data-target="menFashion" onclick="location.href=''">남성패션</li>
 					            <li class="category-item" data-target="casual" onclick="location.href=''">진/캐주얼</li>

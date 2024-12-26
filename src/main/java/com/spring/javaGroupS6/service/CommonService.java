@@ -1,6 +1,6 @@
 package com.spring.javaGroupS6.service;
 
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.javaGroupS6.vo.MemberVO;
 import com.spring.javaGroupS6.vo.PartnerVO;
@@ -15,6 +15,6 @@ public interface CommonService {
 
 	PartnerVO getPartnerSearch(String company);
 
-	int setpartnerJoin(MultipartHttpServletRequest logo, PartnerVO vo);
+	int setpartnerJoin(MultipartFile logo, PartnerVO vo);
 
 }
