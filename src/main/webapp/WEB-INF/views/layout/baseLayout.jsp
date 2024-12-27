@@ -26,10 +26,8 @@
       }
       .container {
           flex-grow: 1; /* 콘텐츠 영역이 여유 공간을 채우도록 설정 */
-          display: flex;
-          justify-content: center;
-          align-items: center;
           padding: 20px;
+          display: block; /* 중앙 정렬 방지 */
       }
       footer {
           flex-shrink: 0;

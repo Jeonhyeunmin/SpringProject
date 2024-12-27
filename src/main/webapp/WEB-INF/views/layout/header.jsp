@@ -1046,13 +1046,13 @@
 						        <ul class="main-category">
 					            <li class="category-item" data-target="beauty" onclick="location.href='${ctp}/shop/shopList?category=beauty'">뷰티</li>
 					            <li class="category-item" data-target="luxury" onclick="location.href='${ctp}/shop/shopList?category=luxury'">명품잡화</li>
-					            <li class="category-item" data-target="womenFashion" onclick="location.href=''">여성패션</li>
-					            <li class="category-item" data-target="menFashion" onclick="location.href=''">남성패션</li>
-					            <li class="category-item" data-target="casual" onclick="location.href=''">진/캐주얼</li>
-					            <li class="category-item" data-target="sports" onclick="location.href=''">스포츠/레저</li>
-					            <li class="category-item" data-target="children" onclick="location.href=''">유아동</li>
-					            <li class="category-item" data-target="living" onclick="location.href=''">리빙/가전</li>
-					            <li class="category-item" data-target="food" onclick="location.href=''">식품</li>
+					            <li class="category-item" data-target="womenFashion" onclick="location.href='${ctp}/shop/shopList?category=womenFashion'">여성패션</li>
+					            <li class="category-item" data-target="menFashion" onclick="location.href='${ctp}/shop/shopList?category=menFashion'">남성패션</li>
+					            <li class="category-item" data-target="casual" onclick="location.href='${ctp}/shop/shopList?category=causal'">진/캐주얼</li>
+					            <li class="category-item" data-target="sports" onclick="location.href='${ctp}/shop/shopList?category=sports'">스포츠/레저</li>
+					            <li class="category-item" data-target="children" onclick="location.href='${ctp}/shop/shopList?category=children'">유아동</li>
+					            <li class="category-item" data-target="living" onclick="location.href='${ctp}/shop/shopList?category=living'">리빙/가전</li>
+					            <li class="category-item" data-target="food" onclick="location.href='${ctp}/shop/shopList?category=food'">식품</li>
 						        </ul>
 							    </div>
 							</li>

@@ -23,7 +23,15 @@
 	<resources mapping="/login/**" location="/resources/images/login/" />
 	<resources mapping="/category/**" location="/resources/data/category/" />
 	<resources mapping="/beauty/**" location="/resources/images/shop/beauty/" />
+	<resources mapping="/causal/**" location="/resources/images/shop/causal/" />
+	<resources mapping="/children/**" location="/resources/images/shop/children/" />
+	<resources mapping="/food/**" location="/resources/images/shop/food/" />
+	<resources mapping="/living/**" location="/resources/images/shop/living/" />
 	<resources mapping="/luxury/**" location="/resources/images/shop/luxury/" />
+	<resources mapping="/menFashion/**" location="/resources/images/shop/menFashion/" />
+	<resources mapping="/sports/**" location="/resources/images/shop/sports/" />
+	<resources mapping="/luxury/**" location="/resources/images/shop/luxury/" />
+	<resources mapping="/womenFashion/**" location="/resources/images/shop/womenFashion/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

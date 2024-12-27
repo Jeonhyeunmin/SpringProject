@@ -30,11 +30,35 @@ public class ShopContoller {
 		model.addAttribute("files", files);
 		
 		ArrayList<ShopVO> vos = shopService.getShopList(category);
-		
+		ArrayList<String> mainCategory = new ArrayList<String>();
+		for(int i = 0; i < vos.size(); i++) {
+			if(!mainCategory.contains(vos.get(i).getMainCategory())) {
+				mainCategory.add(vos.get(i).getMainCategory());
+			}
+		}
 		model.addAttribute("title", category + " | Min's");
 		model.addAttribute("category", category);
+		model.addAttribute("mainCategoryList", mainCategory);
 		model.addAttribute("vos", vos);
-		return "shop/shopList";
 		
+		return "shop/shopList";
+	}
+	
+	@GetMapping("/shopMainList")
+	public String shopMainListGet(Model model, HttpServletRequest request, String mainCategory) {
+		
+		ArrayList<ShopVO> vos = shopService.getShopList(mainCategory);
+		ArrayList<String> subCategory = new ArrayList<String>();
+		for(int i = 0; i < vos.size(); i++) {
+			if(!mainCategory.contains(vos.get(i).getMainCategory())) {
+				subCategory.add(vos.get(i).getMainCategory());
+			}
+		}
+		model.addAttribute("title", subCategory + " | Min's");
+		model.addAttribute("subCategory", subCategory);
+		model.addAttribute("subCategoryList", subCategory);
+		model.addAttribute("vos", vos);
+		
+		return "shop/shopMainList";
 	}
 }
