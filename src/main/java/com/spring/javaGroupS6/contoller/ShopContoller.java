@@ -31,15 +31,27 @@ public class ShopContoller {
 		
 		ArrayList<ShopVO> vos = shopService.getShopList(category);
 		ArrayList<String> mainCategory = new ArrayList<String>();
+		ArrayList<ShopVO> products = new ArrayList<ShopVO>();
+		ArrayList<String> brands = new ArrayList<String>();
+		
+		for(int i = 0; i < 5; i++) {
+			brands.add(vos.get(i).getCompany());
+		}
+		
+		
 		for(int i = 0; i < vos.size(); i++) {
 			if(!mainCategory.contains(vos.get(i).getMainCategory())) {
 				mainCategory.add(vos.get(i).getMainCategory());
 			}
+			products.add(vos.get(i));
 		}
+		
 		model.addAttribute("title", category + " | Min's");
 		model.addAttribute("category", category);
 		model.addAttribute("mainCategoryList", mainCategory);
 		model.addAttribute("vos", vos);
+		model.addAttribute("products", products);
+		model.addAttribute("brands", brands);
 		
 		return "shop/shopList";
 	}
@@ -47,17 +59,24 @@ public class ShopContoller {
 	@GetMapping("/shopMainList")
 	public String shopMainListGet(Model model, HttpServletRequest request, String mainCategory) {
 		
-		ArrayList<ShopVO> vos = shopService.getShopList(mainCategory);
+		ArrayList<ShopVO> vos = shopService.getMainShopList(mainCategory);
 		ArrayList<String> subCategory = new ArrayList<String>();
+		ArrayList<Integer> subCateCnt = shopService.getSubCateCnt(mainCategory);
+		String category = "";
+		
 		for(int i = 0; i < vos.size(); i++) {
-			if(!mainCategory.contains(vos.get(i).getMainCategory())) {
-				subCategory.add(vos.get(i).getMainCategory());
+			if(!subCategory.contains(vos.get(i).getSubCategory())) {
+				subCategory.add(vos.get(i).getSubCategory());
+				category = vos.get(i).getCategory();
 			}
 		}
-		model.addAttribute("title", subCategory + " | Min's");
-		model.addAttribute("subCategory", subCategory);
+		
+		model.addAttribute("title", mainCategory + " | Min's");
+		model.addAttribute("category", category);
+		model.addAttribute("mainCategory", mainCategory);
 		model.addAttribute("subCategoryList", subCategory);
 		model.addAttribute("vos", vos);
+		model.addAttribute("subCateCnt", subCateCnt);
 		
 		return "shop/shopMainList";
 	}

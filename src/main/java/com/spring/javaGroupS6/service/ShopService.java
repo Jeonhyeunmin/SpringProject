@@ -8,4 +8,8 @@ public interface ShopService {
 
 	ArrayList<ShopVO> getShopList(String category);
 
+	ArrayList<ShopVO> getMainShopList(String mainCategory);
+
+	ArrayList<Integer> getSubCateCnt(String mainCategory);
+
 }

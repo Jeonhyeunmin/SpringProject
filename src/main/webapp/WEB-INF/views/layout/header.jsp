@@ -526,7 +526,7 @@
 							    <div class="submenu-container">
 						        <ul class="sub-category">
 									    <li data-category="beauty" class="sub-category-item">
-									        <h3><a href="#">스킨케어</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=스킨케어">스킨케어</a></h3>
 									        <ul>
 									            <li><a href="#">스킨/토너/미스트</a></li>
 									            <li><a href="#">로션/에멀젼</a></li>
@@ -542,7 +542,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="beauty" class="sub-category-item">
-									        <h3><a href="#">메이크업</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=메이크업">메이크업</a></h3>
 									        <ul>
 									            <li><a href="#">페이스</a></li>
 									            <li><a href="#">립</a></li>
@@ -554,14 +554,14 @@
 									        </ul>
 									    </li>
 									    <li data-category="beauty" class="sub-category-item">
-									        <h3><a href="#">바디/헤어케어</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=바디/헤어케어">바디/헤어케어</a></h3>
 									        <ul>
 									        	<li><a href="#">바디케어</a></li>
 									        	<li><a href="#">헤어케어</a></li>
 									        </ul>
 									    </li>
 									    <li data-category="beauty" class="sub-category-item">
-									        <h3><a href="#">프레그런스</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=프레그런스">프레그런스</a></h3>
 									        <ul>
 									        	<li><a href="#">여성용</a></li>
 									        	<li><a href="#">남성용</a></li>
@@ -573,7 +573,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="beauty" class="sub-category-item">
-									        <h3><a href="#">미용기기/용품</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=미용기기/용품">미용기기/용품</a></h3>
 									        <ul>
 									            <li><a href="#">바디용품</a></li>
 									            <li><a href="#">헤어용품</a></li>
@@ -582,7 +582,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="beauty" class="sub-category-item">
-									        <h3><a href="#">남성화장품</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=남성화장품">남성화장품</a></h3>
 									        <ul>
 									            <li><a href="#">남성화장품세트</a></li>
 									            <li><a href="#">로션/크림/에센스</a></li>
@@ -592,15 +592,15 @@
 									        </ul>
 									    </li>
 									    <li data-category="luxury" class="sub-category-item">
-									        <h3><a href="#">명품</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=명품">명품</a></h3>
 									        <ul>
 									            <li><a href="#">가방/지갑</a></li>
 									            <li><a href="#">시계</a></li>
-									            <li><a href="#">엑세서리/잡화</a></li>
+									            <li><a href="#">악세서리/잡화</a></li>
 									        </ul>
 									    </li>
 									    <li data-category="luxury" class="sub-category-item">
-									        <h3><a href="#">핸드백/가방</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=핸드백/가방">핸드백/가방</a></h3>
 									        <ul>
 									            <li><a href="#">여성 핸드백/가방</a></li>
 									            <li><a href="#">남성가방</a></li>
@@ -608,14 +608,14 @@
 									        </ul>
 									    </li>
 									    <li data-category="luxury" class="sub-category-item">
-									        <h3><a href="#">슈즈</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=슈즈">슈즈</a></h3>
 									        <ul>
 									            <li><a href="#">여성화</a></li>
 									            <li><a href="#">남성화</a></li>
 									        </ul>
 									    </li>
 									    <li data-category="luxury" class="sub-category-item">
-									        <h3><a href="#">기타잡화</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=기타잡화">기타잡화</a></h3>
 									        <ul>
 									            <li><a href="#">양말</a></li>
 									            <li><a href="#">스타킹/타이즈</a></li>
@@ -631,7 +631,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="luxury" class="sub-category-item">
-									        <h3><a href="#">지갑/벨트</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=지갑/벨트">지갑/벨트</a></h3>
 									        <ul>
 									            <li><a href="#">여성지갑</a></li>
 									            <li><a href="#">남성지갑</a></li>
@@ -642,7 +642,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="luxury" class="sub-category-item">
-									        <h3><a href="#">악세서리</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=악세서리">악세서리</a></h3>
 									        <ul>
 									            <li><a href="#">귀걸이</a></li>
 									            <li><a href="#">목걸이/펜던트</a></li>
@@ -657,7 +657,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="womenFashion" class="sub-category-item">
-									        <h3><a href="#">아우터</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=아우터">아우터</a></h3>
 									        <ul>
 									            <li><a href="#">패딩/점퍼</a></li>
 									            <li><a href="#">코트</a></li>
@@ -667,7 +667,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="womenFashion" class="sub-category-item">
-									        <h3><a href="#">상의</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=상의">상의</a></h3>
 									        <ul>
 									            <li><a href="#">티셔츠</a></li>
 									            <li><a href="#">셔츠/블라우스</a></li>
@@ -678,14 +678,14 @@
 									        </ul>
 									    </li>
 									    <li data-category="womenFashion" class="sub-category-item">
-									        <h3><a href="#">하의</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=하의">하의</a></h3>
 									        <ul>
 									            <li><a href="#">팬츠</a></li>
 									            <li><a href="#">스커트</a></li>
 									        </ul>
 									    </li>
 									    <li data-category="womenFashion" class="sub-category-item">
-									        <h3><a href="#">여성 이지/언더웨어</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=여성 이지/언더웨어">여성 이지/언더웨어</a></h3>
 									        <ul>
 									            <li><a href="#">여성 언더웨어</a></li>
 									            <li><a href="#">이지웨어/잠옷</a></li>
@@ -694,14 +694,14 @@
 									        </ul>
 									    </li>
 									    <li data-category="womenFashion" class="sub-category-item">
-									        <h3><a href="#">정장/원피스</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=정장/원피스">정장/원피스</a></h3>
 									        <ul>
 									            <li><a href="#">정장/수트</a></li>
 									            <li><a href="#">원피스</a></li>
 									        </ul>
 									    </li>
 									    <li data-category="menFashion" class="sub-category-item">
-									        <h3><a href="#">아우터</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=아우터">아우터</a></h3>
 									        <ul>
 									            <li><a href="#">재킷</a></li>
 									            <li><a href="#">패딩</a></li>
@@ -710,7 +710,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="menFashion" class="sub-category-item">
-									        <h3><a href="#">상의</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=상의">상의</a></h3>
 									        <ul>
 									            <li><a href="#">티셔츠</a></li>
 									            <li><a href="#">셔츠</a></li>
@@ -721,7 +721,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="menFashion" class="sub-category-item">
-									        <h3><a href="#">하의</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=하의">하의</a></h3>
 									        <ul>
 									            <li><a href="#">반바지/트레이닝</a></li>
 									            <li><a href="#">슬랙스/면바지</a></li>
@@ -729,7 +729,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="menFashion" class="sub-category-item">
-									        <h3><a href="#">정장/세트</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=정장/세트">정장/세트</a></h3>
 									        <ul>
 									            <li><a href="#">정장/수트세트</a></li>
 									            <li><a href="#">맞춤정장</a></li>
@@ -738,14 +738,14 @@
 									        </ul>
 									    </li>
 									    <li data-category="menFashion" class="sub-category-item">
-									        <h3><a href="#">남성 이지/언더웨어</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=남성 이지/언더웨어">남성 이지/언더웨어</a></h3>
 									        <ul>
 									            <li><a href="#">남성 런닝&팬티세트</a></li>
 									            <li><a href="#">남성 내의/이지웨어</a></li>
 									        </ul>
 									    </li>
 									    <li data-category="menFashion" class="sub-category-item">
-									        <h3><a href="#">패션소품</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=패션소품">패션소품</a></h3>
 									        <ul>
 									            <li><a href="#">넥타이</a></li>
 									            <li><a href="#">벨트</a></li>
@@ -758,7 +758,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="casual" class="sub-category-item">
-									        <h3><a href="#">아우터</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=아우터">아우터</a></h3>
 									        <ul>
 									            <li><a href="#">재킷</a></li>
 									            <li><a href="#">점퍼/패딩</a></li>
@@ -766,7 +766,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="casual" class="sub-category-item">
-									        <h3><a href="#">상의</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=상의">상의</a></h3>
 									        <ul>
 									            <li><a href="#">티셔츠</a></li>
 									            <li><a href="#">카라티</a></li>
@@ -776,7 +776,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="casual" class="sub-category-item">
-									        <h3><a href="#">하의</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=하의">하의</a></h3>
 									        <ul>
 									            <li><a href="#">데님</a></li>
 									            <li><a href="#">팬츠</a></li>
@@ -784,14 +784,14 @@
 									        </ul>
 									    </li>
 									    <li data-category="casual" class="sub-category-item">
-									        <h3><a href="#">세트/원피스</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=세트/원피스">세트/원피스</a></h3>
 									        <ul>
 									            <li><a href="#">트레이닝복/세트</a></li>
 									            <li><a href="#">원피스</a></li>
 									        </ul>
 									    </li>
 									    <li data-category="sports" class="sub-category-item">
-									        <h3><a href="#">스포츠 의류</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=스포츠 의류">스포츠 의류</a></h3>
 									        <ul>
 									            <li><a href="#">티셔츠/셔츠/멘투맨</a></li>
 									            <li><a href="#">니트/베스트</a></li>
@@ -804,7 +804,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="sports" class="sub-category-item">
-									        <h3><a href="#">스포츠 슈즈/잡화</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=스포츠 슈즈/잡화">스포츠 슈즈/잡화</a></h3>
 									        <ul>
 									            <li><a href="#">런닝화</a></li>
 									            <li><a href="#">워킹화</a></li>
@@ -816,7 +816,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="sports" class="sub-category-item">
-									        <h3><a href="#">등산/아웃도어</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=등산/아웃도어">등산/아웃도어</a></h3>
 									        <ul>
 									            <li><a href="#">티셔츠</a></li>
 									            <li><a href="#">베스트</a></li>
@@ -828,7 +828,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="sports" class="sub-category-item">
-									        <h3><a href="#">캠핑</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=캠핑">캠핑</a></h3>
 									        <ul>
 									            <li><a href="#">텐트/그늘막</a></li>
 									            <li><a href="#">매트리스/침낭/침대</a></li>
@@ -841,7 +841,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="sports" class="sub-category-item">
-									        <h3><a href="#">골프</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=골프">골프</a></h3>
 									        <ul>
 									            <li><a href="#">티셔츠/셔츠/멘투맨</a></li>
 									            <li><a href="#">베스트/니트</a></li>
@@ -853,7 +853,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="sports" class="sub-category-item">
-									        <h3><a href="#">수영/스키/시즌</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=수영/스키/시즌">수영/스키/시즌</a></h3>
 									        <ul>
 									            <li><a href="#">여성 수영복</a></li>
 									            <li><a href="#">여성 래쉬가드</a></li>
@@ -870,7 +870,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="children" class="sub-category-item">
-									        <h3><a href="#">신생아 의류</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=신생아 의류">신생아 의류</a></h3>
 									        <ul>
 									            <li><a href="#">실내복</a></li>
 									            <li><a href="#">실외복</a></li>
@@ -878,7 +878,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="children" class="sub-category-item">
-									        <h3><a href="#">교구/완구</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=교구/완구">교구/완구</a></h3>
 									        <ul>
 									            <li><a href="#">아동/유아 장난감</a></li>
 									            <li><a href="#">피규어</a></li>
@@ -887,7 +887,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="children" class="sub-category-item">
-									        <h3><a href="#">유아의류</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=유아의류">유아의류</a></h3>
 									        <ul>
 									            <li><a href="#">자켓/점퍼/코트</a></li>
 									            <li><a href="#">티셔츠/셔츠</a></li>
@@ -900,7 +900,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="living" class="sub-category-item">
-									        <h3><a href="#">거실/침실 가구</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=거실/침실 가구">거실/침실 가구</a></h3>
 									        <ul>
 									            <li><a href="#">소파</a></li>
 									            <li><a href="#">거실장/서랍장</a></li>
@@ -915,7 +915,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="living" class="sub-category-item">
-									        <h3><a href="#">침구/패브릭</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=침구/패브릭">침구/패브릭</a></h3>
 									        <ul>
 									            <li><a href="#">침구단품/세트</a></li>
 									            <li><a href="#">카페트/러그/대자리</a></li>
@@ -925,9 +925,8 @@
 									        </ul>
 									    </li>
 									    <li data-category="living" class="sub-category-item">
-									        <h3><a href="#">홈데코/소품</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=홈데코/소품">홈데코/소품</a></h3>
 									        <ul>
-									            <li><a href="#">조명</a></li>
 									            <li><a href="#">조명</a></li>
 									            <li><a href="#">주방조명/데코</a></li>
 									            <li><a href="#">수납/정리</a></li>
@@ -941,7 +940,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="living" class="sub-category-item">
-									        <h3><a href="#">바디/욕실용품</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=바디/욕실용품">바디/욕실용품</a></h3>
 									        <ul>
 									            <li><a href="#">바디용품</a></li>
 									            <li><a href="#">비누/세정제</a></li>
@@ -951,7 +950,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="living" class="sub-category-item">
-									        <h3><a href="#">주방용품/식기</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=주방용품/식기">주방용품/식기</a></h3>
 									        <ul>
 									            <li><a href="#">냄비</a></li>
 									            <li><a href="#">후라이팬</a></li>
@@ -963,7 +962,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="living" class="sub-category-item">
-									        <h3><a href="#">종합/생활가전</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=종합/생활가전">종합/생활가전</a></h3>
 									        <ul>
 									            <li><a href="#">주방가전</a></li>
 									            <li><a href="#">생활가전</a></li>
@@ -974,18 +973,18 @@
 									        </ul>
 									    </li>
 									    <li data-category="living" class="sub-category-item">
-									        <h3><a href="#">디지털/오디오</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=디지털/오디오">디지털/오디오</a></h3>
 									        <ul>
 									            <li><a href="#">스마트폰/휴대폰</a></li>
 									            <li><a href="#">컴퓨터/주변기기</a></li>
 									            <li><a href="#">디지털카메라</a></li>
-									            <li><a href="#">카레마 주변기기</a></li>
+									            <li><a href="#">카메라 주변기기</a></li>
 									            <li><a href="#">모바일 악세서리</a></li>
 									            <li><a href="#">오디오</a></li>
 									        </ul>
 									    </li>
 									    <li data-category="food" class="sub-category-item">
-									        <h3><a href="#">산지스토리관</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=산지스토리관">산지스토리관</a></h3>
 									        <ul>
 									            <li><a href="#">산지직송</a></li>
 									            <li><a href="#">지역명물</a></li>
@@ -993,7 +992,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="food" class="sub-category-item">
-									        <h3><a href="#">신선식품</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=신선식품">신선식품</a></h3>
 									        <ul>
 									            <li><a href="#">정육</a></li>
 									            <li><a href="#">수산/건어물</a></li>
@@ -1002,7 +1001,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="food" class="sub-category-item">
-									        <h3><a href="#">디저트</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=디저트">디저트</a></h3>
 									        <ul>
 									            <li><a href="#">베이커리/쿠키</a></li>
 									            <li><a href="#">초콜렛/젤리/캔디</a></li>
@@ -1010,7 +1009,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="food" class="sub-category-item">
-									        <h3><a href="#">그로서리</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=그로서리">그로서리</a></h3>
 									        <ul>
 									            <li><a href="#">수입오일/소스</a></li>
 									            <li><a href="#">장/양념</a></li>
@@ -1018,7 +1017,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="food" class="sub-category-item">
-									        <h3><a href="#">차/커피/음료</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=차/커피/음료">차/커피/음료</a></h3>
 									        <ul>
 									            <li><a href="#">차</a></li>
 									            <li><a href="#">과일차/청</a></li>
@@ -1028,7 +1027,7 @@
 									        </ul>
 									    </li>
 									    <li data-category="food" class="sub-category-item">
-									        <h3><a href="#">홍삼/건강식품</a></h3>
+									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=홍삼/건강식품">홍삼/건강식품</a></h3>
 									        <ul>
 									            <li><a href="#">홍삼/인삼/수삼</a></li>
 									            <li><a href="#">비타민</a></li>
@@ -1048,7 +1047,7 @@
 					            <li class="category-item" data-target="luxury" onclick="location.href='${ctp}/shop/shopList?category=luxury'">명품잡화</li>
 					            <li class="category-item" data-target="womenFashion" onclick="location.href='${ctp}/shop/shopList?category=womenFashion'">여성패션</li>
 					            <li class="category-item" data-target="menFashion" onclick="location.href='${ctp}/shop/shopList?category=menFashion'">남성패션</li>
-					            <li class="category-item" data-target="casual" onclick="location.href='${ctp}/shop/shopList?category=causal'">진/캐주얼</li>
+					            <li class="category-item" data-target="casual" onclick="location.href='${ctp}/shop/shopList?category=casual'">진/캐주얼</li>
 					            <li class="category-item" data-target="sports" onclick="location.href='${ctp}/shop/shopList?category=sports'">스포츠/레저</li>
 					            <li class="category-item" data-target="children" onclick="location.href='${ctp}/shop/shopList?category=children'">유아동</li>
 					            <li class="category-item" data-target="living" onclick="location.href='${ctp}/shop/shopList?category=living'">리빙/가전</li>

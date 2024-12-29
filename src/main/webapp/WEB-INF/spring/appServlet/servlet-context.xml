@@ -23,7 +23,7 @@
 	<resources mapping="/login/**" location="/resources/images/login/" />
 	<resources mapping="/category/**" location="/resources/data/category/" />
 	<resources mapping="/beauty/**" location="/resources/images/shop/beauty/" />
-	<resources mapping="/causal/**" location="/resources/images/shop/causal/" />
+	<resources mapping="/casual/**" location="/resources/images/shop/casual/" />
 	<resources mapping="/children/**" location="/resources/images/shop/children/" />
 	<resources mapping="/food/**" location="/resources/images/shop/food/" />
 	<resources mapping="/living/**" location="/resources/images/shop/living/" />

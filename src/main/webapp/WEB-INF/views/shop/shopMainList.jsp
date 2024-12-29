@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="ko">
@@ -12,118 +13,19 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            height: 100vh;
-            background-color: #f9f9f9;
-        }
-        .brand-container {
-            display: flex;
-            max-width: 1200px;
-            margin: auto;
-            height: 400px;
-        }
-        .category-menu {
-            width: 20%;
-            height: 496px;
-            display: flex;
-            flex-direction: column;
-            color: black;
-            border-top: 1px solid black;
-        }
-        .category-menu h3 {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-align: center;
-            top: 10px;
-            border-bottom: 1px solid #eee;
-            padding: 25px;
-        }
-        .category-menu ul {
-            list-style: none;
-            padding: 10px;
-            margin: 0;
-            text-align: center;
-        }
-        .category-menu ul li {
-            margin-bottom: 20px;
-        }
-        .category-menu ul li a {
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .category-menu ul li a:hover {
-            color: #e74c3c;
-        }
-        .swiper-container {
-				    width: 80%; /* 컨테이너 너비 */
-				    margin: 0 auto;
-				    position: relative;
+				    font-family: Arial, sans-serif;
+				    margin: 0;
+				    padding: 0;
+				    background-color: #f9f9f9;
 				}
-				
-				.swiper {
-				    width: 100%;
-				    height: 400px; /* 슬라이더의 높이를 설정 */
-				}
-				
-				.swiper-slide {
-				    display: flex;
-				    justify-content: center;
-				    align-items: center;
-				    background: #f4f4f4;
-				    overflow: hidden; /* 초과 이미지를 숨기기 위해 사용 */
-				}
-				
-				.swiper-slide img {
-				    width: 100%; /* 슬라이더의 너비를 채움 */
-				    height: 100%; /* 슬라이더의 높이를 채움 */
-				    object-fit: cover; /* 이미지가 잘리지 않으면서 공간을 채우도록 설정 */
-				}
-
-				.button-container {
-				    position: absolute;
-				    bottom: -1;
-				    left: 0;
-				    width: 100%;
-				    display: flex;
-				    z-index: 10; /* 버튼이 이미지 위에 렌더링되도록 설정 */
-				    background-color: rgba(0, 0, 0, 0.5); /* 버튼 배경에 반투명 효과 추가 (선택사항) */
-				}
-				
-				.control-button {
-				    flex: 1;
-				    padding: 30px;
-				    font-size: 18px;
-				    font-weight: bold;
-				    text-align: center;
-				    background-color: #333;
-				    color: white;
-				    border: none;
-				    cursor: pointer;
-				    transition: background-color 0.3s ease;
-				}
-				
-				.control-button:hover {
-				    background-color: #e74c3c;
-				}
-				
-				.control-button.active {
-            background-color: #e74c3c; /* Hover 색상을 선택되었을 때에도 유지 */
-        }
-        
 	    	/* 상단 제목 및 경로 */
 		    .page-header {
-		      width: 100%;
-		      padding: 20px 0;
-		      background-color: #f9f9f9;
-		      text-align: center;
-		      margin-bottom: 20px; /* 브랜드 컨테이너와의 간격 */
-		    }
+				    width: 100%;
+				    padding: 20px 0;
+				    text-align: center;
+				    margin: auto;
+				    margin-bottom: 20px; /* 브랜드 컨테이너와의 간격 */
+				}
 		
 		    .page-header h2 {
 		      font-size: 24px;
@@ -134,72 +36,200 @@
 		    .page-header .breadcrumb {
 		      font-size: 14px;
 		      color: #555;
-		      margin-top: 5px;
+		      margin-top: 2%;
+		      margin-left: 15%;
+			    background-color: #fff;
 		    }
-	
+				.button-group {
+				  display: flex;
+				  justify-content: center;
+				  gap: 10px;
+				  font-family: 'ChosunGu';
+				  font-weight: light;
+				  text-align: center;
+				  margin: auto;
+				  border-top: 1px solid black;
+				  border-bottom: 1px solid #ddd;
+					width: 70%;
+					justify-content: flex-start;
+					padding-left: 30px;
+				}
+				.button-group button{
+					background-color: transparent;
+					padding: 30px;
+					border: none;
+					transition: all 0.3s;
+				}
+				.button-group button:hover{
+					background-color: #eee;
+					transform: scale(1.05);
+					
+				}
+				.button-group-ul{
+					list-style: none;
+					padding: 0;
+					margin: 0;
+					text-align: left;
+				}
+				.button-group-ul li{
+					display: inline;
+					width: 100px;
+				}
+				
+				.grid-container {
+			    display: grid;
+			    grid-template-columns: repeat(4, 1fr);
+			    gap: 20px;
+			    margin: 20px auto;
+			    padding: 10px;
+			    max-width: 1350px;
+			  }
+			
+			  .grid-item {
+			    position: relative;
+			    overflow: hidden;
+			    text-align: center;
+			  }
+			
+			
+			  .grid-item img {
+			    width: 100%;
+			    height: auto;
+			    object-fit: cover;
+			  }
+			  
+		    .grid-item:hover img {
+			    opacity: 0.3;
+			  }
+			  
+			  .grid-item .overlay-buttons {
+			    position: absolute;
+			    top: 50%;
+			    left: 50%;
+			    transform: translate(-50%, -50%);
+			    display: none;
+			    gap: 10px;
+			    z-index: 2;
+			  }
+			
+			  .grid-item:hover .overlay-buttons {
+			    display: flex;
+			  }
+			
+			  .overlay-buttons button {
+			    background-color: #fff;
+			    color: #333;
+			    border: 1px solid #ddd;
+			    padding: 10px 15px;
+			    font-size: 14px;
+			    border-radius: 5px;
+			    cursor: pointer;
+			    transition: background-color 0.3s, transform 0.3s;
+			  }
+			
+			  .overlay-buttons button:hover {
+			    background-color: #e74c3c;
+			    color: #fff;
+			    transform: scale(1.1);
+			  }
+			
+			  .discount-badge {
+			    position: absolute;
+			    top: 10px;
+			    left: 10px;
+			    background-color: #27ae60;
+			    color: #fff;
+			    font-size: 12px;
+			    padding: 5px 8px;
+			    border-radius: 5px;
+			  }
+			
+			  .grid-item .info {
+			    padding: 15px;
+			  }
+			
+			  .grid-item .title {
+			    font-size: 16px;
+			    font-weight: bold;
+			    color: #333;
+			    margin-bottom: 10px;
+			    white-space: nowrap;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			  }
+			  .grid-item .title:hover {
+			    text-decoration: underline;
+			  }
+			
+			  .grid-item .price {
+			    font-size: 18px;
+			    font-weight: bold;
+			    color: #e74c3c;
+			    margin: 5px 0;
+			  }
+			
+			  .grid-item .company-category {
+			    font-size: 14px;
+			    color: #555;
+			    margin-top: 5px;
+			  }
+			
+			  .grid-item .rating {
+			    display: flex;
+			    align-items: center;
+			    justify-content: center;
+			    gap: 5px;
+			    font-size: 14px;
+			    margin-top: 10px;
+			    color: #777;
+			  }
+			
+			  .grid-item .rating i {
+			    color: #f1c40f;
+			  }
 
     </style>
 </head>
 <body>
 	 <!-- 상단 제목 및 경로 -->
   <div class="page-header">
-    <div class="breadcrumb">HOME > ${fn: toUpperCase(category)}</div>
-    <h2>${fn: toUpperCase(category)}</h2>
+    <div class="breadcrumb">HOME > ${fn: toUpperCase(category)} > ${fn: toUpperCase(mainCategory)}</div>
+    <h2>${fn: toUpperCase(mainCategory)}</h2>
   </div>
   
-  
-	<div class="brand-container">
-  	<!-- 카테고리 메뉴 -->
-		<div class="category-menu">
-	    <h3>${fn: toUpperCase(category)}</h3>
-	    <ul>
-	      <c:forEach var="mainCategoryList" items="${mainCategoryList}" varStatus="st">
-	          <li><a href="#">${mainCategoryList}</a></li>
-	      </c:forEach>
-	    </ul>
-		</div>
-    <!-- 슬라이더 -->
-    <div class="swiper-container">
-	    <div class="swiper">
-		    <div class="swiper-wrapper">
-	        <c:forEach var="file" items="${files}">
-            <div class="swiper-slide">
-              <img src="${ctp}/${category}/${file}">
-            </div>
-	        </c:forEach>
-		    </div>
-			</div>
-      <!-- 버튼 -->
-      <div class="button-container">
-      	<c:forEach var="file" items="${files}" varStatus="st">
-          <button class="control-button" onclick="goToSlide(${st.index})">${fn: substring(file, 0, fn:indexOf(file, "."))}</button>
-        </c:forEach>
-      </div>
-    </div>
+  <div class="button-group">
+  	<ul class="button-group-ul">
+  		<c:forEach var="subCategoryList" items="${subCategoryList}" varStatus="st">
+  			<li><button type="button" onclick="location.href=''">${subCategoryList}(${subCateCnt[st.index]})</button></li>
+			</c:forEach>
+  	</ul>
 	</div>
-
-  <script>
-      // Swiper 초기화
-      const swiper = new Swiper('.swiper', {
-        slidesPerView: 1,
-        spaceBetween: 0,
-        loop: true,
-        autoplay: {
-          delay: 3000,
-          disableOnInteraction: false,
-        }
-      });
-
-      // 특정 슬라이드로 이동하는 함수
-      function goToSlide(index) {
-        swiper.slideToLoop(index); // Swiper의 slideToLoop 메서드로 슬라이드 이동
-      }
-   		// 활성 버튼 설정 함수
-      function setActiveButton(button) {
-        const buttons = document.querySelectorAll('.control-button');
-        buttons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-      }
-  </script>
+	
+	<div class="grid-container">
+	  <c:forEach var="vo" items="${vos}" varStatus="st">
+	    <div class="grid-item">
+	      <div class="discount-badge">${vo.company} ${vo.discount}%</div>
+	      <div class="moveContent">
+	        <img src="${ctp}/category/${vo.thumbnail}" alt="Thumbnail">
+	        <div class="overlay-buttons">
+	          <button type="button" onclick="window.open('${ctp}/shop/shopContent?idx=${vo.idx}')" ><i class="fa-solid fa-eye"></i>새창</button>
+	          <button type="button"><i class="fa-solid fa-heart"></i>찜</button>
+        </div>
+	      </div>
+	      <div class="info">
+	        <div class="title">${vo.title}</div>
+	        <div class="price"><fmt:formatNumber value="${vo.price}" pattern="#,##0"/>원</div>
+	        <div class="company-category">${vo.company} | ${fn:toUpperCase(vo.category)}</div>
+	        <div class="rating">
+	          <i class="fa-solid fa-star"></i>
+	          5.0점 | 2개
+	        </div>
+	      </div>
+	    </div>
+	  </c:forEach>
+	</div>
+  
+  
+  
 </body>
 </html>

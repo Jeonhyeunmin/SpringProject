@@ -12,28 +12,28 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            height: 100vh;
-            background-color: #f9f9f9;
-        }
+				    font-family: Arial, sans-serif;
+				    margin: 0;
+				    padding: 0;
+				    background-color: #f9f9f9;
+				}
         .brand-container {
-            display: flex;
-            max-width: 1200px;
-            margin: auto;
-            height: 400px;
-        }
+				    display: flex;
+				    max-width: 1000px;
+				    margin: auto;
+				    margin-bottom: 30px; /* new-arrivals-container와 간격 추가 */
+				    text-align: center;
+				    justify-content: center;
+				}
         .category-menu {
-            width: 20%;
+            width: 30%;
             height: 496px;
-            display: flex;
-            flex-direction: column;
-            color: black;
-            border-top: 1px solid black;
+				    display: flex;
+				    flex-direction: column;
+				    color: black;
+				    border-top: 1px solid black;
+				    padding: 20px; /* 패딩 추가로 콘텐츠 간격 확보 */
+				    box-sizing: border-box; /* 패딩과 너비를 합산하지 않도록 설정 */
         }
         .category-menu h3 {
             font-size: 20px;
@@ -43,6 +43,7 @@
             top: 10px;
             border-bottom: 1px solid #eee;
             padding: 25px;
+            padding-top: 10px;
         }
         .category-menu ul {
             list-style: none;
@@ -61,9 +62,9 @@
             color: #e74c3c;
         }
         .swiper-container {
-				    width: 80%; /* 컨테이너 너비 */
 				    margin: 0 auto;
 				    position: relative;
+				    width: 70%;
 				}
 				
 				.swiper {
@@ -75,7 +76,6 @@
 				    display: flex;
 				    justify-content: center;
 				    align-items: center;
-				    background: #f4f4f4;
 				    overflow: hidden; /* 초과 이미지를 숨기기 위해 사용 */
 				}
 				
@@ -118,12 +118,11 @@
         
 	    	/* 상단 제목 및 경로 */
 		    .page-header {
-		      width: 100%;
-		      padding: 20px 0;
-		      background-color: #f9f9f9;
-		      text-align: center;
-		      margin-bottom: 20px; /* 브랜드 컨테이너와의 간격 */
-		    }
+				    width: 100%;
+				    padding: 20px 0;
+				    text-align: center;
+				    margin-bottom: 20px; /* 브랜드 컨테이너와의 간격 */
+				}
 		
 		    .page-header h2 {
 		      font-size: 24px;
@@ -134,9 +133,117 @@
 		    .page-header .breadcrumb {
 		      font-size: 14px;
 		      color: #555;
-		      margin-top: 5px;
+		      margin-top: 2%;
+		      margin-left: 19%;
+			    background-color: #fff;
 		    }
 	
+				.new-arrivals-container {
+				    display: flex;
+				    flex-direction: row;
+				    width: 1200px;
+				    margin: auto;
+				    margin-top: 0; /* 위의 섹션과의 간격 */
+				    padding: 20px;
+				    overflow: hidden;
+				    padding-top: 10px;
+				}
+				
+				.brand-buttons {
+				    width: 20%;
+				    border-top: 1px solid #ddd;
+				}
+				
+				.brand-buttons ul {
+				    list-style: none;
+				    padding: 0;
+				    margin: 0;
+				}
+				
+				
+				.brand-buttons .brand-button {
+				    width: 100%;
+				    padding: 28px;
+				    background-color: #fff;
+				    border: none;
+				    border-bottom: 1px solid #ddd;
+				    cursor: pointer;
+				    text-align: center;
+				    font-size: 18px;
+				    font-weight: bold;
+				    transition: all 0.3s;
+				}
+				
+				.brand-buttons .brand-button:hover {
+				    color: black;
+				    transform: scale(1.05);
+				    border-top: 1px solid #ddd;
+				}
+				
+				.product-display {
+				    width: 100%;
+				    background-color: #fff;
+				    display: flex;
+				    flex-direction: column;
+				    justify-content: center;
+				    overflow: hidden;
+				    margin-left: 10px;
+				}
+				
+				.product-display .swiper-container {
+				    width: 100%;
+				}
+				
+				.swiper-container {
+				    width: 100%;
+				}
+				
+				.product-card {
+				    display: flex;
+				    flex-direction: column;
+				    align-items: center;
+				    text-align: center;
+				    background-color: #fff;
+				    padding: 15px;
+				    border: 1px solid #ddd;
+				    border-radius: 10px;
+				    height: 90%; 
+				}
+				
+				.product-card img {
+				    width: 100%;
+				    height: auto;
+				    max-width: 250px;
+				    border-radius: 5px;
+				    margin-bottom: 15px;
+				}
+				
+				.product-info h4 {
+				    font-size: 16px;
+				    margin: 5px 0;
+				    color: #333;
+				}
+				
+				.product-info p {
+				    font-size: 14px;
+				    font-weight: bold;
+				    color: #e74c3c;
+				    margin-top: 5px;
+				}
+				
+				.new-arrivals-title{
+					font-size: 22px;
+          font-weight: bold;
+          margin-bottom: 10px;
+          text-align: center;
+          top: 10px;
+          border-bottom: 1px solid #eee;
+          padding: 25px;
+          padding-top: 10px;
+					
+				}
+								
+								
 
     </style>
 </head>
@@ -154,7 +261,7 @@
 	    <h3>${fn: toUpperCase(category)}</h3>
 	    <ul>
 	      <c:forEach var="mainCategoryList" items="${mainCategoryList}" varStatus="st">
-	          <li><a href="#">${mainCategoryList}</a></li>
+          <li><a href="#">${mainCategoryList}</a></li>
 	      </c:forEach>
 	    </ul>
 		</div>
@@ -194,12 +301,73 @@
       function goToSlide(index) {
         swiper.slideToLoop(index); // Swiper의 slideToLoop 메서드로 슬라이드 이동
       }
-   		// 활성 버튼 설정 함수
-      function setActiveButton(button) {
-        const buttons = document.querySelectorAll('.control-button');
-        buttons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-      }
   </script>
+  
+  <h3 class="new-arrivals-title">New Arrivals</h3>
+  <div class="new-arrivals-container">
+    <!-- 왼쪽 브랜드 버튼 -->
+    <div class="brand-buttons">
+      <ul>
+	      <c:forEach var="brand" items="${brands}" varStatus="st">
+          <li>
+            <button class="brand-button" data-brand="${brand}">
+              ${brand}
+            </button>
+          </li>
+	      </c:forEach>
+      </ul>
+    </div>
+
+    <!-- 오른쪽 상품 영역 -->
+    <div class="product-display">
+      <div class="swiper-wrapper brand-swiper">
+        <div class="swiper-wrapper">
+          <c:forEach var="product" items="${products}">
+            <div class="swiper-slide" data-brand="${product.company}">
+              <div class="product-card">
+                <img src="${ctp}/category/${product.thumbnail}" alt="${product.company}">
+                <div class="product-info">
+                  <h4>${product.title}</h4>
+                  <p>${product.price}원</p>
+                </div>
+              </div>
+            </div>
+          </c:forEach>
+        </div>
+      </div>
+    </div>
+	</div>
+
+  
+  <script>
+    // Swiper 초기화
+    const brandSwiper = new Swiper('.brand-swiper', {
+        slidesPerView: 3,
+        spaceBetween: 20,
+        loop: false, // 브랜드 변경 시 필터링되므로 loop 비활성화
+    });
+
+    // 브랜드 버튼 클릭 이벤트
+    const brandButtons = document.querySelectorAll('.brand-button');
+    brandButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const selectedBrand = button.getAttribute('data-brand');
+
+            // 모든 슬라이드 숨기기
+            const slides = document.querySelectorAll('.brand-swiper .swiper-slide');
+            slides.forEach(slide => {
+                if (slide.getAttribute('data-brand') === selectedBrand) {
+                    slide.style.display = 'block'; // 선택된 브랜드만 표시
+                } else {
+                    slide.style.display = 'none';
+                }
+            });
+
+            // Swiper 업데이트
+            brandSwiper.update();
+        });
+    });
+</script>
+  
 </body>
 </html>
