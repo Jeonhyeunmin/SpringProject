@@ -82,8 +82,7 @@ public class CommonServiceImpl implements CommonService {
 		
 			provide.WriteFile(file, sFileName, "partner/logo");
 			
-			vo.setLogo(oFileName);
-			vo.setSLogo(sFileName);
+			vo.setLogo(sFileName);
 			vo.setLevel(2);
 			
 		} catch (IOException e) {

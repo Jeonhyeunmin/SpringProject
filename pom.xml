@@ -316,6 +316,22 @@
 		    <artifactId>spring-tx</artifactId>
 		    <version>4.3.14.RELEASE</version>
 		</dependency>
+		
+		<!-- 썸네일 사진 추출 -->
+		<!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
+		<dependency>
+		    <groupId>net.coobird</groupId>
+		    <artifactId>thumbnailator</artifactId>
+		    <version>0.4.20</version>
+		</dependency>
+		
+		<!-- 이미지 크기로 설정하기 -->
+		<!-- https://mvnrepository.com/artifact/org.imgscalr/imgscalr-lib -->
+		<dependency>
+		    <groupId>org.imgscalr</groupId>
+		    <artifactId>imgscalr-lib</artifactId>
+		    <version>4.2</version>
+		</dependency>
 		    
 				
 		

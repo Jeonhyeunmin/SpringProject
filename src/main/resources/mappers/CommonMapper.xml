@@ -25,7 +25,7 @@
 	</insert>
 	
 	<insert id="setpartnerJoin">
-	  INSERT INTO partner VALUES (default, #{vo.logo}, #{vo.sLogo}, #{vo.mid}, #{vo.pwd}, #{vo.company}, #{vo.ceoName}, #{vo.businessNumber}, #{vo.email}, #{vo.tel}, #{vo.address}, #{vo.userInfor}, default, default, default, default);
+	  INSERT INTO partner VALUES (default, #{vo.logo}, #{vo.mid}, #{vo.pwd}, #{vo.company}, #{vo.ceoName}, #{vo.businessNumber}, #{vo.email}, #{vo.tel}, #{vo.address}, #{vo.userInfor}, default, default, default, default);
 	</insert>
 	
 </mapper>

@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 
+import com.spring.javaGroupS6.common.JavaProvide;
 import com.spring.javaGroupS6.service.ShopService;
 import com.spring.javaGroupS6.vo.ShopVO;
 
@@ -24,6 +27,7 @@ public class ShopContoller {
 	
 	@Autowired
 	ShopService shopService;
+	
 
 	@GetMapping("/shopList")
 	public String shopListGet(Model model, HttpServletRequest request, String category) {
@@ -119,35 +123,21 @@ public class ShopContoller {
 	public String shopContentGet(Model model, int idx) {
 		ShopVO vo = shopService.getShopContent(idx);
 		
-		ArrayList<String> contentImgs = new ArrayList<String>();
-		if(vo.getContent().contains("/")) {
-			String contentImgArr[] = vo.getContent().split("/");
-			for(int i = 0; i < contentImgArr.length; i++) {
-				contentImgs.add(contentImgArr[i]);
+		ArrayList<String> titleImgs = new ArrayList<String>();
+		if(vo.getTitleImg().contains("/")) {
+			String titleImgArr[] = vo.getTitleImg().split("/");
+			for(int i = 0; i < titleImgArr.length; i++) {
+				titleImgs.add(titleImgArr[i]);
 			}
 		}
+		else {
+			titleImgs.add(vo.getTitleImg());
+		}
 		
-		model.addAttribute("contentImgs", contentImgs);
+		
+		model.addAttribute("titleImgs", titleImgs);
 		model.addAttribute("vo", vo);
 		return "shop/shopContent";
-	}
-	
-	@GetMapping("/shopUpdate")
-	public String shopUpdateGet(Model model, int idx) {
-		ShopVO vo = shopService.getShopContent(idx);
-		
-		ArrayList<ShopVO> vos = shopService.getList();
-		ArrayList<String> categoryList = new ArrayList<String>();
-		
-		for(int i = 0; i < vos.size(); i++) {
-			if(!categoryList.contains(vos.get(i).getCategory())) {
-				categoryList.add(vos.get(i).getCategory());
-			}
-		}
-		
-		model.addAttribute("categoryList", categoryList);
-		model.addAttribute("vo", vo);
-		return "shop/shopUpdate";
 	}
 	
 	@ResponseBody
@@ -178,6 +168,41 @@ public class ShopContoller {
 			}
 		}
 		return subCategoryList;
+	}
+	
+	@GetMapping("/shopUpdate")
+	public String shopUpdateGet(Model model, int idx) {
+		ShopVO vo = shopService.getShopContent(idx);
+		
+		ArrayList<ShopVO> vos = shopService.getList();
+		ArrayList<String> categoryList = new ArrayList<String>();
+		
+		for(int i = 0; i < vos.size(); i++) {
+			if(!categoryList.contains(vos.get(i).getCategory())) {
+				categoryList.add(vos.get(i).getCategory());
+			}
+		}
+		
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("vo", vo);
+		return "shop/shopUpdate";
+	}
+	
+	@PostMapping("/shopUpdate")
+	public String shopUpdatePost(Model model, MultipartHttpServletRequest titleImg , ShopVO vo, HttpServletRequest request) {
+		
+		int res = 0;
+		
+		res = shopService.setShopUpdate(vo, titleImg, request);
+		
+		model.addAttribute("idx", vo.getIdx());
+		if(res != 0) {
+			return "redirect:/message/shopUpdateOk";
+		}
+		else {
+			return "redirect:/message/shopUpdateOk";
+		}
+		
 	}
 	
 	

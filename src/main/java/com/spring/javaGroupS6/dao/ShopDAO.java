@@ -24,4 +24,6 @@ public interface ShopDAO {
 
 	ArrayList<ShopVO> getList();
 
+	int setShopUpdate(@Param("vo") ShopVO vo);
+
 }

@@ -2,6 +2,10 @@ package com.spring.javaGroupS6.service;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.spring.javaGroupS6.vo.ShopVO;
 
 public interface ShopService {
@@ -21,5 +25,7 @@ public interface ShopService {
 	ShopVO getShopContent(int idx);
 
 	ArrayList<ShopVO> getList();
+
+	int setShopUpdate(ShopVO vo, MultipartHttpServletRequest titleImg, HttpServletRequest request);
 
 }

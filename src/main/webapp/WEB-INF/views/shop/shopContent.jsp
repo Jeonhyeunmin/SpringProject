@@ -283,8 +283,9 @@
 	    <td style="width: 50%; vertical-align: top; padding: 10px;">
 	      <div class="main-img">
 	        <div class="image-container" onmouseover="showHoverImage(this)" onmouseout="showDefaultImage(this)">
-			      <!-- 기본 이미지 -->
-			      <img src="${ctp}/category/${vo.thumbnail}">
+			      <c:forEach var="titleImg" items="${titleImgs}">
+			      	<img src="${ctp}/category/${titleImg}">
+			      </c:forEach>
 			    </div>
 	      </div>
 	    </td>
