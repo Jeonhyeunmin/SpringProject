@@ -58,7 +58,7 @@ public class ShopContoller {
 	}
 	
 	@GetMapping("/shopMainList")
-	public String shopMainListGet(Model model, HttpServletRequest request, String mainCategory) {
+	public String shopMainListGet(Model model, String mainCategory) {
 		
 		ArrayList<ShopVO> vos = shopService.getMainShopList(mainCategory);
 		ArrayList<String> subCategory = new ArrayList<String>();
@@ -83,10 +83,9 @@ public class ShopContoller {
 	}
 	
 	@GetMapping("/shopSubList")
-	public String shopSubListGet(Model model, HttpServletRequest request, String subCategory,
+	public String shopSubListGet(Model model, String subCategory,
 			@RequestParam(name = "company", defaultValue = "all") String company			
 	) {
-		System.out.println(company);
 		ArrayList<ShopVO> allList = shopService.getSubShopAllList(subCategory);
 		ArrayList<ShopVO> vos = shopService.getSubShopList(subCategory, company);
 		ArrayList<String> BrandList = new ArrayList<String>();
@@ -111,5 +110,23 @@ public class ShopContoller {
 		model.addAttribute("BrandCnt", BrandCnt);
 		
 		return "shop/shopSubList";
+	}
+	
+	@GetMapping("/shopContent")
+	public String shopContentGet(Model model, int idx) {
+		ShopVO vo = shopService.getShopContent(idx);
+		
+		ArrayList<String> titleImgs = new ArrayList<String>();
+		if(vo.getContent().contains("/")) {
+			String titleImgArr[] = vo.getTitle().split("/");
+			for(int i = 0; i < titleImgArr.length; i++) {
+				titleImgs.add(titleImgArr[i]);
+			}
+			
+		}
+		
+		model.addAttribute("titleImgs", titleImgs);
+		model.addAttribute("vo", vo);
+		return "shop/shopContent";
 	}
 }

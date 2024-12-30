@@ -327,7 +327,7 @@
         <div class="swiper-wrapper">
           <c:forEach var="product" items="${products}">
             <div class="swiper-slide" data-brand="${product.company}">
-              <div class="product-card">
+              <div class="product-card" onclick="location.href='${ctp}/shop/shopContent?idx=${product.idx}'">
                 <img src="${ctp}/category/${product.thumbnail}" alt="${product.company}">
                 <div class="product-info">
                   <h4>${product.title}</h4>

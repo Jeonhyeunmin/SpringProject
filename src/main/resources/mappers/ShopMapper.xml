@@ -26,4 +26,8 @@
 		select * from shop where subCategory = #{subCategory} and accept = '승인' <if test='company != "all"'>and company = #{company}</if>  order by subCategory;
 	</select>
 	
+	<select id="getShopContent" resultType="com.spring.javaGroupS6.vo.ShopVO">
+		select * from shop where idx = #{idx};
+	</select>
+	
 </mapper>

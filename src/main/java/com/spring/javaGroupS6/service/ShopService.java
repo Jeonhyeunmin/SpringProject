@@ -18,4 +18,6 @@ public interface ShopService {
 
 	ArrayList<ShopVO> getSubShopList(String subCategory, String company);
 
+	ShopVO getShopContent(int idx);
+
 }

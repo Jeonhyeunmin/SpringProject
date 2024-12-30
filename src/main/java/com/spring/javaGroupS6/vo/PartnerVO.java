@@ -20,5 +20,6 @@ public class PartnerVO {
 	private String userDel;
 	private String startDate;
 	private String lastDate;
+	private String accept;
 	
 }

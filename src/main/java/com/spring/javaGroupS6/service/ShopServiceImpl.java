@@ -43,5 +43,10 @@ public class ShopServiceImpl implements ShopService {
 	public ArrayList<ShopVO> getSubShopList(String subCategory, String company) {
 		return shopDAO.getSubShopList(subCategory, company);
 	}
+
+	@Override
+	public ShopVO getShopContent(int idx) {
+		return shopDAO.getShopContent(idx);
+	}
 	
 }

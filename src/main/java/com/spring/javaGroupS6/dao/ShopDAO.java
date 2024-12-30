@@ -20,4 +20,6 @@ public interface ShopDAO {
 
 	ArrayList<ShopVO> getSubShopList(@Param("subCategory") String subCategory, @Param("company") String company);
 
+	ShopVO getShopContent(@Param("idx") int idx);
+
 }

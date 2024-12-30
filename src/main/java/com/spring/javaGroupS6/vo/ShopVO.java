@@ -20,6 +20,7 @@ public class ShopVO {
 	private String fSize;
 	private String claim;
 	private String wDate;
+	private String accept;
 	
 	
 }
