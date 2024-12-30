@@ -49,4 +49,8 @@ public class ShopServiceImpl implements ShopService {
 		return shopDAO.getShopContent(idx);
 	}
 	
+	@Override
+	public ArrayList<ShopVO> getList() {
+		return shopDAO.getList();
+	}
 }

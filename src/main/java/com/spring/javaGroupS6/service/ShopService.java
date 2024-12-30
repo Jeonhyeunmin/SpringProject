@@ -20,4 +20,6 @@ public interface ShopService {
 
 	ShopVO getShopContent(int idx);
 
+	ArrayList<ShopVO> getList();
+
 }

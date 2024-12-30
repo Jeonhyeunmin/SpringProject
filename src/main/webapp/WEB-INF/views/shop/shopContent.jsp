@@ -286,9 +286,6 @@
 			      <!-- 기본 이미지 -->
 			      <img src="${ctp}/category/${vo.thumbnail}">
 			    </div>
-			    <c:forEach var="titleImg" items="${titleImgs}">
-			    	<div><img src="${ctp}/category/${titleImg}" width="100px"></div>
-			    </c:forEach>
 	      </div>
 	    </td>
 	    <td style="width: 50%; vertical-align: top; padding: 10px;">
@@ -314,8 +311,8 @@
 	      </div>
 	    </td>
 	  </tr>
-	  <!-- 보조 이미지 -->
 	</table>
+	<div><input type="button" value="수정" class="btn btn-outline-success" onclick="location.href='${ctp}/shop/shopUpdate?idx=${vo.idx}'" /></div>
 		
 		<!-- 위로가기 버튼 -->
 	  <h6 id="topBtn" class="text-right mr-3"><font color="#af9e84"><i class="fa-solid fa-circle-chevron-up fa-2x"></i></font></h6>

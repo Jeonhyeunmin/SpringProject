@@ -22,4 +22,6 @@ public interface ShopDAO {
 
 	ShopVO getShopContent(@Param("idx") int idx);
 
+	ArrayList<ShopVO> getList();
+
 }
