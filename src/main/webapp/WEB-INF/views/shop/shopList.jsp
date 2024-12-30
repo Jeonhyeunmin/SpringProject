@@ -137,6 +137,9 @@
 		      margin-left: 19%;
 			    background-color: #fff;
 		    }
+		    .breadcrumb a{
+		    	text-decoration: none;
+		    }
 	
 				.new-arrivals-container {
 				    display: flex;
@@ -250,7 +253,7 @@
 <body>
 	 <!-- 상단 제목 및 경로 -->
   <div class="page-header">
-    <div class="breadcrumb">HOME > ${fn: toUpperCase(category)}</div>
+    <div class="breadcrumb">HOME > <a href="${ctp}/shop/shopList?category=${category}">${fn: toUpperCase(category)}</a></div>
     <h2>${fn: toUpperCase(category)}</h2>
   </div>
   
@@ -261,7 +264,7 @@
 	    <h3>${fn: toUpperCase(category)}</h3>
 	    <ul>
 	      <c:forEach var="mainCategoryList" items="${mainCategoryList}" varStatus="st">
-          <li><a href="#">${mainCategoryList}</a></li>
+          <li><a href="${ctp}/shop/shopMainList?mainCategory=${mainCategoryList}">${mainCategoryList}</a></li>
 	      </c:forEach>
 	    </ul>
 		</div>

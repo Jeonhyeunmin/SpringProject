@@ -12,4 +12,10 @@ public interface ShopService {
 
 	ArrayList<Integer> getSubCateCnt(String mainCategory);
 
+	ArrayList<ShopVO> getSubShopAllList(String subCategory);
+
+	ArrayList<Integer> getBrandCateCnt(String subCategory);
+
+	ArrayList<ShopVO> getSubShopList(String subCategory, String company);
+
 }

@@ -14,4 +14,10 @@ public interface ShopDAO {
 
 	ArrayList<Integer> getSubCateCnt(@Param("mainCategory") String mainCategory);
 
+	ArrayList<ShopVO> getSubShopAllList(@Param("subCategory") String subCategory);
+
+	ArrayList<Integer> getBrandCateCnt(@Param("subCategory") String subCategory);
+
+	ArrayList<ShopVO> getSubShopList(@Param("subCategory") String subCategory, @Param("company") String company);
+
 }

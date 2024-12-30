@@ -57,6 +57,7 @@
 					width: 70%;
 					justify-content: flex-start;
 					padding-left: 30px;
+					margin-bottom: 50px;
 				}
 				.button-group button{
 					background-color: transparent;
@@ -197,15 +198,24 @@
 <body>
 	 <!-- 상단 제목 및 경로 -->
   <div class="page-header">
-    <div class="breadcrumb">HOME > <a href="${ctp}/shop/shopList?category=${category}">${fn: toUpperCase(category)}</a> > <a href="${ctp}/shop/shopMainList?mainCategory=${mainCategory}">${fn: toUpperCase(mainCategory)}</a></div>
+    <div class="breadcrumb">HOME > <a href="${ctp}/shop/shopList?category=${category}">${fn: toUpperCase(category)}</a> > <a href="${ctp}/shop/shopMainList?mainCategory=${mainCategory}">${fn: toUpperCase(mainCategory)}</a> > <a href="${ctp}/shop/shopSubList?subCategory=${subCategory}">${fn: toUpperCase(subCategory)}</a></div>
     <h2>${fn: toUpperCase(mainCategory)}</h2>
   </div>
   
   <div class="button-group">
   	<ul class="button-group-ul">
-  		<c:forEach var="subCategoryList" items="${subCategoryList}" varStatus="st">
-  			<li><button type="button" onclick="location.href='${ctp}/shop/shopSubList?subCategory=${subCategoryList}'">${subCategoryList}(${subCateCnt[st.index]})</button></li>
+  		<c:forEach var="BrandList" items="${BrandList}" varStatus="st">
+  			<li><button type="button" onclick="location.href='${ctp}/shop/shopSubList?subCategory=${subCategory}&company=${BrandList}'">${BrandList}(${BrandCnt[st.index]})</button></li>
 			</c:forEach>
+  	</ul>
+	</div>
+  <div class="button-group">
+  	<ul class="button-group-ul">
+			<li><button type="button" onclick="">많이팔린순</button></li>
+			<li><button type="button" onclick="">최근등록순</button></li>
+			<li><button type="button" onclick="">낮은가격순</button></li>
+			<li><button type="button" onclick="">높은가격순</button></li>
+			<li><button type="button" onclick="">상품평개수순</button></li>
   	</ul>
 	</div>
 	

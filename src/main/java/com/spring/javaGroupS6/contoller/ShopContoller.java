@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.javaGroupS6.service.ShopService;
 import com.spring.javaGroupS6.vo.ShopVO;
@@ -79,5 +80,36 @@ public class ShopContoller {
 		model.addAttribute("subCateCnt", subCateCnt);
 		
 		return "shop/shopMainList";
+	}
+	
+	@GetMapping("/shopSubList")
+	public String shopSubListGet(Model model, HttpServletRequest request, String subCategory,
+			@RequestParam(name = "company", defaultValue = "all") String company			
+	) {
+		System.out.println(company);
+		ArrayList<ShopVO> allList = shopService.getSubShopAllList(subCategory);
+		ArrayList<ShopVO> vos = shopService.getSubShopList(subCategory, company);
+		ArrayList<String> BrandList = new ArrayList<String>();
+		ArrayList<Integer> BrandCnt = shopService.getBrandCateCnt(subCategory);
+		String category = "";
+		String mainCategory = "";
+		
+		for(int i = 0; i < allList.size(); i++) {
+			if(!BrandList.contains(allList.get(i).getCompany())) {
+				BrandList.add(allList.get(i).getCompany());
+				category = allList.get(i).getCategory();
+				mainCategory = allList.get(i).getMainCategory();
+			}
+		}
+		
+		model.addAttribute("title", subCategory + " | Min's");
+		model.addAttribute("category", category);
+		model.addAttribute("mainCategory", mainCategory);
+		model.addAttribute("subCategory", subCategory);
+		model.addAttribute("BrandList", BrandList);
+		model.addAttribute("vos", vos);
+		model.addAttribute("BrandCnt", BrandCnt);
+		
+		return "shop/shopSubList";
 	}
 }

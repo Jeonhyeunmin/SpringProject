@@ -14,4 +14,16 @@
 		select COUNT(*) as count from shop where mainCategory = #{mainCategory} and accept = '승인'  group by subCategory order by subCategory;
 	</select>
 	
+	<select id="getSubShopAllList" resultType="com.spring.javaGroupS6.vo.ShopVO">
+		select * from shop where subCategory = #{subCategory} and accept = '승인'  order by subCategory;
+	</select>
+	
+	<select id="getBrandCateCnt" resultType="int">
+		select COUNT(*) as count from shop where subCategory = #{subCategory} and accept = '승인'  group by company order by company;
+	</select>
+	
+	<select id="getSubShopList" resultType="com.spring.javaGroupS6.vo.ShopVO">
+		select * from shop where subCategory = #{subCategory} and accept = '승인' <if test='company != "all"'>and company = #{company}</if>  order by subCategory;
+	</select>
+	
 </mapper>
