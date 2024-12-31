@@ -59,6 +59,14 @@ public class MessageController {
 			model.addAttribute("message", "누구세요~?");
 			model.addAttribute("url", "/");
 		}
+		else if(msgFlag.equals("shopUpdateOk")) {
+			model.addAttribute("message", "게시물 업데이트 완료");
+			model.addAttribute("url", "/shop/shopContent?idx=" + idx);
+		}
+		else if(msgFlag.equals("shopUpdateNo")) {
+			model.addAttribute("message", "게시물 업데이트 실패");
+			model.addAttribute("url", "/shop/shopUpdate?idx=" + idx);
+		}
 		
 		return "include/message";
 	}

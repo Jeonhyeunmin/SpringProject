@@ -34,4 +34,8 @@
 		select * from shop order by category;
 	</select>
 	
+	<update id="setShopUpdate">
+		update shop set company = #{vo.company}, category = #{vo.category}, mainCategory = #{vo.mainCategory}, subCategory = #{vo.subCategory}, title = #{vo.title}, discount = #{vo.discount}, price = #{vo.price}, thumbnail = #{vo.thumbnail}, titleImg = #{vo.titleImg}, content = #{vo.content}, fSize = #{vo.fSize} where idx = #{vo.idx};
+	</update>
+	
 </mapper>

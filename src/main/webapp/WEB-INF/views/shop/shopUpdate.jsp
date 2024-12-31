@@ -12,7 +12,7 @@
   <script src="${ctp}/ckeditor/ckeditor.js"></script>
   <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
   <style>
-        body {
+    body {
       font-family: 'Roboto', sans-serif;
       background-color: #f5f7fa;
       color: #333;
@@ -233,7 +233,7 @@
 <body>
   <div class="container">
     <h1>상품 수정</h1>
-    <form name="myform" enctype="multipart/form-data" method="post">
+    <form name="myform" enctype="multipart/form-data" method="post" action="${ctp}/shop/shopUpdate">
       <div class="form-group">
         <div class="section-title">업체명</div>
         <input type="text" name="company" id="company" class="form-control" value="${sCompany}" readonly>
@@ -243,8 +243,8 @@
         <div class="section-title">카테고리</div>
         <div class="input-group">
 		      <select name="category" id="category" class="form-control" onchange="mainCategoryLoad()">
-		      	<c:forEach var="cate" items="${categoryList}">
 		      		<option>카테고리를 선택해주세요.</option>
+		      	<c:forEach var="cate" items="${categoryList}">
 		      		<option ${cate == vo.category ? 'selected' : ''}>${fn: toUpperCase(cate)}</option>
 		      	</c:forEach>
 		      </select>
@@ -308,7 +308,8 @@
         </script>
       </div>
 
-      <button type="submit">등록하기</button>
+      <button type="submit">수정하기</button>
+			<input type="hidden" name="idx" value="${vo.idx}">      
     </form>
   </div>
 </body>
