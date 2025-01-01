@@ -65,7 +65,7 @@
       outline: none;
     }
 
-    button[type="submit"] {
+    .submit {
       display: block;
       width: 100%;
       padding: 15px;
@@ -80,7 +80,7 @@
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
     }
 
-    button[type="submit"]:hover {
+    .submit:hover {
       background-color: #217dbb;
     }
 
@@ -228,6 +228,91 @@
           fileNameDisplay.textContent = "업로드된 파일이 없습니다.";
         }
       }
+    
+    	document.addEventListener("DOMContentLoaded", function () {
+    	  const fileInput = document.getElementById("file");
+    	  const previewContainer = document.querySelector(".nowImg");
+
+    	  fileInput.addEventListener("change", function () {
+    	    const fileList = fileInput.files;
+    	    previewContainer.innerHTML = ""; // 기존 이미지를 초기화
+
+    	    if (fileList.length > 0) {
+    	      Array.from(fileList).forEach((file) => {
+    	        if (file.type.startsWith("image/")) {
+    	          const reader = new FileReader();
+
+    	          reader.onload = function (e) {
+    	            const img = document.createElement("img");
+    	            img.src = e.target.result;
+    	            img.alt = "선택한 이미지 미리보기";
+    	            img.style.maxWidth = "200px";
+    	            img.style.maxHeight = "200px";
+    	            img.style.margin = "10px";
+    	            previewContainer.appendChild(img);
+    	          };
+
+    	          reader.readAsDataURL(file); // 파일 데이터를 읽어 미리보기로 표시
+    	        } else {
+    	          alert("이미지 파일만 선택 가능합니다.");
+    	        }
+    	      });
+    	    } else {
+    	      previewContainer.innerHTML = "<p>업로드된 파일이 없습니다.</p>"; // 선택 취소 시 메시지 표시
+    	    }
+    	  });
+    	});
+
+    	
+    	function fCheck() {
+				let category = $("#category").val();
+				let mainCategory = $("#mainCategory").val();
+				let subCategory = $("#subCategory").val();
+				let title = $("#title").val();
+				let price = $("#price").val();
+				let discount = $("#discount").val();
+				let pay = $("#pay").val();
+				
+				if(category.trim() == ""){
+					alert("카테고리를 선택해주세요");
+					document.getElementById("category").focus();
+					return false;
+				}
+				else if(mainCategory.trim() == ""){
+					alert("메인 카테고리를 선택해주세요");
+					document.getElementById("mainCategory").focus();
+					return false;
+				}
+				else if(subCategory.trim() == ""){
+					alert("서브 카테고리를 선택해주세요");
+					document.getElementById("subCategory").focus();
+					return false;
+				}
+				else if(title.trim() == ""){
+					alert("제목을 입력해주세요");
+					document.getElementById("title").focus();
+					return false;
+				}
+				else if(price.trim() == ""){
+					alert("가격을 입력해주세요");
+					document.getElementById("price").focus();
+					return false;
+				}
+				else if(discount.trim() == ""){
+					alert("할인율을 입력해주세요 \n할인을 원하지 않으시면 0을 입력해주세요.");
+					document.getElementById("discount").focus();
+					return false;
+				}
+				else if(pay.trim() == ""){
+					alert("가격을 다시 한번 확인해주세요");
+					document.getElementById("price").focus();
+					return false;
+				}
+				else{
+					myform.submit();
+				}
+				
+			}
   </script>
 </head>
 <body>
@@ -259,13 +344,13 @@
 
       <div class="form-group">
         <div class="section-title">상품명</div>
-        <input type="text" name="title" id="title" class="form-control" value="${vo.title}">
+        <input type="text" name="title" id="title" class="form-control" value="${vo.title}" required>
       </div>
 
       <div class="form-group">
         <div class="section-title">판매가</div>
         <div class="price-group">
-          <input type="number" name="price" id="price" class="form-control" value="${vo.price}" oninput="finalPrice()">
+          <input type="number" name="price" id="price" class="form-control" value="${vo.price}" oninput="finalPrice()" required>
           <input type="text" value="원" readonly class="form-control">
         </div>
       </div>
@@ -273,7 +358,7 @@
       <div class="form-group">
         <div class="section-title">할인</div>
         <div class="price-group">
-          <input type="number" name="discount" id="discount" class="form-control" value="${vo.discount}" oninput="finalPrice()">
+          <input type="number" name="discount" id="discount" class="form-control" value="${vo.discount}" oninput="finalPrice()" required>
           <input type="text" value="%" readonly class="form-control">
         </div>
       </div>
@@ -285,6 +370,14 @@
           <input type="text" value="원" readonly class="form-control">
         </div>
       </div>
+      
+      <div class="form-group nowImg">
+        <div class="section-title">현재 적용 이미지</div>
+        <c:set var="titleImg" value="${fn: split(vo.titleImg,'/')}" />
+        <c:forEach var="i" begin="0" end="${fn:length(titleImg)-1}" >
+        	<img src="${ctp}/category/${titleImg[i]}" alt="이미지 미리보기" style="max-width: 200px; max-height: 200px;">
+        </c:forEach>
+    	</div>
       
       <div class="form-group">
 			  <div class="section-title">타이틀 사진</div>
@@ -308,7 +401,7 @@
         </script>
       </div>
 
-      <button type="submit">수정하기</button>
+      <button type="button" class="submit" onclick="fCheck()">수정하기</button>
 			<input type="hidden" name="idx" value="${vo.idx}">      
     </form>
   </div>

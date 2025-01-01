@@ -16,7 +16,6 @@ public class ShopVO {
 	private String pay;
 	private String thumbnail;
 	private String titleImg;
-	private String sTitleImg;
 	private String content;
 	private int fSize;
 	private String claim;

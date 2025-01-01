@@ -66,7 +66,7 @@
 		                url: "${ctp}/common/partnerJoin",
 		                type: "GET",
 		                success: function(data) {
-		                		$("body > *").not("#demo, .white-box").hide();
+		                		$("header > *").not("#demo, .white-box").hide();
 		                    demo.html(data);
 		                    demo.css({
 		                        "display": "block",
@@ -126,25 +126,25 @@
  	  </script>
     <style>
 	    body {
-        margin: 0 !important;
-        font-family: 'Georgia', serif !important;
-        color: #333 !important;
+        margin: 0 ;
+        font-family: 'Georgia', serif;
+        color: #333;
 	    }
 	    .header {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
         background-color: #fff !important;
-        border-bottom: 2px solid #e1c699 !important;
-        z-index: 1000 !important;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+        border-bottom: 2px solid #e1c699;
+        z-index: 1000;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	    }
 	    .header-container {
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        max-width: 1200px !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
         margin: 0 auto !important;
         padding: 20px 20px !important;
 	    }
@@ -157,7 +157,7 @@
         width: 100px;
 	    }
 	    .nav {
-        display: flex !important;
+        display: flex ;
         list-style: none !important;
         margin: 0 !important;
         padding: 0 !important;
@@ -285,43 +285,43 @@
 	            				
       /* 하얀색 창 애니메이션 */
       .white-box {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        background-color: white !important;
-        z-index: 1000 !important;
-        display: none !important;
-        animation: slideWhiteBox 1s ease-in-out forwards !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        z-index: 1000;
+        display: none;
+        animation: slideWhiteBox 1s ease-in-out forwards;
       }
 	            				
       #demo {
-	      display: none !important;
-	      position: fixed !important;
-	      top: 50% !important;
-	      transform: translate(-50%, -50%) !important;
-	      z-index: 999 !important;
-	      background-color: white !important;
-	      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
+	      display: none;
+	      position: fixed;
+	      top: 50%;
+	      transform: translate(-50%, -50%);
+	      z-index: 999;
+	      background-color: white;
+	      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 	      padding: 20px !important;
-	      border-radius: 10px !important;
-	      opacity: 0 !important;
-	      transition: opacity 0.5s ease-in-out !important;
-	      left: 50% !important;
-	      height: 850px !important;
+	      border-radius: 10px;
+	      opacity: 0;
+	      transition: opacity 0.5s ease-in-out;
+	      left: 50%;
+	      height: 850px;
       }
 	    	
 	            
       @keyframes slideWhiteBox {
         0% {
-          transform: translateY(-100%) !important;
+          transform: translateY(-100%);
         }
         50% {
-          transform: translateY(0%) !important;
+          transform: translateY(0%);
         }
         100% {
-          transform: translateY(-100%) !important;
+          transform: translateY(-100%);
         }
       }
 	            				
@@ -451,14 +451,14 @@
     </style>
 </head>
 <body>
-	<div id="demo"></div>
+		<div id="demo"></div>
     <header class="header">
         <div class="header-container">
             <!-- 로고 -->
             <div>
 	            <div class="line-drawing-demo logo" onclick="location.href='${ctp}'">
 						    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 100%;">
-								  <g class="lines" fill="none" stroke="#000" stroke-width="5">
+								  <g class="lines" fill="none" stroke="#e1c699" stroke-width="7">
 										<path d="M28.78,19.23q29.31-.36,33.65,17,13,44.15,31.48,93.71T127.56,207q16.63-27.48,36.18-77.06t30.39-93.71q4.34-17.35,33.65-17t27.13,17a511.51,511.51,0,0,0-3.62,52.46q-.72,30-.72,60.42,0,33.3.72,62.6t3.62,53.18q2.18,15.93-26.77,15.92t-26.78-15.92Q205,241,205.71,199.41t-1.45-70.56q-18.1,39.81-33.29,78.51t-21.71,57.53q-4.33,15.19-21.7,14.47t-21.71-14.47Q99.34,247.52,86,209.17t-32.2-81.76q-2.89,35.46-2.17,76t3.62,61.51q3.6,15.93-25.33,15.92T1.65,264.89q3.61-31.83,4.7-60.78t1.09-55q0-26-1.09-57.52a485.26,485.26,0,0,0-4.7-55.36Q-.52,19.6,28.78,19.23Z"/>
 										<path d="M316.42,78.93q28.21,0,26.05,16.64a773.32,773.32,0,0,0-4.35,83.94,813.94,813.94,0,0,0,4.35,85.38q2.16,15.93-25.33,15.92t-26.77-15.92a636.11,636.11,0,0,0,5.79-85.38,604.72,604.72,0,0,0-5.79-83.94Q288.2,78.94,316.42,78.93ZM335.59,8.69q8.31,7.19,8.32,18.83,0,10.27-8.32,17.45a28.43,28.43,0,0,1-19.17,7.18A25.85,25.85,0,0,1,298,45a23.12,23.12,0,0,1-7.59-17.45q0-11.64,7.59-18.83A25.9,25.9,0,0,1,316.42,1.5,28.48,28.48,0,0,1,335.59,8.69Z"/>
 										<path d="M527,90.86q15.91,15.57,12.31,45.23-2.91,35.46-2.54,66.21t2.54,66.93q1.44,13-24.24,12.3t-25-12.3q3.62-30.39,3.26-52.82t-1.81-52.82q0-21-4.71-32.93t-19.89-11.94q-19.55,0-28.59,15.56a80.66,80.66,0,0,0-10.49,35.1q-.74,29-.72,49.56t2.17,50.29q1.44,13-23.88,12.3t-25.33-12.3q3.62-49.92,3.62-90.45t-3.62-89q0-12.3,24.61-12.66t24.6,14.11A55.51,55.51,0,0,1,451,79.29q13-4,30.39-4Q511.06,75.31,527,90.86Z"/>
@@ -1069,15 +1069,15 @@
 										</ul>
 						        <div class="divider"></div>
 						        <ul class="main-category">
-					            <li class="category-item" data-target="beauty" onclick="location.href='${ctp}/shop/shopList?category=beauty'">뷰티</li>
-					            <li class="category-item" data-target="luxury" onclick="location.href='${ctp}/shop/shopList?category=luxury'">명품잡화</li>
-					            <li class="category-item" data-target="womenFashion" onclick="location.href='${ctp}/shop/shopList?category=womenFashion'">여성패션</li>
-					            <li class="category-item" data-target="menFashion" onclick="location.href='${ctp}/shop/shopList?category=menFashion'">남성패션</li>
-					            <li class="category-item" data-target="casual" onclick="location.href='${ctp}/shop/shopList?category=casual'">진/캐주얼</li>
-					            <li class="category-item" data-target="sports" onclick="location.href='${ctp}/shop/shopList?category=sports'">스포츠/레저</li>
-					            <li class="category-item" data-target="children" onclick="location.href='${ctp}/shop/shopList?category=children'">유아동</li>
-					            <li class="category-item" data-target="living" onclick="location.href='${ctp}/shop/shopList?category=living'">리빙/가전</li>
-					            <li class="category-item" data-target="food" onclick="location.href='${ctp}/shop/shopList?category=food'">식품</li>
+					            <li class="category-item" data-target="beauty" onclick="location.href='${ctp}/shop/shopList?category=BEAUTY'">뷰티</li>
+					            <li class="category-item" data-target="luxury" onclick="location.href='${ctp}/shop/shopList?category=LUXURY'">명품잡화</li>
+					            <li class="category-item" data-target="womenFashion" onclick="location.href='${ctp}/shop/shopList?category=WOMENFASHION'">여성패션</li>
+					            <li class="category-item" data-target="menFashion" onclick="location.href='${ctp}/shop/shopList?category=MENFASHION'">남성패션</li>
+					            <li class="category-item" data-target="casual" onclick="location.href='${ctp}/shop/shopList?category=CASUAL'">진/캐주얼</li>
+					            <li class="category-item" data-target="sports" onclick="location.href='${ctp}/shop/shopList?category=SPORTS'">스포츠/레저</li>
+					            <li class="category-item" data-target="children" onclick="location.href='${ctp}/shop/shopList?category=CHILDREN'">유아동</li>
+					            <li class="category-item" data-target="living" onclick="location.href='${ctp}/shop/shopList?category=LIVING'">리빙/가전</li>
+					            <li class="category-item" data-target="food" onclick="location.href='${ctp}/shop/shopList?category=FOOD'">식품</li>
 						        </ul>
 							    </div>
 							</li>

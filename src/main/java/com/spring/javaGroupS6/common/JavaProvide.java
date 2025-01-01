@@ -108,7 +108,6 @@ public class JavaProvide {
 		
 		for(int i = 0; i < img.size(); i++) {
 			String origFilePath = realPath +  folderName + "/" + img.get(i);
-			System.out.println(img.get(i));
 			fileDelete(origFilePath);
 		}
 	}
@@ -135,7 +134,7 @@ public class JavaProvide {
 	}
 	
 //	서버에 존재하는 파일을 삭제처리
-	private void fileDelete(String origFilePath) {
+	public void fileDelete(String origFilePath) {
 		File delFile = new File(origFilePath);
 		
 		if(delFile.exists()) {
@@ -173,12 +172,22 @@ public class JavaProvide {
 		}
 	}
 	
+	public void titleImgBackup(String titleImg, String folderName) {
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+		String realPath = request.getSession().getServletContext().getRealPath("/resources/data/");
+		
+		String origFilePath = realPath +  folderName + "/" + titleImg;
+		String copyFilePath = realPath + "ckeditor/" + titleImg;
+		fileCopyCheck(origFilePath, copyFilePath);
+	}
+	
+	
+	
 	public void WriteFile(MultipartFile fName, String sFileName, String folder) throws IOException {
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
 		String realPath = request.getSession().getServletContext().getRealPath("/resources/data/" + folder + "/");
 		
 		FileOutputStream fos = new FileOutputStream(realPath + sFileName);
-		
 		if(fName.getBytes().length != -1) {
 			fos.write(fName.getBytes());
 		}

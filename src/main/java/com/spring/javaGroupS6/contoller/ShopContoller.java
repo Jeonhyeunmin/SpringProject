@@ -28,12 +28,14 @@ public class ShopContoller {
 	@Autowired
 	ShopService shopService;
 	
+	@Autowired
+	JavaProvide provide;
+	
 
 	@GetMapping("/shopList")
 	public String shopListGet(Model model, HttpServletRequest request, String category) {
 		String realPath = request.getSession().getServletContext().getRealPath("/resources/images/shop/" + category + "/");
 		String files[] = new File(realPath).list();
-		
 		
 		model.addAttribute("files", files);
 		
@@ -41,7 +43,6 @@ public class ShopContoller {
 		ArrayList<String> mainCategory = new ArrayList<String>();
 		ArrayList<ShopVO> products = new ArrayList<ShopVO>();
 		ArrayList<String> brands = new ArrayList<String>();
-		
 		for(int i = 0; i < 5; i++) {
 			brands.add(vos.get(i).getCompany());
 		}
@@ -173,6 +174,11 @@ public class ShopContoller {
 	@GetMapping("/shopUpdate")
 	public String shopUpdateGet(Model model, int idx) {
 		ShopVO vo = shopService.getShopContent(idx);
+		
+		if(vo.getContent().contains("src=\"/")) {
+			provide.imgBackup(vo.getContent(), "category");
+		}
+		provide.titleImgBackup(vo.getTitleImg(), "category");
 		
 		ArrayList<ShopVO> vos = shopService.getList();
 		ArrayList<String> categoryList = new ArrayList<String>();

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -70,7 +71,8 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
-	public int setShopUpdate(ShopVO vo, MultipartHttpServletRequest titleImg, HttpServletRequest request) {
+	public int setShopUpdate(ShopVO vo, @RequestParam("titleImg") MultipartHttpServletRequest titleImg, HttpServletRequest request) {
+		String realPath = request.getSession().getServletContext().getRealPath("/resources/data/category/");
 		ShopVO originVO = shopDAO.getShopContent(vo.getIdx());
 		if(!originVO.getContent().equals(vo.getContent())) {
 			if(originVO.getContent().contains("src=\"/")) {
@@ -86,39 +88,44 @@ public class ShopServiceImpl implements ShopService {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
 		
 			try {
+				String origFilePath = "";
 				List<MultipartFile> fileList = titleImg.getFiles("file");
 				String oFileNames = "";
-				String sFileNames = "";
+				String sFileNames = originVO.getTitleImg();
 				int fileSizes = 0;
+				String tFile = originVO.getThumbnail();
+				if(!fileList.get(0).isEmpty()) {
+					String titImg[] = originVO.getTitleImg().split("/");
+					for(int i = 0; i < titImg.length; i++) {
+						origFilePath = realPath + titImg[i];
+						provide.fileDelete(origFilePath);
+					}
+					sFileNames = "";
+					for(MultipartFile file : fileList) {
+						String oFileName = file.getOriginalFilename();
+						String sFileName = sdf.format(date) + "_" + oFileName;
+						provide.WriteFile(file, sFileName, "category");
+						
+						oFileNames += oFileName + "/";
+						sFileNames += sFileName + "/";
+						fileSizes += file.getSize(); 
+					}
+					oFileNames = oFileNames.substring(0, oFileNames.length()-1);
+					sFileNames = sFileNames.substring(0, sFileNames.length()-1);
 				
-				for(MultipartFile file : fileList) {
-					String oFileName = file.getOriginalFilename();
-					String sFileName = sdf.format(date) + "_" + oFileName;
-					provide.WriteFile(file, sFileName, "category");
+					String thumbImg = originVO.getThumbnail();
+					origFilePath = realPath + thumbImg;
+					provide.fileDelete(origFilePath);
+					MultipartFile thumbnailImg = fileList.get(0);
 					
-					oFileNames += oFileName + "/";
-					sFileNames += sFileName + "/";
-					fileSizes += file.getSize(); 
+					tFile = "s_" + sdf.format(date) + "_" +  thumbnailImg.getOriginalFilename();
+					
+					provide.WriteFile(thumbnailImg, tFile, "category");
 				}
-				oFileNames = oFileNames.substring(0, oFileNames.length()-1);
-				sFileNames = sFileNames.substring(0, sFileNames.length()-1);
-				
-				String realPath = request.getSession().getServletContext().getRealPath("/resources/data/category/");
-				MultipartFile thumbnailImg = fileList.get(0);
-				File oFile = new File(realPath + thumbnailImg.getOriginalFilename());
-				
-				thumbnailImg.transferTo(oFile);
-				
-				File tFile = new File(realPath + "s_" + thumbnailImg.getOriginalFilename());
-				
-				int width = 160;
-				int height = width / 4 * 3;
-				
-				Thumbnailator.createThumbnail(oFile, tFile, width, height);
 				
 				vo.setTitleImg(sFileNames);
 				vo.setFSize(fileSizes);
-				vo.setThumbnail("s_" + thumbnailImg.getOriginalFilename());
+				vo.setThumbnail(tFile);
 				
 			} catch (IOException e) {
 				e.printStackTrace();

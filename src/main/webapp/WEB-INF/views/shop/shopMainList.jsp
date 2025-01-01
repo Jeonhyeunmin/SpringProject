@@ -141,7 +141,7 @@
 			    position: absolute;
 			    top: 10px;
 			    left: 10px;
-			    background-color: #27ae60;
+			    background-color: #e1c699;
 			    color: #fff;
 			    font-size: 12px;
 			    padding: 5px 8px;
@@ -212,7 +212,9 @@
 	<div class="grid-container">
 	  <c:forEach var="vo" items="${vos}" varStatus="st">
 	    <div class="grid-item">
-	      <div class="discount-badge">${vo.company} ${vo.discount}%</div>
+	    	<c:if test="${vo.discount != 0}">
+	      	<div class="discount-badge">${vo.company} ${vo.discount}%</div>
+	      </c:if>
 	      <div class="moveContent">
 	        <img src="${ctp}/category/${vo.thumbnail}" alt="Thumbnail">
 	        <div class="overlay-buttons">

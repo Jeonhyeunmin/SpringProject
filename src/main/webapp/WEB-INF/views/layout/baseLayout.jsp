@@ -47,7 +47,7 @@
   </header>
 
   <!-- Main Body -->
-<	tiles:insertAttribute name="body" />
+<tiles:insertAttribute name="body" />
 
   <!-- Footer -->
   <footer>
