@@ -26,4 +26,10 @@ public interface ShopDAO {
 
 	int setShopUpdate(@Param("vo") ShopVO vo);
 
+	int shopInput(@Param("vo") ShopVO vo);
+
+	int getPostCount(@Param("mid") String mid);
+
+	int setShopDelete(@Param("idx") int idx);
+
 }

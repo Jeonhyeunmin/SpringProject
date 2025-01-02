@@ -2,9 +2,9 @@ package com.spring.javaGroupS6.contoller;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 
 import com.spring.javaGroupS6.common.JavaProvide;
+import com.spring.javaGroupS6.service.CommonService;
 import com.spring.javaGroupS6.service.ShopService;
+import com.spring.javaGroupS6.vo.PartnerVO;
 import com.spring.javaGroupS6.vo.ShopVO;
 
 @Controller
@@ -27,6 +29,9 @@ public class ShopContoller {
 	
 	@Autowired
 	ShopService shopService;
+	
+	@Autowired
+	CommonService commonService;
 	
 	@Autowired
 	JavaProvide provide;
@@ -43,8 +48,10 @@ public class ShopContoller {
 		ArrayList<String> mainCategory = new ArrayList<String>();
 		ArrayList<ShopVO> products = new ArrayList<ShopVO>();
 		ArrayList<String> brands = new ArrayList<String>();
-		for(int i = 0; i < 5; i++) {
-			brands.add(vos.get(i).getCompany());
+		for(int i = 0; i < vos.size(); i++) {
+			if(!brands.contains(vos.get(i).getCompany())) {
+				brands.add(vos.get(i).getCompany());
+			}
 		}
 		
 		
@@ -122,8 +129,14 @@ public class ShopContoller {
 	
 	@GetMapping("/shopContent")
 	public String shopContentGet(Model model, int idx) {
+		
 		ShopVO vo = shopService.getShopContent(idx);
 		
+		PartnerVO pVO = commonService.getPartnerIdSearch(vo.getMid());
+		
+		int postCount = shopService.getPostCount(vo.getMid());
+		
+		String logo = pVO.getLogo();
 		ArrayList<String> titleImgs = new ArrayList<String>();
 		if(vo.getTitleImg().contains("/")) {
 			String titleImgArr[] = vo.getTitleImg().split("/");
@@ -136,6 +149,8 @@ public class ShopContoller {
 		}
 		
 		
+		model.addAttribute("postCount", postCount);
+		model.addAttribute("logo", logo);
 		model.addAttribute("titleImgs", titleImgs);
 		model.addAttribute("vo", vo);
 		return "shop/shopContent";
@@ -209,6 +224,46 @@ public class ShopContoller {
 			return "redirect:/message/shopUpdateOk";
 		}
 		
+	}
+	
+	@GetMapping("/shopInput")
+	public String shopInputGet(Model model) {
+		ArrayList<ShopVO> vos = shopService.getList();
+		ArrayList<String> categoryList = new ArrayList<String>();
+		for(int i = 0; i < vos.size(); i++) {
+			if(!categoryList.contains(vos.get(i).getCategory())) {
+				categoryList.add(vos.get(i).getCategory());
+			}
+		}
+		model.addAttribute("categoryList", categoryList);
+		return "shop/shopInput";
+	}
+	
+	@PostMapping("/shopInput")
+	public String shopInputPost(Model model, MultipartRequest titleImg, ShopVO vo, HttpServletRequest request) {
+		String mid = (String)request.getSession().getAttribute("sMid");
+		vo.setMid(mid);
+		int res = shopService.shopInput(vo, titleImg, request);
+		
+		
+		if(res != 0) {
+			return "redirect:/message/shopInputOk";
+		}
+		else {
+			return "redirect:/message/shopInputNo";
+		}
+	}
+	
+	@GetMapping("/shopDelete")
+	public String shopDeleteGet(int idx) {
+		int res = shopService.setShopDelete(idx);
+		
+		if(res != 0) {
+			return "redirect:/message/shopDeleteOk";
+		}
+		else {
+			return "redirect:/message/shopDeleteNo?idx=" + idx;
+		}
 	}
 	
 	

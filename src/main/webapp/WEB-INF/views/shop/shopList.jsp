@@ -140,6 +140,7 @@
 		    }
 		    .breadcrumb a{
 		    	text-decoration: none;
+		    	padding: 0 5px;
 		    }
 	
 				.new-arrivals-container {
@@ -353,10 +354,10 @@
     <!-- 왼쪽 브랜드 버튼 -->
     <div class="brand-buttons">
       <ul>
-	      <c:forEach var="brand" items="${brands}" varStatus="st">
+	      <c:forEach var="i" begin="0" end="4">
           <li>
-            <button class="brand-button" data-brand="${brand}">
-              ${brand}
+            <button class="brand-button" data-brand="${brands[i]}">
+              ${brands[i]}
             </button>
           </li>
 	      </c:forEach>
@@ -403,6 +404,7 @@
 		    </div>
 		  </div>
 		</div>
+		<div><input type="button" value="등록" class="btn btn-outline-success" onclick="location.href='${ctp}/shop/shopInput'" /></div>
 	</div>
 
   

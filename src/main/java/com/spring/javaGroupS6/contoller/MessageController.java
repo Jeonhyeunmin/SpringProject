@@ -67,6 +67,24 @@ public class MessageController {
 			model.addAttribute("message", "게시물 업데이트 실패");
 			model.addAttribute("url", "/shop/shopUpdate?idx=" + idx);
 		}
+		else if(msgFlag.equals("shopInputOk")) {
+			model.addAttribute("message", "게시물 등록이 완료되었습니다. \n관리자 승인 후 게시물이 노출됩니다.");
+			model.addAttribute("url", "");
+		}
+		
+		else if(msgFlag.equals("shopInputOk")) {
+			model.addAttribute("message", "게시물 등록 실패");
+			model.addAttribute("url", "/shop/shopInput");
+		}
+		
+		else if(msgFlag.equals("shopDeleteOk")) {
+			model.addAttribute("message", "게시물 삭제 성공");
+			model.addAttribute("url", "");
+		}
+		else if(msgFlag.equals("shopDeleteNo")) {
+			model.addAttribute("message", "실패");
+			model.addAttribute("url", "/shop/shopContent?idx=" + idx);
+		}
 		
 		return "include/message";
 	}

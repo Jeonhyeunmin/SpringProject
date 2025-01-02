@@ -19,3 +19,7 @@ create table shop(
    foreign key(mid) references partner(mid)
 );
 
+select * from shop;
+
+desc shop;
+

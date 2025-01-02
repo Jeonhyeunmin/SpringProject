@@ -10,35 +10,63 @@
   <title>${title}</title>
   <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
   <style>
-      body {
-          margin: 0;
-          padding: 0;
-          display: flex;
-          flex-direction: column;
-          min-height: 100vh; /* 전체 높이를 채우도록 설정 */
-          font-family: Arial, sans-serif;
-      }
-      header {
-          flex-shrink: 0;
-          width: 100%;
-          background-color: #f8f9fa;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      }
-      .container {
-          flex-grow: 1; /* 콘텐츠 영역이 여유 공간을 채우도록 설정 */
-          padding: 20px;
-          display: block; /* 중앙 정렬 방지 */
-      }
-      footer {
-          flex-shrink: 0;
-          width: 100%;
-          background-color: #343a40;
-          color: #fff;
-          text-align: center;
-          padding: 10px 0;
-          box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-      }
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* 전체 높이를 채우도록 설정 */
+      font-family: Arial, sans-serif;
+    }
+    header {
+      flex-shrink: 0;
+      width: 100%;
+      background-color: #f8f9fa;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .container {
+      flex-grow: 1; /* 콘텐츠 영역이 여유 공간을 채우도록 설정 */
+      padding: 20px;
+      display: block; /* 중앙 정렬 방지 */
+    }
+    footer {
+      flex-shrink: 0;
+      width: 100%;
+      background-color: #343a40;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    }
+      
+      		/* 위로가기 버튼 */
+		#topBtn {
+		  position: fixed;
+			right: 1rem;
+			bottom: -50px;
+			transition: 0.7s ease;
+		}
+		
+		#topBtn.on {
+		  opacity: 0.8;
+			cursor: pointer;
+			bottom: 0;
+		}
   </style>
+  
+  <script type="text/javascript">
+	  $(window).scroll(function(){
+		  if($(this).scrollTop() > 100){
+		     $("#topBtn").addClass("on");
+		  }
+		  else{
+		     $("#topBtn").removeClass("on");
+		  }
+		  $("#topBtn").click(function() {
+					window.scrollTo({top:0, behavior: "smooth"});	
+				});
+			});
+  </script>
 </head>
 <body>
   <!-- Header -->
@@ -49,9 +77,15 @@
   <!-- Main Body -->
 <tiles:insertAttribute name="body" />
 
+	<!-- 위로가기 버튼 -->
+	<h6 id="topBtn" class="text-right">
+		<img src="${ctp}/login/top.png" title="위로이동" width="50px" />
+	</h6>
+	
   <!-- Footer -->
   <footer>
       <tiles:insertAttribute name="footer" />
   </footer>
+  
 </body>
 </html>

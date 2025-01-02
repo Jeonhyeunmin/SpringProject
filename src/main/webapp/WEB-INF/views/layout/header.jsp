@@ -155,6 +155,7 @@
         text-decoration: none !important;
         font-family: 'Playfair Display', serif !important;
         width: 100px;
+        cursor: pointer;
 	    }
 	    .nav {
         display: flex ;

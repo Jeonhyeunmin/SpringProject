@@ -34,8 +34,20 @@
 		select * from shop order by category;
 	</select>
 	
+	<select id="getPostCount" resultType="int">
+		select count(*) from shop where mid = #{mid};
+	</select>
+	
+	<insert id="shopInput">
+		insert into shop values (default, #{vo.mid}, #{vo.company}, #{vo.category}, #{vo.mainCategory}, #{vo.subCategory}, #{vo.title}, #{vo.discount}, #{vo.price}, #{vo.thumbnail}, #{vo.titleImg}, #{vo.content}, #{vo.fSize}, default, default, default);
+	</insert>
+	
 	<update id="setShopUpdate">
-		update shop set company = #{vo.company}, category = #{vo.category}, mainCategory = #{vo.mainCategory}, subCategory = #{vo.subCategory}, title = #{vo.title}, discount = #{vo.discount}, price = #{vo.price}, thumbnail = #{vo.thumbnail}, titleImg = #{vo.titleImg}, content = #{vo.content}, fSize = #{vo.fSize} where idx = #{vo.idx};
+		update shop set company = #{vo.company}, category = #{vo.category}, mainCategory = #{vo.mainCategory}, subCategory = #{vo.subCategory}, title = #{vo.title}, discount = #{vo.discount}, price = #{vo.price}, thumbnail = #{vo.thumbnail}, titleImg = #{vo.titleImg}, content = #{vo.content}, fSize = #{vo.fSize}, wDate = now(), accept = 'NO' where idx = #{vo.idx};
 	</update>
+	
+	<delete id="setShopDelete">
+		delete from shop where idx = #{idx};
+	</delete>
 	
 </mapper>

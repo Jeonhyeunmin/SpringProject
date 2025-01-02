@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 
 import com.spring.javaGroupS6.vo.ShopVO;
 
@@ -27,5 +28,11 @@ public interface ShopService {
 	ArrayList<ShopVO> getList();
 
 	int setShopUpdate(ShopVO vo, MultipartHttpServletRequest titleImg, HttpServletRequest request);
+
+	int shopInput(ShopVO vo, MultipartRequest titleImg, HttpServletRequest request);
+
+	int getPostCount(String mid);
+
+	int setShopDelete(int idx);
 
 }

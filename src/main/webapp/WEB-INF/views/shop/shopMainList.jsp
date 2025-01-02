@@ -43,6 +43,7 @@
 		    
 		    .breadcrumb a{
 		    	text-decoration: none;
+		    	padding: 0 5px;
 		    }
 				.button-group {
 				  display: flex;
@@ -211,7 +212,7 @@
 	
 	<div class="grid-container">
 	  <c:forEach var="vo" items="${vos}" varStatus="st">
-	    <div class="grid-item">
+	    <div class="grid-item" onclick="location.href='${ctp}/shop/shopContent?idx=${vo.idx}'">
 	    	<c:if test="${vo.discount != 0}">
 	      	<div class="discount-badge">${vo.company} ${vo.discount}%</div>
 	      </c:if>

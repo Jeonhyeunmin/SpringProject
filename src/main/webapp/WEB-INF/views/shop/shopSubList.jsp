@@ -43,6 +43,7 @@
 		    
 		    .breadcrumb a{
 		    	text-decoration: none;
+		    	padding: 0 5px;
 		    }
 				.button-group {
 				  display: flex;
@@ -95,6 +96,10 @@
 			    overflow: hidden;
 			    text-align: center;
 			  }
+			  
+			  .grid-item:hover {
+			    cursor: pointer;
+			  }
 			
 			
 			  .grid-item img {
@@ -142,7 +147,7 @@
 			    position: absolute;
 			    top: 10px;
 			    left: 10px;
-			    background-color: #27ae60;
+			    background-color: #e1c699;
 			    color: #fff;
 			    font-size: 12px;
 			    padding: 5px 8px;
@@ -216,13 +221,16 @@
 			<li><button type="button" onclick="">낮은가격순</button></li>
 			<li><button type="button" onclick="">높은가격순</button></li>
 			<li><button type="button" onclick="">상품평개수순</button></li>
+			<li><button type="button" onclick="location.href='${ctp}/shop/shopInput'">등록</button></li>
   	</ul>
 	</div>
 	
 	<div class="grid-container">
 	  <c:forEach var="vo" items="${vos}" varStatus="st">
-	    <div class="grid-item">
-	      <div class="discount-badge">${vo.company} ${vo.discount}%</div>
+	    <div class="grid-item" onclick="location.href='${ctp}/shop/shopContent?idx=${vo.idx}'">
+	      <c:if test="${vo.discount != 0}">
+	      	<div class="discount-badge">${vo.company} ${vo.discount}%</div>
+	      </c:if>
 	      <div class="moveContent">
 	        <img src="${ctp}/category/${vo.thumbnail}" alt="Thumbnail">
 	        <div class="overlay-buttons">

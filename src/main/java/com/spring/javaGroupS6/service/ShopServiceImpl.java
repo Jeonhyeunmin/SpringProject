@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 
 import com.spring.javaGroupS6.common.JavaProvide;
 import com.spring.javaGroupS6.dao.ShopDAO;
@@ -89,18 +90,24 @@ public class ShopServiceImpl implements ShopService {
 		
 			try {
 				String origFilePath = "";
+				
 				List<MultipartFile> fileList = titleImg.getFiles("file");
+				
 				String oFileNames = "";
 				String sFileNames = originVO.getTitleImg();
 				int fileSizes = 0;
+				
 				String tFile = originVO.getThumbnail();
+				
 				if(!fileList.get(0).isEmpty()) {
 					String titImg[] = originVO.getTitleImg().split("/");
 					for(int i = 0; i < titImg.length; i++) {
 						origFilePath = realPath + titImg[i];
 						provide.fileDelete(origFilePath);
 					}
+					
 					sFileNames = "";
+					
 					for(MultipartFile file : fileList) {
 						String oFileName = file.getOriginalFilename();
 						String sFileName = sdf.format(date) + "_" + oFileName;
@@ -132,5 +139,70 @@ public class ShopServiceImpl implements ShopService {
 			}
 		
 		return shopDAO.setShopUpdate(vo);
+	}
+
+	@Override
+	public int shopInput(ShopVO vo, MultipartRequest titleImg, HttpServletRequest request) {
+		String realPath = request.getSession().getServletContext().getRealPath("/resources/data/category/");
+		if(vo.getContent().contains("src=\"/")) {
+			provide.imgCheck(vo.getContent(), "category");
+		}
+		vo.setContent(vo.getContent().replace("/data/ckeditor/", "/data/board/"));
+		
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
+		
+		try {
+			String oFileNames = "";
+			String sFileNames = "";
+			int fileSizes = 0;
+			String tFile = "";
+			String origFilePath = "";
+			
+			List<MultipartFile> fileList = titleImg.getFiles("file");
+			
+			for(MultipartFile file : fileList) {
+				String oFileName = file.getOriginalFilename();
+				String sFileName = sdf.format(date) + "_" + oFileName;
+				provide.WriteFile(file, sFileName, "category");
+				oFileNames += oFileName + "/";
+				sFileNames += sFileName + "/";
+				fileSizes += file.getSize(); 
+			}
+			oFileNames = oFileNames.substring(0, oFileNames.length()-1);
+			sFileNames = sFileNames.substring(0, sFileNames.length()-1);
+			
+			
+			String thumbImg = "";
+			origFilePath = realPath + thumbImg;
+			provide.fileDelete(origFilePath);
+			MultipartFile thumbnailImg = fileList.get(0);
+			
+			tFile = "s_" + sdf.format(date) + "_" +  thumbnailImg.getOriginalFilename();
+			
+			provide.WriteFile(thumbnailImg, tFile, "category");
+			
+			vo.setTitleImg(sFileNames);
+			vo.setFSize(fileSizes);
+			vo.setThumbnail(tFile);
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+			
+		
+		
+		return shopDAO.shopInput(vo);
+	}
+	
+	@Override
+	public int getPostCount(String mid) {
+		return shopDAO.getPostCount(mid);
+	}
+	
+	@Override
+	public int setShopDelete(int idx) {
+		return shopDAO.setShopDelete(idx);
 	}
 }

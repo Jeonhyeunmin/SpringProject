@@ -7,7 +7,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>상품 등록</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="${ctp}/ckeditor/ckeditor.js"></script>
   <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
@@ -378,7 +377,7 @@
         	<img src="${ctp}/category/${titleImg[i]}" alt="이미지 미리보기" style="max-width: 200px; max-height: 200px;">
         </c:forEach>
     	</div>
-      
+    	
       <div class="form-group">
 			  <div class="section-title">타이틀 사진</div>
 			  <div class="file-upload">
