@@ -16,16 +16,20 @@
 		select * from partner where company = #{company};
 	</select>
 	
+	<select id="getMemberEmailSearch" resultType="com.spring.javaGroupS6.vo.MemberVO">
+		select * from customer where email = #{email} limit 1;
+	</select>
+	
 	
 	<insert id="setMemberJoin">
 	  INSERT INTO customer 
-	  (idx, mid, pwd, name, gender, birthday, tel, address, email, photo, level, userInfor, userDel, point, startDate, lastDate)
+	  (idx, mid, pwd, name, gender, birthday, tel, address, email, photo, level, userInfor, userDel, pwdChange, point, startDate, lastDate)
 	  VALUES
-	  (default, #{vo.mid}, #{vo.pwd}, #{vo.name}, #{vo.gender}, #{vo.resident}, #{vo.tel}, #{vo.address}, #{vo.email}, #{vo.photo}, #{vo.level}, default, default, default, default, default);
+	  (default, #{vo.mid}, #{vo.pwd}, #{vo.name}, #{vo.gender}, #{vo.resident}, #{vo.tel}, #{vo.address}, #{vo.email}, #{vo.photo}, #{vo.level}, default, default, #{vo.pwdChange}, default, default, default);
 	</insert>
 	
 	<insert id="setpartnerJoin">
-	  INSERT INTO partner VALUES (default, #{vo.logo}, #{vo.mid}, #{vo.pwd}, #{vo.company}, #{vo.ceoName}, #{vo.businessNumber}, #{vo.email}, #{vo.tel}, #{vo.address}, #{vo.userInfor}, default, default, default, default);
+	  INSERT INTO partner VALUES (default, #{vo.logo}, #{vo.mid}, #{vo.pwd}, #{vo.company}, #{vo.ceoName}, #{vo.businessNumber}, #{vo.email}, #{vo.tel}, #{vo.address}, #{vo.userInfor}, #{vo.level}, default, default, default, default);
 	</insert>
 	
 </mapper>

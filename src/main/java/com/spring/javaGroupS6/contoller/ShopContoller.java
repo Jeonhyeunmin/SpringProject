@@ -3,7 +3,9 @@ package com.spring.javaGroupS6.contoller;
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +46,7 @@ public class ShopContoller {
 		
 		model.addAttribute("files", files);
 		
-		ArrayList<ShopVO> vos = shopService.getShopList(category);
+		ArrayList<ShopVO> vos = shopService.getShopList(category, "category", "yes" ,"");
 		ArrayList<String> mainCategory = new ArrayList<String>();
 		ArrayList<ShopVO> products = new ArrayList<ShopVO>();
 		ArrayList<String> brands = new ArrayList<String>();
@@ -75,7 +77,7 @@ public class ShopContoller {
 	@GetMapping("/shopMainList")
 	public String shopMainListGet(Model model, String mainCategory) {
 		
-		ArrayList<ShopVO> vos = shopService.getMainShopList(mainCategory);
+		ArrayList<ShopVO> vos = shopService.getShopList(mainCategory, "mainCategory", "yes", "");
 		ArrayList<String> subCategory = new ArrayList<String>();
 		ArrayList<Integer> subCateCnt = shopService.getSubCateCnt(mainCategory);
 		String category = "";
@@ -101,8 +103,8 @@ public class ShopContoller {
 	public String shopSubListGet(Model model, String subCategory,
 			@RequestParam(name = "company", defaultValue = "all") String company			
 	) {
-		ArrayList<ShopVO> allList = shopService.getSubShopAllList(subCategory);
-		ArrayList<ShopVO> vos = shopService.getSubShopList(subCategory, company);
+		ArrayList<ShopVO> allList = shopService.getShopList(subCategory, "subCategory", "yes", "");
+		ArrayList<ShopVO> vos = shopService.getShopList(subCategory, "subCategory", "yes", company);
 		ArrayList<String> BrandList = new ArrayList<String>();
 		ArrayList<Integer> BrandCnt = shopService.getBrandCateCnt(subCategory);
 		String category = "";
@@ -137,6 +139,7 @@ public class ShopContoller {
 		int postCount = shopService.getPostCount(vo.getMid());
 		
 		String logo = pVO.getLogo();
+		System.out.println(logo);
 		ArrayList<String> titleImgs = new ArrayList<String>();
 		if(vo.getTitleImg().contains("/")) {
 			String titleImgArr[] = vo.getTitleImg().split("/");
@@ -160,7 +163,7 @@ public class ShopContoller {
 	@PostMapping("/mainCategoryLoad")
 	public ArrayList<String> mainCategoryLoadPost(String category) {
 		
-		ArrayList<ShopVO> vos = shopService.getShopList(category);
+		ArrayList<ShopVO> vos = shopService.getShopList(category, "category", "yes", "");
 		ArrayList<String> mainCategoryList = new ArrayList<String>();
 		
 		for(int i = 0; i < vos.size(); i++) {
@@ -176,7 +179,7 @@ public class ShopContoller {
 	@PostMapping("/subCategoryLoad")
 	public ArrayList<String> subCategoryLoadPost(String mainCategory) {
 		
-		ArrayList<ShopVO> vos = shopService.getMainShopList(mainCategory);
+		ArrayList<ShopVO> vos = shopService.getShopList(mainCategory, "mainCategory", "yes", "");
 		ArrayList<String> subCategoryList = new ArrayList<String>();
 		for(int i = 0; i < vos.size(); i++) {
 			if(!subCategoryList.contains(vos.get(i).getSubCategory())) {

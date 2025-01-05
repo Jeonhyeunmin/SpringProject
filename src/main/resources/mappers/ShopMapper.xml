@@ -3,27 +3,19 @@
 <mapper namespace="com.spring.javaGroupS6.dao.ShopDAO">
 	
 	<select id="getShopList" resultType="com.spring.javaGroupS6.vo.ShopVO">
-		select * from shop where category = #{category} and accept = '승인' order by category;
-	</select>
-	
-	<select id="getMainShopList" resultType="com.spring.javaGroupS6.vo.ShopVO">
-		select * from shop where mainCategory = #{mainCategory} and accept = '승인' order by subCategory;
+		select * from shop where ${column} = #{category}
+		<if test='accept == "yes"'>and accept = '승인' </if> 
+		<if test='accept == "no"'>and accept = 'NO' </if>
+		<if test='company != "all" and company != ""'>and company = #{company}</if> 
+		order by ${column};
 	</select>
 	
 	<select id="getSubCateCnt" resultType="int">
 		select COUNT(*) as count from shop where mainCategory = #{mainCategory} and accept = '승인'  group by subCategory order by subCategory;
 	</select>
 	
-	<select id="getSubShopAllList" resultType="com.spring.javaGroupS6.vo.ShopVO">
-		select * from shop where subCategory = #{subCategory} and accept = '승인'  order by subCategory;
-	</select>
-	
 	<select id="getBrandCateCnt" resultType="int">
 		select COUNT(*) as count from shop where subCategory = #{subCategory} and accept = '승인'  group by company order by company;
-	</select>
-	
-	<select id="getSubShopList" resultType="com.spring.javaGroupS6.vo.ShopVO">
-		select * from shop where subCategory = #{subCategory} and accept = '승인' <if test='company != "all"'>and company = #{company}</if>  order by subCategory;
 	</select>
 	
 	<select id="getShopContent" resultType="com.spring.javaGroupS6.vo.ShopVO">

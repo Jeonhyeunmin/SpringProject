@@ -11,17 +11,13 @@ import com.spring.javaGroupS6.vo.ShopVO;
 
 public interface ShopService {
 
-	ArrayList<ShopVO> getShopList(String category);
+	ArrayList<ShopVO> getShopList(String category, String column, String accept, String company);
 
-	ArrayList<ShopVO> getMainShopList(String mainCategory);
 
 	ArrayList<Integer> getSubCateCnt(String mainCategory);
 
-	ArrayList<ShopVO> getSubShopAllList(String subCategory);
 
 	ArrayList<Integer> getBrandCateCnt(String subCategory);
-
-	ArrayList<ShopVO> getSubShopList(String subCategory, String company);
 
 	ShopVO getShopContent(int idx);
 

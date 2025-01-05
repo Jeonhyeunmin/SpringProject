@@ -20,5 +20,6 @@ public class MemberVO {
 	private int point;
 	private String startDate;
 	private String lastDate;
+	private String pwdChange;
 	
 }
