@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>${vo.title} | Min's</title>
   <meta charset="UTF-8">
   <style type="text/css">
 		body {
@@ -200,7 +201,7 @@
 		  font-weight: bold;
 		  color: #34495e;
 		  margin-bottom: 10px;
-		  margin-top: 20px;
+		  margin-top: 10px;
 		}
 		
 		.additional-info span{
@@ -212,7 +213,6 @@
 		  align-items: center;
 		  cursor: pointer;
 		}
-		
 		
 		.author-logo {
 		  width: 50px;
@@ -274,7 +274,7 @@
 		  gap: 20px; /* 요소 간 간격 */
 		  padding: 10px;
 		  font-size: 16px;
-		  margin-top: 50px;
+		  margin-top: 10px;
 		}
 		
 		.counter-container p {
@@ -330,8 +330,15 @@
 		  min-width: 100px;
 		  text-align: right;
 		}
-				
 		
+		.counter-container {
+		  display: none;
+		  transition: opacity 0.3s ease, visibility 0.3s ease;
+		}
+		
+		.counter-container.show {
+		  display: flex;
+		}
   </style>
   <script type="text/javascript">
 	  function toggleLike(idx, btn) {
@@ -461,28 +468,25 @@
   	});
   	
   	function count(button, targetId, delta) {
-      const input = document.getElementById(targetId);
-      let currentValue = parseInt(input.value) || 0;
-      currentValue += delta;
-      if (currentValue < 1) currentValue = 1;
-      if(currentValue > 5){
-      	alert("5개까지 구매가능한 상품입니다.");
-      	currentValue = 5;
-      }
-      input.value = currentValue;
-      
-      const unitPrice = ${vo.price}; // 단가
-      const discount = ${vo.discount}; // 할인율
+  	  const input = document.getElementById(targetId);
+  	  const totalPriceDisplay = document.getElementById("totalPrice");
 
-      let totalPrice = 0;
-      if (discount > 0) {
-        totalPrice = Math.floor(unitPrice * (1 - discount / 100) * currentValue);
-      } else {
-        totalPrice = unitPrice * currentValue;
-      }
-      
-      document.getElementById("totalPrice").textContent = totalPrice.toLocaleString() + " 원";
-    }
+  	  const basePrice = parseInt(totalPriceDisplay.getAttribute("data-base-price")) || ${vo.price}; // 저장된 기본 가격
+  	  let currentValue = parseInt(input.value) || 1;
+  	  currentValue += delta;
+
+  	  if (currentValue < 1) currentValue = 1; // 최소 1개
+  	  if (currentValue > 5) { // 최대 5개 제한
+  	    alert("5개까지 구매가능한 상품입니다.");
+  	    currentValue = 5;
+  	  }
+  	  input.value = currentValue;
+
+  	  const totalPrice = basePrice * currentValue; // 기본 가격 * 수량
+  	  totalPriceDisplay.textContent = totalPrice.toLocaleString() + '원';
+  		document.getElementById("totalPrice").value =  totalPrice.toLocaleString();
+  	}
+
   	
   	function shopDelete() {
 			let ans = confirm("${vo.title}을 삭제하시겠습니까?");
@@ -491,6 +495,58 @@
 			location.href="${ctp}/shop/shopDelete?idx=${vo.idx}";
 		}
   	
+  	function selectOption() {
+  	  const select = document.getElementById("optionSelect");
+  	  if (!select) return; // 옵션이 없는 경우 함수 종료
+
+  	  const selectedOption = select.options[select.selectedIndex];
+  	  const optionPrice = parseInt(selectedOption.dataset.price) || 0; // 옵션 가격 가져오기
+
+  	  const counterContainer = document.getElementById("counter-container");
+  	  const selectedOptionDisplay = document.getElementById("selectedOption");
+  	  const quantityInput = document.getElementById("quantityInput");
+  	  const totalPriceDisplay = document.getElementById("totalPrice");
+
+  	  const basePrice = parseInt(${vo.price}) || 0; // 기본 상품 가격
+
+  	  if (selectedOption.value !== "") {
+  	    // 옵션이 선택된 경우
+  	    counterContainer.classList.add("show"); // counter-container 표시
+  	    selectedOptionDisplay.textContent = '선택된 옵션 : ' + selectedOption.value;
+  	    const totalPrice = (basePrice + optionPrice) * parseInt(quantityInput.value || 1);
+
+  	    totalPriceDisplay.textContent = totalPrice.toLocaleString() + '원';
+  	    totalPriceDisplay.setAttribute("data-base-price", basePrice + optionPrice); // 새로운 기본 가격 저장
+  	  } else {
+  	    // 기본 상태 (옵션 선택 없음)
+  	    counterContainer.classList.remove("show");
+  	    selectedOptionDisplay.textContent = "옵션을 선택하세요";
+  	    totalPriceDisplay.textContent = "0 원";
+  	    totalPriceDisplay.setAttribute("data-base-price", basePrice); // 기본 가격 설정
+  	  }
+  	}
+  	
+  	function buy() {
+  	  const quantity = document.getElementById("quantityInput").value; // 수량 가져오기
+  	  const totalPrice = document.getElementById("totalPrice").textContent.replace("원", "").replace(/,/g, ""); // 최종 가격 가져오기
+  	  const idx = document.getElementById("idx").value; // idx 가져오기
+
+  	  // 선택한 옵션 가져오기
+  	  const optionSelect = document.getElementById("optionSelect");
+  	  const selectedOption = optionSelect ? optionSelect.options[optionSelect.selectedIndex].value : "";
+
+  	  if (!quantity || (optionSelect && !selectedOption)) {
+  	    alert("옵션을 선택해주세요");
+  	    return;
+  	  }
+
+  	  document.getElementById("quantity").value = quantity;
+  	  buyForm.totalPrice.value = totalPrice;
+  	  document.getElementById("optionSelectValue").value = selectedOption;
+  	  
+
+  	  document.getElementById("buyForm").submit();
+  	}
   </script>
 </head>
 <body>
@@ -534,26 +590,57 @@
 				  <c:if test="${vo.discount == 0}">
 					  <p class="price"><fmt:formatNumber value="${vo.price}" pattern="#,##0"/> 원</p>
 				  </c:if>
-				  <button type="button" onclick="buy()" class="btn btn-outline-secondary">구매하기</button>
-				  <button type="button" onclick="cartCheck()" class="btn btn-outline-secondary">장바구니 담기</button>
-				  <div></div>
 				  <div class="additional-info">
-				    <h3>제품 사진 관련 안내</h3>
-				    <p>위의 사진들은 모니터에 따라 약간의 색상 차이가 발생될 수 있습니다.</p>
-				    <p>배송비 : <span style="font-weight: bold;">무료배송</span></p>
-				    <p>해당 상품은 5개까지 구매가능합니다.</p>
-				    <div class="counter-container">
-						  <p>${vo.title}</p>
-						  <div class="counter">
-						    <button type="button" class="counter-btn" onclick="count(this, 'quantityInput', -1)"><i class="fa-solid fa-minus"></i></button>
-						    <input type="number" id="quantityInput" class="counter-input"value="1" readonly>
-						    <button type="button" class="counter-btn" onclick="count(this, 'quantityInput', 1)"><i class="fa-solid fa-plus"></i></button>
-						  </div>
-						  
-						  <!-- 가격 -->
-						  <p id="totalPrice" class="price"><fmt:formatNumber value="${vo.price}" pattern="#,##0"/> 원</p>
-						</div>
-				  </div>
+					  <h3>제품 사진 관련 안내</h3>
+					  <p>위의 사진들은 모니터에 따라 약간의 색상 차이가 발생될 수 있습니다.</p>
+					  <p>배송비 : <span style="font-weight: bold;">무료배송</span></p>
+					  <p>해당 상품은 5개까지 구매가능합니다.</p>
+					
+					  <!-- 옵션 선택 -->
+					  <c:set var="optionName" value="${fn: split(vo.optionName, '/')}"/>
+					  <c:set var="optionPrice" value="${fn: split(vo.optionPrice, '/')}"/>
+					  <c:choose>
+						  <c:when test="${fn: length(optionName) > 1}">
+						    <select id="optionSelect" class="form-control" onchange="selectOption()">
+								  <option value="" data-price="0">옵션을 선택하세요</option>
+								  <c:forEach var="i" begin="0" end="${fn: length(optionName) -1}">
+								    <option value="${optionName[i]}" data-price="${optionPrice[i]}">
+								      ${optionName[i]}<c:if test="${optionPrice[i] != 0}"> - <fmt:formatNumber value="${optionPrice[i]}" pattern="#,##0"/> 원</c:if>
+								    </option>
+								  </c:forEach>
+								</select>
+						    <div id="counter-container" class="counter-container">
+								  <p id="selectedOption" class="option">옵션을 선택하세요</p>
+								  <div class="counter">
+								    <button type="button" class="counter-btn" onclick="count(this, 'quantityInput', -1)">-</button>
+								    <input type="number" id="quantityInput" class="counter-input" value="1" readonly>
+								    <button type="button" class="counter-btn" onclick="count(this, 'quantityInput', 1)">+</button>
+								  </div>
+								  <p id="totalPrice" class="price" data-base-price="${vo.price}">${vo.price} 원</p>
+								</div>
+						  </c:when>
+						  <c:otherwise>
+						    <div id="counter-container" class="counter-container show">
+						      <p id="selectedOption" class="option">${vo.title}</p>
+						      <div class="counter">
+						        <button type="button" class="counter-btn" onclick="count(this, 'quantityInput', -1)">-</button>
+						        <input type="number" id="quantityInput" class="counter-input" value="1" readonly>
+						        <button type="button" class="counter-btn" onclick="count(this, 'quantityInput', 1)">+</button>
+						      </div>
+						      <p id="totalPrice" class="price"><fmt:formatNumber value="${vo.price}" pattern="#,##0"/> 원</p>
+						    </div>
+						  </c:otherwise>
+						</c:choose>
+						<form id="buyForm" method="post" action="${ctp}/shop/shopBuy">
+						  <input type="hidden" id="idx" name="idx" value="${vo.idx}">
+						  <input type="hidden" id="quantity" name="quantity">
+						  <input type="hidden" id="totalPrice" name="totalPrice">
+						  <input type="hidden" id="optionSelectValue" name="optionSelect"> <!-- 옵션 추가 -->
+						  <button type="button" onclick="buy()" class="btn btn-outline-secondary mt-3">구매하기</button>
+					  	<button type="button" onclick="cartCheck()" class="btn btn-outline-secondary mt-3">장바구니 담기</button>
+						</form>
+				  	<input type="hidden" id="totalPrice" name="totalPrice">
+					</div>
 				</div>
 	    </td>
 	  </tr>

@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 
+import com.spring.javaGroupS6.vo.MainCategoryVO;
 import com.spring.javaGroupS6.vo.ShopVO;
+import com.spring.javaGroupS6.vo.SubCategoryVO;
 
 public interface ShopService {
 
@@ -30,5 +32,11 @@ public interface ShopService {
 	int getPostCount(String mid);
 
 	int setShopDelete(int idx);
+
+
+	ArrayList<MainCategoryVO> getMainCategoryList(String category);
+
+
+	ArrayList<SubCategoryVO> getSubCategoryList(String mainCategory);
 
 }

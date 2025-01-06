@@ -21,7 +21,7 @@
       z-index: 3 !important;
       position: absolute;
       margin-left: 40%;
-      margin-top: 3%;
+      margin-top: 8%;
 	  }
     .logo {
       font-size: 28px !important;
@@ -93,7 +93,107 @@
 	      transform: translateY(0);
 	      box-shadow: none;
 	  }
+		
+		input, button {
+		  border: none;
+		  outline: none;
+		  background: none;
+		  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+		}
+		button {
+		  display: block;
+		  margin: 0 auto;
+		  width: 400px;
+		  height: 36px;
+		  border-radius: 30px;
+		  color: #fff;
+		  font-size: 15px;
+		  cursor: pointer;
+		}
+		
+		label {
+		  display: block;
+		  width: 400px;
+		  margin-top: 10px;
+		}
+		
+		label span {
+		  font-size: 12px;
+		  text-transform: uppercase;
+		}
+		
+		input {
+		  display: block;
+		  width: 100%;
+		  margin-top: 5px;
+		  padding-bottom: 5px;
+		  font-size: 16px;
+		  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+		}
+		
+		.input-group {
+		    display: flex;
+		    justify-content: center;
+		    gap: 50px;
+		    margin-top: 10px;
+		}
+		
+		.label-group {
+	    display: flex;
+	    align-items: center;
+	    margin-bottom: 20px;
+	    gap: 10px;
+		}
+		
+		.label-group span {
+	    flex: 1;
+	    font-size: 14px;
+	    font-weight: 600;
+	    text-transform: uppercase;
+		}
+		
+		.label-group input {
+	    flex: 2;
+	    padding: 8px 10px;
+	    border: 1px solid #ccc;
+	    border-radius: 5px;
+		}
+		
+		
   </style>
+  <script type="text/javascript">
+  	let regex2 = /^(?=.*?[0-9])(?=.*?[a-zA-Z])[a-zA-Z0-9!@#$%^&*()._-]{4,20}$/;
+	  function pwd1Check() {
+			let pwd1 = myform.pwd.value.trim();
+			let pwd2 = myform.pwd2.value.trim();
+			
+			document.getElementById("pwdError").innerHTML="";
+		  // 비밀번호 확인
+		  if(!regex2.test(pwd1)) {
+		    document.getElementById("pwdError").innerHTML="비밀번호가 올바르지 않습니다.(영어/숫자 필수, 특수문자 가능 4~20자)";
+		  }
+		  else if(pwd1 !== pwd2) {
+		    document.getElementById("pwdError").innerHTML="비밀번호가 동일하지 않습니다.";
+		  }
+		  else {
+		    document.getElementById("pwdError").innerHTML="";
+			}	
+		}
+	  
+	  function pwdCheck() {
+			let pwd = myform.pwd.value;
+			let pwd2 = myform.pwd2.value;
+			if(pwd != pwd2){
+				alert("비밀번호가 동일하지 않습니다.");
+				return false;
+			}
+			if(!regex2.test(pwd)){
+				alert("비밀번호가 올바르지 않습니다.(영어/숫자 필수, 특수문자 가능 4~20자)");
+				return false;
+			}
+			myform.submit();
+		}
+  </script>
 </head>
 <body>
 	<div class="line-drawing-demo logo">
@@ -120,16 +220,24 @@
 	</script>
   <div class="con">
     <div class="tabs">
-        <button class="active" >아이디</button>
+        <button class="active" >비밀번호 변경</button>
     </div>
     <div id="findIdForm">
-      <form method="post" action="${ctp}">
-          <div class="form-group">
-            <label for="name">아이디</label>
-            <input type="text" class="control" id="mid" name="mid" value="${vo.mid}" readonly>
-          </div>
-          <button type="submit" class="nextBtn" style="margin-bottom: 5px;">홈으로</button>
-          <input type="button" style="background: gray;" onclick="location.href='${ctp}/common/findAccount'" class="nextBtn" value="비밀번호 찾기"/>
+      <form method="post" name="myform" action="${ctp}/common/pwdFind">
+        <div class="input-group">
+		      <label style="width: 30%; margin-right: 0;">
+		        <span>비밀번호</span>
+		        <input type="password" name="pwd" id="pwd" oninput="pwd1Check()"/>
+		      </label>
+		      <label style="width: 30%; margin-left: 5%;">
+		        <span>비밀번호 확인</span>
+		        <input type="password" name="pwd2" id="pwd2" oninput="pwd1Check()"/>
+		      </label>
+	      </div>
+        <span id="pwdError" style="font-size: 12px; color: #5e0000; width: 100%; text-align: center; display: block; margin-top: 10px;"></span>
+        <button type="button" onclick="pwdCheck()" class="nextBtn">비밀번호 변경</button>
+        <button type="button" onclick="location.href='${ctp}'" class="nextBtn" style="margin: 15px 0;">홈으로</button>
+        <input type="hidden" name="mid" value="${vo.mid}">
       </form>
     </div>
   </div>

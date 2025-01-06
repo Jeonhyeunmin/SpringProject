@@ -19,4 +19,6 @@ public interface CommonDAO {
 
 	MemberVO getMemberEmailSearch(@Param("email") String email);
 
+	int setMemberUpdate(@Param("vo") MemberVO vo);
+
 }

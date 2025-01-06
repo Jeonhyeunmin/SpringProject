@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="getSubCateCnt" resultType="int">
-		select COUNT(*) as count from shop where mainCategory = #{mainCategory} and accept = '승인'  group by subCategory order by subCategory;
+		select COUNT(*) as count from shop where mainCategory = #{mainCategory} and accept = '승인'  group by subCategory order by mainCategory;
 	</select>
 	
 	<select id="getBrandCateCnt" resultType="int">
@@ -22,20 +22,28 @@
 		select * from shop where idx = #{idx};
 	</select>
 	
-	<select id="getList" resultType="com.spring.javaGroupS6.vo.ShopVO">
-		select * from shop order by category;
+	<select id="getList" resultType="com.spring.javaGroupS6.vo.CategoryVO">
+		select * from category order by category;
 	</select>
 	
 	<select id="getPostCount" resultType="int">
 		select count(*) from shop where mid = #{mid};
 	</select>
 	
+	<select id="getMainCategoryList" resultType="com.spring.javaGroupS6.vo.MainCategoryVO">
+		select * from mainCategory where category = #{category} order by category;
+	</select>
+	
+	<select id="getSubCategoryList" resultType="com.spring.javaGroupS6.vo.SubCategoryVO">
+		select * from subCategory where mainCategory = #{mainCategory} order by mainCategory;
+	</select>
+	
 	<insert id="shopInput">
-		insert into shop values (default, #{vo.mid}, #{vo.company}, #{vo.category}, #{vo.mainCategory}, #{vo.subCategory}, #{vo.title}, #{vo.discount}, #{vo.price}, #{vo.thumbnail}, #{vo.titleImg}, #{vo.content}, #{vo.fSize}, default, default, default);
+		insert into shop values (default, #{vo.mid}, #{vo.company}, #{vo.category}, #{vo.mainCategory}, #{vo.subCategory}, #{vo.title}, #{vo.discount}, #{vo.price}, #{vo.option}, #{vo.thumbnail}, #{vo.titleImg}, #{vo.content}, #{vo.fSize}, default, default, default);
 	</insert>
 	
 	<update id="setShopUpdate">
-		update shop set company = #{vo.company}, category = #{vo.category}, mainCategory = #{vo.mainCategory}, subCategory = #{vo.subCategory}, title = #{vo.title}, discount = #{vo.discount}, price = #{vo.price}, thumbnail = #{vo.thumbnail}, titleImg = #{vo.titleImg}, content = #{vo.content}, fSize = #{vo.fSize}, wDate = now(), accept = 'NO' where idx = #{vo.idx};
+		update shop set company = #{vo.company}, category = #{vo.category}, mainCategory = #{vo.mainCategory}, subCategory = #{vo.subCategory}, title = #{vo.title}, discount = #{vo.discount}, price = #{vo.price}, optionName = #{vo.optionName}, optionPrice = #{vo.optionPrice}, thumbnail = #{vo.thumbnail}, titleImg = #{vo.titleImg}, content = #{vo.content}, fSize = #{vo.fSize}, wDate = now(), accept = 'NO' where idx = #{vo.idx};
 	</update>
 	
 	<delete id="setShopDelete">

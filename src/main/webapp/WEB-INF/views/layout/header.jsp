@@ -126,25 +126,25 @@
  	  </script>
     <style>
 	    body {
-        margin: 0 ;
-        font-family: 'Georgia', serif;
-        color: #333;
+        margin: 0  !important;
+        font-family: 'Georgia', serif !important;
+        color: #333 !important;
 	    }
 	    .header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
         background-color: #fff !important;
-        border-bottom: 2px solid #e1c699;
-        z-index: 1000;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-bottom: 2px solid #e1c699 !important;
+        z-index: 1000 !important;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
 	    }
 	    .header-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 1200px;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        max-width: 1200px !important;
         margin: 0 auto !important;
         padding: 20px 20px !important;
 	    }
@@ -154,11 +154,11 @@
         color: #e1c699 !important;
         text-decoration: none !important;
         font-family: 'Playfair Display', serif !important;
-        width: 100px;
-        cursor: pointer;
+        width: 100px !important;
+        cursor: pointer !important;
 	    }
 	    .nav {
-        display: flex ;
+        display: flex  !important;
         list-style: none !important;
         margin: 0 !important;
         padding: 0 !important;
@@ -171,9 +171,9 @@
         font-size: 16px !important;
         font-weight: bold !important;
         color: #333 !important;
-        padding: 30px 15px !important;
+        padding: 30px 0px !important;
         transition: color 0.3s ease, border-bottom 0.3s ease !important;
-        text-decoration: none;
+        text-decoration: none !important;
 	    }
 	    .nav-link:hover {
         color: #e1c699 !important;
@@ -286,31 +286,31 @@
 	            				
       /* 하얀색 창 애니메이션 */
       .white-box {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: white;
-        z-index: 1000;
-        display: none;
-        animation: slideWhiteBox 1s ease-in-out forwards;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        background-color: white !important;
+        z-index: 1000 !important;
+        display: none !important;
+        animation: slideWhiteBox 1s ease-in-out forwards !important;
       }
 	            				
       #demo {
-	      display: none;
-	      position: fixed;
-	      top: 50%;
-	      transform: translate(-50%, -50%);
-	      z-index: 999;
-	      background-color: white;
-	      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-	      padding: 20px !important;
-	      border-radius: 10px;
-	      opacity: 0;
-	      transition: opacity 0.5s ease-in-out;
-	      left: 50%;
-	      height: 850px;
+	      display: none !important;
+	      position: fixed !important;
+	      top: 50% !important;
+	      transform: translate(-50%, -50%) !important;
+	      z-index: 999 !important;
+	      background-color: white !important;
+	      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
+	      padding: 20px !important !important;
+	      border-radius: 10px !important !important;
+	      opacity: 0 !important !important;
+	      transition: opacity 0.5s ease-in-out !important !important;
+	      left: 50% !important;
+	      height: 850px !important;
       }
 	    	
 	            
@@ -447,7 +447,7 @@
         text-decoration: none !important;
       }
       svg {
-			  overflow: visible;
+			  overflow: visible !important;
 			}
     </style>
 </head>
@@ -538,7 +538,8 @@
                 <a href="#" class="action-link"><i class="fas fa-shopping-cart"></i></a>
                 <ul class="nav">
                   <li class="nav-item">
-                    <a href="#" class="nav-link login" style="padding-left: 0 !important; padding-right: 0 !important;"><i class="fas fa-user"></i></a>
+                    <c:if test="${empty sMid}"><a href="#" class="nav-link login" style="padding-left: 0; padding-right: 0;"><i class="fas fa-user"></i></a></c:if>
+                    <c:if test="${!empty sMid}"><a href="${ctp}/common/myPage" class="nav-link" style="padding-left: 0; padding-right: 0;"><i class="fas fa-user"></i></a></c:if>
                     <ul class="myPage">
                         <c:if test="${empty sMid}"><li><a href="#" class="login">로그인</a></li></c:if>
                         <c:if test="${!empty sMid}"><li><a href="${ctp}/common/myPage">마이페이지</a></li></c:if>
@@ -555,17 +556,17 @@
 									    <li data-category="beauty" class="sub-category-item">
 									        <h3><a href="${ctp}/shop/shopMainList?mainCategory=스킨케어">스킨케어</a></h3>
 									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?subCategory=스킨/토너/미스트">스킨/토너/미스트</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?subCategory=로션/에멀젼">로션/에멀젼</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?subCategory=에센스/세럼">에센스/세럼</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?subCategory=크림">크림</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?subCategory=아이크림">아이크림</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?subCategory=클렌징">클렌징</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?subCategory=마스크/팩">마스크/팩</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?subCategory=각질/스크럼/필링">각질/스크럼/필링</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?subCategory=유아용화장품">유아용화장품</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?subCategory=페이스오일">페이스오일</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?subCategory=썬케어">썬케어</a></li>
+								            <li><a href="${ctp}/shop/shopSubList?subCategory=스킨/토너/미스트">스킨/토너/미스트</a></li>
+								            <li><a href="${ctp}/shop/shopSubList?subCategory=로션/에멀젼">로션/에멀젼</a></li>
+								            <li><a href="${ctp}/shop/shopSubList?subCategory=에센스/세럼">에센스/세럼</a></li>
+								            <li><a href="${ctp}/shop/shopSubList?subCategory=크림">크림</a></li>
+								            <li><a href="${ctp}/shop/shopSubList?subCategory=아이크림">아이크림</a></li>
+								            <li><a href="${ctp}/shop/shopSubList?subCategory=클렌징">클렌징</a></li>
+								            <li><a href="${ctp}/shop/shopSubList?subCategory=마스크/팩">마스크/팩</a></li>
+								            <li><a href="${ctp}/shop/shopSubList?subCategory=각질/스크럼/필링">각질/스크럼/필링</a></li>
+								            <li><a href="${ctp}/shop/shopSubList?subCategory=유아용화장품">유아용화장품</a></li>
+								            <li><a href="${ctp}/shop/shopSubList?subCategory=페이스오일">페이스오일</a></li>
+								            <li><a href="${ctp}/shop/shopSubList?subCategory=썬케어">썬케어</a></li>
 									        </ul>
 									    </li>
 									    <li data-category="beauty" class="sub-category-item">

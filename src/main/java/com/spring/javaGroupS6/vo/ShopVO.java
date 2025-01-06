@@ -13,7 +13,8 @@ public class ShopVO {
 	private String title;
 	private String price;
 	private String discount;
-	private String pay;
+	private String optionName;
+	private String optionPrice;
 	private String thumbnail;
 	private String titleImg;
 	private String content;

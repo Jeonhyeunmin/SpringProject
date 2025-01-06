@@ -19,6 +19,31 @@ create table shop(
    foreign key(mid) references partner(mid)
 );
 
+create table category(
+	cateCode int not null auto_increment,
+    category varchar(50) not null,
+    
+    primary key (cateCode)
+);
+
+create table mainCategory(
+	mainCateCode int not null auto_increment,
+    mainCategory varchar(50) not null,
+    category varchar(50) not null,
+    
+    
+    primary key (mainCateCode)
+);
+
+create table subCategory(
+	subCateCode int not null auto_increment,
+    subCategory varchar(50) not null,
+    mainCategory varchar(50) not null,
+    
+    
+    primary key (subCateCode)
+);
+
 select * from shop;
 
 desc shop;

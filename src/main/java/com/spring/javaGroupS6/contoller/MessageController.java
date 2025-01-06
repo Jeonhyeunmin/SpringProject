@@ -88,7 +88,19 @@ public class MessageController {
 		}
 		else if(msgFlag.equals("memberIdSameCheck")) {
 			model.addAttribute("message", "동일 정보로 아이디가 이미 존재합니다");
-			model.addAttribute("url", "common/idFind");
+			model.addAttribute("url", "common/idAccount");
+		}
+		else if(msgFlag.equals("findIdNo")) {
+			model.addAttribute("message", "입력하신 정보로 조회된 아이디가 없습니다");
+			model.addAttribute("url", "common/idAccount");
+		}
+		else if(msgFlag.equals("pwdChangeOk")) {
+			model.addAttribute("message", "비밀번호 변경이 완료되었습니다");
+			model.addAttribute("url", "");
+		}
+		else if(msgFlag.equals("pwdChangeNo")) {
+			model.addAttribute("message", "실패");
+			model.addAttribute("url", "common/pwdFind");
 		}
 		
 		return "include/message";

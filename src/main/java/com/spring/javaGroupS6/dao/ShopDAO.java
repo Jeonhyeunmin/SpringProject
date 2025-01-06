@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.spring.javaGroupS6.vo.MainCategoryVO;
 import com.spring.javaGroupS6.vo.ShopVO;
+import com.spring.javaGroupS6.vo.SubCategoryVO;
 
 public interface ShopDAO {
 
@@ -25,5 +27,11 @@ public interface ShopDAO {
 	int getPostCount(@Param("mid") String mid);
 
 	int setShopDelete(@Param("idx") int idx);
+
+	ArrayList<MainCategoryVO> getMainCategoryList(@Param("category") String category);
+
+	ArrayList<SubCategoryVO> getSubCategoryList(@Param("mainCategory") String mainCategory);
+
+	ArrayList<String> getCategoryList();
 
 }

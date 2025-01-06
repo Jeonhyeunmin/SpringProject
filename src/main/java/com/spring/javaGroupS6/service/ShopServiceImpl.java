@@ -17,7 +17,9 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import com.spring.javaGroupS6.common.JavaProvide;
 import com.spring.javaGroupS6.dao.ShopDAO;
+import com.spring.javaGroupS6.vo.MainCategoryVO;
 import com.spring.javaGroupS6.vo.ShopVO;
+import com.spring.javaGroupS6.vo.SubCategoryVO;
 
 @Service
 public class ShopServiceImpl implements ShopService {
@@ -190,4 +192,16 @@ public class ShopServiceImpl implements ShopService {
 	public int setShopDelete(int idx) {
 		return shopDAO.setShopDelete(idx);
 	}
+
+
+	@Override
+	public ArrayList<MainCategoryVO> getMainCategoryList(String category) {
+		return shopDAO.getMainCategoryList(category);
+	}
+	
+	@Override
+	public ArrayList<SubCategoryVO> getSubCategoryList(String mainCategory) {
+		return shopDAO.getSubCategoryList(mainCategory);
+	}
+	
 }

@@ -7,7 +7,7 @@
 <head>
   <meta charset="UTF-8">
   <link rel="icon" href="${ctp}/main/favicon.png">
-  <title>${title}</title>
+  <title>${title} | Min's</title>
   <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
   <style>
     body {
