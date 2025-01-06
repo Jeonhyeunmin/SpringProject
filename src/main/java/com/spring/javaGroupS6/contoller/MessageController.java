@@ -21,9 +21,14 @@ public class MessageController {
 		
 		String company = (String)session.getAttribute("sCompany");
 		String name = (String)session.getAttribute("sName");
-		int level = (int)session.getAttribute("sLevel");
+		int level = session.getAttribute("sLevel") == null ? 0 : (int)session.getAttribute("sLevel");
+		String pwdChange = session.getAttribute("sPwdChange") == null ? "yes" : (String)session.getAttribute("sPwdChange");
 		
-		if(level == 1&& msgFlag.equals("loginOk")) {
+		if(pwdChange.equals("no") && msgFlag.equals("loginOk") && level == 1) {
+			model.addAttribute("message", "임시비밀번호 발급 후 비밀번호를 변경하지 않으셨습니다");
+			model.addAttribute("url", "");
+		}
+		else if(level == 1&& msgFlag.equals("loginOk")) {
 			model.addAttribute("message", name + "님 반갑습니다.");
 			model.addAttribute("url", "/");
 		}
@@ -47,25 +52,21 @@ public class MessageController {
 			model.addAttribute("message", "파트너 신청이 완료되었습니다 \n관리자 승인 후 게시물 등록 가능합니다.");
 			model.addAttribute("url", "/");
 		}
-		else if(msgFlag.equals("partnerJoinOk")) {
-			model.addAttribute("message", "파트너 신청이 완료되었습니다 \n관리자 승인 후 게시물 등록 가능합니다.");
-			model.addAttribute("url", "/");
-		}
 		else if(msgFlag.equals("partnerJoinNo")) {
 			model.addAttribute("message", "신청 실패");
-			model.addAttribute("url", "/");
+			model.addAttribute("url", "");
 		}
 		else if(msgFlag.equals("myPageNo")) {
 			model.addAttribute("message", "누구세요~?");
-			model.addAttribute("url", "/");
+			model.addAttribute("url", "");
 		}
 		else if(msgFlag.equals("shopUpdateOk")) {
 			model.addAttribute("message", "게시물 업데이트 완료");
-			model.addAttribute("url", "/shop/shopContent?idx=" + idx);
+			model.addAttribute("url", "shop/shopContent?idx=" + idx);
 		}
 		else if(msgFlag.equals("shopUpdateNo")) {
 			model.addAttribute("message", "게시물 업데이트 실패");
-			model.addAttribute("url", "/shop/shopUpdate?idx=" + idx);
+			model.addAttribute("url", "shop/shopUpdate?idx=" + idx);
 		}
 		else if(msgFlag.equals("shopInputOk")) {
 			model.addAttribute("message", "게시물 등록이 완료되었습니다. \n관리자 승인 후 게시물이 노출됩니다.");
@@ -74,7 +75,7 @@ public class MessageController {
 		
 		else if(msgFlag.equals("shopInputOk")) {
 			model.addAttribute("message", "게시물 등록 실패");
-			model.addAttribute("url", "/shop/shopInput");
+			model.addAttribute("url", "shop/shopInput");
 		}
 		
 		else if(msgFlag.equals("shopDeleteOk")) {
@@ -83,7 +84,11 @@ public class MessageController {
 		}
 		else if(msgFlag.equals("shopDeleteNo")) {
 			model.addAttribute("message", "실패");
-			model.addAttribute("url", "/shop/shopContent?idx=" + idx);
+			model.addAttribute("url", "shop/shopContent?idx=" + idx);
+		}
+		else if(msgFlag.equals("memberIdSameCheck")) {
+			model.addAttribute("message", "동일 정보로 아이디가 이미 존재합니다");
+			model.addAttribute("url", "common/idFind");
 		}
 		
 		return "include/message";

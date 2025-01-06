@@ -19,6 +19,7 @@
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/fonts/**" location="/resources/fonts/" />
 	<resources mapping="/data/**" location="/resources/data/" />
+	<resources mapping="/logo/**" location="/resources/data/partner/logo/" />
 	<resources mapping="/images/**" location="/resources/images/" />
 	<resources mapping="/main/**" location="/resources/images/main/" />
 	<resources mapping="/login/**" location="/resources/images/login/" />

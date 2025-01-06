@@ -514,7 +514,7 @@
 	    <td style="width: 50%; vertical-align: top; padding: 10px;">
 	      <div class="product-info">
 				  <div class="author-info" onclick="location.href=''">
-				    <img src="${ctp}/login/${logo}" alt="${vo.company}" class="author-logo">
+				    <img src="${ctp}/logo/${logo}" alt="${vo.company}" class="author-logo">
 				    <div class="author-details">
 				      <div class="company">${vo.company}</div>
 				      <p class="post-count">게시물 <fmt:formatNumber value="${postCount}" pattern="#,##0"/>개</p>

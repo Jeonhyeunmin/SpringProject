@@ -52,6 +52,62 @@
 			cursor: pointer;
 			bottom: 0;
 		}
+		
+		.fixed-sidebar {
+	    position: fixed;
+	    top: 40%;
+	    right: 0px;
+	    width: 150px;
+	    min-height: 250px; /* 높이를 늘림 */
+	    background-color: #fff;
+	    border: 1px solid #ddd;
+	    border-radius: 8px;
+	    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	    z-index: 1000;
+	    text-align: center;
+	    transition: 0.7s ease;
+	    padding: 15px; /* 내부 여백 추가 */
+		}
+		
+		.sidebar-item {
+	    padding: 15px 10px; /* 텍스트 패딩 */
+	    border-bottom: 1px solid #eee;
+		}
+		
+		.sidebar-item:last-child {
+	    border-bottom: none;
+		}
+		
+		.sidebar-item h4 {
+	    font-size: 16px;
+	    font-weight: bold;
+	    color: #333;
+	    margin: 10px 0;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    gap: 5px;
+	    margin-bottom: 30px;
+		}
+		
+		.sidebar-item p {
+	    font-size: 14px;
+	    color: #888;
+	    margin: 5px 0;
+	    text-align: center;
+		}
+		
+		.sidebar-item p.no-items {
+	    font-size: 12px;
+	    color: #ff6347;
+	    font-style: italic;
+	    font-weight: bold;
+	    text-shadow: 0px 1px 3px rgba(255, 99, 71, 0.5);
+	    margin-top: 10px; /* 추가 여백 */
+	    text-align: center;
+		}
+
+
   </style>
   
   <script type="text/javascript">
@@ -66,6 +122,7 @@
 					window.scrollTo({top:0, behavior: "smooth"});	
 				});
 			});
+	  
   </script>
 </head>
 <body>
@@ -76,6 +133,17 @@
 
   <!-- Main Body -->
 <tiles:insertAttribute name="body" />
+
+	<div class="fixed-sidebar" id="mainSidevar">
+	  <div class="sidebar-item">
+	    <h4>
+	      최근 본 물품
+	    </h4>
+	    <p>최근에 보신</p>
+	    <p class="no-items">물품이 없습니다.</p>
+	  </div>
+	</div>
+
 
 	<!-- 위로가기 버튼 -->
 	<h6 id="topBtn" class="text-right">

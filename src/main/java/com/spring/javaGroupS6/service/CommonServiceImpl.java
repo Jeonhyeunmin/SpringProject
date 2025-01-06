@@ -30,31 +30,33 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public int setMemberJoin(MemberVO vo) {
 		
-		String year = vo.getResident().substring(0,2);  
-		String month = vo.getResident().substring(2,4);  
-		String day = vo.getResident().substring(4,6);  
-		
-		
-		if(Integer.parseInt(year) >= 00 && Integer.parseInt(year) < 50) {
-			year = "20" + year;
-		}
-		else if(Integer.parseInt(year) >= 50 && Integer.parseInt(year) <= 99) {
-			year = "19" + year;
-		}
-		
-		vo.setResident(year + "-" + month + "-" + day);
-		
-		if(vo.getGender().equals("1") || vo.getGender().equals("3")) {
-			vo.setGender("남자");
-		}
-		else {
-			vo.setGender("여자");
+		if(vo.getResident() != null) {
+			String year = vo.getResident().substring(0,2);  
+			String month = vo.getResident().substring(2,4);  
+			String day = vo.getResident().substring(4,6);  
+			
+			
+			if(Integer.parseInt(year) >= 00 && Integer.parseInt(year) < 50) {
+				year = "20" + year;
+			}
+			else if(Integer.parseInt(year) >= 50 && Integer.parseInt(year) <= 99) {
+				year = "19" + year;
+			}
+			
+			vo.setResident(year + "-" + month + "-" + day);
+			
+			if(vo.getGender().equals("1") || vo.getGender().equals("3")) {
+				vo.setGender("남자");
+			}
+			else {
+				vo.setGender("여자");
+			}
 		}
 		
 		vo.setLevel(1);
+		vo.setPhoto("noimage.png");
 		
 		if(vo.getPhoto() == null) {
-			vo.setPhoto("noimage.png");
 		}
 		
 		return commonDAO.setMemberJoin(vo);
@@ -90,5 +92,10 @@ public class CommonServiceImpl implements CommonService {
 		}
 		
 		return commonDAO.setpartnerJoin(vo);
+	}
+
+	@Override
+	public MemberVO getMemberEmailSearch(String email) {
+		return commonDAO.getMemberEmailSearch(email);
 	}
 }

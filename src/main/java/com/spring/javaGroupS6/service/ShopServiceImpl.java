@@ -1,6 +1,5 @@
 package com.spring.javaGroupS6.service;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,8 +19,6 @@ import com.spring.javaGroupS6.common.JavaProvide;
 import com.spring.javaGroupS6.dao.ShopDAO;
 import com.spring.javaGroupS6.vo.ShopVO;
 
-import net.coobird.thumbnailator.Thumbnailator;
-
 @Service
 public class ShopServiceImpl implements ShopService {
 
@@ -32,34 +29,22 @@ public class ShopServiceImpl implements ShopService {
 	JavaProvide provide;
 
 	@Override
-	public ArrayList<ShopVO> getShopList(String category) {
-		return shopDAO.getShopList(category);
+	public ArrayList<ShopVO> getShopList(String category, String column, String accept, String company) {
+		return shopDAO.getShopList(category, column, accept, company);
 	}
 
-	@Override
-	public ArrayList<ShopVO> getMainShopList(String mainCategory) {
-		return shopDAO.getMainShopList(mainCategory);
-	}
 
 	@Override
 	public ArrayList<Integer> getSubCateCnt(String mainCategory) {
 		return shopDAO.getSubCateCnt(mainCategory);
 	}
 
-	@Override
-	public ArrayList<ShopVO> getSubShopAllList(String subCategory) {
-		return shopDAO.getSubShopAllList(subCategory);
-	}
 
 	@Override
 	public ArrayList<Integer> getBrandCateCnt(String subCategory) {
 		return shopDAO.getBrandCateCnt(subCategory);
 	}
 
-	@Override
-	public ArrayList<ShopVO> getSubShopList(String subCategory, String company) {
-		return shopDAO.getSubShopList(subCategory, company);
-	}
 
 	@Override
 	public ShopVO getShopContent(int idx) {

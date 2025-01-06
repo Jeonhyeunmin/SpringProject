@@ -17,4 +17,6 @@ public interface CommonDAO {
 
 	int setpartnerJoin(@Param("vo") PartnerVO vo);
 
+	MemberVO getMemberEmailSearch(@Param("email") String email);
+
 }

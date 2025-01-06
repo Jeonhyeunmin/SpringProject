@@ -513,7 +513,8 @@
                 <a href="#" class="action-link"><i class="fas fa-shopping-cart"></i></a>
                 <ul class="nav">
                   <li class="nav-item">
-                    <a href="#" class="nav-link login" style="padding-left: 0; padding-right: 0;"><i class="fas fa-user"></i></a>
+                    <c:if test="${empty sMid}"><a href="#" class="nav-link login" style="padding-left: 0; padding-right: 0;"><i class="fas fa-user"></i></a></c:if>
+                    <c:if test="${!empty sMid}"><a href="#" class="nav-link" style="padding-left: 0; padding-right: 0;"><i class="fas fa-user"></i></a></c:if>
                     <ul class="myPage">
                         <c:if test="${empty sMid}"><li><a href="#" class="login">로그인</a></li></c:if>
                         <c:if test="${!empty sMid}"><li><a href="${ctp}/common/myPage">마이페이지</a></li></c:if>

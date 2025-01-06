@@ -6,6 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <title>userInput.jsp</title>
+  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
   <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
   <style type="text/css">
 		*, *:before, *:after {
@@ -353,6 +354,58 @@
 			pointer-events: none;
 			pointer-events: auto;
 		}
+		
+		/* ID 저장 스타일 */
+		.idSave-group {
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    margin: 10px 0 20px 0;
+		}
+		
+		.idSave-label {
+		    font-size: 14px;
+		    font-weight: 500;
+		    color: #555;
+		    margin-right: 10px;
+		    cursor: pointer;
+		    margin-left: 10px;
+		}
+		
+		.idSave-checkbox {
+	    -webkit-appearance: none;
+	    -moz-appearance: none;
+	    appearance: none;
+	    width: 18px;
+	    height: 18px;
+	    border: 2px solid #5e0000;
+	    border-radius: 4px;
+	    outline: none;
+	    cursor: pointer;
+	    transition: all 0.3s ease;
+	    display: inline-block;
+	    position: relative;
+	    margin-left: 30px;
+	    margin-top: 10px;
+		}
+		
+		.idSave-checkbox:checked {
+		    background-color: #5e0000;
+		    border-color: #5e0000;
+		}
+		
+		.idSave-checkbox:checked::after {
+	    content: "";
+	    position: absolute;
+	    top: 2px;
+	    left: 5px;
+	    width: 6px;
+	    height: 10px;
+	    border: solid white;
+	    border-width: 0 2px 2px 0;
+	    transform: rotate(45deg);
+		}
+
   </style>
   <script type="text/javascript">
   	let idCheckSw = 0;
@@ -364,6 +417,14 @@
 		let regex4 = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/; // 이메일 
 		let regex5 = /\d{2,3}-\d{3,4}-\d{4}$/; //(전화번호)
 		let regex6 = /[0-9]{6}$/; //(birthday)
+		
+		 
+  	
+  	//158c673636c9a17a27b67c95f2c6be5c
+		
+  	function kakaoLogin() {
+ 			location.href = "${ctp}/common/kakaoLoginForm";
+		}
   
 	 // 아이디 중복 검사 
 		function idCheck() {
@@ -482,9 +543,9 @@
 		
 		function telCheck() {
 			//let regex5 = /\d{2,3}-\d{3,4}-\d{4}$/g; //(전화번호)
-		  let tel1 = joinForm.tel1.value();
-		  let tel2 = joinForm.tel2.value();
-		  let tel3 = joinForm.tel3.value();
+		  let tel1 = joinForm.tel1.value;
+		  let tel2 = joinForm.tel2.value;
+		  let tel3 = joinForm.tel3.value;
 		  let tel = tel1 + "-" + tel2 + "-" + tel3;
 		  
 		  // 전화번호 확인
@@ -562,133 +623,139 @@
     	});
     }
     
- // 회원가입 버튼 클릭시 체크
-	function joinCheck(){
-	  let name = document.getElementById("name").value.trim();
-	  let mid = joinForm.mid.value.trim();
-	  let pwd1 = joinForm.pwd.value.trim();
-	  let pwd2 = document.getElementById("pwd2").value.trim();
-		let resident = document.getElementById("resident").value.trim();
-		let gender = document.getElementById("gender").value.trim();
-		let email = joinForm.email1.value + "@" + joinForm.email2.value;
-  	 
-	  let tel1 = joinForm.tel1.value();
-	  let tel2 = joinForm.tel2.value();
-	  let tel3 = joinForm.tel3.value();
-	  let tel = tel1 + "-" + tel2 + "-" + tel3;
-  	
-	  
-		
-	  // 코스라이브러리 받아주는 서블릿쪽이 멀티파츠로 받아야 합니다 (사진을 넘길때- 업체에서 멀티파츠 갯 파라멬타)
-	  
-	  // 성명 확인
-	  if(!regex3.test(name)){
-	    document.getElementById("nameError").innerHTML="성명이 올바르지 않습니다.(한글/영문만 10자 이내)";
-	    document.getElementById("name").focus();
-	    return false;
-	  }
-	  else {
-		  document.getElementById("nameError").innerHTML="";
-	  }
-	  
-	  // 아이디 확인
-	  if(!regex1.test(mid)) {
-	    document.getElementById("midError").innerHTML="아이디 형식에 맞춰주세요.(영어/숫자만 4~20자)";
-	    joinForm.mid.focus();
-	    return false;
-	  } 
-	  else {
-		   document.getElementById("midError").innerHTML="";
-	  }
-	  
-	  // 비밀번호 확인
-	  if(!regex2.test(pwd1)) {
-	    document.getElementById("pwdError").innerHTML="비밀번호가 올바르지 않습니다.(영어/숫자 필수, 특수문자 가능 4~20자)";
-	    joinForm.pwd.focus();
-	    return false;
-	  }
-	  else {
-	    document.getElementById("pwdError").innerHTML="";
-	    
-		  if(pwd2=== "") {
-		    document.getElementById("pwdError").innerHTML="비밀번호를 다시 입력해주세요.";
-		    document.getElementById("pwd2").focus();
-		    return false;
-		  }
-		  else if(pwd1 !== pwd2) {
-		    document.getElementById("pwdError2").innerHTML="비밀번호가 동일하지 않습니다.";
-		    document.getElementById("pwd2").focus();
+	 // 회원가입 버튼 클릭시 체크
+		function joinCheck(){
+		  let name = document.getElementById("name").value.trim();
+		  let mid = joinForm.mid.value.trim();
+		  let pwd1 = joinForm.pwd.value.trim();
+		  let pwd2 = document.getElementById("pwd2").value.trim();
+			let resident = document.getElementById("resident").value.trim();
+			let gender = document.getElementById("gender").value.trim();
+			let email = joinForm.email1.value + "@" + joinForm.email2.value;
+	  	 
+		  let tel1 = joinForm.tel1.value;
+		  let tel2 = joinForm.tel2.value;
+		  let tel3 = joinForm.tel3.value;
+		  let tel = tel1 + "-" + tel2 + "-" + tel3;
+	  	
+		  
+			
+		  // 코스라이브러리 받아주는 서블릿쪽이 멀티파츠로 받아야 합니다 (사진을 넘길때- 업체에서 멀티파츠 갯 파라멬타)
+		  
+		  // 성명 확인
+		  if(!regex3.test(name)){
+		    document.getElementById("nameError").innerHTML="성명이 올바르지 않습니다.(한글/영문만 10자 이내)";
+		    document.getElementById("name").focus();
 		    return false;
 		  }
 		  else {
-	  	  document.getElementById("pwdError").innerHTML="";
+			  document.getElementById("nameError").innerHTML="";
 		  }
-	  }
-			  
-	  // 전화번호 확인
-	  if(tel2==="" || tel3===""){
-	    document.getElementById("telError").innerHTML="전화번호를 입력해주세요.";
-	    document.getElementById("tel2").focus();
-	    return false;
-	  }
-	  else if(!regex5.test(tel)){
-	    document.getElementById("telError").innerHTML="전화번호 형식에 맞게 입력해주세요.";
-	    document.getElementById("tel2").focus();
-	    return false;
-	  }
-	  else {
-	    document.getElementById("telError").innerHTML="";
-	  }
-	  
-	  if(!regex6.test(resident)|| gender < 1 || gender > 4){
-		    document.getElementById("residentError").innerHTML="주민등록번호가 올바르지 않습니다.(생년월일 + 성별(1~4))";
-		    document.getElementById("resident").focus();
-		    resident = resident + "-" + gender;
+		  
+		  // 아이디 확인
+		  if(!regex1.test(mid)) {
+		    document.getElementById("midError").innerHTML="아이디 형식에 맞춰주세요.(영어/숫자만 4~20자)";
+		    joinForm.mid.focus();
+		    return false;
+		  } 
+		  else {
+			   document.getElementById("midError").innerHTML="";
+		  }
+		  
+		  // 비밀번호 확인
+		  if(!regex2.test(pwd1)) {
+		    document.getElementById("pwdError").innerHTML="비밀번호가 올바르지 않습니다.(영어/숫자 필수, 특수문자 가능 4~20자)";
+		    joinForm.pwd.focus();
 		    return false;
 		  }
-	  else {
-		  document.getElementById("residentError").innerHTML="";
-	  }
-	  
-     if(idCheckSw == 0) {
-			alert("아이디 중복확인을 해주세요.");
-			document.getElementById("mid").focus();
+		  else {
+		    document.getElementById("pwdError").innerHTML="";
+		    
+			  if(pwd2=== "") {
+			    document.getElementById("pwdError").innerHTML="비밀번호를 다시 입력해주세요.";
+			    document.getElementById("pwd2").focus();
+			    return false;
+			  }
+			  else if(pwd1 !== pwd2) {
+			    document.getElementById("pwdError2").innerHTML="비밀번호가 동일하지 않습니다.";
+			    document.getElementById("pwd2").focus();
+			    return false;
+			  }
+			  else {
+		  	  document.getElementById("pwdError").innerHTML="";
+			  }
+		  }
+				  
+		  // 전화번호 확인
+		  if(tel2==="" || tel3===""){
+		    document.getElementById("telError").innerHTML="전화번호를 입력해주세요.";
+		    document.getElementById("tel2").focus();
+		    return false;
+		  }
+		  else if(!regex5.test(tel)){
+		    document.getElementById("telError").innerHTML="전화번호 형식에 맞게 입력해주세요.";
+		    document.getElementById("tel2").focus();
+		    return false;
+		  }
+		  else {
+		    document.getElementById("telError").innerHTML="";
+		  }
+		  
+		  if(!regex6.test(resident)|| gender < 1 || gender > 4){
+			    document.getElementById("residentError").innerHTML="주민등록번호가 올바르지 않습니다.(생년월일 + 성별(1~4))";
+			    document.getElementById("resident").focus();
+			    resident = resident + "-" + gender;
+			    return false;
+			  }
+		  else {
+			  document.getElementById("residentError").innerHTML="";
+		  }
+		  
+	     if(idCheckSw == 0) {
+				alert("아이디 중복확인을 해주세요.");
+				document.getElementById("mid").focus();
+			}
+	    else if(emailCheckSw == 0) {
+				alert("이메일 인증을 진행해주세요 해주세요.");
+				document.getElementById("email1").focus();
+			}
+			else {
+		    joinForm.tel.value = tel;
+		    joinForm.resident.value = resident;
+		    joinForm.email.value = email;
+		   	joinForm.submit();
+			} 
 		}
-    else if(emailCheckSw == 0) {
-			alert("이메일 인증을 진행해주세요 해주세요.");
-			document.getElementById("email1").focus();
-		}
-		else {
-	    joinForm.tel.value = tel;
-	    joinForm.resident.value = resident;
-	    joinForm.email.value = email;
-	   	joinForm.submit();
-		} 
-	}
+
   </script>
 </head>
 <body>
 <div class="cont">
 	<a class="back-arrow" href="${ctp}/">
-	    <i class="fa-solid fa-arrow-left"></i>
+    <i class="fa-solid fa-arrow-left"></i>
 	</a>
 	<form method="post" action="${ctp}/common/login">
 	  <div class="form sign-in align-middle">
 	    <h2>LOGIN</h2>
 	    <label>
 	      <span>ID</span>
-	      <input type="text" id="mid" name="mid" />
+	      <input type="text" id="mid" name="mid" value="${cMid}" />
 	    </label>
 	    <label>
 	      <span>Password</span>
 	      <input type="password" id="pwd" name="pwd" />
 	    </label>
+	    <div class="idSave-group">
+		    <input type="checkbox" id="idSave" name="idSave" class="idSave-checkbox" ${!empty cMid ? 'checked' : ''}>
+		    <label for="idSave" class="idSave-label">아이디 저장</label>
+			</div>
 	    <div class="input-group">
-		    <a href="#" class="forgot-pass">아이디 찾기</a>
+		    <a href="${ctp}/common/idFind" class="forgot-pass">아이디 찾기</a>
 		    <a href="#" class="forgot-pass">비밀번호 찾기</a>
 	    </div>
+
 	    <button type="submit" class="submit">Sign In</button>
-			<button type="button" class="kakao-btn">
+			<button type="button" class="kakao-btn" onclick="kakaoLogin()">
 			    <!-- SVG 카카오톡 로고 -->
 			    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" style="margin-right: 10px;">
 			        <path fill="#000000" d="M12.001 2C6.477 2 2 5.862 2 10.5c0 2.808 1.68 5.29 4.315 6.822-.193.703-.693 2.524-.793 2.866 0 0-.015.137.073.186s.177.018.177.018c.234 0 .344-.137.344-.137 0-.015 1.416-.958 2.445-1.545.47.073.95.11 1.438.11 5.524 0 10.001-3.863 10.001-8.5S17.525 2 12.001 2z"/>
@@ -727,7 +794,7 @@
 		      </label>
 		      <label style="width: 30%; margin-left: 5%;">
 		        <span>비밀번호 확인</span>
-		        <input type="password" name="pwd2" id="pwd2" oninput="pwd2Check()"/>
+		        <input type="password" name="pwd2" id="pwd2" oninput="pwd1Check()"/>
 		      </label>
 	      </div>
         <span id="pwdError" style="font-size: 12px; color: #5e0000; margin: 2px 15%;"></span>
@@ -783,7 +850,7 @@
 				</label>
 
 	      <button type="button" onclick="joinCheck()" class="submit">Sign Up</button>
-	  		<button type="button" class="kakao-btn">
+	  		<button type="button" class="kakao-btn" onclick="kakaoLogin()">
 			    <!-- SVG 카카오톡 로고 -->
 			    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" style="margin-right: 10px;">
 			        <path fill="#000000" d="M12.001 2C6.477 2 2 5.862 2 10.5c0 2.808 1.68 5.29 4.315 6.822-.193.703-.693 2.524-.793 2.866 0 0-.015.137.073.186s.177.018.177.018c.234 0 .344-.137.344-.137 0-.015 1.416-.958 2.445-1.545.47.073.95.11 1.438.11 5.524 0 10.001-3.863 10.001-8.5S17.525 2 12.001 2z"/>

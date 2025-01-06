@@ -17,4 +17,6 @@ public interface CommonService {
 
 	int setpartnerJoin(MultipartFile logo, PartnerVO vo);
 
+	MemberVO getMemberEmailSearch(String email);
+
 }
