@@ -119,10 +119,10 @@
         
 	    	/* 상단 제목 및 경로 */
 		    .page-header {
-				    width: 100%;
-				    padding: 20px 0;
-				    text-align: center;
-				    margin-bottom: 20px; /* 브랜드 컨테이너와의 간격 */
+			    width: 100%;
+			    padding: 20px 0;
+			    text-align: center;
+			    margin-bottom: 20px; /* 브랜드 컨테이너와의 간격 */
 				}
 		
 		    .page-header h2 {
@@ -135,8 +135,7 @@
 		      font-size: 14px;
 		      color: #555;
 		      margin-top: 2%;
-		      margin-left: 19%;
-			    background-color: #fff;
+		      margin-left: 22.5%;
 		    }
 		    .breadcrumb a{
 		    	text-decoration: none;
@@ -144,14 +143,14 @@
 		    }
 	
 				.new-arrivals-container {
-				    display: flex;
-				    flex-direction: row;
-				    width: 1200px;
-				    margin: auto;
-				    margin-top: 0; /* 위의 섹션과의 간격 */
-				    padding: 20px;
-				    overflow: hidden;
-				    padding-top: 10px;
+			    display: flex;
+			    flex-direction: row;
+			    width: 1200px;
+			    margin: auto;
+			    margin-top: 0; /* 위의 섹션과의 간격 */
+			    padding: 20px;
+			    overflow: hidden;
+			    padding-top: 10px;
 				}
 				
 				.brand-buttons {
@@ -167,13 +166,13 @@
 				
 				
 				.product-display {
-				    width: 100%;
-				    background-color: #fff;
-				    display: flex;
-				    flex-direction: column;
-				    justify-content: center;
-				    overflow: hidden;
-				    margin-left: 10px;
+			    width: 100%;
+			    background-color: #fff;
+			    display: flex;
+			    flex-direction: column;
+			    justify-content: center;
+			    overflow: hidden;
+			    margin-left: 10px;
 				}
 				
 				.product-display .swiper-container {
@@ -193,14 +192,14 @@
 				  padding: 15px;
 				  border: 1px solid #ddd;
 				  border-radius: 10px;
-				  height: 100%;
 				  transition: all 0.3s ease;
 				  position: relative; /* 할인 배지 위치 설정을 위해 추가 */
+				  height: 355px;
 				}
 				
 				.product-card img {
 				  width: 100%;
-				  height: auto;
+				  height: 250px;
 				  max-width: 250px;
 				  border-radius: 5px;
 				  margin-bottom: 15px;
@@ -292,6 +291,9 @@
 								
 
     </style>
+    <script type="text/javascript">
+    	
+    </script>
 </head>
 <body>
 	 <!-- 상단 제목 및 경로 -->
@@ -332,21 +334,21 @@
 	</div>
 
   <script>
-      // Swiper 초기화
-      const swiper = new Swiper('.swiper', {
-        slidesPerView: 1,
-        spaceBetween: 0,
-        loop: true,
-        autoplay: {
-          delay: 3000,
-          disableOnInteraction: false,
-        }
-      });
-
-      // 특정 슬라이드로 이동하는 함수
-      function goToSlide(index) {
-        swiper.slideToLoop(index); // Swiper의 slideToLoop 메서드로 슬라이드 이동
+    // Swiper 초기화
+    const swiper = new Swiper('.swiper', {
+      slidesPerView: 1,
+      spaceBetween: 0,
+      loop: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
       }
+    });
+
+    // 특정 슬라이드로 이동하는 함수
+    function goToSlide(index) {
+      swiper.slideToLoop(index); // Swiper의 slideToLoop 메서드로 슬라이드 이동
+    }
   </script>
   
   <h3 class="new-arrivals-title">New Arrivals</h3>
@@ -436,6 +438,7 @@
             brandSwiper.update();
         });
     });
+    
 </script>
   
 </body>

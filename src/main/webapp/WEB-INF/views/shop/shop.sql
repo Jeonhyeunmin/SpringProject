@@ -44,6 +44,21 @@ create table subCategory(
     primary key (subCateCode)
 );
 
+create table shopReview(
+  idx  int not null auto_increment,	/* 리뷰 고유번호 */
+  shopIdx int not null,							/* 해당 분야의 고유번호 */
+  mid  varchar(30) not null,				/* 리뷰 올린이 아이디 */
+  content  text,										/* 리뷰 내용 */
+  star int not null default 0,			/* 별점 부여 점수 */
+  reviewDate datetime default now(),/* 리뷰 작성일 */
+  good int not null default 0,
+  claim int not null default 0,
+  
+  primary key(idx),
+  foreign key(mid) references customer(mid)
+);
+
+
 select * from shop;
 
 desc shop;

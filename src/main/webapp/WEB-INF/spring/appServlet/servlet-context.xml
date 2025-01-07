@@ -46,7 +46,7 @@
 	
 	<!-- 파일 업로드에 필요한 라이브러리 객체 bean 등록 (최대 저장 용량 제한, 한글처리)-->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property name="maxUploadSize" value="20971520"/>
+		<beans:property name="maxUploadSize" value="31457280"/>
 		<beans:property name="defaultEncoding" value="UTF-8"/>
 	</beans:bean>
 	

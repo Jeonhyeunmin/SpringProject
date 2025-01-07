@@ -102,6 +102,14 @@ public class MessageController {
 			model.addAttribute("message", "실패");
 			model.addAttribute("url", "common/pwdFind");
 		}
+		else if(msgFlag.equals("reviewInputOk")) {
+			model.addAttribute("message", "Min's 포인트가 10포인트가 지급되었습니다.");
+			model.addAttribute("url", "shop/shopContent?idx=" + idx);
+		}
+		else if(msgFlag.equals("reviewInputNo")) {
+			model.addAttribute("message", "등록 실패");
+			model.addAttribute("url", "shop/shopReview?idx=" + idx);
+		}
 		
 		return "include/message";
 	}

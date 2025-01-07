@@ -19,8 +19,9 @@
 		#content-form {
 			display: flex;
 		  flex-direction: row;
-		  margin: 0 15%;
+		  margin: 0 17%;
 		  gap: 30px;
+		  align-items: center;
 		}
 		
 		/* 이미지 전환 효과 */
@@ -144,13 +145,10 @@
 			
 			
 		.breadcrumb {
-		  font-size: 14px;
-		  color: #555;
-		  margin-top: 3%;
-		  margin-left: 19.5%;
-		  background-color: #fff;
-		  padding: 5px 10px;
-		  border-radius: 5px;
+      font-size: 14px;
+      color: #555;
+      margin-top: 2%;
+      margin-left: 22.5%;
 		}
 		
 		.breadcrumb a {
@@ -339,6 +337,173 @@
 		.counter-container.show {
 		  display: flex;
 		}
+		.button-group {
+		  display: flex;
+		  justify-content: space-between;
+		  align-items: center;
+		  width: 100%;
+		  margin: 20px 0;
+		  background-color: white; /* 배경색 추가 */
+		  z-index: 1000; /* 다른 요소 위에 배치 */
+		  transition: top 0.3s ease; /* 스크롤 이동 시 부드러운 효과 */
+		}
+		
+		.button-group.fixed {
+		  position: fixed;
+		  top: 0;
+		  left: 0;
+		  right: 0;
+		  border-bottom: 1px solid #ddd;
+		  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+		}
+
+		
+		.button-group button {
+		  flex: 1;
+		  background-color: #fff;
+		  color: #333;
+		  border: 2px solid #ddd;
+		  font-size: 18px;
+		  padding: 15px 20px;
+		  text-align: center;
+		  cursor: pointer;
+		  transition: all 0.3s ease;
+		  border-bottom: 2px solid black;
+		}
+		
+		.button-group button:hover {
+		  font-weight: bold;
+		}
+		
+		.button-group button.active {
+		  border: 2px solid black;
+		  font-weight: bold;
+		  border-bottom: none;
+		}
+		
+	  .review {
+	    margin: 20px 0;
+	    padding: 20px;
+	    background-color: #fff;
+	    border-radius: 10px;
+	    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	    margin-top: 40px;
+  	}
+		
+		.review .review-header {
+	    display: flex;
+	    justify-content: space-between;
+	    align-items: center;
+	    border-bottom: 1px solid #ddd;
+	    padding-bottom: 10px;
+	    margin-bottom: 15px;
+	    border-bottom: 2px solid #ddd;
+	  }
+		
+	  .review .review-header .rating {
+	    display: flex;
+	    align-items: center;
+	    gap: 5px;
+	  }
+		
+		.review .review-content {
+		  font-size: 16px;
+		  line-height: 1.6;
+		  color: #555;
+		  margin: 10px 0;
+		}
+		
+		.review .review-footer {
+		  display: flex;
+		  justify-content: space-between;
+		  align-items: center;
+		  font-size: 14px;
+		  color: #888;
+		}
+		
+		.review .review-footer .review-date {
+		  font-style: italic;
+		}
+		
+		.review .review-footer .review-user {
+		  font-weight: bold;
+		  color: #2c3e50;
+		}
+		
+		.review-container {
+		  margin-bottom: 20px;
+		  padding: 15px;
+		  border-bottom: 1px solid #ddd;
+		}
+		
+		.rating {
+		  display: flex;
+		  align-items: center;
+		  font-size: 24px;
+		  gap: 5px;
+		}
+		
+		.rating .star {
+		  position: relative;
+		  width: 50px;
+		  height: 50px;
+		  color: gray; /* 기본 별 색상 */
+		  font-size: 50px;
+		  margin-bottom: 5px;
+		}
+		
+		.rating .star::before {
+		  content: "★";
+		  position: absolute;
+		  color: #ffb334; /* 채워진 별 색상 */
+		  overflow: hidden;
+		  width: 0; /* 기본적으로 채워지지 않음 */
+		}
+		
+		.rating .star[data-filled="true"]::before {
+		  width: 100%; /* 완전히 채운 별 */
+		}
+		
+		.rating .star.partial::before {
+		  width: var(--fill-percent); /* 부분적으로 채워짐 */
+		}
+		.score{
+			font-size: 40px;
+		}
+		
+		.coment{
+			border: 1px solid black;
+			padding: 15px 30px;
+			font-weight: bold;
+		}
+		
+		.reviewButton{
+			text-align: right;
+		}
+		
+		.reviewButton button{
+			padding: 10px 25px;
+			background-color: transparent;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+		}
+		
+		.reviewButton .claim:hover{
+			background-color: #fa4141;
+			color: white;
+		}
+		
+		.reviewButton .good:hover{
+			background-color: #4750f9;
+			color: white;
+		}
+		
+		.user-score{
+			display: flex;
+			justify-content: space-between;
+		}
+				
+
   </style>
   <script type="text/javascript">
 	  function toggleLike(idx, btn) {
@@ -544,9 +709,61 @@
   	  buyForm.totalPrice.value = totalPrice;
   	  document.getElementById("optionSelectValue").value = selectedOption;
   	  
-
   	  document.getElementById("buyForm").submit();
   	}
+  	
+  	document.addEventListener("DOMContentLoaded", function () {
+  	  const buttons = document.querySelectorAll(".button-group button");
+
+  	  buttons.forEach((button) => {
+  	    button.addEventListener("click", function () {
+  	      // 모든 버튼에서 active 클래스 제거
+  	      buttons.forEach((btn) => btn.classList.remove("active"));
+
+  	      // 클릭한 버튼에 active 클래스 추가
+  	      this.classList.add("active");
+
+  	      // 클릭한 버튼에 따라 콘텐츠 변경 (선택 사항)
+  	      const content = document.querySelector(".content");
+  	      const review = document.querySelector(".review");
+
+  	      if (this.textContent === "상품상세") {
+  	        content.style.display = "block";
+  	        review.style.display = "none";
+  	      } else if (this.textContent === "상품평") {
+  	        content.style.display = "none";
+  	        review.style.display = "block";
+  	      }
+  	    });
+  	  });
+  	});
+  	
+  	document.addEventListener("DOMContentLoaded", function () {
+  	  const rating = document.querySelector(".rating");
+  	  const stars = rating.querySelectorAll(".star");
+  	  const scoreElement = rating.querySelector(".score");
+
+  	  const reviewAvg = ${reviewAvg}; // 서버에서 전달된 평점 값
+
+  	  scoreElement.textContent = reviewAvg.toFixed(1);
+  	  
+  	  stars.forEach((star, index) => {
+  	    const fullStars = Math.floor(reviewAvg); // 완전한 별 개수
+  	    const partialStar = reviewAvg % 1; // 소수점 부분
+
+  	    if (index < fullStars) {
+  	      star.setAttribute("data-filled", "true");
+  	    } else if (index === fullStars && partialStar > 0) {
+  	      star.classList.add("partial");
+  	      star.style.setProperty("--fill-percent", (partialStar*100).toString() + "%");
+  	    }
+  	 		else {
+  	      // 채워지지 않은 별
+  	      star.setAttribute("data-filled", "false");
+  	      star.style.setProperty("--fill-percent", "0%");
+  	    }
+  	  });
+  	});
   </script>
 </head>
 <body>
@@ -577,12 +794,9 @@
 				    </div>
 				  </div>
 				  <h2>${vo.title}</h2>
-				  
 				  <c:if test="${vo.discount > 0}">
 				    <span class="discount-badge">${vo.company}의 ${vo.discount}% 할인</span>
-				  
 					  <p class="original-price"><fmt:formatNumber value="${vo.price}" pattern="#,##0"/> 원</p>
-					  
 					  <p class="final-price">
 					    <fmt:formatNumber value="${vo.price - (vo.price * vo.discount / 100)}" pattern="#,##0"/> 원
 					  </p>
@@ -646,15 +860,81 @@
 	  </tr>
 	  <tr>
 	  	<td colspan="2">
+	  		<div class="button-group">
+				  <button class="active">상품상세</button>
+				  <button>상품평</button>
+				  <button>Q & A</button>
+				  <button>교환/반품/환불</button>
+				</div>
 	  		<div class="content">
 	  			${vo.content}
 	  		</div>
+  			<div><button class="reviewButton" onclick="location.href='${ctp}/shop/shopReview?idx=${vo.idx}'">리뷰 작성</button></div>
+  			<c:if test="${!empty reviewVOS}">
+		  		<div class="review">
+					  <div class="review-header">
+					    <div class="rating">
+							  <div class="star"></div>
+							  <div class="star"></div>
+							  <div class="star"></div>
+							  <div class="star"></div>
+							  <div class="star"></div>
+							  <div class="score"><fmt:formatNumber value="${reviewAvg}" pattern="#,##0.0" /></div>
+							</div>
+						  <div class="coment">상품평 작성 후 Min's 포인트 받아가세요!</div>
+					  </div>
+					  <c:forEach var="vo" items="${reviewVOS}">
+					    <div class="review-container">
+				      	<div class="user-score">
+				      		<div>
+						      	<c:forEach var="i" begin="1" end="${vo.star}">
+											<font color="#ffb334"><i class="fa-solid fa-star"></i></font>
+										</c:forEach>
+										<c:forEach var="i" begin="1" end="${5 - vo.star}">
+											<i class="fa-regular fa-star"></i>
+										</c:forEach>
+									</div>
+						      <div class="reviewButton">
+							      <span><button class="good"><i class="fa-regular fa-thumbs-up"></i></button></span>
+							      <span><button class="claim">신고</button></span>
+						      </div>
+								</div>
+					      <div class="review-content">
+					        <span>${vo.content}</span>
+					      </div>
+					      <div class="review-footer">
+					        <div class="review-user">
+					        	${fn: substring(vo.mid, 0, 2)}
+					        	<c:forEach var="i" begin="2" end="${fn: length(vo.mid)-2}">
+					        		*
+					        	</c:forEach>
+									</div>
+					        <div class="review-date">${fn: substring(vo.reviewDate,0 ,10)}</div>
+					      </div>
+					    </div>
+					  </c:forEach>
+					</div>
+				</c:if>
+				<c:if test="${empty reviewVOS}">
+					<div class="review">
+					  <div class="review-header">
+					    <div class="rating">
+							  <div class="star"></div>
+							  <div class="star"></div>
+							  <div class="star"></div>
+							  <div class="star"></div>
+							  <div class="star"></div>
+							  <div class="score"><fmt:formatNumber value="0" pattern="#,##0.0" /></div>
+							</div>
+					  </div>
+					  <div>
+			        <p style="font-weight: bold; font-size: 20px; color: red;">등록된 리뷰가 없습니다.</p>
+			      </div>
+				  </div>
+				</c:if>
 	  	</td>
 	  </tr>
 	</table>
-	<div><input type="button" value="수정" class="btn btn-outline-success" onclick="location.href='${ctp}/shop/shopUpdate?idx=${vo.idx}'" /></div>
-	<div><input type="button" value="삭제" class="btn btn-outline-danger" onclick="shopDelete()" /></div>
-		
 </div>
 </body>
 </html>

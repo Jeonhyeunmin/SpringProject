@@ -22,6 +22,4 @@ public class ShopVO {
 	private String claim;
 	private String wDate;
 	private String accept;
-	
-	
 }

@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 
 import com.spring.javaGroupS6.vo.MainCategoryVO;
+import com.spring.javaGroupS6.vo.ShopReviewVO;
 import com.spring.javaGroupS6.vo.ShopVO;
 import com.spring.javaGroupS6.vo.SubCategoryVO;
 
@@ -39,4 +40,12 @@ public interface ShopService {
 
 	ArrayList<SubCategoryVO> getSubCategoryList(String mainCategory);
 
+	Double getReviewAverage(int idx);
+
+	ArrayList<ShopReviewVO> getReview(int idx);
+
+	int setReviewInput(ShopReviewVO vo, int idx, String mid);
+
+
+	void setPointUp(String mid, String point);
 }

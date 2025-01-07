@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartRequest;
 import com.spring.javaGroupS6.common.JavaProvide;
 import com.spring.javaGroupS6.dao.ShopDAO;
 import com.spring.javaGroupS6.vo.MainCategoryVO;
+import com.spring.javaGroupS6.vo.ShopReviewVO;
 import com.spring.javaGroupS6.vo.ShopVO;
 import com.spring.javaGroupS6.vo.SubCategoryVO;
 
@@ -193,7 +194,6 @@ public class ShopServiceImpl implements ShopService {
 		return shopDAO.setShopDelete(idx);
 	}
 
-
 	@Override
 	public ArrayList<MainCategoryVO> getMainCategoryList(String category) {
 		return shopDAO.getMainCategoryList(category);
@@ -203,5 +203,24 @@ public class ShopServiceImpl implements ShopService {
 	public ArrayList<SubCategoryVO> getSubCategoryList(String mainCategory) {
 		return shopDAO.getSubCategoryList(mainCategory);
 	}
+
+	@Override
+	public Double getReviewAverage(int idx) {
+		return shopDAO.getReviewAverage(idx);
+	}
 	
+	@Override
+	public ArrayList<ShopReviewVO> getReview(int idx) {
+		return shopDAO.getReview(idx);
+	}
+	
+	@Override
+	public int setReviewInput(ShopReviewVO vo, int idx, String mid) {
+		return shopDAO.setReviewInput(vo, idx, mid);
+	}
+	
+	@Override
+	public void setPointUp(String mid, String point) {
+		shopDAO.setPointUp(mid, point);		
+	}
 }

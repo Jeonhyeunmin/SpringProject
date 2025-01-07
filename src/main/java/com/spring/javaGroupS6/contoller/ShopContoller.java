@@ -21,6 +21,7 @@ import com.spring.javaGroupS6.service.CommonService;
 import com.spring.javaGroupS6.service.ShopService;
 import com.spring.javaGroupS6.vo.MainCategoryVO;
 import com.spring.javaGroupS6.vo.PartnerVO;
+import com.spring.javaGroupS6.vo.ShopReviewVO;
 import com.spring.javaGroupS6.vo.ShopVO;
 import com.spring.javaGroupS6.vo.SubCategoryVO;
 
@@ -149,6 +150,11 @@ public class ShopContoller {
 			titleImgs.add(vo.getTitleImg());
 		}
 		
+		ArrayList<ShopReviewVO> reviewVOS = shopService.getReview(idx);
+		Double reviewAvg = shopService.getReviewAverage(idx);
+		
+		model.addAttribute("reviewVOS", reviewVOS);
+		model.addAttribute("reviewAvg", reviewAvg);
 		
 		model.addAttribute("postCount", postCount);
 		model.addAttribute("logo", logo);
@@ -258,6 +264,27 @@ public class ShopContoller {
 		System.out.println("totalPrice : " + totalPrice);
 		System.out.println("optionSelect : " + optionSelect);
 		return "redirect:/shop/shopContent?idx=" + idx;
+	}
+	
+	@GetMapping("/shopReview")
+	public String shopReviewGet(Model model, int idx) {
+		ShopVO vo = shopService.getShopContent(idx);
+		model.addAttribute("title", vo.getTitle() + "리뷰 등록 | Min's");
+		model.addAttribute("vo", vo);
+		return "shop/shopReview";
+	}
+	
+	@PostMapping("/shopReviewInput")
+	public String shopReviewInputPost(Model model, ShopReviewVO vo, int idx, String mid) {
+		int res = shopService.setReviewInput(vo, idx, mid);
+		shopService.setPointUp(mid, "10");
+		model.addAttribute("idx", idx);
+		if(res != 0) {
+			return "redirect:/message/reviewInputOk";
+		}
+		else {
+			return "redirect:/message/reviewInputNo";
+		}
 	}
 	
 	

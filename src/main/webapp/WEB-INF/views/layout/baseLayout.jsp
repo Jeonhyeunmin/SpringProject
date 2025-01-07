@@ -24,11 +24,6 @@
       background-color: #f8f9fa;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
-    .container {
-      flex-grow: 1; /* 콘텐츠 영역이 여유 공간을 채우도록 설정 */
-      padding: 20px;
-      display: block; /* 중앙 정렬 방지 */
-    }
     footer {
       flex-shrink: 0;
       width: 100%;

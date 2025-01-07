@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import com.spring.javaGroupS6.vo.MainCategoryVO;
+import com.spring.javaGroupS6.vo.ShopReviewVO;
 import com.spring.javaGroupS6.vo.ShopVO;
 import com.spring.javaGroupS6.vo.SubCategoryVO;
 
@@ -33,5 +34,13 @@ public interface ShopDAO {
 	ArrayList<SubCategoryVO> getSubCategoryList(@Param("mainCategory") String mainCategory);
 
 	ArrayList<String> getCategoryList();
+
+	Double getReviewAverage(@Param("idx") int idx);
+
+	ArrayList<ShopReviewVO> getReview(@Param("idx") int idx);
+
+	int setReviewInput(@Param("vo") ShopReviewVO vo, @Param("idx") int idx, @Param("mid") String mid);
+
+	void setPointUp(@Param("mid") String mid, @Param("point") String point);
 
 }

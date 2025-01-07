@@ -38,12 +38,28 @@
 		select * from subCategory where mainCategory = #{mainCategory} order by mainCategory;
 	</select>
 	
+	<select id="getReviewAverage" resultType="Double">
+		select ifnull(avg(star), 0.0) from shopReview where shopIdx = #{idx};
+	</select>
+	
+	<select id="getReview" resultType="com.spring.javaGroupS6.vo.ShopReviewVO">
+		select sr.*, c.name as customerName from shopReview sr, customer c where shopIdx = #{idx} and sr.mid = c.mid order by reviewDate;
+	</select>
+	
 	<insert id="shopInput">
 		insert into shop values (default, #{vo.mid}, #{vo.company}, #{vo.category}, #{vo.mainCategory}, #{vo.subCategory}, #{vo.title}, #{vo.discount}, #{vo.price}, #{vo.option}, #{vo.thumbnail}, #{vo.titleImg}, #{vo.content}, #{vo.fSize}, default, default, default);
 	</insert>
 	
+	<insert id="setReviewInput">
+		insert into shopReview values(default, #{idx}, #{mid}, #{vo.content}, #{vo.star}, default, default, default);
+	</insert>
+	
 	<update id="setShopUpdate">
 		update shop set company = #{vo.company}, category = #{vo.category}, mainCategory = #{vo.mainCategory}, subCategory = #{vo.subCategory}, title = #{vo.title}, discount = #{vo.discount}, price = #{vo.price}, optionName = #{vo.optionName}, optionPrice = #{vo.optionPrice}, thumbnail = #{vo.thumbnail}, titleImg = #{vo.titleImg}, content = #{vo.content}, fSize = #{vo.fSize}, wDate = now(), accept = 'NO' where idx = #{vo.idx};
+	</update>
+	
+	<update id="setPointUp">
+		update customer set point = point + #{point} where mid = #{mid};
 	</update>
 	
 	<delete id="setShopDelete">

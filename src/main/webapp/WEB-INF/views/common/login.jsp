@@ -495,7 +495,7 @@
 	  let regex3 = /^[가-힣a-zA-Z]{1,10}$/;  // (성명)한글,영문만 적어도 1자이상 
 		let regex4 = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/; // 이메일 
 		let regex5 = /\d{2,3}-\d{3,4}-\d{4}$/; //(전화번호)
-		let regex6 = /[0-9]{6}$/; //(birthday)
+		let regex6 = /^(0[0-9]|[1-9][0-9])(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$/; //(birthday)
 		
 		 
   	
@@ -562,7 +562,7 @@
 
 		    // 성별 값이 1~4 사이에 있는지 확인
 		    if (gender < 1 || gender > 4 || isNaN(gender)) {
-		        document.getElementById("residentError").innerHTML = "주민등록번호가 올바르지 않습니다.(성별은 1~4 사이의 숫자여야 합니다)";
+		        document.getElementById("residentError").innerHTML = "주민등록번호가 올바르지 않습니다.";
 		    }
 		    else {
 	        document.getElementById("residentError").innerHTML = "";
