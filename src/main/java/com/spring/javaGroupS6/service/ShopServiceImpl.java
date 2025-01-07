@@ -17,7 +17,11 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import com.spring.javaGroupS6.common.JavaProvide;
 import com.spring.javaGroupS6.dao.ShopDAO;
+import com.spring.javaGroupS6.vo.MainCategoryVO;
+import com.spring.javaGroupS6.vo.ReviewLikesVO;
+import com.spring.javaGroupS6.vo.ShopReviewVO;
 import com.spring.javaGroupS6.vo.ShopVO;
+import com.spring.javaGroupS6.vo.SubCategoryVO;
 
 @Service
 public class ShopServiceImpl implements ShopService {
@@ -189,5 +193,55 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public int setShopDelete(int idx) {
 		return shopDAO.setShopDelete(idx);
+	}
+
+	@Override
+	public ArrayList<MainCategoryVO> getMainCategoryList(String category) {
+		return shopDAO.getMainCategoryList(category);
+	}
+	
+	@Override
+	public ArrayList<SubCategoryVO> getSubCategoryList(String mainCategory) {
+		return shopDAO.getSubCategoryList(mainCategory);
+	}
+
+	@Override
+	public Double getReviewAverage(int idx) {
+		return shopDAO.getReviewAverage(idx);
+	}
+	
+	@Override
+	public ArrayList<ShopReviewVO> getReview(int idx) {
+		return shopDAO.getReview(idx);
+	}
+	
+	@Override
+	public int setReviewInput(ShopReviewVO vo, int idx, String mid) {
+		return shopDAO.setReviewInput(vo, idx, mid);
+	}
+	
+	@Override
+	public void setPointUp(String mid, String point) {
+		shopDAO.setPointUp(mid, point);		
+	}
+
+	@Override
+	public void setReviewGoodCheck(int idx) {
+		shopDAO.setReviewGoodCheck(idx);		
+	}
+	
+	@Override
+	public int setReviewGoodInput(int idx,int reviewIdx, String mid) {
+		return shopDAO.setReviewGoodInput(idx, reviewIdx, mid);	
+	}
+	
+	@Override
+	public ReviewLikesVO getReviewLikeInfo(int idx, String mid) {
+		return shopDAO.getReviewLikeInfo(idx, mid);	
+	}
+	
+	@Override
+	public ArrayList<Integer> getMyLikes(int idx, String mid) {
+		return shopDAO.getMyLikes(idx, mid);	
 	}
 }

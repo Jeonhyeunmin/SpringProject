@@ -98,4 +98,8 @@ public class CommonServiceImpl implements CommonService {
 	public MemberVO getMemberEmailSearch(String email) {
 		return commonDAO.getMemberEmailSearch(email);
 	}
+	@Override
+	public int setMemberUpdate(MemberVO vo) {
+		return commonDAO.setMemberUpdate(vo);
+	}
 }

@@ -19,6 +19,60 @@ create table shop(
    foreign key(mid) references partner(mid)
 );
 
+create table category(
+	cateCode int not null auto_increment,
+    category varchar(50) not null,
+    
+    primary key (cateCode)
+);
+
+create table mainCategory(
+	mainCateCode int not null auto_increment,
+    mainCategory varchar(50) not null,
+    category varchar(50) not null,
+    
+    
+    primary key (mainCateCode)
+);
+
+create table subCategory(
+	subCateCode int not null auto_increment,
+    subCategory varchar(50) not null,
+    mainCategory varchar(50) not null,
+    
+    
+    primary key (subCateCode)
+);
+
+create table shopReview(
+  idx  int not null auto_increment,	/* 리뷰 고유번호 */
+  shopIdx int not null,							/* 해당 분야의 고유번호 */
+  mid  varchar(30) not null,				/* 리뷰 올린이 아이디 */
+  content  text,										/* 리뷰 내용 */
+  star int not null default 0,			/* 별점 부여 점수 */
+  reviewDate datetime default now(),/* 리뷰 작성일 */
+  good int not null default 0,
+  claim int not null default 0,
+  
+  primary key(idx),
+  foreign key(mid) references customer(mid)
+);
+
+create table reviewLikes(
+	idx int not null auto_increment,
+	shopIdx int not null,
+	reviewIdx int not null,
+	customer varchar(30) not null,
+	
+	primary key(idx),
+  foreign key(reviewIdx) references shopReview(idx),
+  foreign key(shopIdx) references shop(idx)
+);
+
+drop table reviewLikes;
+
+
+select * from reviewLikes;
 select * from shop;
 
 desc shop;

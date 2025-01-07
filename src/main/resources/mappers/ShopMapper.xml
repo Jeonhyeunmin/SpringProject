@@ -3,15 +3,18 @@
 <mapper namespace="com.spring.javaGroupS6.dao.ShopDAO">
 	
 	<select id="getShopList" resultType="com.spring.javaGroupS6.vo.ShopVO">
-		select * from shop where ${column} = #{category}
-		<if test='accept == "yes"'>and accept = '승인' </if> 
-		<if test='accept == "no"'>and accept = 'NO' </if>
-		<if test='company != "all" and company != ""'>and company = #{company}</if> 
-		order by ${column};
+		select s.*, avg(sr.star) as star, count(sr.idx) as reviewCnt 
+		from shop s left join shopReview sr on s.idx = sr.shopIdx
+		where s.${column} = #{category}
+		<if test='accept == "yes"'>and s.accept = '승인' </if> 
+		<if test='accept == "no"'>and s.accept = 'NO' </if>
+		<if test='company != "all" and company != ""'>and s.company = #{company}</if> 
+		group by s.idx
+		order by s.${column};
 	</select>
 	
 	<select id="getSubCateCnt" resultType="int">
-		select COUNT(*) as count from shop where mainCategory = #{mainCategory} and accept = '승인'  group by subCategory order by subCategory;
+		select COUNT(*) as count from shop where mainCategory = #{mainCategory} and accept = '승인'  group by subCategory order by mainCategory;
 	</select>
 	
 	<select id="getBrandCateCnt" resultType="int">
@@ -22,20 +25,60 @@
 		select * from shop where idx = #{idx};
 	</select>
 	
-	<select id="getList" resultType="com.spring.javaGroupS6.vo.ShopVO">
-		select * from shop order by category;
+	<select id="getList" resultType="com.spring.javaGroupS6.vo.CategoryVO">
+		select * from category order by category;
 	</select>
 	
 	<select id="getPostCount" resultType="int">
 		select count(*) from shop where mid = #{mid};
 	</select>
 	
+	<select id="getMainCategoryList" resultType="com.spring.javaGroupS6.vo.MainCategoryVO">
+		select * from mainCategory where category = #{category} order by category;
+	</select>
+	
+	<select id="getSubCategoryList" resultType="com.spring.javaGroupS6.vo.SubCategoryVO">
+		select * from subCategory where mainCategory = #{mainCategory} order by mainCategory;
+	</select>
+	
+	<select id="getReviewAverage" resultType="Double">
+		select ifnull(avg(star), 0.0) from shopReview where shopIdx = #{idx};
+	</select>
+	
+	<select id="getReview" resultType="com.spring.javaGroupS6.vo.ShopReviewVO">
+		select sr.*, c.name as customerName from shopReview sr, customer c where shopIdx = #{idx} and sr.mid = c.mid order by reviewDate;
+	</select>
+	
+	<select id="getReviewLikeInfo" resultType="com.spring.javaGroupS6.vo.ReviewLikesVO">
+		select * from reviewLikes where reviewIdx = #{idx} and customer = #{mid} limit 1;
+	</select>
+	
+	<select id="getMyLikes" resultType="int">
+		select reviewIdx from reviewLikes where shopIdx = #{idx} and customer = #{mid};
+	</select>
+	
 	<insert id="shopInput">
-		insert into shop values (default, #{vo.mid}, #{vo.company}, #{vo.category}, #{vo.mainCategory}, #{vo.subCategory}, #{vo.title}, #{vo.discount}, #{vo.price}, #{vo.thumbnail}, #{vo.titleImg}, #{vo.content}, #{vo.fSize}, default, default, default);
+		insert into shop values (default, #{vo.mid}, #{vo.company}, #{vo.category}, #{vo.mainCategory}, #{vo.subCategory}, #{vo.title}, #{vo.discount}, #{vo.price}, #{vo.option}, #{vo.thumbnail}, #{vo.titleImg}, #{vo.content}, #{vo.fSize}, default, default, default);
+	</insert>
+	
+	<insert id="setReviewInput">
+		insert into shopReview values(default, #{idx}, #{mid}, #{vo.content}, #{vo.star}, default, default, default);
+	</insert>
+	
+	<insert id="setReviewGoodInput">
+		insert into reviewLikes values(default, #{idx}, #{reviewIdx}, #{mid});
 	</insert>
 	
 	<update id="setShopUpdate">
-		update shop set company = #{vo.company}, category = #{vo.category}, mainCategory = #{vo.mainCategory}, subCategory = #{vo.subCategory}, title = #{vo.title}, discount = #{vo.discount}, price = #{vo.price}, thumbnail = #{vo.thumbnail}, titleImg = #{vo.titleImg}, content = #{vo.content}, fSize = #{vo.fSize}, wDate = now(), accept = 'NO' where idx = #{vo.idx};
+		update shop set company = #{vo.company}, category = #{vo.category}, mainCategory = #{vo.mainCategory}, subCategory = #{vo.subCategory}, title = #{vo.title}, discount = #{vo.discount}, price = #{vo.price}, optionName = #{vo.optionName}, optionPrice = #{vo.optionPrice}, thumbnail = #{vo.thumbnail}, titleImg = #{vo.titleImg}, content = #{vo.content}, fSize = #{vo.fSize}, wDate = now(), accept = 'NO' where idx = #{vo.idx};
+	</update>
+	
+	<update id="setPointUp">
+		update customer set point = point + #{point} where mid = #{mid};
+	</update>
+	
+	<update id="setReviewGoodCheck">
+		update shopReview set good = good + 1 where idx = #{idx};
 	</update>
 	
 	<delete id="setShopDelete">

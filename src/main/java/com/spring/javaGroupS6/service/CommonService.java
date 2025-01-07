@@ -19,4 +19,7 @@ public interface CommonService {
 
 	MemberVO getMemberEmailSearch(String email);
 
+	int setMemberUpdate(MemberVO vo);
+
+
 }

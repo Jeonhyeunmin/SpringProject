@@ -189,18 +189,18 @@
 		}
 		
 		.input-group {
-		    display: flex;
-		    justify-content: center;
-		    gap: 20px;
-		    margin-top: 10px;
+	    display: flex;
+	    justify-content: center;
+	    gap: 20px;
+	    margin-top: 10px;
 		}
 		
 		.forgot-pass {
-		    color: #a1a1a1;
-		    font-size: 17px;
-		    text-decoration: none;
-		    transition: color 0.3s ease;
-		    padding: 10px;
+	    color: #a1a1a1;
+	    font-size: 17px;
+	    text-decoration: none;
+	    transition: color 0.3s ease;
+	    padding: 10px;
 		}
 		
 		.forgot-pass:hover {
@@ -216,16 +216,16 @@
 		}
 		
 		.back {
-		    margin-top: 40px;
-		    margin-bottom: 20px;
-		    background: #e0e0e0;
-		    color: #333333;
-		    border-radius: 30px;
-		    font-size: 15px;
-		    font-weight: bold;
-		    text-transform: uppercase;
-		    transition: background-color 0.3s ease, color 0.3s ease;
-		    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	    margin-top: 40px;
+	    margin-bottom: 20px;
+	    background: #e0e0e0;
+	    color: #333333;
+	    border-radius: 30px;
+	    font-size: 15px;
+	    font-weight: bold;
+	    text-transform: uppercase;
+	    transition: background-color 0.3s ease, color 0.3s ease;
+	    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 		}
 		
 		.back:hover {
@@ -357,19 +357,19 @@
 		
 		/* ID 저장 스타일 */
 		.idSave-group {
-		    display: flex;
-		    align-items: center;
-		    justify-content: center;
-		    margin: 10px 0 20px 0;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    margin: 10px 0 20px 0;
 		}
 		
 		.idSave-label {
-		    font-size: 14px;
-		    font-weight: 500;
-		    color: #555;
-		    margin-right: 10px;
-		    cursor: pointer;
-		    margin-left: 10px;
+	    font-size: 14px;
+	    font-weight: 500;
+	    color: #555;
+	    margin-right: 10px;
+	    cursor: pointer;
+	    margin-left: 10px;
 		}
 		
 		.idSave-checkbox {
@@ -390,8 +390,8 @@
 		}
 		
 		.idSave-checkbox:checked {
-		    background-color: #5e0000;
-		    border-color: #5e0000;
+	    background-color: #5e0000;
+	    border-color: #5e0000;
 		}
 		
 		.idSave-checkbox:checked::after {
@@ -405,6 +405,85 @@
 	    border-width: 0 2px 2px 0;
 	    transform: rotate(45deg);
 		}
+		.relative-container {
+		  position: relative;
+		  width: 70%;
+		  margin: auto;
+		}
+		
+		.relative-container input {
+		  width: 100%; /* input 필드의 너비 */
+		  padding-right: 90px; /* 버튼 공간 확보 */
+		  box-sizing: border-box; /* 테두리를 포함한 너비 계산 */
+		}
+		
+		.btn-inside {
+		  position: absolute;
+		  right: 5px;
+		  top: 40%;
+		  transform: translateY(-50%); /* 세로 중앙 정렬 보정 */
+		  padding: 5px 10px;
+		  font-size: 12px;
+		  color: white;
+		  background: #5e0000;
+		  border: none;
+		  cursor: pointer;
+		  transition: background-color 0.3s ease;
+		  width: 70px;
+		  height: 30px;
+		  border-radius: 0px;
+		}
+		
+		.btn-inside:hover {
+		  background: #7f1a1a; /* 버튼 호버 효과 */
+		}
+		
+		.email-container {
+		  display: flex;
+		  align-items: center;
+		  gap: 10px; /* 각 요소 간격 */
+		  margin-top: 10px;
+		}
+		
+		.email-container select {
+		  flex: 1;
+		  padding: 8px;
+		  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+		  border-radius: 5px;
+		  font-size: 14px;
+		}
+		
+		.email-container input{
+		  flex: 1;
+		  padding: 8px;
+		  border: none;
+		  border-radius: 0px;
+		  font-size: 14px;
+		  border-bottom: 1px solid #ccc;
+		}
+		
+		.email-container .disable {
+		  flex: 0 0 auto;
+		  text-align: center;
+		  color: #888;
+		}
+		
+		.email-check-btn {
+		  padding: 10px 15px;
+		  font-size: 14px;
+		  color: white;
+		  background-color: #5e0000;
+		  border: none;
+		  border-radius: 5px;
+		  cursor: pointer;
+		  transition: background-color 0.3s ease;
+		  width: 80px;
+		}
+		
+		.email-check-btn:hover {
+		  background-color: #7f1a1a;
+		}
+				
 
   </style>
   <script type="text/javascript">
@@ -416,7 +495,7 @@
 	  let regex3 = /^[가-힣a-zA-Z]{1,10}$/;  // (성명)한글,영문만 적어도 1자이상 
 		let regex4 = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/; // 이메일 
 		let regex5 = /\d{2,3}-\d{3,4}-\d{4}$/; //(전화번호)
-		let regex6 = /[0-9]{6}$/; //(birthday)
+		let regex6 = /^(0[0-9]|[1-9][0-9])(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$/; //(birthday)
 		
 		 
   	
@@ -483,7 +562,7 @@
 
 		    // 성별 값이 1~4 사이에 있는지 확인
 		    if (gender < 1 || gender > 4 || isNaN(gender)) {
-		        document.getElementById("residentError").innerHTML = "주민등록번호가 올바르지 않습니다.(성별은 1~4 사이의 숫자여야 합니다)";
+		        document.getElementById("residentError").innerHTML = "주민등록번호가 올바르지 않습니다.";
 		    }
 		    else {
 	        document.getElementById("residentError").innerHTML = "";
@@ -580,10 +659,10 @@
 				success: function(res) {
 					if(res != "0"){
 						alert("인증번호가 발송되었습니다. \n 메일 확인 후 인증번호를 입력해주세요.");
-						let str = '<span class="input-group mt-3">';
-						str += '<input type="text" name="checkKey" id="checkKey" style="width: 70%;"/>';
-						str += '<button type="button" tabindex="-1" onclick="emailCheckOk()" style="background-color: lightgray; height: 25px; width: 100px; margin-right: 0; font-size: 12px; color: black;">인증번호 확인</button>';
-						str += '</span>';
+						let str = '<div class="relative-container" style="margin: 0; margin-top: 20px; width: 100%;">';
+						str += '<input type="text" name="checkKey" id="checkKey" style="width: 400px; margin: auto; padding-right: 0;"/>';
+						str += '<button type="button" onclick="emailCheckOk()" class="btn-inside" style="width: 100px; right: 0;">인증번호 확인</button>';
+						str += '</div>';
 						$("#demoSpin").html(str);
 					}
 					else{
@@ -750,7 +829,7 @@
 		    <label for="idSave" class="idSave-label">아이디 저장</label>
 			</div>
 	    <div class="input-group">
-		    <a href="${ctp}/common/idFind" class="forgot-pass">아이디 찾기</a>
+		    <a href="${ctp}/common/idAccount" class="forgot-pass">아이디 찾기</a>
 		    <a href="#" class="forgot-pass">비밀번호 찾기</a>
 	    </div>
 
@@ -779,14 +858,14 @@
 	        <input type="text" id="name" name="name" oninput="nameCheck()"/>
 	        <span id="nameError" style="font-size: 13px; color: #5e0000;"></span>
 	      </label>
-				<label>
-				  <span class="input-group">
-				  	<span style="margin-right: auto; padding-top: 5px;">아이디</span>
-				  	<button type="button" tabindex="-1" onclick="idCheck()" class="checkButton">중복체크</button>
-				  </span>
-				  <input type="text" id="mid" name="mid" oninput="midCheck()"/>
+				<div class="form-group">
+				  <label for="mid">아이디</label>
+				  <div class="relative-container">
+					  <input type="text" id="mid" name="mid" placeholder="Min's" required>
+					  <button type="button" class="btn-inside" onclick="idCheck()">중복체크</button>
+					</div>
 				  <span id="midError" style="font-size: 13px; color: #5e0000;"></span>
-				</label>
+				</div>
 				<div class="input-group">
 		      <label style="width: 30%; margin-right: 0;">
 		        <span>비밀번호</span>
@@ -799,13 +878,10 @@
 	      </div>
         <span id="pwdError" style="font-size: 12px; color: #5e0000; margin: 2px 15%;"></span>
 				<label>
-					<span class="input-group">
-					  <span style="margin-right: auto; padding-top: 5px;">이메일</span>
-				    <button type="button" tabindex="-1" onclick="emailCheck()" class="checkButton" >이메일 인증</button>
-				  </span>
-				  <span class="input-group">
-				    <input type="text" style="width: 40%;" id="email1" name="email1"/>
-				    <span style="width: 10%; text-align: center;" class="disable">@</span>
+				  <span>이메일</span>
+				  <span class="email-container">
+				    <input type="text" id="email1" name="email1" placeholder="이메일" />
+				    <span class="disable">@</span>
 				    <select id="selbox" name="selbox" class="form-select" onchange="document.getElementById('email2').value = this.value;">
 				      <option value="" selected>직접입력</option>
 				      <option value="gmail.com">gmail.com</option>
@@ -813,10 +889,13 @@
 				      <option value="daum.net">daum.net</option>
 				      <option value="yahoo.com">yahoo.com</option>
 				    </select>
-				    <input type="text" id="email2" name="email2" style="width: 40%;"/>
-				    <input type="hidden" id="email" name="email"/>
+				    <input type="text" id="email2" name="email2" placeholder="도메인" />
+				    <button type="button" class="email-check-btn" onclick="emailCheck()">인증</button>
+				    <input type="hidden" id="email" name="email" />
 				  </span>
-					<span id="demoSpin"></span>
+				  <span class="form-group">
+				  	<span id="demoSpin"></span>
+				  </span>
 				</label>
 				<label>
 				  <span>전화번호</span>

@@ -2,14 +2,14 @@ package com.spring.javaGroupS6.contoller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,8 +22,12 @@ import org.springframework.web.multipart.MultipartRequest;
 import com.spring.javaGroupS6.common.JavaProvide;
 import com.spring.javaGroupS6.service.CommonService;
 import com.spring.javaGroupS6.service.ShopService;
+import com.spring.javaGroupS6.vo.MainCategoryVO;
 import com.spring.javaGroupS6.vo.PartnerVO;
+import com.spring.javaGroupS6.vo.ReviewLikesVO;
+import com.spring.javaGroupS6.vo.ShopReviewVO;
 import com.spring.javaGroupS6.vo.ShopVO;
+import com.spring.javaGroupS6.vo.SubCategoryVO;
 
 @Controller
 @RequestMapping("/shop")
@@ -56,7 +60,6 @@ public class ShopContoller {
 			}
 		}
 		
-		
 		for(int i = 0; i < vos.size(); i++) {
 			if(!mainCategory.contains(vos.get(i).getMainCategory())) {
 				mainCategory.add(vos.get(i).getMainCategory());
@@ -64,7 +67,7 @@ public class ShopContoller {
 			products.add(vos.get(i));
 		}
 		
-		model.addAttribute("title", category + " | Min's");
+		model.addAttribute("title", category);
 		model.addAttribute("category", category);
 		model.addAttribute("mainCategoryList", mainCategory);
 		model.addAttribute("vos", vos);
@@ -89,7 +92,7 @@ public class ShopContoller {
 			}
 		}
 		
-		model.addAttribute("title", mainCategory + " | Min's");
+		model.addAttribute("title", mainCategory);
 		model.addAttribute("category", category);
 		model.addAttribute("mainCategory", mainCategory);
 		model.addAttribute("subCategoryList", subCategory);
@@ -118,7 +121,7 @@ public class ShopContoller {
 			}
 		}
 		
-		model.addAttribute("title", subCategory + " | Min's");
+		model.addAttribute("title", subCategory);
 		model.addAttribute("category", category);
 		model.addAttribute("mainCategory", mainCategory);
 		model.addAttribute("subCategory", subCategory);
@@ -130,7 +133,8 @@ public class ShopContoller {
 	}
 	
 	@GetMapping("/shopContent")
-	public String shopContentGet(Model model, int idx) {
+	public String shopContentGet(Model model, HttpSession session, int idx) {
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
 		
 		ShopVO vo = shopService.getShopContent(idx);
 		
@@ -139,7 +143,6 @@ public class ShopContoller {
 		int postCount = shopService.getPostCount(vo.getMid());
 		
 		String logo = pVO.getLogo();
-		System.out.println(logo);
 		ArrayList<String> titleImgs = new ArrayList<String>();
 		if(vo.getTitleImg().contains("/")) {
 			String titleImgArr[] = vo.getTitleImg().split("/");
@@ -151,42 +154,38 @@ public class ShopContoller {
 			titleImgs.add(vo.getTitleImg());
 		}
 		
+		ArrayList<ShopReviewVO> reviewVOS = shopService.getReview(idx);
+		Double reviewAvg = shopService.getReviewAverage(idx);
+		
+		ArrayList<Integer> likeVOS = shopService.getMyLikes(idx, mid);
+		
+		model.addAttribute("likeVOS", likeVOS);
+		model.addAttribute("reviewVOS", reviewVOS);
+		model.addAttribute("reviewAvg", reviewAvg);
 		
 		model.addAttribute("postCount", postCount);
 		model.addAttribute("logo", logo);
 		model.addAttribute("titleImgs", titleImgs);
+		model.addAttribute("title", vo.getTitle());
 		model.addAttribute("vo", vo);
 		return "shop/shopContent";
 	}
 	
 	@ResponseBody
 	@PostMapping("/mainCategoryLoad")
-	public ArrayList<String> mainCategoryLoadPost(String category) {
+	public ArrayList<MainCategoryVO> mainCategoryLoadPost(String category) {
 		
-		ArrayList<ShopVO> vos = shopService.getShopList(category, "category", "yes", "");
-		ArrayList<String> mainCategoryList = new ArrayList<String>();
+		ArrayList<MainCategoryVO> vos = shopService.getMainCategoryList(category);
 		
-		for(int i = 0; i < vos.size(); i++) {
-			if(!mainCategoryList.contains(vos.get(i).getMainCategory())) {
-				mainCategoryList.add(vos.get(i).getMainCategory());
-			}
-		}
-		
-		return mainCategoryList;
+		return vos;
 	}
 	
 	@ResponseBody
 	@PostMapping("/subCategoryLoad")
-	public ArrayList<String> subCategoryLoadPost(String mainCategory) {
+	public ArrayList<SubCategoryVO> subCategoryLoadPost(String mainCategory) {
 		
-		ArrayList<ShopVO> vos = shopService.getShopList(mainCategory, "mainCategory", "yes", "");
-		ArrayList<String> subCategoryList = new ArrayList<String>();
-		for(int i = 0; i < vos.size(); i++) {
-			if(!subCategoryList.contains(vos.get(i).getSubCategory())) {
-				subCategoryList.add(vos.get(i).getSubCategory());
-			}
-		}
-		return subCategoryList;
+		ArrayList<SubCategoryVO> vos = shopService.getSubCategoryList(mainCategory);
+		return vos;
 	}
 	
 	@GetMapping("/shopUpdate")
@@ -199,15 +198,9 @@ public class ShopContoller {
 		provide.titleImgBackup(vo.getTitleImg(), "category");
 		
 		ArrayList<ShopVO> vos = shopService.getList();
-		ArrayList<String> categoryList = new ArrayList<String>();
 		
-		for(int i = 0; i < vos.size(); i++) {
-			if(!categoryList.contains(vos.get(i).getCategory())) {
-				categoryList.add(vos.get(i).getCategory());
-			}
-		}
-		
-		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("vos", vos);
+		model.addAttribute("title", "게시물 수정");
 		model.addAttribute("vo", vo);
 		return "shop/shopUpdate";
 	}
@@ -232,13 +225,8 @@ public class ShopContoller {
 	@GetMapping("/shopInput")
 	public String shopInputGet(Model model) {
 		ArrayList<ShopVO> vos = shopService.getList();
-		ArrayList<String> categoryList = new ArrayList<String>();
-		for(int i = 0; i < vos.size(); i++) {
-			if(!categoryList.contains(vos.get(i).getCategory())) {
-				categoryList.add(vos.get(i).getCategory());
-			}
-		}
-		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("title", "게시물 등록");
+		model.addAttribute("vos", vos);
 		return "shop/shopInput";
 	}
 	
@@ -246,6 +234,10 @@ public class ShopContoller {
 	public String shopInputPost(Model model, MultipartRequest titleImg, ShopVO vo, HttpServletRequest request) {
 		String mid = (String)request.getSession().getAttribute("sMid");
 		vo.setMid(mid);
+		String optionName = vo.getOptionName();
+		String optionPrice= vo.getOptionPrice();
+		vo.setOptionName(optionName.substring(0, optionName.length()-1));
+		vo.setOptionPrice(optionPrice.substring(0, optionPrice.length()-1));
 		int res = shopService.shopInput(vo, titleImg, request);
 		
 		
@@ -269,5 +261,65 @@ public class ShopContoller {
 		}
 	}
 	
+	@PostMapping("/shopBuy")
+	public String shopBuyGet(int idx, String quantity, String totalPrice, 
+			@RequestParam(name = "optionSelect", defaultValue = "", required = false) String optionSelect
+	) {
+		ShopVO vo = shopService.getShopContent(idx);
+		System.out.println("vo : " + vo);
+		System.out.println("quantity : " + quantity);
+		System.out.println("totalPrice : " + totalPrice);
+		System.out.println("optionSelect : " + optionSelect);
+		return "redirect:/shop/shopContent?idx=" + idx;
+	}
 	
+	@GetMapping("/shopReview")
+	public String shopReviewGet(Model model, int idx) {
+		ShopVO vo = shopService.getShopContent(idx);
+		model.addAttribute("title", vo.getTitle() + "리뷰 등록 | Min's");
+		model.addAttribute("vo", vo);
+		return "shop/shopReview";
+	}
+	
+	@PostMapping("/shopReviewInput")
+	public String shopReviewInputPost(Model model, ShopReviewVO vo, int idx, String mid) {
+		int res = shopService.setReviewInput(vo, idx, mid);
+		shopService.setPointUp(mid, "10");
+		model.addAttribute("idx", idx);
+		if(res != 0) {
+			return "redirect:/message/reviewInputOk";
+		}
+		else {
+			return "redirect:/message/reviewInputNo";
+		}
+	}
+	
+	@ResponseBody
+	@Transactional
+	@PostMapping("/reviewGoodCheck")
+	public String shopGoodCheckPost(int idx, int reviewIdx, HttpSession session) {
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		int res = 0;
+		shopService.setReviewGoodCheck(reviewIdx);
+		ReviewLikesVO vo = shopService.getReviewLikeInfo(idx, mid);
+		if(vo == null) {
+			res = shopService.setReviewGoodInput(idx, reviewIdx, mid);
+		}
+		return res + "";
+	}
+	
+	@PostMapping("/reviewList")
+	public String reviewListPost(Model model, HttpSession session, int idx) {
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		
+		ArrayList<ShopReviewVO> reviewVOS = shopService.getReview(idx);
+		
+		ArrayList<Integer> likeVOS = shopService.getMyLikes(idx, mid);
+		
+		model.addAttribute("likeVOS", likeVOS);
+		model.addAttribute("reviewVOS", reviewVOS);
+		
+    return "/shop/reviewList";
+	}
+
 }

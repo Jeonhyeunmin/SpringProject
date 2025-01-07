@@ -251,8 +251,49 @@ public class CommonContoller {
 		}
 	}
 	
-	@GetMapping("/idFind")
+	@GetMapping("/idAccount")
 	public String idFindGet() {
-		return "common/idFind";
+		return "common/idAccount";
+	}
+	
+	@PostMapping("/findId")
+	public String findIdPost(Model model, String name, String email) {
+		
+		MemberVO memberVO = commonService.getMemberEmailSearch(email);
+		
+		if(memberVO != null) {
+			model.addAttribute("vo", memberVO);
+			return "common/idFind";
+		}
+		else {
+			return "redirect:/message/findIdNo";
+		}
+		
+	}
+	
+	@PostMapping("/findPassword")
+	public String findPasswordPost(Model model, String mid, String name, String email) {
+		
+		MemberVO memberVO = commonService.getMemberEmailSearch(email);
+		
+		if(memberVO.getMid().equals(mid)) {
+			model.addAttribute("vo", memberVO);
+			return "common/pwdFind";
+		}
+		else {
+			return "redirect:/message/findIdNo";
+		}
+	}
+	@PostMapping("pwdFind")
+	public String pwdFindPost(String mid, String pwd, String pwd2) {
+		MemberVO vo = commonService.getMemberIdSearch(mid);
+		vo.setPwd(passwordEncoder.encode(pwd));
+		int res = commonService.setMemberUpdate(vo);
+		if(res != 0) {
+			return "redirect:/message/pwdChangeOk";
+		}
+		else {
+			return "redirect:/message/pwdChangeNo";
+		}
 	}
 }

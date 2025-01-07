@@ -242,10 +242,12 @@
 	        <div class="title">${vo.title}</div>
 	        <div class="price"><fmt:formatNumber value="${vo.price}" pattern="#,##0"/>원</div>
 	        <div class="company-category">${vo.company} | ${fn:toUpperCase(vo.category)}</div>
-	        <div class="rating">
-	          <i class="fa-solid fa-star"></i>
-	          5.0점 | 2개
-	        </div>
+	        <c:if test="${vo.reviewCnt != 0}">
+		        <div class="rating">
+		          <i class="fa-solid fa-star"></i>
+		          ${vo.star}점 | ${vo.reviewCnt}개
+		        </div>
+	        </c:if>
 	      </div>
 	    </div>
 	  </c:forEach>

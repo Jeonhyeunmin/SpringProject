@@ -138,8 +138,69 @@
       flex: 0 0 60px;
       text-align: center;
     }
+    
+    .add-option-btn {
+	    display: inline-block;
+	    padding: 10px 20px;
+	    font-size: 14px;
+	    font-weight: 600;
+	    color: #fff;
+	    background-color: #f2d8b1;
+	    border: none;
+	    border-radius: 5px;
+	    cursor: pointer;
+	    transition: background-color 0.3s ease, transform 0.2s ease;
+	    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	    margin-bottom: 10px;
+	  }
+
+	  .add-option-btn:hover {
+	    background-color: #e1c699;
+	    transform: translateY(-2px);
+	  }
+	
+	  .option-item {
+	    margin-bottom: 15px;
+	    display: flex;
+	    gap: 15px;
+	    align-items: center;
+	  }
+	
+	  .option-item input[type="text"],
+	  .option-item input[type="number"] {
+	    flex: 1;
+	    padding: 12px;
+	    font-size: 16px;
+	    border: 1px solid #ddd;
+	    border-radius: 5px;
+	    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+	  }
+	
+	  .option-item input[type="number"] {
+	    flex: 0 0 120px;
+	    text-align: right;
+	  }
+	
+	  .remove-option-btn {
+	    padding: 10px;
+	    font-size: 14px;
+	    font-weight: 600;
+	    color: #fff;
+	    background-color: #e74c3c;
+	    border: none;
+	    border-radius: 5px;
+	    cursor: pointer;
+	    transition: background-color 0.3s ease;
+	    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	  }
+	
+	  .remove-option-btn:hover {
+	    background-color: #c0392b;
+	    transform: translateY(-2px);
+	  }
   </style>
   <script>
+  	let removedOptions = [];
     document.addEventListener("DOMContentLoaded", function () {
     	document.getElementById("file").addEventListener("change", showUploadedFile);
       finalPrice();
@@ -172,10 +233,10 @@
 				success: function(res) {
 					let str = '';
 					for(let i = 0; i < res.length; i++){
-						if (res[i] === '${vo.mainCategory}') {
-		          str += '<option value="' + res[i] + '" selected>' + res[i] + '</option>';
+						if (res[i].mainCategory === '${vo.mainCategory}') {
+		          str += '<option value="' + res[i].mainCategory + '" selected>' + res[i].mainCategory + '</option>';
 		        } else {
-		          str += '<option value="' + res[i] + '">' + res[i] + '</option>';
+		          str += '<option value="' + res[i].mainCategory + '">' + res[i].mainCategory + '</option>';
 		        }
 						$("#mainCategory").html(str);
 						subCategoryLoad();
@@ -199,10 +260,10 @@
 				success: function(res) {
 					let str = '';
 					for(let i = 0; i < res.length; i++){
-						if (res[i] === '${vo.subCategory}') {
-		          str += '<option value="' + res[i] + '" selected>' + res[i] + '</option>';
+						if (res[i].subCategory === '${vo.subCategory}') {
+		          str += '<option value="' + res[i].subCategory + '" selected>' + res[i].subCategory + '</option>';
 		        } else {
-		          str += '<option value="' + res[i] + '">' + res[i] + '</option>';
+		          str += '<option value="' + res[i].subCategory + '">' + res[i].subCategory + '</option>';
 		        }
 						$("#subCategory").html(str);
 					}
@@ -235,6 +296,13 @@
     	  fileInput.addEventListener("change", function () {
     	    const fileList = fileInput.files;
     	    previewContainer.innerHTML = ""; // 기존 이미지를 초기화
+    	    
+    	    if (fileList.length > 5) {
+ 	         alert("최대 5개의 파일만 업로드할 수 있습니다.");
+ 	         fileInput.value = ""; // 입력 필드 초기화
+ 	         uploadedFileName.textContent = "업로드된 파일이 없습니다.";
+ 	         return;
+   	      }
 
     	    if (fileList.length > 0) {
     	      Array.from(fileList).forEach((file) => {
@@ -271,6 +339,19 @@
 				let price = $("#price").val();
 				let discount = $("#discount").val();
 				let pay = $("#pay").val();
+				let optionNames = document.getElementsByName("optName[]");
+				let optionPrices = document.getElementsByName("optPrice[]");
+				
+		    let optionName = "";
+		    let optionPrice = "";
+				for (let i = 0; i < optionNames.length; i++) {
+					if(optionPrices[i].value.trim() === "" || isNaN(optionPrices[i].value.trim())){
+						optionPrices[i] = "0";
+					}
+					
+			  	optionName += optionNames[i].value.trim() + "/";
+			  	optionPrice += optionPrices[i].value.trim() + "/";
+				}
 				
 				if(category.trim() == ""){
 					alert("카테고리를 선택해주세요");
@@ -308,10 +389,58 @@
 					return false;
 				}
 				else{
+					myform.optionName.value = optionName;
+					myform.optionPrice.value = optionPrice;
 					myform.submit();
 				}
 				
 			}
+    	
+    	function addOption() {
+			  const container = document.getElementById("options-container");
+	
+			  const optionItem = document.createElement("div");
+			  optionItem.classList.add("option-item");
+	
+			  const optionName = document.createElement("input");
+			  optionName.type = "text";
+			  optionName.name = "optName[]";
+			  optionName.placeholder = "옵션명을 입력해주세요";
+			  optionName.classList.add("form-control");
+	
+			  const optionPrice = document.createElement("input");
+			  optionPrice.type = "number";
+			  optionPrice.name = "optPrice[]";
+			  optionPrice.placeholder = "옵션 가격";
+			  optionPrice.value = "0";
+			  optionPrice.classList.add("form-control");
+			  
+			  const removeBtn = document.createElement("button");
+			  removeBtn.type = "button";
+			  removeBtn.textContent = "삭제";
+			  removeBtn.classList.add("remove-option-btn");
+			  removeBtn.tabIndex = -1;
+			  removeBtn.onclick = function () {
+			    container.removeChild(optionItem);
+			  };
+	
+			  optionItem.appendChild(optionName);
+			  optionItem.appendChild(optionPrice);
+			  optionItem.appendChild(removeBtn);
+	
+			  container.appendChild(optionItem);
+			}
+    	
+    	function removeOption(button, index) {
+  	    const optionItem = button.closest(".option-item");
+  	    const container = document.getElementById("options-container");
+
+  	    // 삭제된 옵션의 인덱스를 추가
+  	    removedOptions.push(index);
+
+  	    // DOM에서 해당 옵션 제거
+  	    container.removeChild(optionItem);
+  	  }
   </script>
 </head>
 <body>
@@ -320,7 +449,7 @@
     <form name="myform" enctype="multipart/form-data" method="post" action="${ctp}/shop/shopUpdate">
       <div class="form-group">
         <div class="section-title">업체명</div>
-        <input type="text" name="company" id="company" class="form-control" value="${sCompany}" readonly>
+        <input type="text" name="company" id="company" class="form-control" value="${sCompany}">
       </div>
 
       <div class="form-group">
@@ -328,8 +457,8 @@
         <div class="input-group">
 		      <select name="category" id="category" class="form-control" onchange="mainCategoryLoad()">
 		      		<option>카테고리를 선택해주세요.</option>
-		      	<c:forEach var="cate" items="${categoryList}">
-		      		<option ${cate == vo.category ? 'selected' : ''}>${fn: toUpperCase(cate)}</option>
+		      	<c:forEach var="cate" items="${vos}">
+		      		<option ${cate.category == vo.category ? 'selected' : ''}>${fn: toUpperCase(cate.category)}</option>
 		      	</c:forEach>
 		      </select>
 		      <select name="mainCategory" id="mainCategory" class="form-control" onchange="subCategoryLoad()">
@@ -350,7 +479,7 @@
         <div class="section-title">판매가</div>
         <div class="price-group">
           <input type="number" name="price" id="price" class="form-control" value="${vo.price}" oninput="finalPrice()" required>
-          <input type="text" value="원" readonly class="form-control">
+          <input type="text" value="원" tabindex="-1"  readonly class="form-control trash">
         </div>
       </div>
 
@@ -358,7 +487,7 @@
         <div class="section-title">할인</div>
         <div class="price-group">
           <input type="number" name="discount" id="discount" class="form-control" value="${vo.discount}" oninput="finalPrice()" required>
-          <input type="text" value="%" readonly class="form-control">
+          <input type="text" value="%" readonly tabindex="-1" class="form-control trash">
         </div>
       </div>
 
@@ -366,9 +495,29 @@
         <div class="section-title">최종 판매가</div>
         <div class="price-group">
           <input type="text" name="pay" id="pay" class="form-control" readonly>
-          <input type="text" value="원" readonly class="form-control">
+          <input type="text" value="원" tabindex="-1"  readonly class="form-control">
         </div>
       </div>
+      
+      <div class="form-group">
+		    <span class="section-title">옵션</span>
+		    <button type="button" class="add-option-btn" onclick="addOption()" tabindex="-1">+ 옵션 추가</button>
+			  <div id="options-container">
+			  	<c:if test="${!empty vo.optionName}">
+				  	<c:set var="optionName" value="${fn: split(vo.optionName, '/')}"/>
+				  	<c:set var="optionPrice" value="${fn: split(vo.optionPrice, '/')}"/>
+				  	<c:forEach var="i" begin="0" end="${fn: length(optionName) -1}">
+				  		<div class="option-item">
+					  		<input type="text" class="form-control" value="${optionName[i]}">
+					  		<input type="number" class="form-control" value="${optionPrice[i]}">
+					  		<button type="button" class="remove-option-btn" tabindex="-1" onclick="removeOption(this, '${i}')">삭제</button>
+				  		</div>
+				  	</c:forEach>
+			  	</c:if>
+			  </div>
+			</div>
+			<input type="hidden" name="optionName" id="optionName">
+			<input type="hidden" name="optionPrice" id="optionPrice">
       
       <div class="form-group nowImg">
         <div class="section-title">현재 적용 이미지</div>
