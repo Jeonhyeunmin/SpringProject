@@ -173,7 +173,26 @@ public class CommonContoller {
 	public String memberEmailCheckPost(HttpSession session ,String email, HttpServletRequest request) throws MessagingException {
 		String emailKey = UUID.randomUUID().toString().substring(0, 8);
 		session.setAttribute("sEmailKey", emailKey);
-		provide.mailSend(request, email, "이메일 인증키 입니다.", "인증키 : " + emailKey);
+		 String mailFlag="";
+     mailFlag = "<html>"
+       + "<body>"
+       + "<div style='font-family: Arial, sans-serif; line-height: 1.6;'>"
+       + "<img src='cid:login.jpg' style='max-width: 500px; height: auto; border-radius: 8px; margin-top: 20px;'>"
+       + "<h2 style='color: #f2d8b1;'>Min's 회원가입 인증 번호</h2>"
+       + "<p>안녕하세요,</p>"
+       + "<p>Min's 회원가입을 위한 인증 번호는 다음과 같습니다.</p>"
+       + "<h3 style='background-color: #f0f0f0; width:200px; padding: 10px; color: #333; border-radius: 5px; text-align: center;'>"
+       + "<strong>" + emailKey + "</strong>"
+       + "</h3>"
+       + "<p>위의 인증 번호를 인증 페이지에 입력하여 이메일을 인증해주세요.</p>"
+       + "<p>감사합니다.</p><br/>"
+       + "<hr>"
+       + "<p style='font-size: 0.9em; color: #555;'>본 메일은 자동으로 발송된 메일입니다.</p>"
+       + "</div>"
+       + "</body>"
+       + "</html>";
+
+		provide.mailSend(request, email, "이메일 인증키 입니다.", mailFlag);
 		return "1";
 	}
 	
@@ -295,5 +314,68 @@ public class CommonContoller {
 		else {
 			return "redirect:/message/pwdChangeNo";
 		}
+	}
+	
+	@GetMapping("/mobieLogin")
+	public String mobieLogin(HttpServletRequest request, Model model) {
+		Cookie cookies[] = request.getCookies();
+		
+		if(cookies != null) {
+			for(int i=0; i<cookies.length; i++) {
+				if(cookies[i].getName().equals("cMid")) {
+					cookies[i].setPath("/");
+					cookies[i].setMaxAge(0);
+					model.addAttribute("cMid", cookies[i].getValue());
+					break;
+				}
+			}
+		}
+		
+		return "common/mobieLogin";
+	}
+	
+	@ResponseBody
+	@PostMapping("/windowLogin")
+	public String windowLoginPost(Model model, HttpSession session, String mid, String pwd, 
+			@RequestParam(name = "idSave", defaultValue = "off", required = false) String idSave, 
+			HttpServletRequest request, HttpServletResponse response
+	) {
+		
+		String res = "";
+		if(idSave.equals("on")) {
+			Cookie cookieMid = new Cookie("cMid", mid);
+			cookieMid.setPath("/");
+			cookieMid.setMaxAge(60*60*24*7);
+			response.addCookie(cookieMid);
+		}
+		else {
+			Cookie[] cookies = request.getCookies();
+			if(cookies != null) {
+				for(int i=0; i<cookies.length; i++) {
+					if(cookies[i].getName().equals("cMid")) {
+						cookies[i].setPath("/");
+						cookies[i].setMaxAge(0);
+						response.addCookie(cookies[i]);
+						break;
+					}
+				}
+			}
+		}
+		
+		MemberVO memberVO = commonService.getMemberIdSearch(mid);
+		PartnerVO partnerVO = commonService.getPartnerIdSearch(mid);
+		if(memberVO != null && (memberVO.getMid().equals(mid) && passwordEncoder.matches(pwd, memberVO.getPwd()))) {
+			session.setAttribute("sMid", mid);
+			session.setAttribute("sLevel", memberVO.getLevel());
+			session.setAttribute("sName", memberVO.getName());
+			res = "1";
+		}
+		else if (partnerVO != null && (partnerVO.getMid().equals(mid) && passwordEncoder.matches(pwd, partnerVO.getPwd()))) {
+			session.setAttribute("sMid", mid);
+			session.setAttribute("sLevel", partnerVO.getLevel());
+			session.setAttribute("sCompany", partnerVO.getCompany());
+			res = "1";
+		}
+		return res;
 	}
 }

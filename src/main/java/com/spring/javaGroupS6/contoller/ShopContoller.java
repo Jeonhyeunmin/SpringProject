@@ -154,7 +154,7 @@ public class ShopContoller {
 			titleImgs.add(vo.getTitleImg());
 		}
 		
-		ArrayList<ShopReviewVO> reviewVOS = shopService.getReview(idx);
+		ArrayList<ShopReviewVO> reviewVOS = shopService.getReview(idx, "");
 		Double reviewAvg = shopService.getReviewAverage(idx);
 		
 		ArrayList<Integer> likeVOS = shopService.getMyLikes(idx, mid);
@@ -294,6 +294,23 @@ public class ShopContoller {
 		}
 	}
 	
+	@PostMapping("/reviewUpdateForm")
+	public String reviewUpdateFormPost(Model model, int shopIdx, int reviewIdx) {
+		ShopVO shopVO = shopService.getShopContent(shopIdx);
+		ShopReviewVO reviewVO = shopService.getMyReview(reviewIdx);
+		
+		model.addAttribute("reviewVO", reviewVO);
+		model.addAttribute("shopVO", shopVO);
+		return "/shop/reviewUpdateForm";
+	}
+	
+	@ResponseBody
+	@PostMapping("/reviewUpdate")
+	public int reviewUpdatePost(ShopReviewVO vo) {
+		return shopService.setReviewUpdate(vo);
+	}
+	
+	
 	@ResponseBody
 	@Transactional
 	@PostMapping("/reviewGoodCheck")
@@ -312,14 +329,28 @@ public class ShopContoller {
 	public String reviewListPost(Model model, HttpSession session, int idx) {
 		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
 		
-		ArrayList<ShopReviewVO> reviewVOS = shopService.getReview(idx);
+		ArrayList<ShopReviewVO> reviewVOS = shopService.getReview(idx, "");
+		Double reviewAvg = shopService.getReviewAverage(idx);
 		
 		ArrayList<Integer> likeVOS = shopService.getMyLikes(idx, mid);
 		
 		model.addAttribute("likeVOS", likeVOS);
 		model.addAttribute("reviewVOS", reviewVOS);
+		model.addAttribute("reviewAvg", reviewAvg);
 		
     return "/shop/reviewList";
+	}
+	
+	@ResponseBody
+	@PostMapping("/reviewClaim")
+	public int reviewClaimPost(int idx) {
+		return shopService.setReviewClaim(idx);
+	}
+	
+	@ResponseBody
+	@PostMapping("/reviewDelete")
+	public int reviewDeletePost(int idx) {
+		return shopService.setReviewDelete(idx);
 	}
 
 }

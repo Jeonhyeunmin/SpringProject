@@ -11,8 +11,7 @@ public class ShopReviewVO {
 	private int star;
 	private String reviewDate;
 	private int good;
-	private int claim;
-	
+	private String claim;
 	
 	private String customerName;
 	private String customerId;

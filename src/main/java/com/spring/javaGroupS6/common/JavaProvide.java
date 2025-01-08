@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -29,30 +30,54 @@ public class JavaProvide {
 	JavaMailSender mailSender;
 	
 	// 메일 전송하기(이메일 주소, 제목, 내용)
-	@SuppressWarnings("unused")
-	public void mailSend(HttpServletRequest request, String toMail, String title, String mailFlag) throws MessagingException {
-		String content = "";
-			MimeMessage message = mailSender.createMimeMessage();
-			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-			
-			messageHelper.setTo(toMail);			// 받는 사람의 메일주소
-			messageHelper.setSubject(title);	// 메일 제목
-			messageHelper.setText(content);		// 메일 내용
-			
-			content += "<br><hr><h3>"+mailFlag+"</h3><hr><br>";
-//			content += "<p><img src=\"cid:main.jsp\" width='500px'/></p>";
-			content += "<p>방문하기 : <a href='http://49.142.157.251:9090/cjgreen'>JavaGroup</a></p>";
-			content += "<hr>";
-			content = content.replace("\n", "<br>");
-			
-			messageHelper.setText(content, true);
-			
-//			FileSystemResource file = new FileSystemResource(request.getSession().getServletContext().getRealPath("/resources/images/main.jpg"));
-//			messageHelper.addInline("main.jsp", file);
-			
-			// 메일 전송하기
-			mailSender.send(message);
-	}
+//	@SuppressWarnings("unused")
+//	public void mailSend(HttpServletRequest request, String toMail, String title, String mailFlag) throws MessagingException {
+//		String content = "";
+//			MimeMessage message = mailSender.createMimeMessage();
+//			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+//			
+//			messageHelper.setTo(toMail);			// 받는 사람의 메일주소
+//			messageHelper.setSubject(title);	// 메일 제목
+//			messageHelper.setText(content);		// 메일 내용
+//			
+//			content += "<br><hr><h3>"+mailFlag+"</h3><hr><br>";
+////			content += "<p><img src=\"cid:main.jsp\" width='500px'/></p>";
+//			content += "<p>방문하기 : <a href='http://49.142.157.251:9090/cjgreen'>JavaGroup</a></p>";
+//			content += "<hr>";
+//			content = content.replace("\n", "<br>");
+//			
+//			messageHelper.setText(content, true);
+//			
+////			FileSystemResource file = new FileSystemResource(request.getSession().getServletContext().getRealPath("/resources/images/main.jpg"));
+////			messageHelper.addInline("main.jsp", file);
+//			
+//			// 메일 전송하기
+//			mailSender.send(message);
+//	}
+	
+  public void mailSend(HttpServletRequest request, String toMail, String title, String mailFlag) throws MessagingException {
+    String content = "";
+    
+    // 메일 전송을 위한 객체 : MimeMessage(), MimeMessageHelper()
+    MimeMessage message = mailSender.createMimeMessage();
+    MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+    
+    messageHelper.setTo(toMail);         // 받는 사람의 메일주소
+    messageHelper.setSubject(title);   // 메일 제목
+    messageHelper.setText(content);      // 메일 내용
+    messageHelper.setText(content);      // 메일 내용
+    
+    content = content.replace("\n", "<br>");
+    content += "<br>"+mailFlag+"<br>";
+    messageHelper.setText(content, true);
+    
+       FileSystemResource file = new FileSystemResource(request.getSession().getServletContext().getRealPath("/resources/images/login/login.jpg"));
+       messageHelper.addInline("login.jpg", file);
+    
+    
+    // 메일 전송하기
+    mailSender.send(message);
+ }
 	
 	public void imgCheck(String content, String folderName) {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();

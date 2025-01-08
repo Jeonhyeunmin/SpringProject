@@ -491,11 +491,13 @@
 		.reviewButton .claim:hover{
 			background-color: #fa4141;
 			color: white;
+			border: none;
 		}
 		
 		.reviewButton .good:hover{
 			background-color: #4750f9;
 			color: white;
+			border: none;
 		}
 		
 		.user-score{
@@ -503,123 +505,73 @@
 			justify-content: space-between;
 		}
 				
+		.reviewButton .reviewUpdate{
+			background-color: #e8ea3d;
+			padding: 5px 10px;
+		}
+				
+		.reviewButton .reviewUpdate:hover{
+			background-color: #f0f22e;
+			border: none;
+		}
+		
+		.reviewButton .reviewDelete{
+			background-color: #fa4141;
+			padding: 5px 10px;
+		}
+		
+		.reviewButton .reviewDelete:hover{
+			background-color: #fc2b2b;
+			color: white;
+			border: none;
+		}
+		
+		/* 모달 배경 */
+		.modal-overlay {
+		  position: fixed;
+		  top: 0;
+		  left: 0;
+		  width: 100%;
+		  height: 100%;
+		  background: rgba(0, 0, 0, 0.6); /* 반투명 배경 */
+		  display: none; /* 기본적으로 숨김 */
+		  opacity: 0;
+		  z-index: 999;
+		  transition: opacity 0.3s ease-in-out;
+		}
+		
+		/* 모달 활성화 */
+		.modal-overlay.show {
+		  display: block;
+		  opacity: 1;
+		}
+		
+		/* 수정 폼 */
+		.reviewUpdateForm {
+		  position: fixed;
+		  bottom: -100%; /* 초기 위치: 화면 아래 */
+		  left: 50%;
+		  transform: translateX(-50%);
+		  width: 90%;
+		  max-width: 500px;
+		  background: #fff;
+		  border-radius: 15px;
+		  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+		  padding: 20px;
+		  z-index: 1000;
+		  transition: bottom 0.5s ease-in-out, opacity 0.3s ease-in-out;
+		  opacity: 0;
+		}
+		
+		/* 수정 폼 활성화 */
+		.reviewUpdateForm.show {
+		  bottom: 15%; /* 화면에 보이도록 */
+		  opacity: 1;
+		}
+
 
   </style>
   <script type="text/javascript">
-	  function toggleLike(idx, btn) {
-	    const icon = btn.querySelector('i');
-      $.ajax({
-      	type : "post",
-      	url : "interestCheck.fu",
-      	data : {idx : idx},
-      	success: function(res) {
-					if(res == "1"){
-						icon.classList.remove('fa-regular');
-		        icon.classList.add('fa-solid');
-					}
-					else if(res == "2"){
-		        icon.classList.remove('fa-solid');
-		        icon.classList.add('fa-regular');
-			    }
-				},
-				error: function() {
-					alert("안됨");
-				}
-    	});
-	  }
-	  
-		
-		$(window).scroll(function(){
-		  if($(this).scrollTop() > 300){
-		     $("#mainSidebar").addClass("on");
-		  }
-		  else{
-		     $("#mainSidebar").removeClass("on");
-		  }
-		});
-		
-			function shareContent() {
-		    const shareData = {
-		        title: '그린테리어',
-		        text: '이 멋진 인테리어를 확인해보세요!',
-		        url: window.location.href // 현재 페이지 URL
-		    };
-
-		    if (navigator.share) {
-		        navigator.share(shareData)
-		            .then(() => console.log('공유 성공'))
-		            .catch((error) => console.error('공유 실패:', error));
-		    } else {
-		        alert('공유 기능이 지원되지 않는 브라우저입니다.');
-		    }
-		}
-		
-		function DeleteCheck() {
-			let ans = confirm("삭제하시겠습니까?");
-			if(ans){
-				location.href = "FurnitureDelete.fu?idx=${vo.idx}";
-			}
-		}
-		
-  	function cartCheck() {
-  		
-			$.ajax({
-				type : 'post',
-				url  : 'FurnitureCart.fu',
-				data :  {idx : ${vo.idx}},
-				success: function(res) {
-					let ans = confirm("장바구니로 이동하시겠습니까?");
-					if(ans){
-						location.href='FurnitureShoppingList.fu';
-					}
-					else{
-						location.reload();
-					}
-				},
-				error: function() {
-					alert("전송오류");
-				}
-			});	  		
-		}
-  	
-  	function buy() {
-			idxSelectArray = ${vo.idx} + ",";
-			alert("결제페이지로 이동합니다.");
-			location.href = "FurnitureBuy.fu?idxArray=" + idxSelectArray;
-		}
-		
-  	function complaint() {
-  		let ans = confirm("이 게시물을 신고하시겠습니까?");
-  		if(ans){
-				$.ajax({
-					type : "post",
-					url : "Complaint.fu",
-					data : {
-						idx : ${vo.idx},
-						mid : '${vo.mid}'
-					},
-					success: function(res) {
-						if(res == "1"){
-							alert("게시물이 신고되었습니다.");
-							location.reload();
-						}
-						else if(res == "2"){
-							alert("이미 신고한 글입니다.");
-							location.reload();
-						}
-						else{
-							alert("응 오류야 다시 봐");
-						}
-					},
-					error: function() {
-						alert("error");
-					}
-				});
-  		}
-  		else{
-  			return;
-  		}
-		}
   	document.addEventListener("DOMContentLoaded", function () {
   	  const thumbnails = document.querySelectorAll(".sub-img img");
   	  const mainImage = document.querySelector(".image-container img");
@@ -692,9 +644,9 @@
   	}
   	
   	function buy() {
-  	  const quantity = document.getElementById("quantityInput").value; // 수량 가져오기
+  	  const quantity = document.getElementById("quantityInput").value;
   	  const totalPrice = document.getElementById("totalPrice").textContent.replace("원", "").replace(/,/g, ""); // 최종 가격 가져오기
-  	  const idx = document.getElementById("idx").value; // idx 가져오기
+  	  const idx = document.getElementById("idx").value;
 
   	  // 선택한 옵션 가져오기
   	  const optionSelect = document.getElementById("optionSelect");
@@ -704,6 +656,20 @@
   	    alert("옵션을 선택해주세요");
   	    return;
   	  }
+  	  
+	  	if("${sMid}" == ""){
+				let url = "${ctp}/common/mobieLogin";
+				window.open(url, "mobieLogin", "width=600px, height=700px, top=150px, left=500px;");
+				
+				 window.onLoginSuccess = function () {
+            document.getElementById("quantity").value = quantity;
+            buyForm.totalPrice.value = totalPrice;
+            document.getElementById("optionSelectValue").value = selectedOption;
+            document.getElementById("buyForm").submit();
+        };
+				
+				return false;
+			}
 
   	  document.getElementById("quantity").value = quantity;
   	  buyForm.totalPrice.value = totalPrice;
@@ -739,17 +705,18 @@
   	});
   	
   	document.addEventListener("DOMContentLoaded", function () {
-  	  const rating = document.querySelector(".rating");
-  	  const stars = rating.querySelectorAll(".star");
-  	  const scoreElement = rating.querySelector(".score");
+  	  let rating = document.querySelector(".rating");
+  	  let stars = rating.querySelectorAll(".star");
+  		let scoreElement = rating.querySelector(".score");
 
-  	  const reviewAvg = ${reviewAvg}; // 서버에서 전달된 평점 값
-
+  	   // 서버에서 전달된 평점 값
+			let reviewAvg = ${reviewAvg};
+			
   	  scoreElement.textContent = reviewAvg.toFixed(1);
   	  
   	  stars.forEach((star, index) => {
-  	    const fullStars = Math.floor(reviewAvg); // 완전한 별 개수
-  	    const partialStar = reviewAvg % 1; // 소수점 부분
+  			let fullStars = Math.floor(reviewAvg); // 완전한 별 개수
+  			let partialStar = reviewAvg % 1; // 소수점 부분
 
   	    if (index < fullStars) {
   	      star.setAttribute("data-filled", "true");
@@ -795,21 +762,144 @@
 	    $.ajax({
         type: "post",
         url : "${ctp}/shop/reviewList",
-        data: { idx: ${vo.idx} }, // 필요한 데이터 전달
+        data: { idx: ${vo.idx} },
         success: function(res) {
-          $("#review-section").html(res); // 리뷰 섹션만 업데이트
+          $("#review-section").html(res);
         },
         error: function() {
           alert("리뷰를 불러오는 중 오류가 발생했습니다.");
         }
 	    });
   	}
-
   	
   	function alreadyGoodCheck() {
 			alert("이미 추천하신 리뷰입니다");
 			return false;
 		}
+  	
+  	function reviewClaim(idx) {
+			let ans = confirm("해당 리뷰를 신고하시겠습니까?");
+			
+			if(ans){
+				$.ajax({
+					type : "post",
+					url : "${ctp}/shop/reviewClaim",
+					data : {
+						idx : idx
+					},
+					success: function(res) {
+						if(res != "0"){
+							alert("해당 리뷰를 신고하였습니다.");
+							reloadReviews();
+						}
+						else{
+							alert("이미 신고된 글입니다.");
+						}
+					},
+					error: function() {
+						alert("전송오류");
+					}
+				});
+			}
+		}
+  	
+  	function reviewDelete(idx) {
+			let ans = confirm("해당 리뷰를 삭제하시겠습니까?");
+			
+			if(ans){
+				$.ajax({
+					type : "post",
+					url : "${ctp}/shop/reviewDelete",
+					data : {
+						idx : idx
+					},
+					success: function(res) {
+						if(res != "0"){
+							alert("해당 리뷰를 삭제하셨습니다.");
+							reloadReviews();
+						}
+					},
+					error: function() {
+						alert("전송오류");
+					}
+				});
+			}
+  	}
+			
+ // 폼 열기
+  	function reviewUpdateForm(idx) {
+  	  $.ajax({
+  	    type: "post",
+  	    url: "${ctp}/shop/reviewUpdateForm",
+  	    data: {
+  	      shopIdx: ${vo.idx},
+  	      reviewIdx: idx,
+  	    },
+  	    success: function (res) {
+  	      const overlay = document.getElementById("modalOverlay");
+  	      const updateForm = document.getElementById("reviewUpdateForm");
+
+  	      updateForm.innerHTML = res;
+
+  	      // 모달 활성화
+  	      overlay.classList.add("show");
+  	      updateForm.classList.add("show");
+  	    },
+  	    error: function () {
+  	      alert("전송오류");
+  	    },
+  	  });
+  	}
+
+  	// 폼 닫기
+  	function closeReviewUpdateForm() {
+  	  const overlay = document.getElementById("modalOverlay");
+  	  const updateForm = document.getElementById("reviewUpdateForm");
+
+  	  overlay.classList.remove("show");
+  	  updateForm.classList.remove("show");
+  	}
+  	
+  	function reviewCheck() {
+  		let star = reviewForm.star.value;
+    	let review = reviewForm.reviewContent.value;
+    	let reviewIdx = reviewForm.reviewIdx.value;
+    	
+    	query = {
+    		idx : reviewIdx,
+    		content : review,
+    		star : star
+    	}
+    	
+    	if(star == ""){
+    		alert("별점을 선택해주세요.");
+    		return false;
+    	}
+    	if(review == ""){
+    		alert("상세 리뷰를 입력해주세요");
+    		return false;
+    	}
+    	
+    	$.ajax({
+    		type : "post",
+    		url : "${ctp}/shop/reviewUpdate",
+    		data : query,
+    		success: function(res) {
+					if(res != "0"){
+						alert("리뷰가 수정되었습니다.");
+						closeReviewUpdateForm();
+						reloadReviews();
+					}
+					else{
+						alert("수정 실패라요");
+					}
+				},
+				error: function() {
+					alert("전송오류");
+				}    		
+    	});
+		}
+  	
   </script>
 </head>
 <body>
@@ -942,12 +1032,18 @@
 											</c:forEach>
 										</div>
 							      <div class="reviewButton">
-								      <span><button class="claim">신고</button></span>
-								      <c:if test="${fn: contains(likeVOS, vo.idx)}">
-								      	<span><button class="good" style="background-color: #4750f9; color: white;" onclick="alreadyGoodCheck()"><i class="fa-regular fa-thumbs-up"></i>(${vo.good})</button></span>
+							      	<c:if test="${sMid != vo.mid}">
+									      <span><button class="claim" onclick="reviewClaim(${vo.idx})">신고</button></span>
+									      <c:if test="${fn: contains(likeVOS, vo.idx)}">
+									      	<span><button class="good" style="background-color: #4750f9; color: white;" onclick="alreadyGoodCheck()"><i class="fa-regular fa-thumbs-up"></i>(${vo.good})</button></span>
+									      </c:if>
+									      <c:if test="${!fn: contains(likeVOS, vo.idx)}">
+									      	<span><button class="good" onclick="goodCheck(${vo.idx}, '${vo.mid}')"><i class="fa-regular fa-thumbs-up"></i>(${vo.good})</button></span>
+									      </c:if>
 								      </c:if>
-								      <c:if test="${!fn: contains(likeVOS, vo.idx)}">
-								      	<span><button class="good" onclick="goodCheck(${vo.idx}, '${vo.mid}')"><i class="fa-regular fa-thumbs-up"></i>(${vo.good})</button></span>
+							      	<c:if test="${sMid == vo.mid}">
+									      <span><button class="reviewUpdate" onclick="reviewUpdateForm(${vo.idx})">수정</button></span>
+								      	<span><button class="reviewDelete" onclick="reviewDelete(${vo.idx})">삭제</button></span>
 								      </c:if>
 							      </div>
 									</div>
@@ -985,6 +1081,10 @@
 			      </div>
 				  </div>
 				</c:if>
+				<div id="modalOverlay" class="modal-overlay" onclick="closeReviewUpdateForm()"></div>
+					<div id="reviewUpdateForm" class="reviewUpdateForm">
+				</div>
+
 	  	</td>
 	  </tr>
 	</table>
