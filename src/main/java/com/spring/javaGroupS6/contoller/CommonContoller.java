@@ -173,7 +173,26 @@ public class CommonContoller {
 	public String memberEmailCheckPost(HttpSession session ,String email, HttpServletRequest request) throws MessagingException {
 		String emailKey = UUID.randomUUID().toString().substring(0, 8);
 		session.setAttribute("sEmailKey", emailKey);
-		provide.mailSend(request, email, "이메일 인증키 입니다.", "인증키 : " + emailKey);
+		 String mailFlag="";
+     mailFlag = "<html>"
+       + "<body>"
+       + "<div style='font-family: Arial, sans-serif; line-height: 1.6;'>"
+       + "<img src='cid:login.jpg' style='max-width: 500px; height: auto; border-radius: 8px; margin-top: 20px;'>"
+       + "<h2 style='color: #f2d8b1;'>Min's 회원가입 인증 번호</h2>"
+       + "<p>안녕하세요,</p>"
+       + "<p>Min's 회원가입을 위한 인증 번호는 다음과 같습니다.</p>"
+       + "<h3 style='background-color: #f0f0f0; width:200px; padding: 10px; color: #333; border-radius: 5px; text-align: center;'>"
+       + "<strong>" + emailKey + "</strong>"
+       + "</h3>"
+       + "<p>위의 인증 번호를 인증 페이지에 입력하여 이메일을 인증해주세요.</p>"
+       + "<p>감사합니다.</p><br/>"
+       + "<hr>"
+       + "<p style='font-size: 0.9em; color: #555;'>본 메일은 자동으로 발송된 메일입니다.</p>"
+       + "</div>"
+       + "</body>"
+       + "</html>";
+
+		provide.mailSend(request, email, "이메일 인증키 입니다.", mailFlag);
 		return "1";
 	}
 	

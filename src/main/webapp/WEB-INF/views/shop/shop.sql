@@ -15,33 +15,33 @@ create table shop(
   claim       			char(2)         default 'NO',                    /*   신고글   */
   wDate       			datetime        default now(),                   /*   올린 날   */
    
-   primary key(idx),
-   foreign key(mid) references partner(mid)
+  primary key(idx),
+  foreign key(mid) references partner(mid)
 );
 
 create table category(
 	cateCode int not null auto_increment,
-    category varchar(50) not null,
+  category varchar(50) not null,
     
-    primary key (cateCode)
+  primary key (cateCode)
 );
 
 create table mainCategory(
 	mainCateCode int not null auto_increment,
-    mainCategory varchar(50) not null,
-    category varchar(50) not null,
+  mainCategory varchar(50) not null,
+  category varchar(50) not null,
     
     
-    primary key (mainCateCode)
+  primary key (mainCateCode)
 );
 
 create table subCategory(
 	subCateCode int not null auto_increment,
-    subCategory varchar(50) not null,
-    mainCategory varchar(50) not null,
-    
-    
-    primary key (subCateCode)
+	subCategory varchar(50) not null,
+	mainCategory varchar(50) not null,
+
+
+	primary key (subCateCode)
 );
 
 create table shopReview(
@@ -52,10 +52,21 @@ create table shopReview(
   star int not null default 0,			/* 별점 부여 점수 */
   reviewDate datetime default now(),/* 리뷰 작성일 */
   good int not null default 0,
-  claim int not null default 0,
+  claim varchar(3) not null default 'NO',
   
   primary key(idx),
   foreign key(mid) references customer(mid)
+);
+
+create table reviewLikes(
+	idx int not null auto_increment,
+	shopIdx int not null,
+	reviewIdx int not null,
+	customer varchar(30) not null,
+	
+	primary key(idx),
+  foreign key(reviewIdx) references shopReview(idx),
+  foreign key(shopIdx) references shop(idx)
 );
 
 create table reviewLikes(

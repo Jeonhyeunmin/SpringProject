@@ -42,7 +42,7 @@ public interface ShopService {
 
 	Double getReviewAverage(int idx);
 
-	ArrayList<ShopReviewVO> getReview(int idx);
+	ArrayList<ShopReviewVO> getReview(int idx, String user);
 
 	int setReviewInput(ShopReviewVO vo, int idx, String mid);
 
@@ -56,4 +56,12 @@ public interface ShopService {
 	ReviewLikesVO getReviewLikeInfo(int idx, String mid);
 
 	ArrayList<Integer> getMyLikes(int idx, String mid);
+
+	int setReviewClaim(int idx);
+
+	int setReviewDelete(int idx);
+	
+	ShopReviewVO getMyReview(int idx);
+
+	int setReviewUpdate(ShopReviewVO vo);
 }

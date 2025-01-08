@@ -46,7 +46,10 @@
 	</select>
 	
 	<select id="getReview" resultType="com.spring.javaGroupS6.vo.ShopReviewVO">
-		select sr.*, c.name as customerName from shopReview sr, customer c where shopIdx = #{idx} and sr.mid = c.mid order by reviewDate;
+		select sr.*, c.name as customerName from shopReview sr, customer c where shopIdx = #{idx} 
+		<if test='user != "admin"'>and sr.claim = "NO"</if>
+		<if test='user == "admin"'>and sr.claim = "YES"</if>
+		 and sr.mid = c.mid order by reviewDate;
 	</select>
 	
 	<select id="getReviewLikeInfo" resultType="com.spring.javaGroupS6.vo.ReviewLikesVO">
@@ -55,6 +58,10 @@
 	
 	<select id="getMyLikes" resultType="int">
 		select reviewIdx from reviewLikes where shopIdx = #{idx} and customer = #{mid};
+	</select>
+	
+	<select id="getMyReview" resultType="com.spring.javaGroupS6.vo.ShopReviewVO">
+		select * from shopReview where idx = #{idx};
 	</select>
 	
 	<insert id="shopInput">
@@ -81,8 +88,20 @@
 		update shopReview set good = good + 1 where idx = #{idx};
 	</update>
 	
+	<update id="setReviewClaim">
+		update shopReview set claim = 'YES' where idx = #{idx};
+	</update>
+	
+	<update id="setReviewUpdate">
+		update shopReview set content = #{vo.content}, star = #{vo.star}, reviewDate = now() where idx = #{vo.idx};
+	</update>
+	
 	<delete id="setShopDelete">
 		delete from shop where idx = #{idx};
+	</delete>
+	
+	<delete id="setReviewDelete">
+		delete from shopReview where idx = #{idx};
 	</delete>
 	
 </mapper>

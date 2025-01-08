@@ -211,8 +211,8 @@ public class ShopServiceImpl implements ShopService {
 	}
 	
 	@Override
-	public ArrayList<ShopReviewVO> getReview(int idx) {
-		return shopDAO.getReview(idx);
+	public ArrayList<ShopReviewVO> getReview(int idx, String user) {
+		return shopDAO.getReview(idx, user);
 	}
 	
 	@Override
@@ -244,4 +244,25 @@ public class ShopServiceImpl implements ShopService {
 	public ArrayList<Integer> getMyLikes(int idx, String mid) {
 		return shopDAO.getMyLikes(idx, mid);	
 	}
+	
+	@Override
+	public int setReviewClaim(int idx) {
+		return shopDAO.setReviewClaim(idx);	
+	}
+	
+	@Override
+	public int setReviewDelete(int idx) {
+		return shopDAO.setReviewDelete(idx);
+	}
+	
+	@Override
+	public ShopReviewVO getMyReview(int idx) {
+		return shopDAO.getMyReview(idx);
+	}
+	
+	@Override
+	public int setReviewUpdate(ShopReviewVO vo) {
+		return shopDAO.setReviewUpdate(vo);
+	}
+	
 }

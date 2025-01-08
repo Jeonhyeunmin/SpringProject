@@ -38,7 +38,7 @@ public interface ShopDAO {
 
 	Double getReviewAverage(@Param("idx") int idx);
 
-	ArrayList<ShopReviewVO> getReview(@Param("idx") int idx);
+	ArrayList<ShopReviewVO> getReview(@Param("idx") int idx, @Param("user") String user);
 
 	int setReviewInput(@Param("vo") ShopReviewVO vo, @Param("idx") int idx, @Param("mid") String mid);
 
@@ -51,5 +51,13 @@ public interface ShopDAO {
 	ReviewLikesVO getReviewLikeInfo(@Param("idx") int idx, @Param("mid") String mid);
 
 	ArrayList<Integer> getMyLikes(@Param("idx") int idx, @Param("mid") String mid);
+
+	int setReviewClaim(@Param("idx") int idx);
+
+	int setReviewDelete(@Param("idx") int idx);
+
+	ShopReviewVO getMyReview(@Param("idx") int idx);
+
+	int setReviewUpdate(@Param("vo") ShopReviewVO vo);
 
 }
