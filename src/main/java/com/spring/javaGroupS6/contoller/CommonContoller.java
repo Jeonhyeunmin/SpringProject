@@ -315,4 +315,67 @@ public class CommonContoller {
 			return "redirect:/message/pwdChangeNo";
 		}
 	}
+	
+	@GetMapping("/mobieLogin")
+	public String mobieLogin(HttpServletRequest request, Model model) {
+		Cookie cookies[] = request.getCookies();
+		
+		if(cookies != null) {
+			for(int i=0; i<cookies.length; i++) {
+				if(cookies[i].getName().equals("cMid")) {
+					cookies[i].setPath("/");
+					cookies[i].setMaxAge(0);
+					model.addAttribute("cMid", cookies[i].getValue());
+					break;
+				}
+			}
+		}
+		
+		return "common/mobieLogin";
+	}
+	
+	@ResponseBody
+	@PostMapping("/windowLogin")
+	public String windowLoginPost(Model model, HttpSession session, String mid, String pwd, 
+			@RequestParam(name = "idSave", defaultValue = "off", required = false) String idSave, 
+			HttpServletRequest request, HttpServletResponse response
+	) {
+		
+		String res = "";
+		if(idSave.equals("on")) {
+			Cookie cookieMid = new Cookie("cMid", mid);
+			cookieMid.setPath("/");
+			cookieMid.setMaxAge(60*60*24*7);
+			response.addCookie(cookieMid);
+		}
+		else {
+			Cookie[] cookies = request.getCookies();
+			if(cookies != null) {
+				for(int i=0; i<cookies.length; i++) {
+					if(cookies[i].getName().equals("cMid")) {
+						cookies[i].setPath("/");
+						cookies[i].setMaxAge(0);
+						response.addCookie(cookies[i]);
+						break;
+					}
+				}
+			}
+		}
+		
+		MemberVO memberVO = commonService.getMemberIdSearch(mid);
+		PartnerVO partnerVO = commonService.getPartnerIdSearch(mid);
+		if(memberVO != null && (memberVO.getMid().equals(mid) && passwordEncoder.matches(pwd, memberVO.getPwd()))) {
+			session.setAttribute("sMid", mid);
+			session.setAttribute("sLevel", memberVO.getLevel());
+			session.setAttribute("sName", memberVO.getName());
+			res = "1";
+		}
+		else if (partnerVO != null && (partnerVO.getMid().equals(mid) && passwordEncoder.matches(pwd, partnerVO.getPwd()))) {
+			session.setAttribute("sMid", mid);
+			session.setAttribute("sLevel", partnerVO.getLevel());
+			session.setAttribute("sCompany", partnerVO.getCompany());
+			res = "1";
+		}
+		return res;
+	}
 }

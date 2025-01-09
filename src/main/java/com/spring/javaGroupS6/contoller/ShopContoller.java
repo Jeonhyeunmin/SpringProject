@@ -25,6 +25,8 @@ import com.spring.javaGroupS6.service.ShopService;
 import com.spring.javaGroupS6.vo.MainCategoryVO;
 import com.spring.javaGroupS6.vo.PartnerVO;
 import com.spring.javaGroupS6.vo.ReviewLikesVO;
+import com.spring.javaGroupS6.vo.ShopCartVO;
+import com.spring.javaGroupS6.vo.ShopOrderVO;
 import com.spring.javaGroupS6.vo.ShopReviewVO;
 import com.spring.javaGroupS6.vo.ShopVO;
 import com.spring.javaGroupS6.vo.SubCategoryVO;
@@ -261,18 +263,6 @@ public class ShopContoller {
 		}
 	}
 	
-	@PostMapping("/shopBuy")
-	public String shopBuyGet(int idx, String quantity, String totalPrice, 
-			@RequestParam(name = "optionSelect", defaultValue = "", required = false) String optionSelect
-	) {
-		ShopVO vo = shopService.getShopContent(idx);
-		System.out.println("vo : " + vo);
-		System.out.println("quantity : " + quantity);
-		System.out.println("totalPrice : " + totalPrice);
-		System.out.println("optionSelect : " + optionSelect);
-		return "redirect:/shop/shopContent?idx=" + idx;
-	}
-	
 	@GetMapping("/shopReview")
 	public String shopReviewGet(Model model, int idx) {
 		ShopVO vo = shopService.getShopContent(idx);
@@ -352,5 +342,99 @@ public class ShopContoller {
 	public int reviewDeletePost(int idx) {
 		return shopService.setReviewDelete(idx);
 	}
-
+	
+	@GetMapping("/shopCart")
+	public String shopCartGet(HttpSession session, Model model) {
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		
+		ArrayList<ShopCartVO> vos = shopService.getMyCart(mid);
+		model.addAttribute("vos", vos);
+		model.addAttribute("title", "장바구니");
+		return "shop/shopCart";
+	}
+	
+	@ResponseBody
+	@PostMapping("/shopCart")
+	public int shopCartPost(HttpSession session, ShopCartVO vo) {
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		int res = 0;
+		int quantity = 0; 
+		
+		ShopVO shopVO = shopService.getShopContent(vo.getShopIdx());
+		
+		ShopCartVO cartVO = shopService.getMyCartSearch(vo.getShopIdx(), vo.getOptionSelect(), mid);
+		
+		vo.setMid(mid);
+		vo.setShopTitle(shopVO.getTitle());
+		vo.setThumbnail(shopVO.getThumbnail());
+		
+		if(cartVO != null) {
+			if(cartVO.getQuantity() >= 5) {
+				res = 2;
+			}
+			else if(cartVO.getQuantity() + vo.getQuantity() < 5) {
+				quantity = vo.getQuantity() + cartVO.getQuantity();
+				shopService.setCartQuantityUpdate(cartVO.getIdx(), quantity);
+				res = 1;
+			}
+			else if(cartVO.getQuantity() + vo.getQuantity() >= 5) {
+				quantity = 5;
+				shopService.setCartQuantityUpdate(cartVO.getIdx(), quantity);
+				res = 3;
+			}
+			else if(cartVO.getQuantity() < 5) {
+				quantity = 5 - cartVO.getQuantity();
+				shopService.setCartQuantityUpdate(cartVO.getIdx(), quantity);
+				res = 3;
+			}
+		}
+		else {
+			res = shopService.setCartInput(vo);
+		}
+		
+		System.out.println("cartVO : " + vo);
+		return res;
+	}
+	
+	@PostMapping("/shopOrder")
+	public String shopOrder(Model model,
+			@RequestParam(name = "idx", defaultValue = "0", required = false) int idx,
+			@RequestParam(name = "optionSelect", defaultValue = "", required = false) String optionSelect,
+			@RequestParam(name = "quantity", defaultValue = "0", required = false) int quantity,
+			@RequestParam(name = "totalPrice", defaultValue = "0", required = false) int totalPrice, 
+			String idxArr, String quantityArr, String totalPriceArr
+	) {
+		
+		ShopOrderVO vo = null;
+		ArrayList<ShopOrderVO> vos = new ArrayList<ShopOrderVO>();
+		if(idx == 0) {
+			String[] cartIdx = idxArr.split("/"); 
+			String cartQuantity[] = quantityArr.split("/"); 
+			String cartTotalPrice[] = totalPriceArr.split("/");
+			
+			
+			for(int i = 0; i < cartIdx.length; i++) {
+				vo = shopService.getIdxCart(cartIdx[i]);
+				vo.setQuantity(Integer.parseInt(cartQuantity[i]));
+				vo.setTotalPrice(Integer.parseInt(cartTotalPrice[i]));
+				vos.add(vo);
+			}
+		}
+		else {
+			vo = shopService.getOneOrder(idx);
+			vo.setShopIdx(idx);
+			vo.setQuantity(quantity);
+			vo.setTotalPrice(totalPrice);
+			vos.add(vo);
+		}
+		model.addAttribute("vos", vos);
+		model.addAttribute("title", "구매");
+		return "shop/shopOrder";
+	}
+	
+	@ResponseBody
+	@PostMapping("/cartDelete")
+	public int cartDeletePost(int idx) {
+		return shopService.setCartDelete(idx);
+	}
 }

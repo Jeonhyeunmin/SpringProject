@@ -11,8 +11,8 @@ public class ShopVO {
 	private String mainCategory;
 	private String subCategory;
 	private String title;
-	private String price;
-	private String discount;
+	private int price;
+	private int discount;
 	private String optionName;
 	private String optionPrice;
 	private String thumbnail;

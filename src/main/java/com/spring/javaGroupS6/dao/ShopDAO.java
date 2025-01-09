@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 
 import com.spring.javaGroupS6.vo.MainCategoryVO;
 import com.spring.javaGroupS6.vo.ReviewLikesVO;
+import com.spring.javaGroupS6.vo.ShopCartVO;
+import com.spring.javaGroupS6.vo.ShopOrderVO;
 import com.spring.javaGroupS6.vo.ShopReviewVO;
 import com.spring.javaGroupS6.vo.ShopVO;
 import com.spring.javaGroupS6.vo.SubCategoryVO;
@@ -59,5 +61,19 @@ public interface ShopDAO {
 	ShopReviewVO getMyReview(@Param("idx") int idx);
 
 	int setReviewUpdate(@Param("vo") ShopReviewVO vo);
+
+	ShopCartVO getMyCartSearch(@Param("shopIdx") int shopIdx, @Param("optionSelect") String optionSelect,  @Param("mid") String mid);
+
+	void setCartQuantityUpdate(@Param("idx") int idx, @Param("quantity") int quantity);
+
+	int setCartInput(@Param("vo") ShopCartVO vo);
+
+	ArrayList<ShopCartVO> getMyCart(@Param("mid") String mid);
+
+	ShopOrderVO getIdxCart(@Param("idx") String idx);
+
+	ShopOrderVO getOneOrder(@Param("idx") int idx);
+
+	int setCartDelete(@Param("idx") int idx);
 
 }

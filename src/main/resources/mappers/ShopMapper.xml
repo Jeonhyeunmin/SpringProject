@@ -64,6 +64,22 @@
 		select * from shopReview where idx = #{idx};
 	</select>
 	
+	<select id="getMyCartSearch" resultType="com.spring.javaGroupS6.vo.ShopCartVO">
+		select * from shopCart where shopIdx = #{shopIdx} and mid = #{mid} and optionSelect = #{optionSelect};
+	</select>
+	
+	<select id="getMyCart" resultType="com.spring.javaGroupS6.vo.ShopCartVO">
+		select sc.*, s.company from shopCart sc left join shop s on sc.shopidx = s.idx where sc.mid = #{mid} order by idx;
+	</select>
+	
+	<select id="getIdxCart" resultType="com.spring.javaGroupS6.vo.ShopOrderVO">
+		select sc.*, s.discount, s.price from shopCart sc, shop s where sc.idx = #{idx} and s.idx = sc.shopIdx;
+	</select>
+	
+	<select id="getOneOrder" resultType="com.spring.javaGroupS6.vo.ShopOrderVO">
+		select * from shop where idx = #{idx};
+	</select>
+	
 	<insert id="shopInput">
 		insert into shop values (default, #{vo.mid}, #{vo.company}, #{vo.category}, #{vo.mainCategory}, #{vo.subCategory}, #{vo.title}, #{vo.discount}, #{vo.price}, #{vo.option}, #{vo.thumbnail}, #{vo.titleImg}, #{vo.content}, #{vo.fSize}, default, default, default);
 	</insert>
@@ -74,6 +90,10 @@
 	
 	<insert id="setReviewGoodInput">
 		insert into reviewLikes values(default, #{idx}, #{reviewIdx}, #{mid});
+	</insert>
+	
+	<insert id="setCartInput">
+		insert into shopCart values(default, #{vo.mid}, #{vo.shopIdx}, #{vo.thumbnail}, #{vo.shopTitle}, #{vo.optionSelect}, #{vo.quantity}, #{vo.totalPrice}, default);
 	</insert>
 	
 	<update id="setShopUpdate">
@@ -96,12 +116,20 @@
 		update shopReview set content = #{vo.content}, star = #{vo.star}, reviewDate = now() where idx = #{vo.idx};
 	</update>
 	
+	<update id="setCartQuantityUpdate">
+		update shopCart set quantity = #{quantity} where idx = #{idx};
+	</update>
+	
 	<delete id="setShopDelete">
 		delete from shop where idx = #{idx};
 	</delete>
 	
 	<delete id="setReviewDelete">
 		delete from shopReview where idx = #{idx};
+	</delete>
+	
+	<delete id="setCartDelete">
+		delete from shopCart where idx = #{idx};
 	</delete>
 	
 </mapper>

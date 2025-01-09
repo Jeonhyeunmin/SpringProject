@@ -88,3 +88,40 @@ select * from shop;
 
 desc shop;
 
+/* 장바구니 테이블 */
+create table shopCart (
+  idx   int not null auto_increment,
+  mid		varchar(20) not null,						/* 장바구니를 사용한 사용자의 아이디 - 로그인한 회원 아이디 */
+  shopIdx 	int not null,							/* 장바구니에 담은 상품의 고유번호 */
+  thumbnail		varchar(100) not null,		/* 서버에 저장된 상품의 메인 이미지 */
+  shopTitle varchar(50) not null,			/* 장바구니에 담은 상품명 */
+  optionSelect	varchar(100)  not null,		/* 옵션명 리스트(여러개가 될수 있기에 문자열 배열로 처리한다.) */
+  quantity		int					  not null,		/* 옵션수량 리스트(여러개가 될수 있기에 문자열 배열로 처리한다.) */
+  totalPrice	int not null,							/* 구매한 모든 항목(상품+옵션)에 따른 총 가격 */  
+  cartDate datetime default now() not null,	/* 장바구니에 상품을 담은 날짜 */
+  primary key(idx),
+  foreign key(mid) references customer(mid) on update cascade on delete cascade
+);
+
+create table shopOrder (
+  idx   int not null auto_increment,
+  shopIdx 	int not null,							/* 주문한 상품의 고유번호 */
+  mid		varchar(30) not null,						/* 주문한 사용자의 아이디 - 로그인한 회원 아이디 */
+  shopTitle varchar(50) not null,			/* 주문한 상품명 */
+  price		int not null,							/* 메인상품의 기본 가격 */
+  quantity		varchar(50)  not null,		/* 옵션수량 리스트(여러개가 될수 있기에 문자열 배열로 처리한다.) */
+  couponIdx		int not null,
+  coupon			int						not null default 0,
+  couponDiscount int not null default 0,
+  discount					int             default 0,                       /*   할인금액   */
+  totalPrice	int not null,							/* 구매한 모든 항목(상품+옵션)에 따른 총 가격 */  
+  thumbnail		varchar(100) not null,		/* 서버에 저장된 상품의 메인 이미지 */
+  optionSelect	varchar(100)  not null,		/* 옵션명 리스트(여러개가 될수 있기에 문자열 배열로 처리한다.) */
+  orderDate   datetime default now() not null, /* 실제 주문한 날짜 */
+  primary key(idx),
+  foreign key(mid) references customer(mid) on update cascade on delete cascade,
+  foreign key(shopIdx) references shop(idx) on update cascade on delete restrict
+);
+
+drop table shopOrder;
+

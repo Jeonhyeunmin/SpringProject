@@ -19,6 +19,8 @@ import com.spring.javaGroupS6.common.JavaProvide;
 import com.spring.javaGroupS6.dao.ShopDAO;
 import com.spring.javaGroupS6.vo.MainCategoryVO;
 import com.spring.javaGroupS6.vo.ReviewLikesVO;
+import com.spring.javaGroupS6.vo.ShopCartVO;
+import com.spring.javaGroupS6.vo.ShopOrderVO;
 import com.spring.javaGroupS6.vo.ShopReviewVO;
 import com.spring.javaGroupS6.vo.ShopVO;
 import com.spring.javaGroupS6.vo.SubCategoryVO;
@@ -265,4 +267,38 @@ public class ShopServiceImpl implements ShopService {
 		return shopDAO.setReviewUpdate(vo);
 	}
 	
+	@Override
+	public ShopCartVO getMyCartSearch(int shopIdx, String optionSelect, String mid) {
+		return shopDAO.getMyCartSearch(shopIdx, optionSelect, mid);
+	}
+	
+	@Override
+	public void setCartQuantityUpdate(int idx, int quantity) {
+		shopDAO.setCartQuantityUpdate(idx, quantity);
+	}
+	
+	@Override
+	public int setCartInput(ShopCartVO vo) {
+		return shopDAO.setCartInput(vo);
+	}
+	
+	@Override
+	public ArrayList<ShopCartVO> getMyCart(String mid) {
+		return shopDAO.getMyCart(mid);
+	}
+
+	@Override
+	public ShopOrderVO getIdxCart(String idx) {
+		return shopDAO.getIdxCart(idx);
+	}
+	
+	@Override
+	public ShopOrderVO getOneOrder(int idx) {
+		return shopDAO.getOneOrder(idx);
+	}
+	
+	@Override
+	public int setCartDelete(int idx) {
+		return shopDAO.setCartDelete(idx);
+	}
 }

@@ -233,16 +233,6 @@
 		}
 
 		
-		.fb-btn {
-		  border: 2px solid #d3dae9;
-		  color: #9faecf;
-		}
-		
-		.fb-btn span {
-		  font-weight: bold;
-		  color: #5f6e8e;
-		}
-		
 		.sign-in {
 		  transition-timing-function: ease-out;
 		  margin-top: 15%;
@@ -300,28 +290,7 @@
 	    color: #333;
 		}
 		
-		.label-group {
-	    display: flex;
-	    align-items: center;
-	    margin-bottom: 20px;
-	    gap: 10px;
-		}
-		
-		.label-group span {
-	    flex: 1;
-	    font-size: 14px;
-	    font-weight: 600;
-	    text-transform: uppercase;
-		}
-		
-		.label-group input {
-	    flex: 2;
-	    padding: 8px 10px;
-	    border: 1px solid #ccc;
-	    border-radius: 5px;
-		}
-		
-		.label-group button {
+		. button {
 	    flex: 1;
 	    background-color: #d4af7a;
 	    color: white;
@@ -329,10 +298,6 @@
 	    padding: 8px 10px;
 	    cursor: pointer;
 	    transition: all 0.3s ease;
-		}
-		
-		.label-group button:hover {
-	    background-color: #c29b68;
 		}
 		
 		.submit, .kakao-btn {
@@ -407,7 +372,7 @@
 		}
 		.relative-container {
 		  position: relative;
-		  width: 70%;
+		  width: 69%;
 		  margin: auto;
 		}
 		

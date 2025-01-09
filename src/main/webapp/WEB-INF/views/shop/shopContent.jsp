@@ -6,8 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>${vo.title} | Min's</title>
   <meta charset="UTF-8">
+  <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
   <style type="text/css">
 		body {
 		  font-family: 'Arial', sans-serif;
@@ -644,9 +644,8 @@
   	}
   	
   	function buy() {
-  	  const quantity = document.getElementById("quantityInput").value; // 수량 가져오기
+  	  const quantity = document.getElementById("quantityInput").value;
   	  const totalPrice = document.getElementById("totalPrice").textContent.replace("원", "").replace(/,/g, ""); // 최종 가격 가져오기
-  	  const idx = document.getElementById("idx").value; // idx 가져오기
 
   	  // 선택한 옵션 가져오기
   	  const optionSelect = document.getElementById("optionSelect");
@@ -656,6 +655,20 @@
   	    alert("옵션을 선택해주세요");
   	    return;
   	  }
+  	  
+	  	if("${sMid}" == ""){
+				let url = "${ctp}/common/mobieLogin";
+				window.open(url, "mobieLogin", "width=650px, height=700px, top=150px, left=500px;");
+				
+				 window.onLoginSuccess = function () {
+            document.getElementById("quantity").value = quantity;
+            buyForm.totalPrice.value = totalPrice;
+            document.getElementById("optionSelectValue").value = selectedOption;
+            document.getElementById("buyForm").submit();
+        };
+				
+				return false;
+			}
 
   	  document.getElementById("quantity").value = quantity;
   	  buyForm.totalPrice.value = totalPrice;
@@ -886,6 +899,66 @@
     	});
 		}
   	
+  	function cartCheck() {
+	    const quantity = document.getElementById("quantityInput").value;
+	    const totalPrice = document.getElementById("totalPrice").textContent.replace("원", "").replace(/,/g, "");
+	    const idx = document.getElementById("idx").value;
+
+	    const optionSelect = document.getElementById("optionSelect");
+	    const selectedOption = optionSelect ? optionSelect.options[optionSelect.selectedIndex].value : "";
+
+	    if (!quantity || (optionSelect && !selectedOption)) {
+        alert("옵션을 선택해주세요");
+        return;
+	    }
+
+	    if ("${sMid}" === "") {
+        let url = "${ctp}/common/mobieLogin";
+        window.open(url, "mobieLogin", "width=650px, height=700px, top=150px, left=500px;");
+
+        window.onLoginSuccess = function () {
+          sendAjaxRequest(idx, quantity, totalPrice, selectedOption);
+        };
+        return false;
+	    }
+
+	    sendAjaxRequest(idx, quantity, totalPrice, selectedOption);
+  	}
+
+  	function sendAjaxRequest(idx, quantity, totalPrice, selectedOption) {
+	    $.ajax({
+        type: "post",
+        url: "${ctp}/shop/shopCart",
+        data: {
+          shopIdx: String(idx),
+          quantity: String(quantity),
+          totalPrice: String(totalPrice),
+          optionSelect: String(selectedOption)
+        },
+        success: function (res) {
+          if (res == "1") {
+            let ans = confirm("해당 상품을 장바구니에 추가했습니다\n장바구니 페이지로 이동하시겠습니까?");
+            if (ans) {
+              location.href = "${ctp}/shop/shopCart";
+            }
+          }
+          else if(res == "2"){
+        	  alert("같은 제품은 5개까지 구매 가능합니다.");
+          }
+          else if(res == "3"){
+        	  alert("같은 제품은 5개까지 구매 가능하여 장바구니에 5개를 담았습니다.");
+          }
+          else{
+        	  alert("이미 장바구니에 담겨있는 상품입니다");
+          }
+        },
+        error: function () {
+          alert("전송오류");
+        }
+	    });
+  	}
+
+  	
   </script>
 </head>
 <body>
@@ -959,23 +1032,22 @@
 						    <div id="counter-container" class="counter-container show">
 						      <p id="selectedOption" class="option">${vo.title}</p>
 						      <div class="counter">
-						        <button type="button" class="counter-btn" onclick="count(this, 'quantityInput', -1)">-</button>
+						        <button type="button" class="counter-btn" onclick="count(this, 'quantityInput', -1)"><i class="fa-solid fa-minus"></i></button>
 						        <input type="number" id="quantityInput" class="counter-input" value="1" readonly>
-						        <button type="button" class="counter-btn" onclick="count(this, 'quantityInput', 1)">+</button>
+						        <button type="button" class="counter-btn" onclick="count(this, 'quantityInput', 1)"><i class="fa-solid fa-plus"></i></button>
 						      </div>
 						      <p id="totalPrice" class="price"><fmt:formatNumber value="${vo.price}" pattern="#,##0"/> 원</p>
 						    </div>
 						  </c:otherwise>
 						</c:choose>
-						<form id="buyForm" method="post" action="${ctp}/shop/shopBuy">
+						<form id="buyForm" method="post" action="${ctp}/shop/shopOrder">
 						  <input type="hidden" id="idx" name="idx" value="${vo.idx}">
 						  <input type="hidden" id="quantity" name="quantity">
 						  <input type="hidden" id="totalPrice" name="totalPrice">
-						  <input type="hidden" id="optionSelectValue" name="optionSelect"> <!-- 옵션 추가 -->
+						  <input type="hidden" id="optionSelectValue" name="optionSelect">
 						  <button type="button" onclick="buy()" class="btn btn-outline-secondary mt-3">구매하기</button>
 					  	<button type="button" onclick="cartCheck()" class="btn btn-outline-secondary mt-3">장바구니 담기</button>
 						</form>
-				  	<input type="hidden" id="totalPrice" name="totalPrice">
 					</div>
 				</div>
 	    </td>

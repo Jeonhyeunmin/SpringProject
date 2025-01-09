@@ -9,6 +9,8 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import com.spring.javaGroupS6.vo.MainCategoryVO;
 import com.spring.javaGroupS6.vo.ReviewLikesVO;
+import com.spring.javaGroupS6.vo.ShopCartVO;
+import com.spring.javaGroupS6.vo.ShopOrderVO;
 import com.spring.javaGroupS6.vo.ShopReviewVO;
 import com.spring.javaGroupS6.vo.ShopVO;
 import com.spring.javaGroupS6.vo.SubCategoryVO;
@@ -46,7 +48,6 @@ public interface ShopService {
 
 	int setReviewInput(ShopReviewVO vo, int idx, String mid);
 
-
 	void setPointUp(String mid, String point);
 
 	void setReviewGoodCheck(int idx);
@@ -64,4 +65,18 @@ public interface ShopService {
 	ShopReviewVO getMyReview(int idx);
 
 	int setReviewUpdate(ShopReviewVO vo);
+
+	ShopCartVO getMyCartSearch(int shopIdx, String optionSelect, String mid);
+
+	void setCartQuantityUpdate(int idx, int quantity);
+
+	int setCartInput(ShopCartVO vo);
+
+	ArrayList<ShopCartVO> getMyCart(String mid);
+
+	ShopOrderVO getIdxCart(String idx);
+
+	ShopOrderVO getOneOrder(int idx);
+
+	int setCartDelete(int idx);
 }

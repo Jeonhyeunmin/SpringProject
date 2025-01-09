@@ -510,7 +510,7 @@
                     <i class="fas fa-search"></i>
                 </div>
                 <a href="#" class="action-link"><i class="fas fa-heart"></i></a>
-                <a href="#" class="action-link"><i class="fas fa-shopping-cart"></i></a>
+                <a href="${ctp}/shop/shopCart" class="action-link"><i class="fas fa-shopping-cart"></i></a>
                 <ul class="nav">
                   <li class="nav-item">
                     <c:if test="${empty sMid}"><a href="#" class="nav-link login" style="padding-left: 0; padding-right: 0;"><i class="fas fa-user"></i></a></c:if>
