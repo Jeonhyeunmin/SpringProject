@@ -117,7 +117,7 @@
 	</update>
 	
 	<update id="setCartQuantityUpdate">
-		update shopCart set quantity = #{quantity} where idx = #{idx};
+		update shopCart set quantity = quantity + #{quantity}, totalPrice = #{totalPrice} where idx = #{idx};
 	</update>
 	
 	<delete id="setShopDelete">

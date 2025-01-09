@@ -273,8 +273,8 @@ public class ShopServiceImpl implements ShopService {
 	}
 	
 	@Override
-	public void setCartQuantityUpdate(int idx, int quantity) {
-		shopDAO.setCartQuantityUpdate(idx, quantity);
+	public void setCartQuantityUpdate(int idx, int quantity, int totalPrice) {
+		shopDAO.setCartQuantityUpdate(idx, quantity, totalPrice);
 	}
 	
 	@Override
@@ -301,4 +301,5 @@ public class ShopServiceImpl implements ShopService {
 	public int setCartDelete(int idx) {
 		return shopDAO.setCartDelete(idx);
 	}
+	
 }

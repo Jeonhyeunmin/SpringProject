@@ -64,7 +64,7 @@ public interface ShopDAO {
 
 	ShopCartVO getMyCartSearch(@Param("shopIdx") int shopIdx, @Param("optionSelect") String optionSelect,  @Param("mid") String mid);
 
-	void setCartQuantityUpdate(@Param("idx") int idx, @Param("quantity") int quantity);
+	void setCartQuantityUpdate(@Param("idx") int idx, @Param("quantity") int quantity, @Param("totalPrice") int totalPrice);
 
 	int setCartInput(@Param("vo") ShopCartVO vo);
 

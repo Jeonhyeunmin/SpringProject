@@ -355,36 +355,53 @@ public class ShopContoller {
 	
 	@ResponseBody
 	@PostMapping("/shopCart")
-	public int shopCartPost(HttpSession session, ShopCartVO vo) {
+	public int shopCartPost(HttpSession session, ShopCartVO vo,
+			@RequestParam(name = "quantityMinus", defaultValue = "0", required = false) int quantityMinus
+	) {
+		
+		System.out.println("quantityMinus : " + quantityMinus);
 		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
 		int res = 0;
 		int quantity = 0; 
+		int totalPrice = 0;
+		
+		System.out.println("vo : " + vo);
 		
 		ShopVO shopVO = shopService.getShopContent(vo.getShopIdx());
 		
 		ShopCartVO cartVO = shopService.getMyCartSearch(vo.getShopIdx(), vo.getOptionSelect(), mid);
+		
+		int price = shopVO.getPrice();
 		
 		vo.setMid(mid);
 		vo.setShopTitle(shopVO.getTitle());
 		vo.setThumbnail(shopVO.getThumbnail());
 		
 		if(cartVO != null) {
-			if(cartVO.getQuantity() >= 5) {
+			if(quantityMinus != 0) {
+				quantity = quantityMinus;
+				totalPrice = price * (cartVO.getQuantity() + quantity);
+				shopService.setCartQuantityUpdate(cartVO.getIdx(), quantity, totalPrice);
+			}
+			else if(cartVO.getQuantity() >= 5) {
 				res = 2;
 			}
 			else if(cartVO.getQuantity() + vo.getQuantity() < 5) {
-				quantity = vo.getQuantity() + cartVO.getQuantity();
-				shopService.setCartQuantityUpdate(cartVO.getIdx(), quantity);
+				quantity = vo.getQuantity();
+				totalPrice = price * (quantity + cartVO.getQuantity());
+				shopService.setCartQuantityUpdate(cartVO.getIdx(), quantity, totalPrice);
 				res = 1;
 			}
 			else if(cartVO.getQuantity() + vo.getQuantity() >= 5) {
-				quantity = 5;
-				shopService.setCartQuantityUpdate(cartVO.getIdx(), quantity);
+				quantity = 5 - cartVO.getQuantity();
+				totalPrice = price * (quantity + cartVO.getQuantity());
+				shopService.setCartQuantityUpdate(cartVO.getIdx(), quantity, totalPrice);
 				res = 3;
 			}
 			else if(cartVO.getQuantity() < 5) {
 				quantity = 5 - cartVO.getQuantity();
-				shopService.setCartQuantityUpdate(cartVO.getIdx(), quantity);
+				totalPrice = shopVO.getPrice() * (quantity * cartVO.getQuantity());
+				shopService.setCartQuantityUpdate(cartVO.getIdx(), quantity, totalPrice);
 				res = 3;
 			}
 		}
@@ -392,7 +409,6 @@ public class ShopContoller {
 			res = shopService.setCartInput(vo);
 		}
 		
-		System.out.println("cartVO : " + vo);
 		return res;
 	}
 	
@@ -436,5 +452,18 @@ public class ShopContoller {
 	@PostMapping("/cartDelete")
 	public int cartDeletePost(int idx) {
 		return shopService.setCartDelete(idx);
+	}
+	
+	@ResponseBody
+	@PostMapping("/cartSelectDelete")
+	public int cartSelectDeletePost(String idxArr) {
+		
+		String idx[] = idxArr.split("/");
+		int res = 0;
+		for(String i : idx) {
+			res = shopService.setCartDelete(Integer.parseInt(i));
+		}
+		
+		return res;
 	}
 }

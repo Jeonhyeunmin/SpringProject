@@ -250,6 +250,8 @@
   	  const input = document.getElementById(targetId);
   	  const itemIdx = targetId.replace("quantityInput", ""); // 상품 idx 추출
   	  const priceElement = document.getElementById("price" + itemIdx); // 개별 상품의 단가
+  	  const selectedOption = document.getElementById("option" + itemIdx).value;
+  	  const shopIdx = document.getElementById("shopIdx" + itemIdx).value;
   	  const cartPriceElement = document.querySelector("#cartCheck" + itemIdx).closest('.cart-item').querySelector('.cart-price'); // 금액 표시 요소
 
   	  let currentValue = parseInt(input.value) || 1;
@@ -260,15 +262,33 @@
   	    alert("5개까지 구매가능한 상품입니다.");
   	    currentValue = 5;
   	  }
-
+  	  let totalPrice =  priceElement.value / input.value * currentValue;
+   		if(currentValue <= 1){
+   			alert("장바구니 삭제 버튼을 눌러주세요");
+   			return false;
+   		}
+  		
+  		$.ajax({
+        type: "post",
+        url: "${ctp}/shop/shopCart",
+        data: {
+          shopIdx: shopIdx,
+          quantityMinus : delta,
+          totalPrice: totalPrice,
+          optionSelect: selectedOption
+        },
+        success: function (res) {
+        	location.reload();
+        }
+	    });
+/*
   	  input.value = currentValue;
-
   	  // 개별 항목 가격 업데이트
   	  const totalItemPrice = currentValue * parseInt(priceElement.value);
   	  cartPriceElement.textContent = totalItemPrice.toLocaleString() + "원";
 
   	  // 전체 금액 업데이트
-  	  updateTotal();
+  	  updateTotal(); */
   	}
 
 
@@ -379,6 +399,35 @@
 				}
 			});
 		}
+    
+    function selectDelete() {
+    	let idxArr = "";
+    	for(let i = 0; i < myform.cartCheck.length; i++){
+				if(myform.cartCheck[i].checked){
+					idxArr += myform.cartCheck[i].value + "/";
+				}
+			}
+    	idxArr = idxArr.substring(0,idxArr.length-1);
+    	
+    	let ans = confirm("선택된 항목들을 삭제하시겠습니까?");
+    	
+    	if(!ans){
+    		return false;
+    	}
+    	$.ajax({
+    		type : "post",
+    		url : "${ctp}/shop/cartSelectDelete",
+    		data : {
+    			idxArr : idxArr
+    		},
+    		success: function(res) {
+					location.reload();
+				},
+				error: function() {
+					alert("전송오류");
+				}
+    	});
+		}
   	
   </script>
 </head>
@@ -418,8 +467,8 @@
         <div class="cart-list">
 	        <div class="cart-list-check">
             <input type="checkbox" id="allcheck" onclick="allCheck()" class="allCheckBox" checked>
-            <label for="allCheck">전체선택</label>
-            <button type="button" class="selectDelete">선택삭제</button>
+            <label for="allcheck">전체선택</label>
+            <button type="button" class="selectDelete" onclick="selectDelete()">선택삭제</button>
           </div>
           <c:forEach var="vo" items="${vos}">
             <div class="cart-item">
@@ -435,13 +484,15 @@
 						    <p>${vo.company}</p>
 						    <div class="cart-quantity">
 						      <button type="button" onclick="count(this, 'quantityInput${vo.idx}', -1)"><i class="fa-solid fa-minus"></i></button>
-						      <input type="number" id="quantityInput${vo.idx}" name="quantity" value="${vo.quantity}" readonly>
+						      <input type="number" id="quantityInput${vo.idx}" name="quantity" min="1" value="${vo.quantity}" readonly>
 						      <button type="button" onclick="count(this, 'quantityInput${vo.idx}', 1)"><i class="fa-solid fa-plus"></i></button>
 						      <div class="optionSelect">${vo.optionSelect}</div>
 						    </div>
 						  </div>
 						  <div class="cart-price"><fmt:formatNumber pattern="#,##0" value="${vo.totalPrice}"/> 원</div>
 						  <input type="hidden" id="price${vo.idx}" name="price" value="${vo.totalPrice}">
+						  <input type="hidden" id="option${vo.idx}" name="option" value="${vo.optionSelect}">
+						  <input type="hidden" id="shopIdx${vo.idx}" name="shopIdx" value="${vo.shopIdx}">
 						</div>
           </c:forEach>
         </div>
@@ -475,6 +526,7 @@
 	  <input type="hidden" id="maxIdx" name="maxIdx" value="${maxIdx}"/>
 	  <input type="hidden" id="totalPriceArr" name="totalPriceArr"/>
 	  <input type="hidden" id="quantityArr" name="quantityArr"/>
+	  <input type="hidden" id="idxArr" name="idxArr"/>
 	  <input type="hidden" id="idxArr" name="idxArr"/>
   </form>
 </body>

@@ -588,7 +588,7 @@
   	  const input = document.getElementById(targetId);
   	  const totalPriceDisplay = document.getElementById("totalPrice");
 
-  	  const basePrice = parseInt(totalPriceDisplay.getAttribute("data-base-price")) || ${vo.price}; // 저장된 기본 가격
+  	  const basePrice = parseInt(totalPriceDisplay.getAttribute("data-base-price")) || ${vo.price - (vo.price * vo.discount / 100)}; // 저장된 기본 가격
   	  let currentValue = parseInt(input.value) || 1;
   	  currentValue += delta;
 
@@ -1025,7 +1025,7 @@
 								    <input type="number" id="quantityInput" class="counter-input" value="1" readonly>
 								    <button type="button" class="counter-btn" onclick="count(this, 'quantityInput', 1)">+</button>
 								  </div>
-								  <p id="totalPrice" class="price" data-base-price="${vo.price}">${vo.price} 원</p>
+								  <p id="totalPrice" class="price" data-base-price="${vo.price - (vo.price * vo.discount / 100)}">${vo.price - (vo.price * vo.discount / 100)} 원</p>
 								</div>
 						  </c:when>
 						  <c:otherwise>
@@ -1036,7 +1036,7 @@
 						        <input type="number" id="quantityInput" class="counter-input" value="1" readonly>
 						        <button type="button" class="counter-btn" onclick="count(this, 'quantityInput', 1)"><i class="fa-solid fa-plus"></i></button>
 						      </div>
-						      <p id="totalPrice" class="price"><fmt:formatNumber value="${vo.price}" pattern="#,##0"/> 원</p>
+						      <p id="totalPrice" class="price"><fmt:formatNumber value="${vo.price - (vo.price * vo.discount / 100)}" pattern="#,##0"/> 원</p>
 						    </div>
 						  </c:otherwise>
 						</c:choose>

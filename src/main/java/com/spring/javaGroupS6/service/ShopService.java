@@ -68,7 +68,7 @@ public interface ShopService {
 
 	ShopCartVO getMyCartSearch(int shopIdx, String optionSelect, String mid);
 
-	void setCartQuantityUpdate(int idx, int quantity);
+	void setCartQuantityUpdate(int idx, int quantity, int totalPrice);
 
 	int setCartInput(ShopCartVO vo);
 
