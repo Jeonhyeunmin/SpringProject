@@ -301,4 +301,5 @@ public class ShopServiceImpl implements ShopService {
 	public int setCartDelete(int idx) {
 		return shopDAO.setCartDelete(idx);
 	}
+	
 }
