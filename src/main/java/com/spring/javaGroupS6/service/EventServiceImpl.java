@@ -46,7 +46,7 @@ public class EventServiceImpl implements EventService{
 		vo.setContent(vo.getContent().replace("/data/ckeditor/", "/data/event/"));
 		
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss"); 
 		
 		String sFileName = sdf.format(date) + "_" + file.getOriginalFilename();
 		try {
