@@ -432,7 +432,7 @@ public class ShopContoller {
 			}
 		}
 		else {
-			res = shopService.setCartInput(vo);
+			res = shopService.setCartInput(vo); 
 		}
 		
 		return res;
