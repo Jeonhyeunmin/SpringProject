@@ -1004,7 +1004,7 @@
 								    <input type="number" id="quantityInput" class="counter-input" value="1" readonly>
 								    <button type="button" class="counter-btn" onclick="count(this, 'quantityInput', 1)">+</button>
 								  </div>
-								  <p id="totalPrice" class="price" data-base-price="${vo.price}">${vo.price} 원</p>
+								  <p id="totalPrice" class="price" data-base-price="${vo.price - (vo.price * vo.discount / 100)}">${vo.price - (vo.price * vo.discount / 100)} 원</p>
 								</div>
 						  </c:when>
 						  <c:otherwise>

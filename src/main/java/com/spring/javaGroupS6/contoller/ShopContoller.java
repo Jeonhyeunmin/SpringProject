@@ -388,10 +388,19 @@ public class ShopContoller {
 			@RequestParam(name = "quantityMinus", defaultValue = "0", required = false) int quantityMinus
 	) {
 		
+<<<<<<< HEAD
+=======
+		System.out.println("quantityMinus : " + quantityMinus);
+>>>>>>> branch 'master' of https://github.com/Jeonhyeunmin/javaGroupS6.git
 		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
 		int res = 0;
 		int quantity = 0; 
 		int totalPrice = 0;
+<<<<<<< HEAD
+=======
+		
+		System.out.println("vo : " + vo);
+>>>>>>> branch 'master' of https://github.com/Jeonhyeunmin/javaGroupS6.git
 		
 		ShopVO shopVO = shopService.getShopContent(vo.getShopIdx());
 		
@@ -492,6 +501,7 @@ public class ShopContoller {
 		
 		return res;
 	}
+<<<<<<< HEAD
 	
 	@ResponseBody
 	@PostMapping("/cookieShopDelete")
@@ -514,4 +524,6 @@ public class ShopContoller {
 			}
 		}
 	}
+=======
+>>>>>>> branch 'master' of https://github.com/Jeonhyeunmin/javaGroupS6.git
 }
