@@ -12,54 +12,54 @@
 		group by s.idx
 		order by s.${column};
 	</select>
-	
+
 	<select id="getSubCateCnt" resultType="int">
 		select COUNT(*) as count from shop where mainCategory = #{mainCategory} and accept = '승인'  group by subCategory order by mainCategory;
 	</select>
-	
+
 	<select id="getBrandCateCnt" resultType="int">
 		select COUNT(*) as count from shop where subCategory = #{subCategory} and accept = '승인'  group by company order by company;
 	</select>
-	
+
 	<select id="getShopContent" resultType="com.spring.javaGroupS6.vo.ShopVO">
 		select * from shop where idx = #{idx};
 	</select>
-	
+
 	<select id="getList" resultType="com.spring.javaGroupS6.vo.CategoryVO">
 		select * from category order by category;
 	</select>
-	
+
 	<select id="getPostCount" resultType="int">
 		select count(*) from shop where mid = #{mid};
 	</select>
-	
+
 	<select id="getMainCategoryList" resultType="com.spring.javaGroupS6.vo.MainCategoryVO">
 		select * from mainCategory where category = #{category} order by category;
 	</select>
-	
+
 	<select id="getSubCategoryList" resultType="com.spring.javaGroupS6.vo.SubCategoryVO">
 		select * from subCategory where mainCategory = #{mainCategory} order by mainCategory;
 	</select>
-	
+
 	<select id="getReviewAverage" resultType="Double">
 		select ifnull(avg(star), 0.0) from shopReview where shopIdx = #{idx};
 	</select>
-	
+
 	<select id="getReview" resultType="com.spring.javaGroupS6.vo.ShopReviewVO">
-		select sr.*, c.name as customerName from shopReview sr, customer c where shopIdx = #{idx} 
+		select sr.*, c.name as customerName from shopReview sr, customer c where sr.shopIdx = #{idx} 
 		<if test='user != "admin"'>and sr.claim = "NO"</if>
 		<if test='user == "admin"'>and sr.claim = "YES"</if>
-		 and sr.mid = c.mid order by reviewDate;
+		 and sr.mid = c.mid order by sr.reviewDate;
 	</select>
 	
 	<select id="getReviewLikeInfo" resultType="com.spring.javaGroupS6.vo.ReviewLikesVO">
 		select * from reviewLikes where reviewIdx = #{idx} and customer = #{mid} limit 1;
 	</select>
-	
+
 	<select id="getMyLikes" resultType="int">
 		select reviewIdx from reviewLikes where shopIdx = #{idx} and customer = #{mid};
 	</select>
-	
+
 	<select id="getMyReview" resultType="com.spring.javaGroupS6.vo.ShopReviewVO">
 		select * from shopReview where idx = #{idx};
 	</select>
@@ -117,7 +117,7 @@
 	</update>
 	
 	<update id="setCartQuantityUpdate">
-		update shopCart set quantity = #{quantity} where idx = #{idx};
+		update shopCart set quantity = quantity + #{quantity}, totalPrice = #{totalPrice} where idx = #{idx};
 	</update>
 	
 	<delete id="setShopDelete">

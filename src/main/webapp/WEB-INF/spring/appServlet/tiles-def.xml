@@ -13,6 +13,22 @@
  		<put-attribute name="body" value="/WEB-INF/views/shop/shopCart.jsp" />
  	</definition>
  	
+ 	<definition name="shop/shopUpdate" extends="rightNo">
+ 		<put-attribute name="body" value="/WEB-INF/views/shop/shopUpdate.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="shop/shopInput" extends="rightNo">
+ 		<put-attribute name="body" value="/WEB-INF/views/shop/shopInput.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="shop/shopOrder" extends="rightNo">
+ 		<put-attribute name="body" value="/WEB-INF/views/shop/shopOrder.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="event/*" extends="rightNo">
+ 		<put-attribute name="body" value="/WEB-INF/views/event/{1}.jsp" />
+ 	</definition>
+ 	
  	<definition name="layoutYes" template="/WEB-INF/views/layout/baseLayout.jsp">
  		<put-attribute name="header" value="/WEB-INF/views/layout/header.jsp" />
  		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" />

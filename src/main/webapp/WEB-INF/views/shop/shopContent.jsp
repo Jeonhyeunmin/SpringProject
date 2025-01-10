@@ -19,7 +19,7 @@
 		#content-form {
 			display: flex;
 		  flex-direction: row;
-		  margin: 0 17%;
+		  margin: 2% 14%;
 		  gap: 30px;
 		  align-items: center;
 		}
@@ -86,26 +86,6 @@
 		}
 		
 			
-		.fixed-sidebar {
-		  position: fixed;
-		  top: 20%;
-		  right: -120px;
-		  width: 120px;
-		  flex-direction: column;
-		  align-items: center;
-		  background: none;
-		  z-index: 50;
-		  gap: 20px;
-		  opacity: 0;
-		  transition: 0.5s ease-in-out;
-		}
-		
-		.fixed-sidebar.on {
-		  right: 10px;
-		  opacity: 1;
-		}
-		
-		
 		.sidebar-item {
 		  text-align: center;
 		  cursor: pointer;
@@ -148,7 +128,7 @@
       font-size: 14px;
       color: #555;
       margin-top: 2%;
-      margin-left: 22.5%;
+      margin-left: 19.5%;
 		}
 		
 		.breadcrumb a {
@@ -568,8 +548,7 @@
 		  bottom: 15%; /* 화면에 보이도록 */
 		  opacity: 1;
 		}
-
-
+		
   </style>
   <script type="text/javascript">
   	document.addEventListener("DOMContentLoaded", function () {
@@ -588,7 +567,7 @@
   	  const input = document.getElementById(targetId);
   	  const totalPriceDisplay = document.getElementById("totalPrice");
 
-  	  const basePrice = parseInt(totalPriceDisplay.getAttribute("data-base-price")) || ${vo.price}; // 저장된 기본 가격
+  	  const basePrice = parseInt(totalPriceDisplay.getAttribute("data-base-price")) || ${vo.price - (vo.price * vo.discount / 100)}; // 저장된 기본 가격
   	  let currentValue = parseInt(input.value) || 1;
   	  currentValue += delta;
 
@@ -963,7 +942,7 @@
 </head>
 <body>
 <div class="breadcrumb">HOME > <a href="${ctp}/shop/shopList?category=${vo.category}">${fn: toUpperCase(vo.category)}</a> > <a href="${ctp}/shop/shopMainList?mainCategory=${vo.mainCategory}">${fn: toUpperCase(vo.mainCategory)}</a> > <a href="${ctp}/shop/shopSubList?subCategory=${vo.subCategory}">${fn: toUpperCase(vo.subCategory)}</a></div>
-<div id="content-form" class="container">
+<div id="content-form">
   <table id="content-table" style="width: 85%; margin: 0 auto; border-collapse: collapse;">
 	  <!-- 이미지와 제품 정보 -->
 	  <tr>
@@ -997,7 +976,7 @@
 					  </p>
 				  </c:if>
 				  <c:if test="${vo.discount == 0}">
-					  <p class="price"><fmt:formatNumber value="${vo.price}" pattern="#,##0"/> 원</p>
+					  <p class="price"><fmt:formatNumber value="${vo.price - (vo.price * vo.discount / 100)}" pattern="#,##0"/> 원</p>
 				  </c:if>
 				  <div class="additional-info">
 					  <h3>제품 사진 관련 안내</h3>
@@ -1036,7 +1015,7 @@
 						        <input type="number" id="quantityInput" class="counter-input" value="1" readonly>
 						        <button type="button" class="counter-btn" onclick="count(this, 'quantityInput', 1)"><i class="fa-solid fa-plus"></i></button>
 						      </div>
-						      <p id="totalPrice" class="price"><fmt:formatNumber value="${vo.price}" pattern="#,##0"/> 원</p>
+						      <p id="totalPrice" class="price"><fmt:formatNumber value="${vo.price - (vo.price * vo.discount / 100)}" pattern="#,##0"/> 원</p>
 						    </div>
 						  </c:otherwise>
 						</c:choose>
@@ -1142,7 +1121,6 @@
 				<div id="modalOverlay" class="modal-overlay" onclick="closeReviewUpdateForm()"></div>
 					<div id="reviewUpdateForm" class="reviewUpdateForm">
 				</div>
-
 	  	</td>
 	  </tr>
 	</table>

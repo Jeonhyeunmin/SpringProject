@@ -499,7 +499,7 @@
 							    </ul>
 								</li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">GIFT</a>
+                  <a href="${ctp}/event/event" class="nav-link">EVENT</a>
                 </li>
             </ul>
 

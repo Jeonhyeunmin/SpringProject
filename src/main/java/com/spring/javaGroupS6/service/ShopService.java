@@ -39,7 +39,6 @@ public interface ShopService {
 
 	ArrayList<MainCategoryVO> getMainCategoryList(String category);
 
-
 	ArrayList<SubCategoryVO> getSubCategoryList(String mainCategory);
 
 	Double getReviewAverage(int idx);
@@ -68,7 +67,7 @@ public interface ShopService {
 
 	ShopCartVO getMyCartSearch(int shopIdx, String optionSelect, String mid);
 
-	void setCartQuantityUpdate(int idx, int quantity);
+	void setCartQuantityUpdate(int idx, int quantity, int totalPrice);
 
 	int setCartInput(ShopCartVO vo);
 

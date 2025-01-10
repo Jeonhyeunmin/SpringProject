@@ -132,7 +132,7 @@ public class CommonContoller {
 				
 				commonService.setMemberJoin(vo1);
 				
-				provide.mailSend(request, email, "카카오로그인 임시 비밀번호", sTempPwd);
+				provide.mailSend(request, email, "카카오로그인 임시 비밀번호", sTempPwd, "login.jpg");
 				
 				vo = commonService.getMemberIdSearch(mid);
 			}
@@ -192,7 +192,7 @@ public class CommonContoller {
        + "</body>"
        + "</html>";
 
-		provide.mailSend(request, email, "이메일 인증키 입니다.", mailFlag);
+		provide.mailSend(request, email, "이메일 인증키 입니다.", mailFlag, "login.jpg");
 		return "1";
 	}
 	

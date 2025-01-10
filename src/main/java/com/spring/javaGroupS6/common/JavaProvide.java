@@ -55,7 +55,7 @@ public class JavaProvide {
 //			mailSender.send(message);
 //	}
 	
-  public void mailSend(HttpServletRequest request, String toMail, String title, String mailFlag) throws MessagingException {
+  public void mailSend(HttpServletRequest request, String toMail, String title, String mailFlag, String imageName) throws MessagingException {
     String content = "";
     
     // 메일 전송을 위한 객체 : MimeMessage(), MimeMessageHelper()
@@ -64,7 +64,6 @@ public class JavaProvide {
     
     messageHelper.setTo(toMail);         // 받는 사람의 메일주소
     messageHelper.setSubject(title);   // 메일 제목
-    messageHelper.setText(content);      // 메일 내용
     messageHelper.setText(content);      // 메일 내용
     
     content = content.replace("\n", "<br>");
@@ -78,6 +77,28 @@ public class JavaProvide {
     // 메일 전송하기
     mailSender.send(message);
  }
+  
+  public void couponSend(HttpServletRequest request, String toMail, String title, String mailFlag, String imageName) throws MessagingException {
+  	String content = "";
+  	
+  	// 메일 전송을 위한 객체 : MimeMessage(), MimeMessageHelper()
+  	MimeMessage message = mailSender.createMimeMessage();
+  	MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+  	
+  	messageHelper.setTo(toMail);         // 받는 사람의 메일주소
+  	messageHelper.setSubject(title);   // 메일 제목
+  	messageHelper.setText(content);      // 메일 내용
+  	content = content.replace("\n", "<br>");
+  	content += "<br>"+mailFlag+"<br>";
+  	messageHelper.setText(content, true);
+  	
+  	FileSystemResource file = new FileSystemResource(request.getSession().getServletContext().getRealPath("/resources/data/coupon/"+imageName));
+  	messageHelper.addInline(imageName, file);
+  	
+  	
+  	// 메일 전송하기
+  	mailSender.send(message);
+  }
 	
 	public void imgCheck(String content, String folderName) {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();

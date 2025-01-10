@@ -37,7 +37,7 @@
 		      font-size: 14px;
 		      color: #555;
 		      margin-top: 2%;
-		      margin-left: 15%;
+		      margin-left: 19.5%;
 			    background-color: #fff;
 		    }
 		    
@@ -52,7 +52,7 @@
 				  font-family: 'ChosunGu';
 				  font-weight: light;
 				  text-align: center;
-				  margin: auto;
+			    margin: auto 19%;
 				  border-top: 1px solid black;
 				  border-bottom: 1px solid #ddd;
 					width: 70%;
@@ -86,7 +86,7 @@
 			    display: grid;
 			    grid-template-columns: repeat(4, 1fr);
 			    gap: 20px;
-			    margin: 20px auto;
+			    margin: 20px 19.5%;
 			    padding: 10px;
 			    max-width: 1350px;
 			  }

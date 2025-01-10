@@ -13,18 +13,18 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <style>
         body {
-				    font-family: Arial, sans-serif;
-				    margin: 0;
-				    padding: 0;
-				    background-color: #f9f9f9;
+			    font-family: Arial, sans-serif;
+			    margin: 0;
+			    padding: 0;
+			    background-color: #f9f9f9;
 				}
 	    	/* 상단 제목 및 경로 */
 		    .page-header {
-				    width: 100%;
-				    padding: 20px 0;
-				    text-align: center;
-				    margin: auto;
-				    margin-bottom: 20px; /* 브랜드 컨테이너와의 간격 */
+			    width: 100%;
+			    padding: 20px 0;
+			    text-align: center;
+			    margin: auto;
+			    margin-bottom: 20px; /* 브랜드 컨테이너와의 간격 */
 				}
 		
 		    .page-header h2 {
@@ -37,7 +37,7 @@
 		      font-size: 14px;
 		      color: #555;
 		      margin-top: 2%;
-		      margin-left: 15%;
+		      margin-left: 19.5%;
 			    background-color: #fff;
 		    }
 		    
@@ -52,12 +52,12 @@
 				  font-family: 'ChosunGu';
 				  font-weight: light;
 				  text-align: center;
-				  margin: auto;
 				  border-top: 1px solid black;
 				  border-bottom: 1px solid #ddd;
 					width: 70%;
 					justify-content: flex-start;
 					padding-left: 30px;
+				  margin: auto 19%;
 				}
 				.button-group button{
 					background-color: transparent;
@@ -85,7 +85,7 @@
 			    display: grid;
 			    grid-template-columns: repeat(4, 1fr);
 			    gap: 20px;
-			    margin: 20px auto;
+			    margin: 20px 20%;
 			    padding: 10px;
 			    max-width: 1350px;
 			  }

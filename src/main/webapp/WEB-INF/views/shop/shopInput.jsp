@@ -506,7 +506,7 @@
       <div class="form-group">
 			  <div class="section-title">타이틀 사진</div>
 			  <div class="file-upload">
-			    <input type="file" name="file" id="file" multiple>
+			    <input type="file" name="file" id="file" multiple required>
 			    <label for="file">+ 파일 선택</label>
 			    <div id="uploadedFileName" class="uploaded-file">업로드된 파일이 없습니다.</div>
 			  </div>

@@ -41,13 +41,13 @@
       border-bottom: 1px solid #ddd;
       padding: 15px 0;
       margin-top: 30px;
-      
     }
 
     .cart-item .cart-image img {
       width: 100px;
       height: auto;
       margin-right: 20px;
+      cursor: pointer; 
     }
 
     .cart-item .cart-info {
@@ -55,6 +55,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      cursor: pointer;
     }
 
     .cart-item .cart-info h4 {
@@ -238,6 +239,41 @@
     	margin-left: 20px;
     }
     
+    .empty-cart {
+		  text-align: center;
+		  padding: 50px 20px;
+		  color: #555;
+		  border: 1px solid #ddd;
+		  border-radius: 10px;
+		  background-color: #f9f9f9;
+		  margin: 50px auto;
+		  max-width: 600px;
+		}
+		
+		.empty-cart h3 {
+		  font-size: 24px;
+		  margin-bottom: 20px;
+		}
+		
+		.empty-cart p {
+		  font-size: 16px;
+		  margin-bottom: 30px;
+		}
+		
+		.empty-cart .shopping {
+		  padding: 10px 20px;
+		  background-color: #333;
+		  color: white;
+		  text-decoration: none;
+		  border-radius: 5px;
+		  font-size: 16px;
+		}
+		
+		.empty-cart .shopping:hover {
+		  background-color: #555;
+		}
+
+    
     
   </style>
   <script type="text/javascript">
@@ -247,29 +283,41 @@
   	});
   	
   	function count(button, targetId, delta) {
-  	  const input = document.getElementById(targetId);
-  	  const itemIdx = targetId.replace("quantityInput", ""); // 상품 idx 추출
-  	  const priceElement = document.getElementById("price" + itemIdx); // 개별 상품의 단가
-  	  const cartPriceElement = document.querySelector("#cartCheck" + itemIdx).closest('.cart-item').querySelector('.cart-price'); // 금액 표시 요소
+    	  const input = document.getElementById(targetId);
+    	  const itemIdx = targetId.replace("quantityInput", ""); // 상품 idx 추출
+    	  const priceElement = document.getElementById("price" + itemIdx); // 개별 상품의 단가
+    	  const selectedOption = document.getElementById("option" + itemIdx).value;
+    	  const shopIdx = document.getElementById("shopIdx" + itemIdx).value;
+    	  const cartPriceElement = document.querySelector("#cartCheck" + itemIdx).closest('.cart-item').querySelector('.cart-price'); // 금액 표시 요소
 
-  	  let currentValue = parseInt(input.value) || 1;
-  	  currentValue += delta;
+    	  let currentValue = parseInt(input.value) || 1;
+    	  currentValue += delta;
 
-  	  if (currentValue < 1) currentValue = 1; // 최소 1개
-  	  if (currentValue > 5) { // 최대 5개 제한
-  	    alert("5개까지 구매가능한 상품입니다.");
-  	    currentValue = 5;
-  	  }
-
-  	  input.value = currentValue;
-
-  	  // 개별 항목 가격 업데이트
-  	  const totalItemPrice = currentValue * parseInt(priceElement.value);
-  	  cartPriceElement.textContent = totalItemPrice.toLocaleString() + "원";
-
-  	  // 전체 금액 업데이트
-  	  updateTotal();
-  	}
+    	  if (currentValue >= 1) currentValue = 1; // 최소 1개
+    	  if (currentValue > 5) { // 최대 5개 제한
+    	    alert("5개까지 구매가능한 상품입니다.");
+    	    return false;
+    	  }
+    	  let totalPrice =  priceElement.value / input.value * currentValue;
+     		if(currentValue < 1){
+     			alert("장바구니 삭제 버튼을 눌러주세요");
+     			return false;
+     		}
+    		
+    		$.ajax({
+          type: "post",
+          url: "${ctp}/shop/shopCart",
+          data: {
+            shopIdx: shopIdx,
+            quantityMinus : delta,
+            totalPrice: totalPrice,
+            optionSelect: selectedOption
+          },
+          success: function (res) {
+          	location.reload();
+          }
+  	    });
+    	}
 
 
     // 전체선택 체크박스
@@ -379,6 +427,35 @@
 				}
 			});
 		}
+    
+    function selectDelete() {
+    	let idxArr = "";
+    	for(let i = 0; i < myform.cartCheck.length; i++){
+				if(myform.cartCheck[i].checked){
+					idxArr += myform.cartCheck[i].value + "/";
+				}
+			}
+    	idxArr = idxArr.substring(0,idxArr.length-1);
+    	
+    	let ans = confirm("선택된 항목들을 삭제하시겠습니까?");
+    	
+    	if(!ans){
+    		return false;
+    	}
+    	$.ajax({
+    		type : "post",
+    		url : "${ctp}/shop/cartSelectDelete",
+    		data : {
+    			idxArr : idxArr
+    		},
+    		success: function(res) {
+					location.reload();
+				},
+				error: function() {
+					alert("전송오류");
+				}
+    	});
+		}
   	
   </script>
 </head>
@@ -414,57 +491,66 @@
         </ul>
       </div>
       <div class="cart-body">
-        <!-- Left: Cart Items -->
-        <div class="cart-list">
-	        <div class="cart-list-check">
-            <input type="checkbox" id="allcheck" onclick="allCheck()" class="allCheckBox" checked>
-            <label for="allCheck">전체선택</label>
-            <button type="button" class="selectDelete">선택삭제</button>
-          </div>
-          <c:forEach var="vo" items="${vos}">
-            <div class="cart-item">
-						  <div class="check-group">
-						    <input type="checkbox" id="cartCheck${vo.idx}" name="cartCheck" value="${vo.idx}" onClick="onCheck()">
-						    <p onclick="cartDelete(${vo.idx})"><i class="fa-regular fa-trash-can"></i></p>
-						  </div>
-						  <div class="cart-image">
-						    <img src="${ctp}/category/${vo.thumbnail}" alt="상품 이미지">
-						  </div>
-						  <div class="cart-info">
-						    <h4>${vo.shopTitle}</h4>
-						    <p>${vo.company}</p>
-						    <div class="cart-quantity">
-						      <button type="button" onclick="count(this, 'quantityInput${vo.idx}', -1)"><i class="fa-solid fa-minus"></i></button>
-						      <input type="number" id="quantityInput${vo.idx}" name="quantity" value="${vo.quantity}" readonly>
-						      <button type="button" onclick="count(this, 'quantityInput${vo.idx}', 1)"><i class="fa-solid fa-plus"></i></button>
-						      <div class="optionSelect">${vo.optionSelect}</div>
-						    </div>
-						  </div>
-						  <div class="cart-price"><fmt:formatNumber pattern="#,##0" value="${vo.totalPrice}"/> 원</div>
-						  <input type="hidden" id="price${vo.idx}" name="price" value="${vo.totalPrice}">
-						</div>
-          </c:forEach>
-        </div>
-
-        <!-- Right: Summary -->
-        <div class="cart-aside">
-				  <h3>결제금액</h3>
-				  <ul>
-				    <li>
-				      <span>총 주문금액</span>
-				      <span id="total-order-price">0원</span>
-				    </li>
-				    <li>
-				      <span>배송비</span>
-				      <span id="shipping-cost">무료</span>
-				    </li>
-				    <li class="total">
-				      <span>결제 예정 금액</span>
-				      <span id="final-price">0원</span>
-				    </li>
-				  </ul>
-				  <button type="button" onclick="order()">주문하기</button>
-        </div>
+	      <c:if test="${!empty vos}">
+	        <div class="cart-list">
+		        <div class="cart-list-check">
+	            <input type="checkbox" id="allcheck" onclick="allCheck()" class="allCheckBox" checked>
+	            <label for="allcheck">전체선택</label>
+	            <button type="button" class="selectDelete" onclick="selectDelete()">선택삭제</button>
+	          </div>
+	          <c:forEach var="vo" items="${vos}">
+	            <div class="cart-item">
+							  <div class="check-group">
+							    <input type="checkbox" id="cartCheck${vo.idx}" name="cartCheck" value="${vo.idx}" onClick="onCheck()">
+							    <p onclick="cartDelete(${vo.idx})"><i class="fa-regular fa-trash-can"></i></p>
+							  </div>
+							  <div class="cart-image" onclick="location.href='${ctp}/shop/shopContent?idx=${vo.shopIdx}'">
+							    <img src="${ctp}/category/${vo.thumbnail}" alt="상품 이미지">
+							  </div>
+							  <div class="cart-info" onclick="location.href='${ctp}/shop/shopContent?idx=${vo.shopIdx}'">
+							    <h4>${vo.shopTitle}</h4>
+							    <p>${vo.company}</p>
+							    <div class="cart-quantity">
+							      <button type="button" onclick="count(this, 'quantityInput${vo.idx}', -1)"><i class="fa-solid fa-minus"></i></button>
+							      <input type="number" id="quantityInput${vo.idx}" name="quantity" min="1" value="${vo.quantity}" readonly>
+							      <button type="button" onclick="count(this, 'quantityInput${vo.idx}', 1)"><i class="fa-solid fa-plus"></i></button>
+							      <div class="optionSelect">${vo.optionSelect}</div>
+							    </div>
+							  </div>
+							  <div class="cart-price"><fmt:formatNumber pattern="#,##0" value="${vo.totalPrice}"/> 원</div>
+							  <input type="hidden" id="price${vo.idx}" name="price" value="${vo.totalPrice}">
+							  <input type="hidden" id="option${vo.idx}" name="option" value="${vo.optionSelect}">
+							  <input type="hidden" id="shopIdx${vo.idx}" name="shopIdx" value="${vo.shopIdx}">
+							</div>
+	          </c:forEach>
+        	</div>
+	        <!-- Right: Summary -->
+	        <div class="cart-aside">
+					  <h3>결제금액</h3>
+					  <ul>
+					    <li>
+					      <span>총 주문금액</span>
+					      <span id="total-order-price">0원</span>
+					    </li>
+					    <li>
+					      <span>배송비</span>
+					      <span id="shipping-cost">무료</span>
+					    </li>
+					    <li class="total">
+					      <span>결제 예정 금액</span>
+					      <span id="final-price">0원</span>
+					    </li>
+					  </ul>
+					  <button type="button" onclick="order()">주문하기</button>
+	        </div>
+	      </c:if>
+	      <c:if test="${empty vos}">
+				  <div class="empty-cart">
+				    <h3>장바구니가 비어 있습니다.</h3>
+				    <p>원하시는 상품을 장바구니에 담아보세요!</p>
+				    <a href="${ctp}" class="shopping">쇼핑 계속하기</a>
+				  </div>
+				</c:if>
       </div>
       <div style="height: 110px;"></div>
     </div>

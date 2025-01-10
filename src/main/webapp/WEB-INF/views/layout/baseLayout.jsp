@@ -50,7 +50,7 @@
 		
 		.fixed-sidebar {
 	    position: fixed;
-	    top: 40%;
+	    top: 20%;
 	    right: 0px;
 	    width: 150px;
 	    min-height: 250px; /* 높이를 늘림 */
@@ -62,6 +62,7 @@
 	    text-align: center;
 	    transition: 0.7s ease;
 	    padding: 15px; /* 내부 여백 추가 */
+	    opacity: 1;
 		}
 		
 		.sidebar-item {
@@ -118,6 +119,28 @@
 				});
 			});
 	  
+	  	document.addEventListener("DOMContentLoaded", function () {
+		    if (performance.navigation.type !== 1) {
+		      location.reload();
+		    }
+		  });
+	  	
+	  	window.addEventListener("pageshow", function (event) {
+  	    if (event.persisted) {
+  	      location.reload();
+  	    }
+  	  });
+	  	function cookieShopDelete(idx) {
+				$.ajax({
+					type : "post",
+	    		url  : "${ctp}/shop/cookieShopDelete",
+	    		data : {idx : idx},
+	    		success:function() { location.reload(); },
+	    		error : function() { alert("전송오류!"); }
+				});
+				
+				
+			}
   </script>
 </head>
 <body>
@@ -129,17 +152,25 @@
   <!-- Main Body -->
 <tiles:insertAttribute name="body" />
 
-	<div class="fixed-sidebar" id="mainSidevar">
+	
+	<div class="fixed-sidebar on" id="mainSidevar">
 	  <div class="sidebar-item">
 	    <h4>
 	      최근 본 물품
 	    </h4>
-	    <p>최근에 보신</p>
-	    <p class="no-items">물품이 없습니다.</p>
+	    <c:if test="${empty cookieVos}">
+		    <p>최근에 보신</p>
+		    <p class="no-items">물품이 없습니다.</p>
+	    </c:if>
+	    <c:if test="${!empty cookieVos}">
+	    	<c:forEach var="vo" items="${cookieVos}">
+		    	<a href="${ctp}/shop/shopContent?idx=${vo.idx}" title="상세보기"><img src="${ctp}/category/${vo.thumbnail}" width="80px"/></a><br/><br/>
+		    	<a href="javascript:cookieShopDelete(${vo.idx})" title="삭제"><span class="badge bg-warning" style="font-size:8px">x</span></a>
+		    </c:forEach>
+	    </c:if>
 	  </div>
 	</div>
-
-
+	
 	<!-- 위로가기 버튼 -->
 	<h6 id="topBtn" class="text-right">
 		<img src="${ctp}/login/top.png" title="위로이동" width="50px" />

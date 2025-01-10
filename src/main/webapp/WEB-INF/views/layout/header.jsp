@@ -169,7 +169,7 @@
         font-size: 16px !important;
         font-weight: bold !important;
         color: #333 !important;
-        padding: 30px 0px !important;
+        padding: 30px 15px !important;
         transition: color 0.3s ease, border-bottom 0.3s ease !important;
         text-decoration: none !important;
 	    }
@@ -303,10 +303,10 @@
 	      z-index: 999 !important;
 	      background-color: white !important;
 	      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
-	      padding: 20px !important !important;
+	      padding: 20px !important;
 	      border-radius: 10px !important !important;
 	      opacity: 0 !important !important;
-	      transition: opacity 0.5s ease-in-out !important !important;
+	      transition: opacity 0.5s ease-in-out !important;
 	      left: 50% !important;
 	      height: 850px !important;
       }
@@ -501,7 +501,7 @@
 							    </ul>
 								</li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">GIFT</a>
+                  <a href="${ctp}/event/event" class="nav-link">EVENT</a>
                 </li>
             </ul>
 

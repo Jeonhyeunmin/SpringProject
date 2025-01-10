@@ -332,6 +332,14 @@
 		    <artifactId>imgscalr-lib</artifactId>
 		    <version>4.2</version>
 		</dependency>
+		
+		<!-- QR Code 생성을 위한 라이브러리 -->
+		<!-- https://mvnrepository.com/artifact/com.google.zxing/javase -->
+		<dependency>
+		    <groupId>com.google.zxing</groupId>
+		    <artifactId>javase</artifactId>
+		    <version>3.5.3</version>
+		</dependency>
 		    
 				
 		

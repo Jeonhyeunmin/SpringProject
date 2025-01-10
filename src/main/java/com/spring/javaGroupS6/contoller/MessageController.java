@@ -110,6 +110,42 @@ public class MessageController {
 			model.addAttribute("message", "등록 실패");
 			model.addAttribute("url", "shop/shopReview?idx=" + idx);
 		}
+		else if(msgFlag.equals("loginError")) {
+			model.addAttribute("message", "로그인 후 이용가능한 서비스 입니다.");
+			model.addAttribute("url", "");
+		}
+		else if(msgFlag.equals("leaveUser")) {
+			model.addAttribute("message", "탈퇴신청 회원입니다.\n관리자에게 문의해주세요");
+			model.addAttribute("url", "");
+		}
+		else if(msgFlag.equals("leaveUser")) {
+			model.addAttribute("message", "관리자 페이지입니다.");
+			model.addAttribute("url", "");
+		}
+		else if(msgFlag.equals("eventInputOk")) {
+			model.addAttribute("message", "이벤트를 등록하였습니다.");
+			model.addAttribute("url", "event/event");
+		}
+		else if(msgFlag.equals("eventInputNo")) {
+			model.addAttribute("message", "실패");
+			model.addAttribute("url", "event/eventInput");
+		}
+		else if(msgFlag.equals("createCoupon")) {
+			model.addAttribute("message", "쿠폰이 발행되었습니다.");
+			model.addAttribute("url", "event/eventContent?idx="+idx);
+		}
+		else if(msgFlag.equals("createCouponFail")) {
+			model.addAttribute("message", "잠시후 다시 시도해주세요");
+			model.addAttribute("url", "event/eventContent?idx="+idx);
+		}
+		else if(msgFlag.equals("couponDuplication")) {
+			model.addAttribute("message", "쿠폰은 중복 발행이 불가능합니다.");
+			model.addAttribute("url", "event/eventContent?idx="+idx);
+		}
+		else if(msgFlag.equals("couponEmailNo")) {
+			model.addAttribute("message", "이메일 등록 후 쿠폰 발행이 가능합니다");
+			model.addAttribute("url", "common/myPage");
+		}
 		
 		return "include/message";
 	}

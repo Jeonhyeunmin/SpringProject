@@ -9,30 +9,32 @@
 		
 		<!-- Interceptor 설정 -->
 		<beans:bean id="Interceptor" class="com.spring.javaGroupS6.interceptor.Interceptor"/>
-		<!-- 
+		<beans:bean id="UserInterceptor" class="com.spring.javaGroupS6.interceptor.UserInterceptor"/>
+		<beans:bean id="AdminInterceptor" class="com.spring.javaGroupS6.interceptor.AdminInterceptor"/>
 		<interceptors>
 			
-			정회원
+			<!-- 비회원 -->
 			<interceptor>
-				<mapping path="/webMessage/**"/>
-				<mapping path="/study/**"/>
-				<mapping path="/board/**"/>
-				<mapping path="/user/**"/>
-				<mapping path="/ubtest/**"/>
-				<mapping path="/pds/pdsList"/>
-				<mapping path="/member/memberList"/>
-				<mapping path="/member/memberSearch"/>
-				<exclude-mapping path="/board/boardList"/>
-				<beans:ref bean="level2Interceptor"/>
+				<mapping path="/shop/**"/>
+				<beans:ref bean="Interceptor"/>
 			</interceptor>
 			
-			관리자
+			<!-- 정회원 -->
 			<interceptor>
-				<mapping path="/admin/**"/>
-				<beans:ref bean="level0Interceptor"/>
+				<mapping path="/shop/**"/>
+				<exclude-mapping path="/shop/shopList"/>
+				<exclude-mapping path="/shop/shopMainList"/>
+				<exclude-mapping path="/shop/shopSubList"/>
+				<exclude-mapping path="/shop/shopContent"/>
+				<beans:ref bean="UserInterceptor"/>
 			</interceptor>
+			
+			<!-- 관리자 -->
+			<!-- <interceptor>
+				<mapping path="/admin/**"/>
+				<beans:ref bean="AdminInterceptor"/>
+			</interceptor> -->
 			
 			
 		</interceptors>
-		 -->
 </beans:beans>
