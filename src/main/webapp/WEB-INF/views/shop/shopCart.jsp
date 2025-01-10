@@ -550,6 +550,7 @@
 				    <p>원하시는 상품을 장바구니에 담아보세요!</p>
 				    <a href="${ctp}" class="shopping">쇼핑 계속하기</a>
 				  </div>
+		      <div style="height: 405px;"></div>
 				</c:if>
       </div>
       <div style="height: 110px;"></div>

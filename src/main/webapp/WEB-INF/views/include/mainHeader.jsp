@@ -243,15 +243,15 @@
             display: block;
         }
         .actions {
-            display: flex;
-            align-items: center;
-            gap: 25px;
+          display: flex;
+          align-items: center;
+          gap: 25px;
         }
         .action-link {
-            font-size: 18px;
-            color: #333;
-            text-decoration: none;
-            transition: color 0.3s ease;
+          font-size: 18px;
+          color: #333;
+          text-decoration: none;
+          transition: color 0.3s ease;
         }
         .action-link:hover {
             color: #e1c699;

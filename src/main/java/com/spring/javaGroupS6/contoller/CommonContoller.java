@@ -253,17 +253,12 @@ public class CommonContoller {
 	
 	@GetMapping("/myPage")
 	public String myPageGet(Model model, HttpSession session) {
-		int level = (int)session.getAttribute("sLevel");
-		String mid = (String)session.getAttribute("sMid");
+		int level = session.getAttribute("sLevel") == null ? 0 : (int)session.getAttribute("sLevel");
 		if(level == 1) {
-			MemberVO memberVO = commonService.getMemberIdSearch(mid);
-			model.addAttribute("vo", memberVO);
-			return "common/customerPage";
+			return "redirect:/member/myPage";
 		}
-		else if(level == 2 || level == 3) {
-			PartnerVO partnerVO = commonService.getPartnerIdSearch(mid);
-			model.addAttribute("vo", partnerVO);
-			return "common/partnerPage";
+		else if(level == 2) {
+			return "redirect:/partner/myPage";
 		}
 		else {
 			return "redirect:/message/myPageNo";

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.javaGroupS6.service.CommonService;
@@ -63,29 +64,27 @@ public class EventContoller {
 		return "event/eventContent";
 	}
 	
-	@GetMapping("/downCoupon")
-	public String downCouponGet(HttpServletRequest request, Model model, int idx) {
+	@ResponseBody
+	@PostMapping("/downCoupon")
+	public int downCouponGet(HttpServletRequest request, Model model, int idx) {
 		HttpSession session = request.getSession();
 		String mid = session.getAttribute("sMid") == null ? "" : (String) session.getAttribute("sMid");
 		CouponVO vo = eventService.getEventCoupon(idx);
 		MemberVO userInfo = commonService.getMemberIdSearch(mid);
+		int res = 0;
+		
 		vo.setMid(mid);
 		vo.setEventIdx(idx);
 		CouponVO couponVO = eventService.getCouponDuplication(idx);
 		model.addAttribute("idx", idx);
 		if(couponVO != null) {
-			return "redirect:/message/couponDuplication";
+			return 3;
 		}
-		if(userInfo.getEmail() == null) {
-			return "redirect:/message/couponEmailNo";
+		else if(userInfo.getEmail() == null) {
+			return 2;
 		}
-		int res = eventService.setCoupon(request, vo, userInfo);
-		if(res != 0) {
-			return "redirect:/message/createCoupon";
-		}
-		else {
-			return "redirect:/message/createCouponFail";
-		}
+		res = eventService.setCoupon(request, vo, userInfo);
+		return res;
 	}
 	
 }

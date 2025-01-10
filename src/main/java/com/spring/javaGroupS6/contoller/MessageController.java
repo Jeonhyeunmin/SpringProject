@@ -57,7 +57,7 @@ public class MessageController {
 			model.addAttribute("url", "");
 		}
 		else if(msgFlag.equals("myPageNo")) {
-			model.addAttribute("message", "누구세요~?");
+			model.addAttribute("message", "로그인 후 이용해주세요.");
 			model.addAttribute("url", "");
 		}
 		else if(msgFlag.equals("shopUpdateOk")) {
@@ -129,22 +129,6 @@ public class MessageController {
 		else if(msgFlag.equals("eventInputNo")) {
 			model.addAttribute("message", "실패");
 			model.addAttribute("url", "event/eventInput");
-		}
-		else if(msgFlag.equals("createCoupon")) {
-			model.addAttribute("message", "쿠폰이 발행되었습니다.");
-			model.addAttribute("url", "event/eventContent?idx="+idx);
-		}
-		else if(msgFlag.equals("createCouponFail")) {
-			model.addAttribute("message", "잠시후 다시 시도해주세요");
-			model.addAttribute("url", "event/eventContent?idx="+idx);
-		}
-		else if(msgFlag.equals("couponDuplication")) {
-			model.addAttribute("message", "쿠폰은 중복 발행이 불가능합니다.");
-			model.addAttribute("url", "event/eventContent?idx="+idx);
-		}
-		else if(msgFlag.equals("couponEmailNo")) {
-			model.addAttribute("message", "이메일 등록 후 쿠폰 발행이 가능합니다");
-			model.addAttribute("url", "common/myPage");
 		}
 		
 		return "include/message";

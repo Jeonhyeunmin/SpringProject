@@ -16,9 +16,8 @@ public class UserInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
 		int level = session.getAttribute("sLevel") == null ? 999 : (int)session.getAttribute("sLevel");
 		
-		
 		if(level == 99){
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/message/leaveUser");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/message/myPageNo");
 			dispatcher.forward(request, response);
 			return false;
 		}

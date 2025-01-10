@@ -144,7 +144,6 @@
   </style>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/include/mainHeader.jsp" />
 <div class="container">
   <div class="info">
     <div class="profile">F</div>
@@ -196,8 +195,5 @@
   </div>
 </div>
 
-<div class="footer">
-  Copyright © Min's Department Store. All Rights Reserved.
-</div>
 </body>
 </html>

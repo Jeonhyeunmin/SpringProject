@@ -78,16 +78,16 @@ public class EventServiceImpl implements EventService{
 	public int setCoupon(HttpServletRequest request, CouponVO vo, MemberVO userInfo) {
 		String realPath = request.getSession().getServletContext().getRealPath("/resources/data/coupon/");
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		
 		String qrCodeImage = "";
-		String qrCodeName = sdf.format(date) + "_" + vo.getCouponName() + ".png";
+		String qrCodeName = sdf.format(date) + ".png";
 		qrCodeImage = "생성날짜 : " + qrCodeName.substring(0,4) + "년 / " + qrCodeName.substring(4,6) + "월 / " + qrCodeName.substring(6,8) + "일\n";
 		qrCodeImage += "쿠폰번호 : " + vo.getIdx() + "\n";
 		qrCodeImage += "쿠폰이름 : " + vo.getCouponName() + "\n";
 		qrCodeImage += "할인 : " + vo.getDiscount() + vo.getSaleUnit() +"\n";
-		qrCodeImage += "쿠폰 발급일 : " + vo.getCreateDate() + "\n";
-		qrCodeImage += "쿠폰 기간: " + vo.getStartDate() + " ~ " + vo.getEndDate();
+		qrCodeImage += "쿠폰 발급일 : " + qrCodeName.substring(0,4) + "년 " + qrCodeName.substring(4,6) + "월 " + qrCodeName.substring(6,8) + "일" + "\n";
+		qrCodeImage += "쿠폰 기간: " + vo.getStartDate().substring(0, 10) + " ~ " + vo.getEndDate().substring(0, 10);
 		
 		try {
 			qrCodeImage = new String(qrCodeImage.getBytes("UTF-8"), "ISO-8859-1");

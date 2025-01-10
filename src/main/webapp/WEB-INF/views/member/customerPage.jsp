@@ -7,7 +7,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>마이페이지</title>
   <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
   <style>
     body {
@@ -18,12 +17,10 @@
       color: #333;
     }
     .container {
-      max-width: 1200px;
+      max-width: 1170px !important;
       margin: 50px auto;
       padding: 20px;
-      background: #fff;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       height: 800px;
     }
     .info {
@@ -32,20 +29,6 @@
       margin-bottom: 30px;
       border-bottom: 2px solid #f0f0f0;
       padding-bottom: 15px;
-    }
-    .info .profile {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background-color: #e1c699;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 24px;
-      font-weight: bold;
-      margin-right: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     .info .name {
       font-size: 24px;
@@ -134,6 +117,7 @@
       text-align: center;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
       transition: transform 0.2s, background 0.3s, color 0.3s;
+      cursor: pointer;
     }
     .status-item:hover {
       transform: translateY(-3px);
@@ -185,10 +169,8 @@
   </style>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/include/mainHeader.jsp" />
 <div class="container">
   <div class="info">
-    <div class="profile">F</div>
     <div>
       <div class="name">${vo.name} 님</div>
       <div class="id">${vo.mid}</div>
@@ -244,8 +226,5 @@
   </div>
 </div>
 
-<div class="footer">
-  Copyright © Min's Department Store. All Rights Reserved.
-</div>
 </body>
 </html>
