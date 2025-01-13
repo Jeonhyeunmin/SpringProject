@@ -22,6 +22,8 @@
 			<!-- 정회원 -->
 			<interceptor>
 				<mapping path="/shop/**"/>
+				<mapping path="/member/**"/>
+				<mapping path="/partner/**"/>
 				<mapping path="/event/**"/> 
 				<mapping path="/common/myPage"/> 
 				<exclude-mapping path="/event/event"/>

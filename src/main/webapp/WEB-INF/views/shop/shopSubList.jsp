@@ -86,7 +86,7 @@
 			    display: grid;
 			    grid-template-columns: repeat(4, 1fr);
 			    gap: 20px;
-			    margin: 20px 19.5%;
+			    margin: 20px 15% 0 18.5%;
 			    padding: 10px;
 			    max-width: 1350px;
 			  }

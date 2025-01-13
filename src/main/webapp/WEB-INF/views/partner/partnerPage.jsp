@@ -28,34 +28,60 @@
       height: 800px;
     }
     .info {
-      display: flex;
-      align-items: center;
-      margin-bottom: 30px;
-      border-bottom: 2px solid #f0f0f0;
-      padding-bottom: 15px;
-    }
-    .info .profile {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background-color: #e1c699;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 24px;
-      font-weight: bold;
-      margin-right: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .info .name {
-      font-size: 24px;
-      font-weight: bold;
-    }
-    .info .id {
-      font-size: 14px;
-      color: #777;
-    }
+	    display: flex;
+	    align-items: center;
+	    margin-bottom: 30px;
+	    padding: 20px;
+	    border-bottom: 1px solid #ddd;
+	  }
+	
+	  .info .info-tab {
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    align-items: center;
+	    height: 150px;
+	    flex: 1;
+	    text-align: center;
+	  }
+	
+	  .info .profile {
+	    width: 80px;
+	    height: 80px;
+	    border-radius: 50%;
+	    overflow: hidden;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	    text-align: center;
+	  }
+	
+	  .info .profile img {
+	    width: 100%;
+	    height: 100%;
+	    object-fit: cover;
+	  }
+	
+	  .info .info-detail {
+	    flex: 1;
+	    text-align: left;
+	  }
+	
+	  .info .name {
+	    font-size: 26px;
+	    font-weight: bold;
+	    color: #333;
+	    margin-bottom: 5px;
+	    margin-left: 20px;
+	  }
+	
+	  .info .id {
+	    margin-left: 20px;
+	    font-size: 14px;
+	    color: #666;
+	    margin-bottom: 15px;
+	  }
     .info .logout {
       margin-left: auto;
       padding: 10px 20px;
@@ -146,11 +172,11 @@
 <body>
 <div class="container">
   <div class="info">
-    <div class="profile">F</div>
-    <div>
-      <div class="name">${vo.company}</div>
-      <div class="id">${vo.mid}</div>
-    </div>
+    <div class="profile"><img src="${ctp}/logo/${vo.logo}"/></div>
+	  	<div class="info-detail">
+	      <div class="name">${vo.company} 님</div>
+	      <div class="id">${vo.mid}</div>
+      </div>
     <button class="logout" onclick="location.href='${ctp}/common/logout'">로그아웃</button>
   </div>
 

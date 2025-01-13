@@ -55,13 +55,13 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      cursor: pointer;
     }
 
     .cart-item .cart-info h4 {
       font-size: 18px;
       font-weight: bold;
       margin-bottom: 5px;
+      cursor: pointer;
     }
 
     .cart-item .cart-info p {
@@ -292,8 +292,7 @@
 
     	  let currentValue = parseInt(input.value) || 1;
     	  currentValue += delta;
-
-    	  if (currentValue >= 1) currentValue = 1; // 최소 1개
+    	  if (currentValue < 1) currentValue = 1; // 최소 1개
     	  if (currentValue > 5) { // 최대 5개 제한
     	    alert("5개까지 구매가능한 상품입니다.");
     	    return false;
@@ -372,8 +371,9 @@
     	let totalPriceArr = "";
     	
     	for(let i=minIdx;i<=maxIdx;i++){
-	  		if(document.getElementById("cartCheck" + i).checked){
-	  			totalPrice += document.getElementById("quantityInput" + i).value * document.getElementById("price" + i).value;
+	    	let checkbox = document.getElementById("cartCheck" + i);
+  			if (checkbox && checkbox.checked) {
+	  			totalPrice += parseInt(document.getElementById("price" + i).value);
 	  			totalPriceArr += (document.getElementById("quantityInput" + i).value * document.getElementById("price" + i).value) + "/";
 	  			idxArr += i + "/";
 	  			quantityArr += document.getElementById("quantityInput" + i).value + "/";
@@ -381,7 +381,7 @@
     	}
 			
       // 결제 예정 금액 계산
-      const finalPrice = totalPrice;
+      const finalPrice = parseInt(totalPrice);
 
       // 금액 업데이트
       document.getElementById('total-order-price').textContent = totalPrice.toLocaleString() + '원';
@@ -504,11 +504,11 @@
 							    <input type="checkbox" id="cartCheck${vo.idx}" name="cartCheck" value="${vo.idx}" onClick="onCheck()">
 							    <p onclick="cartDelete(${vo.idx})"><i class="fa-regular fa-trash-can"></i></p>
 							  </div>
-							  <div class="cart-image" onclick="location.href='${ctp}/shop/shopContent?idx=${vo.shopIdx}'">
-							    <img src="${ctp}/category/${vo.thumbnail}" alt="상품 이미지">
+							  <div class="cart-image">
+							    <a href="${ctp}/shop/shopContent?idx=${vo.shopIdx}"><img src="${ctp}/category/${vo.thumbnail}" alt="상품 이미지"></a>
 							  </div>
-							  <div class="cart-info" onclick="location.href='${ctp}/shop/shopContent?idx=${vo.shopIdx}'">
-							    <h4>${vo.shopTitle}</h4>
+							  <div class="cart-info">
+							    <h4 onclick="location.href='${ctp}/shop/shopContent?idx=${vo.shopIdx}'">${vo.shopTitle}</h4>
 							    <p>${vo.company}</p>
 							    <div class="cart-quantity">
 							      <button type="button" onclick="count(this, 'quantityInput${vo.idx}', -1)"><i class="fa-solid fa-minus"></i></button>

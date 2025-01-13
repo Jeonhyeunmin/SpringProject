@@ -29,12 +29,12 @@
  		<put-attribute name="body" value="/WEB-INF/views/event/{1}.jsp" />
  	</definition>
  	
- 	<definition name="member/customerPage" extends="rightNo">
- 		<put-attribute name="body" value="/WEB-INF/views/member/customerPage.jsp" />
+ 	<definition name="member/*" extends="rightNo">
+ 		<put-attribute name="body" value="/WEB-INF/views/member/{1}.jsp" />
  	</definition>
  	
- 	<definition name="partner/partnerPage" extends="rightNo">
- 		<put-attribute name="body" value="/WEB-INF/views/partner/partnerPage.jsp" />
+ 	<definition name="partner/*" extends="rightNo">
+ 		<put-attribute name="body" value="/WEB-INF/views/partner/{1}.jsp" />
  	</definition>
  	
  	<definition name="layoutYes" template="/WEB-INF/views/layout/baseLayout.jsp">

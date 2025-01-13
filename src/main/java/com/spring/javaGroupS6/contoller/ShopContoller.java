@@ -397,13 +397,12 @@ public class ShopContoller {
 		
 		ShopCartVO cartVO = shopService.getMyCartSearch(vo.getShopIdx(), vo.getOptionSelect(), mid);
 		
-		int price = shopVO.getPrice();
-		
 		vo.setMid(mid);
 		vo.setShopTitle(shopVO.getTitle());
 		vo.setThumbnail(shopVO.getThumbnail());
 		
 		if(cartVO != null) {
+			int price = cartVO.getTotalPrice() / cartVO.getQuantity();
 			if(quantityMinus != 0) {
 				quantity = quantityMinus;
 				totalPrice = price * (cartVO.getQuantity() + quantity);
@@ -414,19 +413,19 @@ public class ShopContoller {
 			}
 			else if(cartVO.getQuantity() + vo.getQuantity() < 5) {
 				quantity = vo.getQuantity();
-				totalPrice = price * (quantity + cartVO.getQuantity());
+				totalPrice = price * (cartVO.getQuantity() + quantity);
 				shopService.setCartQuantityUpdate(cartVO.getIdx(), quantity, totalPrice);
 				res = 1;
 			}
 			else if(cartVO.getQuantity() + vo.getQuantity() >= 5) {
 				quantity = 5 - cartVO.getQuantity();
-				totalPrice = price * (quantity + cartVO.getQuantity());
+				totalPrice = price * (cartVO.getQuantity() + quantity);
 				shopService.setCartQuantityUpdate(cartVO.getIdx(), quantity, totalPrice);
 				res = 3;
 			}
 			else if(cartVO.getQuantity() < 5) {
 				quantity = 5 - cartVO.getQuantity();
-				totalPrice = shopVO.getPrice() * (quantity * cartVO.getQuantity());
+				totalPrice = price * (cartVO.getQuantity() + quantity);
 				shopService.setCartQuantityUpdate(cartVO.getIdx(), quantity, totalPrice);
 				res = 3;
 			}
