@@ -6,6 +6,7 @@ import lombok.Data;
 public class ShopOrderVO {
 	private int idx;
 	private int shopIdx;
+	private int cartIdx;
 	private String mid;
 	private String shopTitle;
 	private int price;
@@ -19,5 +20,8 @@ public class ShopOrderVO {
 	private String thumbnail;
 	private String optionSelect;
 	private String orderDate;
+	
+	private int usePoint;
+	private int addPoint;
 	
 }

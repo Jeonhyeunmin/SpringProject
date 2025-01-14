@@ -2,6 +2,7 @@ package com.spring.javaGroupS6.contoller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +23,14 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import com.spring.javaGroupS6.common.JavaProvide;
 import com.spring.javaGroupS6.service.CommonService;
+import com.spring.javaGroupS6.service.EventService;
+import com.spring.javaGroupS6.service.MemberService;
 import com.spring.javaGroupS6.service.ShopService;
+import com.spring.javaGroupS6.vo.CouponVO;
 import com.spring.javaGroupS6.vo.MainCategoryVO;
+import com.spring.javaGroupS6.vo.MemberVO;
 import com.spring.javaGroupS6.vo.PartnerVO;
+import com.spring.javaGroupS6.vo.PaymentVO;
 import com.spring.javaGroupS6.vo.ReviewLikesVO;
 import com.spring.javaGroupS6.vo.ShopCartVO;
 import com.spring.javaGroupS6.vo.ShopOrderVO;
@@ -41,6 +47,12 @@ public class ShopContoller {
 	
 	@Autowired
 	CommonService commonService;
+	
+	@Autowired
+	EventService eventService;
+	
+	@Autowired
+	MemberService memberService;
 	
 	@Autowired
 	JavaProvide provide;
@@ -438,26 +450,27 @@ public class ShopContoller {
 	}
 	
 	@PostMapping("/shopOrder")
-	public String shopOrder(Model model,
+	public String shopOrder(Model model, HttpSession session,
 			@RequestParam(name = "idx", defaultValue = "0", required = false) int idx,
 			@RequestParam(name = "optionSelect", defaultValue = "", required = false) String optionSelect,
 			@RequestParam(name = "quantity", defaultValue = "0", required = false) int quantity,
 			@RequestParam(name = "totalPrice", defaultValue = "0", required = false) int totalPrice, 
 			String idxArr, String quantityArr, String totalPriceArr
 	) {
-		
 		ShopOrderVO vo = null;
 		ArrayList<ShopOrderVO> vos = new ArrayList<ShopOrderVO>();
 		if(idx == 0) {
 			String[] cartIdx = idxArr.split("/"); 
 			String cartQuantity[] = quantityArr.split("/"); 
 			String cartTotalPrice[] = totalPriceArr.split("/");
-			
-			
+			int pay = 0;
 			for(int i = 0; i < cartIdx.length; i++) {
 				vo = shopService.getIdxCart(cartIdx[i]);
+				pay = Integer.parseInt(cartTotalPrice[i]) / Integer.parseInt(cartQuantity[i]);
 				vo.setQuantity(Integer.parseInt(cartQuantity[i]));
 				vo.setTotalPrice(Integer.parseInt(cartTotalPrice[i]));
+				vo.setPay(pay);
+				vo.setCartIdx(Integer.parseInt(cartIdx[i]));
 				vos.add(vo);
 			}
 		}
@@ -468,8 +481,14 @@ public class ShopContoller {
 			vo.setTotalPrice(totalPrice);
 			vos.add(vo);
 		}
+		
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		MemberVO memberVO = commonService.getMemberIdSearch(mid);
+		session.setAttribute("sOrderVOS", vos);
+		
+		model.addAttribute("memberVO", memberVO);
 		model.addAttribute("vos", vos);
-		model.addAttribute("title", "구매");
+		model.addAttribute("title", "주문서 작성");
 		return "shop/shopOrder";
 	}
 	
@@ -512,5 +531,80 @@ public class ShopContoller {
 				}
 			}
 		}
+	}
+	
+	@GetMapping("/couponSelect")
+	public String couponSelectGet(HttpSession session, Model model) {
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		
+		ArrayList<CouponVO> vos = memberService.getMyCoupon(mid);
+		
+		model.addAttribute("vos", vos);
+		return "/shop/couponSelect";
+	}
+	
+	@ResponseBody
+	@PostMapping("/couponSearch")
+	public CouponVO couponSearchPost(HttpSession session, int idx) {
+		
+		CouponVO vo = shopService.getCouponInfo(idx);
+		
+		return vo;
+	}
+	
+	@PostMapping("/payment")
+	public String paymentPost(PaymentVO paymentVO, HttpSession session, Model model,
+			@RequestParam(name = "couponIdx", defaultValue = "0", required = false) String couponIdx,
+			@RequestParam(name = "usePoint", defaultValue = "0", required = false)  int usePoint,
+			int addPoint) {
+		
+		List<ShopOrderVO> orderVos = (List<ShopOrderVO>) session.getAttribute("sOrderVOS");
+		CouponVO couponVO = shopService.getCouponInfo(Integer.parseInt(couponIdx));
+		int tot = 0;
+		for(ShopOrderVO vo : orderVos) {
+			if(couponVO != null) {
+				vo.setCouponDiscount(couponVO.getDiscount());
+				vo.setCoupon(couponVO.getCouponName());
+				vo.setCouponIdx(Integer.parseInt(couponIdx));
+				tot = (vo.getTotalPrice() * couponVO.getDiscount()) / 100;
+				vo.setTotalPrice(vo.getTotalPrice() - tot);
+			}
+			vo.setAddPoint(addPoint);
+			vo.setUsePoint(usePoint);
+		}
+		
+		model.addAttribute("payMentVO", paymentVO);
+		model.addAttribute("title", "결제");
+		
+		session.setAttribute("sPaymentVO", paymentVO);
+		return "/shop/payment";
+	}
+	
+	@GetMapping("/paymentOk")
+	public String paymentOkGet(HttpSession session, Model model, PaymentVO paymentVO) {
+		List<ShopOrderVO> orderVos = (List<ShopOrderVO>) session.getAttribute("sOrderVOS");
+
+		for(ShopOrderVO vo : orderVos) {
+			shopService.setShopOrder(vo);
+			shopService.setCartDeleteAll(vo.getCartIdx());
+			shopService.setUseCoupon(vo);
+		}
+		String mid = orderVos.get(0).getMid();
+		int addPoint = orderVos.get(0).getAddPoint();
+		int usePoint = orderVos.get(0).getUsePoint();
+		memberService.setPointUpdate(addPoint, usePoint, mid);
+		
+		return "redirect:/message/paymentResult";
+	}
+	
+	@GetMapping("/shopOrderOk")
+	public String shopOrderOkGet(HttpSession session, Model model) {
+		List<ShopOrderVO> orderVos = (List<ShopOrderVO>) session.getAttribute("sOrderVOS");
+		session.removeAttribute("sOrderVOS");
+		model.addAttribute("orderVos", orderVos);
+		model.addAttribute("title", "구매내역");
+		
+		
+		return "shop/paymentResult";
 	}
 }

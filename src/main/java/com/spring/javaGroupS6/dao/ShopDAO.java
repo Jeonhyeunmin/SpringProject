@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.spring.javaGroupS6.vo.CouponVO;
 import com.spring.javaGroupS6.vo.MainCategoryVO;
 import com.spring.javaGroupS6.vo.ReviewLikesVO;
 import com.spring.javaGroupS6.vo.ShopCartVO;
@@ -75,5 +76,14 @@ public interface ShopDAO {
 	ShopOrderVO getOneOrder(@Param("idx") int idx);
 
 	int setCartDelete(@Param("idx") int idx);
+
+	CouponVO getCouponInfo(@Param("idx") int idx);
+
+	void setShopOrder(@Param("vo") ShopOrderVO vo);
+
+	void setCartDeleteAll(@Param("cartIdx") int cartIdx);
+
+	void setUseCoupon(@Param("vo") ShopOrderVO vo);
+
 
 }

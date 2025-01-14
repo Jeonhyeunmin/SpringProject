@@ -166,8 +166,6 @@
       margin-right: 10px;
     }
     
-    .step-navigation li i {
-    }
     .step-navigation li p {
       margin: 0;
       line-height: 1.4;
@@ -374,7 +372,7 @@
 	    	let checkbox = document.getElementById("cartCheck" + i);
   			if (checkbox && checkbox.checked) {
 	  			totalPrice += parseInt(document.getElementById("price" + i).value);
-	  			totalPriceArr += (document.getElementById("quantityInput" + i).value * document.getElementById("price" + i).value) + "/";
+	  			totalPriceArr += document.getElementById("price" + i).value + "/";
 	  			idxArr += i + "/";
 	  			quantityArr += document.getElementById("quantityInput" + i).value + "/";
 	  		}
@@ -382,7 +380,6 @@
 			
       // 결제 예정 금액 계산
       const finalPrice = parseInt(totalPrice);
-
       // 금액 업데이트
       document.getElementById('total-order-price').textContent = totalPrice.toLocaleString() + '원';
       document.getElementById('final-price').textContent = finalPrice.toLocaleString() + '원';
@@ -465,7 +462,7 @@
       <div class="cart-header">
         <h2>장바구니</h2>
         <ul class="step-navigation">
-          <li>
+          <li style="font-weight: bold;">
             <span><i class="fa-solid fa-lock"></i></span>
             <div>
               <p>STEP 01</p>

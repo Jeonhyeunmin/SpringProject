@@ -3,6 +3,7 @@ package com.spring.javaGroupS6.contoller;
 import java.util.UUID;
 
 import javax.mail.MessagingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -83,10 +84,22 @@ public class CommonContoller {
 		
 		MemberVO memberVO = commonService.getMemberIdSearch(mid);
 		PartnerVO partnerVO = commonService.getPartnerIdSearch(mid);
+		int level = memberVO.getLevel();
+		String pwdChange = memberVO.getPwdChange();
+		
+		
 		if(memberVO != null && (memberVO.getMid().equals(mid) && passwordEncoder.matches(pwd, memberVO.getPwd()))) {
+			
 			session.setAttribute("sMid", mid);
 			session.setAttribute("sLevel", memberVO.getLevel());
 			session.setAttribute("sName", memberVO.getName());
+			if(pwdChange.equals("no")) {
+				return "redirect:/message/pwdChangeNo";
+			}
+			
+			if(level == 99){
+				return "redirect:/message/leaveUser";
+			}
 			return "redirect:/message/loginOk";
 		}
 		else if (partnerVO != null && (partnerVO.getMid().equals(mid) && passwordEncoder.matches(pwd, partnerVO.getPwd()))) {
@@ -141,6 +154,10 @@ public class CommonContoller {
 		session.setAttribute("sName", vo.getName());
 		session.setAttribute("sLevel", vo.getLevel());
 		session.setAttribute("sPwdChange", vo.getPwdChange());
+		
+		if(vo.getPwdChange().equals("no")) {
+			return "redirect:/message/pwdChangeNo";
+		}
 		
 		return "redirect:/message/loginOk";
 	}
@@ -254,7 +271,7 @@ public class CommonContoller {
 	@GetMapping("/myPage")
 	public String myPageGet(Model model, HttpSession session) {
 		int level = session.getAttribute("sLevel") == null ? 0 : (int)session.getAttribute("sLevel");
-		if(level == 1) {
+		if(level == 1 || level == 0) {
 			return "redirect:/member/myPage";
 		}
 		else if(level == 2) {

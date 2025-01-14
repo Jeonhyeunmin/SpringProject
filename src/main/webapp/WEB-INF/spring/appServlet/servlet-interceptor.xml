@@ -21,6 +21,7 @@
 			
 			<!-- 정회원 -->
 			<interceptor>
+				<mapping path="/common/KakaoLogin"/>
 				<mapping path="/shop/**"/>
 				<mapping path="/member/**"/>
 				<mapping path="/partner/**"/>

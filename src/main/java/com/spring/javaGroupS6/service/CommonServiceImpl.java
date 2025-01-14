@@ -30,20 +30,19 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public int setMemberJoin(MemberVO vo) {
 		
+		String year = vo.getResident().substring(0,2);  
+		String month = vo.getResident().substring(2,4);  
+		String day = vo.getResident().substring(4,6);  
 		if(vo.getResident() != null) {
-			String year = vo.getResident().substring(0,2);  
-			String month = vo.getResident().substring(2,4);  
-			String day = vo.getResident().substring(4,6);  
 			
 			
-			if(Integer.parseInt(year) >= 00 && Integer.parseInt(year) < 50) {
+			if(vo.getGender().equals("3") || vo.getGender().equals("4")) {
 				year = "20" + year;
 			}
-			else if(Integer.parseInt(year) >= 50 && Integer.parseInt(year) <= 99) {
+			else {
 				year = "19" + year;
 			}
 			
-			vo.setResident(year + "-" + month + "-" + day);
 			
 			if(vo.getGender().equals("1") || vo.getGender().equals("3")) {
 				vo.setGender("남자");
@@ -53,6 +52,7 @@ public class CommonServiceImpl implements CommonService {
 			}
 		}
 		
+		vo.setResident(year + "-" + month + "-" + day);
 		vo.setLevel(1);
 		vo.setPhoto("noimage.png");
 		
@@ -76,12 +76,12 @@ public class CommonServiceImpl implements CommonService {
 	public int setpartnerJoin(MultipartFile file, PartnerVO vo) {
 		try {
 		
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
-		
-		String oFileName = file.getOriginalFilename();
-		String sFileName = sdf.format(date) + "_" + oFileName;
-		
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
+			
+			String oFileName = file.getOriginalFilename();
+			String sFileName = sdf.format(date) + "_" + oFileName;
+			
 			provide.WriteFile(file, sFileName, "partner/logo");
 			
 			vo.setLogo(sFileName);

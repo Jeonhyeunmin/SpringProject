@@ -77,46 +77,17 @@
 	    	});
 	    }
 		
-		function pwd1Check() {
-			let pwd1 = joinForm.pwd.value.trim();
-			let pwd2 = document.getElementById("pwd2").value.trim();
-			
-			document.getElementById("pwdError").innerHTML="";
-		  // 비밀번호 확인
-		  if(!regex2.test(pwd1)) {
-		    document.getElementById("pwdError").innerHTML="비밀번호가 올바르지 않습니다.(영어/숫자 필수, 특수문자 가능 4~20자)";
-		  }
-		  else if(pwd1 !== pwd2) {
-		    document.getElementById("pwdError").innerHTML="비밀번호가 동일하지 않습니다.";
-		  }
-		  else {
-		    document.getElementById("pwdError").innerHTML="";
-	  	}	
-		}
 		function nameCheck() {
 			//let regex3 = /^[가-힣a-zA-Z]{1,10}$/;  // (성명)한글,영문만 적어도 1자이상 
-			let ceoName = document.getElementById("ceoName").value.trim();
+			let name = document.getElementById("name").value.trim();
 			document.getElementById("nameError").innerHTML="";
 			
 		  // 성명 확인
-		  if(!regex3.test(ceoName)){
+		  if(!regex3.test(name)){
 		    document.getElementById("nameError").innerHTML="성명이 올바르지 않습니다.(한글/영문만 10자 이하)";
 		  }
 		  else {
 			  document.getElementById("nameError").innerHTML="";
-		  }			
-		}
-		function businessNumberCheck() {
-			let businessNumber = document.getElementById("businessNumber").value.trim();
-			document.getElementById("businessNumberError").innerHTML="";
-			
-		  // 사업자번호 확인
-		  if(!regex6.test(businessNumber)){
-		    document.getElementById("businessNumberError").innerHTML="사업자등록번호가 올바르지 않습니다.(사업자등록번호 10자리)";
-		   return false;;
-		  }
-		  else {
-			  document.getElementById("businessNumberError").innerHTML="";
 		  }			
 		}
 		
@@ -147,65 +118,34 @@
 		
 		// 회원가입 버튼 클릭시 체크
 		function fCheck(){
-		  let ceoName = document.getElementById("ceoName").value.trim();
-		  let mid = joinForm.mid.value.trim();
-		  let pwd1 = joinForm.pwd.value.trim();
-		  let pwd2 = document.getElementById("pwd2").value.trim();
-			let businessNumber = document.getElementById("businessNumber").value.trim();
+		  let name = document.getElementById("name").value.trim();
+			let birthday = document.getElementById("birthday").value.trim();
 	  	 
 		  let tel1 = joinForm.tel1.value;
 		  let tel2 = joinForm.tel2.value;
 		  let tel3 = joinForm.tel3.value;
 		  let tel = tel1 + "-" + tel2 + "-" + tel3;
-	  	
+		  
+		  let email = joinForm.email.value;
 		  
 			
 		  // 코스라이브러리 받아주는 서블릿쪽이 멀티파츠로 받아야 합니다 (사진을 넘길때- 업체에서 멀티파츠 갯 파라멬타)
 		  
 		  // 성명 확인
-		  if(!regex3.test(ceoName)){
+		  if(!regex3.test(name)){
 		    document.getElementById("nameError").innerHTML="성명이 올바르지 않습니다.(한글/영문만 10자 이내)";
-		    document.getElementById("ceoName").focus();
+		    document.getElementById("name").focus();
 		    return false;
 		  }
 		  else {
 			  document.getElementById("nameError").innerHTML="";
 		  }
 		  
-		  // 아이디 확인
-		  if(!regex1.test(mid)) {
-		    document.getElementById("midError").innerHTML="아이디 형식에 맞춰주세요.(영어/숫자만 4~20자)";
-		    joinForm.mid.focus();
-		    return false;
-		  } 
-		  else {
-			   document.getElementById("midError").innerHTML="";
+		  if(birthday == ""){
+			  alert("생년월일을 입력해주세요.");
+			  return false;
 		  }
 		  
-		  // 비밀번호 확인
-		  if(!regex2.test(pwd1)) {
-		    document.getElementById("pwdError").innerHTML="비밀번호가 올바르지 않습니다.(영어/숫자 필수, 특수문자 가능 4~20자)";
-		    joinForm.pwd.focus();
-		    return false;
-		  }
-		  else {
-		    document.getElementById("pwdError").innerHTML="";
-		    
-			  if(pwd2=== "") {
-			    document.getElementById("pwdError").innerHTML="비밀번호를 다시 입력해주세요.";
-			    document.getElementById("pwd2").focus();
-			    return false;
-			  }
-			  else if(pwd1 !== pwd2) {
-			    document.getElementById("pwdError").innerHTML="비밀번호가 동일하지 않습니다.";
-			    document.getElementById("pwd2").focus();
-			    return false;
-			  }
-			  else {
-		  	  document.getElementById("pwdError").innerHTML="";
-			  }
-		  }
-				  
 		  // 전화번호 확인
 		  if(tel2==="" || tel3===""){
 		    document.getElementById("telError").innerHTML="전화번호를 입력해주세요.";
@@ -221,38 +161,179 @@
 		    document.getElementById("telError").innerHTML="";
 		  }
 		  
-		  if(!regex6.test(businessNumber)){
-			    document.getElementById("businessNumberError").innerHTML="사업자등록번호가 올바르지 않습니다.(사업자등록번호 10자리)";
-			    document.getElementById("businessNumber").focus();
-			    return false;
-			  }
-		  else {
-			  document.getElementById("businessNumberError").innerHTML="";
-		  }
-		  
 		 if(document.getElementById("sample6_postcode").value == ""){
 			 alert("주소를 입력해주세요");
 			 document.getElementById("sample6_postcode").focus();
+			 return false;
 		 }
-		  
-     if(idCheckSw == 0) {
-				alert("아이디 중복확인을 해주세요.");
-				document.getElementById("mid").focus();
-			}
-	    else if(emailCheckSw == 0) {
-				alert("이메일 인증을 진행해주세요 해주세요.");
-				document.getElementById("email").focus();
-			}
-	    else if(companyCheckSw == 0) {
-				alert("업체명 중복체크를 진행해주세요 해주세요.");
-				document.getElementById("company").focus();
-			}
-			else {
-				joinForm.address.value = document.getElementById("sample6_postcode").value + "/" + document.getElementById("sample6_address").value + "/" + document.getElementById("sample6_extraAddress").value + "/" + document.getElementById("sample6_detailAddress").value
-		    joinForm.tel.value = tel;
-		   	joinForm.submit();
+		 if("${vo.email}" != email && emailCheckSw == 0){
+			 alert("이메일을 변경하시려면 이메일 인증을 진행해주세요.");
+			 return false;
+		 }
+		 else {
+			 joinForm.address.value = document.getElementById("sample6_postcode").value + "/" + document.getElementById("sample6_address").value + "/" + document.getElementById("sample6_extraAddress").value + "/" + document.getElementById("sample6_detailAddress").value
+		   joinForm.tel.value = tel;
+		   joinForm.submit();
 			} 
 		}
+		
+		document.addEventListener("DOMContentLoaded", function () {
+	  	document.getElementById("file").addEventListener("change", showUploadedFile);
+	  });
+  	function showUploadedFile(event) {
+      const fileInput = event.target;
+      const fileList = fileInput.files;
+      const fileNameDisplay = document.getElementById("uploadedFileName");
+      if (fileList.length > 0) {
+      	if(fileList.length == 1){
+	          fileNameDisplay.textContent = '업로드된 파일:' +  fileList[0].name;
+      	}
+      	else{
+	          fileNameDisplay.textContent = '업로드된 파일:' +  fileList[0].name + "외 " + Number(fileList.length-1) + "개";
+      	}
+      } else {
+        fileNameDisplay.textContent = "업로드된 파일이 없습니다.";
+      }
+    }
+	  
+  	document.addEventListener("DOMContentLoaded", function () {
+  	  const fileInput = document.getElementById("file");
+  	  const previewContainer = document.querySelector(".nowImg");
+
+  	  fileInput.addEventListener("change", function () {
+  	    const fileList = fileInput.files;
+  	    previewContainer.innerHTML = ""; // 기존 이미지를 초기화
+  	    
+  	    if (fileList.length > 5) {
+	         alert("최대 5개의 파일만 업로드할 수 있습니다.");
+	         fileInput.value = ""; // 입력 필드 초기화
+	         uploadedFileName.textContent = "업로드된 파일이 없습니다.";
+	         return;
+ 	      }
+
+  	    if (fileList.length > 0) {
+  	      Array.from(fileList).forEach((file) => {
+  	        if (file.type.startsWith("image/")) {
+  	          const reader = new FileReader();
+
+  	          reader.onload = function (e) {
+  	            const img = document.createElement("img");
+  	            img.src = e.target.result;
+  	            img.alt = "선택한 이미지 미리보기";
+  	            img.style.maxWidth = "100px";
+  	            img.style.maxHeight = "100px";
+  	            img.style.margin = "10px";
+  	            previewContainer.appendChild(img);
+  	          };
+
+  	          reader.readAsDataURL(file); // 파일 데이터를 읽어 미리보기로 표시
+  	        } else {
+  	          alert("이미지 파일만 선택 가능합니다.");
+  	        }
+  	      });
+  	    } else {
+  	      previewContainer.innerHTML = "<p>업로드된 파일이 없습니다.</p>"; // 선택 취소 시 메시지 표시
+  	    }
+  	  });
+  	});
+  	
+  	function emailchange() {
+			let str = '<input type="email" id="email" name="email" placeholder="example@domain.com" required><button type="button" class="btn-inside" onclick="emailCheck()">인증</button>';
+			$(".emailChangeContainer").html(str);
+		}
+  	
+  	function userLeavel() {
+  		let ans = confirm("회원 탈퇴를 진행하시겠습니까?")
+  		
+  		if(ans){
+  			location.href='${ctp}/member/memberUserLeave';
+  		}
+		}
+  	
+  	function pwdChangeForm() {
+    	  $.ajax({
+    	    type: "get",
+    	    url: "${ctp}/member/memberPwdChangeForm",
+    	    success: function (res) {
+    	      const overlay = document.getElementById("modalOverlay");
+    	      const updateForm = document.getElementById("pwdChangeForm");
+
+    	      updateForm.innerHTML = res;
+
+    	      // 모달 활성화
+    	      overlay.classList.add("show");
+    	      updateForm.classList.add("show");
+    	    },
+    	    error: function () {
+    	      alert("전송오류");
+    	    },
+    	  });
+    	}
+
+    	// 폼 닫기
+    	function closePwdChageForm() {
+    	  const overlay = document.getElementById("modalOverlay");
+    	  const updateForm = document.getElementById("pwdChangeForm");
+
+    	  overlay.classList.remove("show");
+    	  updateForm.classList.remove("show");
+    	}
+    	
+  	  function pwd1Check() {
+  	    let pwd1 = document.getElementById("pwd").value.trim();
+  	    let pwd2 = document.getElementById("pwd2").value.trim();
+  	    
+  	    document.getElementById("pwdError").innerHTML = "";
+  	    // 비밀번호 확인
+  	    if (!regex2.test(pwd1)) {
+  	      document.getElementById("pwdError").innerHTML = "비밀번호가 올바르지 않습니다.(영어/숫자 필수, 특수문자 가능 4~20자)";
+  	    } else if (pwd1 !== pwd2) {
+  	      document.getElementById("pwdError").innerHTML = "비밀번호가 동일하지 않습니다.";
+  	    } else {
+  	      document.getElementById("pwdError").innerHTML = "";
+  	    }
+  	  }
+    	
+    	function pwdChange() {
+    		let nowPwd = document.getElementById("nowPwd").value.trim();
+    		let pwd = document.getElementById("pwd").value.trim();
+    		let pwd2 = document.getElementById("pwd2").value.trim();
+    		
+    		if(nowPwd == pwd){
+    			alert("이전 비밀번호와 동일하게 설정할 수 없습니다.");
+    			return false;
+    		}
+    		if(pwd != pwd2){
+    			alert("변경하려는 비밀번호를 동일하게 입력해주세요.");
+    			return false;
+    		}
+    		$.ajax({
+    			type:"post",
+    			url:"${ctp}/member/memberPwdChangeOk",
+    			data: {
+    				pwd : pwd,
+    				nowPwd : nowPwd
+    			},
+    			success: function(res) {
+						if(res == "99"){
+							alert("현재 비밀번호가 동일하지 않습니다 다시 확인해주세요");
+							return false;
+						}
+						else if(res == "1"){
+							alert("비밀번호가 변경되었습니다.");
+							closePwdChageForm();
+							alert("다시 로그인해주세요");
+							location.href='${ctp}/common/logout';
+						}
+					},
+					error: function() {
+						alert("전송오류");
+					}
+    		});
+    		
+    		return false;
+    	}
+    	
   </script>
   <style>
     body {
@@ -321,7 +402,7 @@
     }
 
     .btn {
-      width: 48%;
+      width: 30%;
       padding: 12px;
       font-size: 14px;
       font-weight: bold;
@@ -329,24 +410,25 @@
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s, color 0.3s;
+      margin: auto;
     }
 
     .btn-submit {
-      background: #5e0000;
-      color: #fff;
+      background: #5e0000 !important;
+      color: #fff !important;
     }
 
     .btn-submit:hover {
-      background: #7f1a1a;
+      background: #7f1a1a !important;
     }
 
     .btn-cancel {
-      background: #ddd;
+      background: #ddd !important;
       color: #333;
     }
 
     .btn-cancel:hover {
-      background: #bbb;
+      background: #bbb !important;
     }
 
     .address-group {
@@ -512,78 +594,93 @@
 		  font-size: 14px;
 		}
 	  
+	  .form-actions {
+		  display: flex;
+		  justify-content: space-between; /* 버튼들을 양쪽 끝으로 배치 */
+		  align-items: center; /* 버튼 정렬 */
+		}
+		
+		.userLeave {
+		  margin-left: 92%;
+		  padding: 5px 10px;
+		  background-color: transparent;
+		  border: 1px solid #bab1b1;
+		  color: #bab1b1;
+		  margin-top: 10px;
+		}
+		
+		.userLeave:hover {
+			background-color: gray;
+			color: white;
+		}
+		
+		.radio-group {
+		  display: inline-flex;
+		  align-items: center; /* 세로 정렬 */
+		  gap: 10px; /* 버튼 간격 */
+		}
+		
+		.radio-group label {
+		  font-size: 14px;
+		  font-weight: bold;
+		  color: #333;
+		}
+		
+		.pwdChangeForm {
+		  position: fixed;
+		  bottom: -100%; /* 초기 위치: 화면 아래 */
+		  left: 50%;
+		  transform: translateX(-50%);
+		  width: 90%;
+		  max-width: 500px;
+		  background: #fff;
+		  border-radius: 15px;
+		  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+		  padding: 20px;
+		  z-index: 1000;
+		  transition: bottom 0.5s ease-in-out, opacity 0.3s ease-in-out;
+		  opacity: 0;
+		}
+		
+		/* 수정 폼 활성화 */
+		.pwdChangeForm.show {
+		  bottom: 40%; /* 화면에 보이도록 */
+		  opacity: 1;
+		}
+		
+		.pwdChangeBtn:hover{
+			background-color: #e1c699;
+		}
+		.modal-overlay {
+		  position: fixed;
+		  top: 0;
+		  left: 0;
+		  width: 100%;
+		  height: 100%;
+		  background: rgba(0, 0, 0, 0.6); /* 반투명 배경 */
+		  display: none; /* 기본적으로 숨김 */
+		  opacity: 0;
+		  z-index: 999;
+		  transition: opacity 0.3s ease-in-out;
+		}
+		
+		/* 모달 활성화 */
+		.modal-overlay.show {
+		  display: block;
+		  opacity: 1;
+		}
+		
+
   </style>
-  
-  <script type="text/javascript">
-	  document.addEventListener("DOMContentLoaded", function () {
-	  	document.getElementById("file").addEventListener("change", showUploadedFile);
-	  });
-  	function showUploadedFile(event) {
-      const fileInput = event.target;
-      const fileList = fileInput.files;
-      const fileNameDisplay = document.getElementById("uploadedFileName");
-      if (fileList.length > 0) {
-      	if(fileList.length == 1){
-	          fileNameDisplay.textContent = '업로드된 파일:' +  fileList[0].name;
-      	}
-      	else{
-	          fileNameDisplay.textContent = '업로드된 파일:' +  fileList[0].name + "외 " + Number(fileList.length-1) + "개";
-      	}
-      } else {
-        fileNameDisplay.textContent = "업로드된 파일이 없습니다.";
-      }
-    }
-  
-  	document.addEventListener("DOMContentLoaded", function () {
-  	  const fileInput = document.getElementById("file");
-  	  const previewContainer = document.querySelector(".nowImg");
-
-  	  fileInput.addEventListener("change", function () {
-  	    const fileList = fileInput.files;
-  	    previewContainer.innerHTML = ""; // 기존 이미지를 초기화
-  	    
-  	    if (fileList.length > 5) {
-	         alert("최대 5개의 파일만 업로드할 수 있습니다.");
-	         fileInput.value = ""; // 입력 필드 초기화
-	         uploadedFileName.textContent = "업로드된 파일이 없습니다.";
-	         return;
- 	      }
-
-  	    if (fileList.length > 0) {
-  	      Array.from(fileList).forEach((file) => {
-  	        if (file.type.startsWith("image/")) {
-  	          const reader = new FileReader();
-
-  	          reader.onload = function (e) {
-  	            const img = document.createElement("img");
-  	            img.src = e.target.result;
-  	            img.alt = "선택한 이미지 미리보기";
-  	            img.style.maxWidth = "100px";
-  	            img.style.maxHeight = "100px";
-  	            img.style.margin = "10px";
-  	            previewContainer.appendChild(img);
-  	          };
-
-  	          reader.readAsDataURL(file); // 파일 데이터를 읽어 미리보기로 표시
-  	        } else {
-  	          alert("이미지 파일만 선택 가능합니다.");
-  	        }
-  	      });
-  	    } else {
-  	      previewContainer.innerHTML = "<p>업로드된 파일이 없습니다.</p>"; // 선택 취소 시 메시지 표시
-  	    }
-  	  });
-  	});
-  </script>
 </head>
 <body>
   <div class="container">
-    <form name="joinForm" method="post" enctype="multipart/form-data" action="${ctp}/common/partnerJoin">
+    <form name="joinForm" method="post" enctype="multipart/form-data" action="${ctp}/member/memberUpdate">
       <h2>정보수정</h2>
 
       <div class="form-group nowImg">
         <div class="section-title">현재 적용 이미지</div>
-      	<img src="${ctp}/login/${vo.photo}" alt="이미지 미리보기" style="max-width: 100px; max-height: 100px;">
+      	<img src="${ctp}/member/${vo.photo}" alt="이미지 미리보기" style="max-width: 100px; max-height: 100px;">
     	</div>
       
       <div class="form-group">
@@ -599,75 +696,72 @@
 			<div class="form-group">
 			  <label for="mid">아이디 <font color="red">* 아이디는 변경 불가능합니다.</font></label>
 			  <div class="relative-container">
-			    <input type="text" id="mid" name="mid" oninput="midCheck()" value="${vo.mid}" required>
+			    <input type="text" style="background-color: #ddd;" id="mid" name="mid" value="${vo.mid}" required>
 			  </div>
-			  <span id="midError" style="font-size: 13px; color: #5e0000;"></span>
 			</div>
 
       <!-- 비밀번호 -->
       <div class="row">
         <div class="form-group">
           <label for="pwd">비밀번호</label>
-          <input type="password" id="pwd" name="pwd" oninput="pwd1Check()" placeholder="비밀번호를 입력하세요" required>
+          <input type="button" onclick="pwdChangeForm()" class="pwdChangeBtn" value="비밀번호 변경">
         </div>
-        <div class="form-group">
-          <label for="pwd2">비밀번호 확인</label>
-          <input type="password" id="pwd2" name="pwd2" oninput="pwd1Check()" placeholder="비밀번호를 다시 한번 입력하세요" required>
-        </div>
-	      <span id="pwdError" style="font-size: 12px; color: #5e0000; margin-top: 0; padding-top: 0; margin-bottom: 20px;"></span>
       </div>
       
-      <div class="row">
-        <div class="form-group">
-          <label for="name">이름</label>
-          <input type="text" id="name" name="name" value="${vo.name}" oninput="nameCheck()" required>
-		      <span id="nameError" style="font-size: 13px; color: #5e0000;"></span>
-        </div>
-      </div>
-        <!-- 업체명 -->
-				<div class="form-group">
-				  <label for="company">업체명</label>
-				  <div class="relative-container">
-				    <input type="text" id="company" name="company" value="" required>
-				    <button type="button" class="btn-inside" onclick="companyCheck()">중복체크</button>
-				  </div>
-				</div>
-
-      <!-- 사업자 등록번호 -->
       <div class="form-group">
-        <label for="businessNumber">사업자 등록번호</label>
-        <input type="text" id="businessNumber" name="businessNumber" oninput="businessNumberCheck()" maxlength="10" placeholder="-없이 입력해주세요" required>
-	      <span id="businessNumberError" style="font-size: 12px; color: #5e0000; margin: 2px 15%;"></span>
+        <label for="name"><font color="red">*</font> 이름</label>
+        <input type="text" id="name" name="name" value="${vo.name}" oninput="nameCheck()" required>
+	      <span id="nameError" style="font-size: 13px; color: #5e0000;"></span>
       </div>
+
+      <!-- 생년월일 -->
+      <div class="form-group">
+        <label for="birthday"><font color="red">*</font> 생년월일</label>
+        <input type="date" id="birthday" name="birthday" value="${fn: substring(vo.birthday, 0, 10)}" required>
+      </div>
+      
+      <!-- 성별 -->
+      <div class="form-group">
+			  <label><font color="red">*</font> 성별</label>
+			  <div class="radio-group">
+			    <input type="radio" id="male" name="gender" value="male" ${vo.gender == '남자' ? 'checked' : ''} checked>
+			    <label for="male">남자</label>
+			    <input type="radio" id="female" name="gender" value="female" ${vo.gender == '여자' ? 'checked' : ''}>
+			    <label for="female">여자</label>
+			  </div>
+			</div>
 
 			<!-- 이메일 -->
 			<div class="form-group">
-			  <label for="email">이메일</label>
+			  <label for="email"><font color="red">*</font> 이메일</label>
 			  <div class="relative-container">
-			    <input type="email" id="email" name="email" placeholder="example@domain.com" required>
-			    <button type="button" class="btn-inside" onclick="emailCheck()">인증</button>
+			  	<div class="emailChangeContainer">
+				    <input type="email" id="email" name="email" style="background-color: #ddd;" placeholder="example@domain.com" value="${vo.email}" required readonly>
+				    <button type="button" class="btn-inside" onclick="emailchange()">변경</button>
+			    </div>
 			  </div>
 				<span id="demoSpin"></span>
 			</div>
-
+			
       <!-- 전화번호 -->
+      <c:set var="tel" value="${fn: split(vo.tel, '-')}"/>
       <div class="row">
         <div class="form-group">
-				  <label for="phone">전화번호</label>
+				  <label for="phone"><font color="red">*</font> 전화번호</label>
 				  <div class="phone-group">
 				    <select class="form-select" id="tel1" name="tel1">
-				      <option value="010" selected>010</option>
-				      <option value="02">02</option>
-				      <option value="032">032</option>
-				      <option value="033">033</option>
-				      <option value="041">041</option>
-				      <option value="042">042</option>
-				      <option value="043">043</option>
+				      <option ${tel[0] == '010' ? 'selected' : ''} value="010" selected>010</option>
+				      <option ${tel[0] == '02' ? 'selected' : ''} value="02">02</option>
+				      <option ${tel[0] == '032' ? 'selected' : ''} value="032">032</option>
+				      <option ${tel[0] == '033' ? 'selected' : ''} value="033">033</option>
+				      <option ${tel[0] == '041' ? 'selected' : ''} value="041">041</option>
+				      <option ${tel[0] == '042' ? 'selected' : ''} value="042">042</option>
+				      <option ${tel[0] == '043' ? 'selected' : ''} value="043">043</option>
 				    </select>
 				    <span>-</span>
-				    <input type="text" id="tel2" name="tel2" onkeyup="telCheck()" maxlength="4" placeholder="XXXX" required>
+				    <input type="text" id="tel2" name="tel2" onkeyup="telCheck()" maxlength="4" placeholder="XXXX" value="${tel[1]}" required>
 				    <span>-</span>
-				    <input type="text" id="tel3" name="tel3" onkeyup="telCheck()" maxlength="4" placeholder="XXXX" required>
+				    <input type="text" id="tel3" name="tel3" onkeyup="telCheck()" maxlength="4" placeholder="XXXX" value="${tel[2]}" required>
 				  </div>
 					<span id="telError" style="font-size: 13px; color: #5e0000; margin: 2px 8%;"></span>
 				</div>
@@ -676,31 +770,29 @@
 
       <!-- 주소 -->
 			<div id="homeAddressInput" class="form-group">
-		    <label>주소</label>
+				<c:set var="address" value="${fn: split(vo.address, '/')}"/>
+		    <label><font color="red">*</font> 주소</label>
 		    <div class="address-group">
 	        <div>
-            <input type="text" id="sample6_postcode" name="postcode" onclick="sample6_execDaumPostcode()" placeholder="우편번호" readonly required/>
+            <input type="text" id="sample6_postcode" name="postcode" onclick="sample6_execDaumPostcode()" placeholder="우편번호" value="${address[0]}" readonly required/>
             <button type="button" class="postcode-button" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
 	        </div>
-	        <input type="text" id="sample6_address" name="address1" onclick="sample6_execDaumPostcode()" placeholder="주소" readonly>
-	        <input type="text" id="sample6_extraAddress" onclick="sample6_execDaumPostcode()" name="extraAddress" placeholder="참고항목" readonly>
-	        <input type="text" id="sample6_detailAddress" name="detailAddress" placeholder="상세주소">
+	        <input type="text" id="sample6_address" name="address1" onclick="sample6_execDaumPostcode()" value="${address[1]}" placeholder="주소" readonly>
+	        <input type="text" id="sample6_extraAddress" onclick="sample6_execDaumPostcode()" value="${address[2]}" name="extraAddress" placeholder="참고항목" readonly>
+	        <input type="text" id="sample6_detailAddress" name="detailAddress" value="${address[3]}" placeholder="상세주소">
 		    </div>
 			</div>
       <input type="hidden" id="address" name="address">
 			
-
-      <!-- 소개 -->
-      <div class="form-group">
-        <label for="description">업체 소개</label>
-        <textarea id="description" name="description" rows="3" placeholder="업체를 소개해주세요."></textarea>
-      </div>
-
       <!-- 제출 버튼 -->
       <div class="form-actions">
         <button type="button" class="btn btn-cancel" onclick="location.href='${ctp}/'">취소</button>
         <button type="button" onclick="fCheck()" class="btn btn-submit">신청하기</button>
       </div>
+      <button type="button" onclick="userLeavel()" class="userLeave">회원탈퇴</button>
+      <div id="modalOverlay" class="modal-overlay" onclick="closePwdChangeForm()"></div>
+				<div id="pwdChangeForm" class="pwdChangeForm">
+			</div>
     </form>
   </div>
 </body>

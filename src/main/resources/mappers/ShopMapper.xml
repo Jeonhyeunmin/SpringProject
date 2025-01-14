@@ -80,6 +80,10 @@
 		select * from shop where idx = #{idx};
 	</select>
 	
+	<select id="getCouponInfo" resultType="com.spring.javaGroupS6.vo.CouponVO">
+		select * from coupon where idx = #{idx};
+	</select>
+	
 	<insert id="shopInput">
 		insert into shop values (default, #{vo.mid}, #{vo.company}, #{vo.category}, #{vo.mainCategory}, #{vo.subCategory}, #{vo.title}, #{vo.discount}, #{vo.price}, #{vo.option}, #{vo.thumbnail}, #{vo.titleImg}, #{vo.content}, #{vo.fSize}, default, default, default);
 	</insert>
@@ -94,6 +98,10 @@
 	
 	<insert id="setCartInput">
 		insert into shopCart values(default, #{vo.mid}, #{vo.shopIdx}, #{vo.thumbnail}, #{vo.shopTitle}, #{vo.optionSelect}, #{vo.quantity}, #{vo.totalPrice}, default);
+	</insert>
+	
+	<insert id="setShopOrder">
+		insert into shopOrder values(default, #{vo.shopIdx}, #{vo.mid}, #{vo.shopTitle}, #{vo.price}, #{vo.quantity}, #{vo.discount}, #{vo.couponIdx}, #{vo.coupon}, #{vo.couponDiscount}, #{vo.pay}, #{vo.totalPrice}, #{vo.usePoint}, #{vo.addPoint}, #{vo.thumbnail}, #{vo.optionSelect}, default);
 	</insert>
 	
 	<update id="setShopUpdate">
@@ -120,6 +128,10 @@
 		update shopCart set quantity = quantity + #{quantity}, totalPrice = #{totalPrice} where idx = #{idx};
 	</update>
 	
+	<update id="setUseCoupon">
+		update coupon set status = 'used', useDate = now() where idx = #{vo.couponIdx};
+	</update>
+	
 	<delete id="setShopDelete">
 		delete from shop where idx = #{idx};
 	</delete>
@@ -130,6 +142,10 @@
 	
 	<delete id="setCartDelete">
 		delete from shopCart where idx = #{idx};
+	</delete>
+	
+	<delete id="setCartDeleteAll">
+		delete from shopCart where idx = #{cartIdx};
 	</delete>
 	
 </mapper>

@@ -21,14 +21,14 @@ public class MessageController {
 		
 		String company = (String)session.getAttribute("sCompany");
 		String name = (String)session.getAttribute("sName");
-		int level = session.getAttribute("sLevel") == null ? 0 : (int)session.getAttribute("sLevel");
+		int level = session.getAttribute("sLevel") == null ? 999 : (int)session.getAttribute("sLevel");
 		String pwdChange = session.getAttribute("sPwdChange") == null ? "yes" : (String)session.getAttribute("sPwdChange");
 		
 		if(pwdChange.equals("no") && msgFlag.equals("loginOk") && level == 1) {
 			model.addAttribute("message", "임시비밀번호 발급 후 비밀번호를 변경하지 않으셨습니다");
 			model.addAttribute("url", "");
 		}
-		else if(level == 1&& msgFlag.equals("loginOk")) {
+		else if((level == 1 || level == 0) && msgFlag.equals("loginOk")) {
 			model.addAttribute("message", name + "님 반갑습니다.");
 			model.addAttribute("url", "/");
 		}
@@ -41,7 +41,7 @@ public class MessageController {
 			model.addAttribute("url", "/");
 		}
 		else if(msgFlag.equals("joinOk")) {
-			model.addAttribute("message", "회원가입 성공 \n다시 로그인해주세요");
+			model.addAttribute("message", "회원가입 성공 다시 로그인해주세요");
 			model.addAttribute("url", "/");
 		}
 		else if(msgFlag.equals("joinNo")) {
@@ -49,7 +49,7 @@ public class MessageController {
 			model.addAttribute("url", "/");
 		}
 		else if(msgFlag.equals("partnerJoinOk")) {
-			model.addAttribute("message", "파트너 신청이 완료되었습니다 \n관리자 승인 후 게시물 등록 가능합니다.");
+			model.addAttribute("message", "파트너 신청이 완료되었습니다 관리자 승인 후 게시물 등록 가능합니다.");
 			model.addAttribute("url", "/");
 		}
 		else if(msgFlag.equals("partnerJoinNo")) {
@@ -69,7 +69,7 @@ public class MessageController {
 			model.addAttribute("url", "shop/shopUpdate?idx=" + idx);
 		}
 		else if(msgFlag.equals("shopInputOk")) {
-			model.addAttribute("message", "게시물 등록이 완료되었습니다. \n관리자 승인 후 게시물이 노출됩니다.");
+			model.addAttribute("message", "게시물 등록이 완료되었습니다. 관리자 승인 후 게시물이 노출됩니다.");
 			model.addAttribute("url", "");
 		}
 		
@@ -99,8 +99,8 @@ public class MessageController {
 			model.addAttribute("url", "");
 		}
 		else if(msgFlag.equals("pwdChangeNo")) {
-			model.addAttribute("message", "실패");
-			model.addAttribute("url", "common/pwdFind");
+			model.addAttribute("message", "임시 비밀번호 발급 후 변경을 하시지 않으셨습니다.");
+			model.addAttribute("url", "common/myPage");
 		}
 		else if(msgFlag.equals("reviewInputOk")) {
 			model.addAttribute("message", "Min's 포인트가 10포인트가 지급되었습니다.");
@@ -115,7 +115,7 @@ public class MessageController {
 			model.addAttribute("url", "");
 		}
 		else if(msgFlag.equals("leaveUser")) {
-			model.addAttribute("message", "탈퇴신청 회원입니다.\n관리자에게 문의해주세요");
+			model.addAttribute("message", "탈퇴신청 회원입니다. 관리자에게 문의해주세요.");
 			model.addAttribute("url", "");
 		}
 		else if(msgFlag.equals("leaveUser")) {
@@ -130,7 +130,30 @@ public class MessageController {
 			model.addAttribute("message", "실패");
 			model.addAttribute("url", "event/eventInput");
 		}
-		
+		else if(msgFlag.equals("memberUpdateOk")) {
+			model.addAttribute("message", "정보가 업데이트 되었습니다");
+			model.addAttribute("url", "common/myPage");
+		}
+		else if(msgFlag.equals("memberUpdateNo")) {
+			model.addAttribute("message", "정보가 업데이트 되었습니다");
+			model.addAttribute("url", "member/memberUpdate");
+		}
+		else if(msgFlag.equals("memberUserLeaveOk")) {
+			model.addAttribute("message", "회원 탈퇴가 신청되었습니다.");
+			model.addAttribute("url", "common/logout");
+		}
+		else if(msgFlag.equals("memberUserLeaveNo")) {
+			model.addAttribute("message", "탈퇴 신청 실패");
+			model.addAttribute("url", "");
+		}
+		else if(msgFlag.equals("memberPwdCheckNo")) {
+			model.addAttribute("message", "비밀번호를 다시 확인해주세요.");
+			model.addAttribute("url", "member/memberPwdCheck");
+		}
+		else if(msgFlag.equals("paymentResult")) {
+			model.addAttribute("message", "결제가 완료되었습니다");
+			model.addAttribute("url", "shop/shopOrderOk");
+		}
 		return "include/message";
 	}
 	

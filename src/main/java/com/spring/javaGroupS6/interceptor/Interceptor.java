@@ -28,6 +28,17 @@ public class Interceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
 		int level = session.getAttribute("sLevel") == null ? 999 : (int)session.getAttribute("sLevel");
 		
+		if(level == 99){
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/message/leaveUser");
+			dispatcher.forward(request, response);
+			return false;
+		}
+		if(level >= 999) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/message/loginError");
+			dispatcher.forward(request, response);
+			return false;
+		}
+		
 		Cookie[] cookies = request.getCookies();
 		String productList = "";
 		if(cookies != null) {
@@ -57,14 +68,8 @@ public class Interceptor extends HandlerInterceptorAdapter{
 	        }
 	    }
 		}
-
-		request.setAttribute("cookieVos", cookieVos);
 		
-		if(level > 999){
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/message/leaveUser");
-			dispatcher.forward(request, response);
-			return false;
-		}
+		request.setAttribute("cookieVos", cookieVos);
 		
 		return true;
 	}

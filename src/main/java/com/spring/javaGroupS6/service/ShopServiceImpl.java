@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import com.spring.javaGroupS6.common.JavaProvide;
 import com.spring.javaGroupS6.dao.ShopDAO;
+import com.spring.javaGroupS6.vo.CouponVO;
 import com.spring.javaGroupS6.vo.MainCategoryVO;
 import com.spring.javaGroupS6.vo.ReviewLikesVO;
 import com.spring.javaGroupS6.vo.ShopCartVO;
@@ -300,5 +301,25 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public int setCartDelete(int idx) {
 		return shopDAO.setCartDelete(idx);
+	}
+	
+	@Override
+	public CouponVO getCouponInfo(int idx) {
+		return shopDAO.getCouponInfo(idx);
+	}
+	
+	@Override
+	public void setShopOrder(ShopOrderVO vo) {
+		shopDAO.setShopOrder(vo);
+	}
+	
+	@Override
+	public void setCartDeleteAll(int cartIdx) {
+		shopDAO.setCartDeleteAll(cartIdx);
+	}
+	
+	@Override
+	public void setUseCoupon(ShopOrderVO vo) {
+		shopDAO.setUseCoupon(vo);
 	}
 }

@@ -244,7 +244,7 @@
 <div class="container">
   <div class="info">
     <div class="info-tab">
-	  	<div class="profile"><img src="${ctp}/login/${vo.photo}"/></div>
+	  	<div class="profile"><img src="${ctp}/member/${vo.photo}"/></div>
 	  	<div class="info-detail">
 	      <div class="name">${vo.name} 님</div>
 	      <div class="id">${vo.mid}</div>

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 
+import com.spring.javaGroupS6.vo.CouponVO;
 import com.spring.javaGroupS6.vo.MainCategoryVO;
 import com.spring.javaGroupS6.vo.ReviewLikesVO;
 import com.spring.javaGroupS6.vo.ShopCartVO;
@@ -78,4 +79,13 @@ public interface ShopService {
 	ShopOrderVO getOneOrder(int idx);
 
 	int setCartDelete(int idx);
+
+	CouponVO getCouponInfo(int idx);
+
+	void setShopOrder(ShopOrderVO vo);
+
+	void setCartDeleteAll(int cartIdx);
+
+	void setUseCoupon(ShopOrderVO vo);
+
 }
