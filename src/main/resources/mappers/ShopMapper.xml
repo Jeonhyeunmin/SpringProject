@@ -73,11 +73,11 @@
 	</select>
 	
 	<select id="getIdxCart" resultType="com.spring.javaGroupS6.vo.ShopOrderVO">
-		select sc.*, s.discount, s.price from shopCart sc, shop s where sc.idx = #{idx} and s.idx = sc.shopIdx;
+		select sc.*, s.discount, s.price, s.company, s.mid as partnerMid from shopCart sc, shop s where sc.idx = #{idx} and s.idx = sc.shopIdx;
 	</select>
 	
 	<select id="getOneOrder" resultType="com.spring.javaGroupS6.vo.ShopOrderVO">
-		select * from shop where idx = #{idx};
+		select *, title as shopTitle, mid as partnerMid from shop where idx = #{idx};
 	</select>
 	
 	<select id="getCouponInfo" resultType="com.spring.javaGroupS6.vo.CouponVO">
@@ -101,7 +101,7 @@
 	</insert>
 	
 	<insert id="setShopOrder">
-		insert into shopOrder values(default, #{vo.shopIdx}, #{vo.mid}, #{vo.shopTitle}, #{vo.price}, #{vo.quantity}, #{vo.discount}, #{vo.couponIdx}, #{vo.coupon}, #{vo.couponDiscount}, #{vo.pay}, #{vo.totalPrice}, #{vo.usePoint}, #{vo.addPoint}, #{vo.thumbnail}, #{vo.optionSelect}, default);
+		insert into shopOrder values(default, #{vo.shopIdx}, #{vo.mid}, #{vo.partnerMid}, #{vo.company}, #{vo.shopTitle}, #{vo.price}, #{vo.quantity}, #{vo.discount}, #{vo.couponIdx}, #{vo.coupon}, #{vo.couponDiscount}, #{vo.pay}, #{vo.totalPrice}, #{vo.usePoint}, #{vo.addPoint}, #{vo.thumbnail}, #{vo.optionSelect}, default, default, default, default);
 	</insert>
 	
 	<update id="setShopUpdate">

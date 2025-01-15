@@ -1,5 +1,7 @@
 package com.spring.javaGroupS6.contoller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -19,6 +21,7 @@ import com.spring.javaGroupS6.service.CommonService;
 import com.spring.javaGroupS6.service.MemberService;
 import com.spring.javaGroupS6.vo.CouponVO;
 import com.spring.javaGroupS6.vo.MemberVO;
+import com.spring.javaGroupS6.vo.ShopOrderVO;
 
 @Controller
 @RequestMapping("/member")
@@ -47,6 +50,38 @@ public class MemberContoller {
 		return "member/customerPage";
 	}
 	
+	@GetMapping("/header")
+	public String headerGet(Model model, HttpSession session) {
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		MemberVO vo = commonService.getMemberIdSearch(mid);
+		ArrayList<CouponVO> couponVOS = memberService.getMyCoupon(mid);
+		
+		model.addAttribute("couponVOS", couponVOS);
+		model.addAttribute("vo", vo);
+		return "/member/myPageHeader";
+	}
+	
+	@GetMapping("/nav")
+	public String navGet(Model model, HttpSession session) {
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		MemberVO vo = commonService.getMemberIdSearch(mid);
+		
+		model.addAttribute("vo", vo);
+		return "/member/myPageNav";
+	}
+	
+	@GetMapping("/content")
+	public String contentGet(Model model, HttpSession session) {
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		MemberVO vo = commonService.getMemberIdSearch(mid);
+		
+		ArrayList<ShopOrderVO> orderVOS = memberService.getMyOrder(mid);
+		
+		model.addAttribute("orderVOS", orderVOS);
+		model.addAttribute("vo", vo);
+		return "/member/myPageContent";
+	}
+	
 	
 	@GetMapping("/memberPwdCheck")
 	public String memberPwdCheckGet(Model model, HttpSession session) {
@@ -55,7 +90,7 @@ public class MemberContoller {
 		
 		model.addAttribute("vo", vo);
 		model.addAttribute("title", vo.getName() + "님 정보수정");
-		return "member/memberPwdCheck";
+		return "/member/memberPwdCheck";
 	}
 	
 	@PostMapping("/pwdCheck")
@@ -66,7 +101,7 @@ public class MemberContoller {
 		if(passwordEncoder.matches(pwd, vo.getPwd())) {
 			model.addAttribute("vo", vo);
 			model.addAttribute("title", vo.getName() + "님 정보수정");
-			return "member/memberUpdate";
+			return "/member/memberUpdate";
 		}
 		else {
 			return "redirect:/message/memberPwdCheckNo";
@@ -80,7 +115,7 @@ public class MemberContoller {
 		
 		model.addAttribute("vo", vo);
 		model.addAttribute("title", vo.getName() + "님 정보수정");
-		return "member/memberPwdCheck";
+		return "/member/memberPwdCheck";
 	}
 	
 	@PostMapping("/memberUpdate")
@@ -134,5 +169,44 @@ public class MemberContoller {
 		return res; 
 	}
 	
+	@GetMapping("/myOrder")
+	public String myOrderGet(Model model, HttpSession session) {
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		MemberVO vo = commonService.getMemberIdSearch(mid);
+		
+		ArrayList<ShopOrderVO> orderVOS = memberService.getMyOrder(mid);
+		
+		model.addAttribute("orderVOS", orderVOS);
+		model.addAttribute("vo", vo);
+		return "/member/myOrder"; 
+	}
+	
+	@GetMapping("/shopCancle")
+	public String shopCancleGet(Model model, HttpSession session) {
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		MemberVO vo = commonService.getMemberIdSearch(mid);
+		
+		ArrayList<ShopOrderVO> orderVOS = memberService.getMyOrder(mid);
+		
+		model.addAttribute("orderVOS", orderVOS);
+		model.addAttribute("vo", vo);
+		return "/member/shopCancle"; 
+	}
+	
+	@ResponseBody
+	@PostMapping("/buyDecide")
+	public int buyDecidePost(int idx) {
+		int res = 0;
+		res = memberService.setBuyDecide(idx);
+		return res; 
+	}
+	
+	@ResponseBody
+	@PostMapping("/orderExchange")
+	public int orderExchangePost(int idx) {
+		int res = 0;
+		res = memberService.setorderExchange(idx);
+		return res; 
+	}
 	
 }

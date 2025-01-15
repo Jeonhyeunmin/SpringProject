@@ -132,7 +132,7 @@
 	        </div>
 	        <!-- 하단 버튼 -->
 	        <div class="form-footer">
-	          <button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/shop/shopContent?idx=${vo.idx}'">취소하기</button>
+	          <button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/member/content'">취소하기</button>
 	          <button type="button" onclick="reviewCheck()" class="btn btn-primary">등록하기</button>
 	        </div>
 	        <!-- Hidden fields -->

@@ -338,25 +338,15 @@
   <style>
     body {
       font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-      display: flex;
       justify-content: center;
       align-items: center;
       margin: 0;
     }
 
-    .container {
+    .container-fluid {
       background: #fff;
       border-radius: 15px;
       padding: 30px 20px;
-    }
-
-    h2 {
-      font-size: 26px;
-      text-align: center;
-      margin-bottom: 30px;
-      color: #5e0000;
-      text-transform: uppercase;
-      letter-spacing: 1px;
     }
 
     .form-group {
@@ -674,10 +664,8 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container-fluid">
     <form name="joinForm" method="post" enctype="multipart/form-data" action="${ctp}/member/memberUpdate">
-      <h2>정보수정</h2>
-
       <div class="form-group nowImg">
         <div class="section-title">현재 적용 이미지</div>
       	<img src="${ctp}/member/${vo.photo}" alt="이미지 미리보기" style="max-width: 100px; max-height: 100px;">
@@ -786,7 +774,7 @@
 			
       <!-- 제출 버튼 -->
       <div class="form-actions">
-        <button type="button" class="btn btn-cancel" onclick="location.href='${ctp}/'">취소</button>
+        <button type="button" class="btn btn-cancel" onclick="location.href='${ctp}/member/content'">취소</button>
         <button type="button" onclick="fCheck()" class="btn btn-submit">신청하기</button>
       </div>
       <button type="button" onclick="userLeavel()" class="userLeave">회원탈퇴</button>

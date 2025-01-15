@@ -23,5 +23,15 @@ public class ShopOrderVO {
 	
 	private int usePoint;
 	private int addPoint;
+	private String review;
+	private String delivery;
+	private String decide;
+	
+	private String company;
+	private String partnerMid;
+	private String buyerName;
+	private String buyerAddress;
+	private String buyerTel;
+	private String buyerEmail;
 	
 }

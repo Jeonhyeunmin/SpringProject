@@ -27,7 +27,7 @@
 	</insert>
 	
 	<insert id="setpartnerJoin">
-	  INSERT INTO partner VALUES (default, #{vo.logo}, #{vo.mid}, #{vo.pwd}, #{vo.company}, #{vo.ceoName}, #{vo.businessNumber}, #{vo.email}, #{vo.tel}, #{vo.address}, #{vo.userInfor}, #{vo.level}, default, default, default, default);
+	  INSERT INTO partner VALUES (default, #{vo.logo}, #{vo.mid}, #{vo.pwd}, #{vo.company}, #{vo.ceoName}, #{vo.businessNumber}, #{vo.email}, #{vo.tel}, #{vo.address}, #{vo.level}, default, default, default, default);
 	</insert>
 	
 	<update id="setMemberUpdate">

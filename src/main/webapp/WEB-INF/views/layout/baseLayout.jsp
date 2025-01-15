@@ -21,17 +21,12 @@
     header {
       flex-shrink: 0;
       width: 100%;
-      background-color: #f8f9fa;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
     footer {
       flex-shrink: 0;
       width: 100%;
-      background-color: #343a40;
-      color: #fff;
       text-align: center;
-      padding: 10px 0;
-      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     }
       
       		/* 위로가기 버튼 */

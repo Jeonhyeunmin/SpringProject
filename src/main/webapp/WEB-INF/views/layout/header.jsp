@@ -488,21 +488,9 @@
 							    </ul>
 								</li>
                 <li class="nav-item">
-							    <a href="#" class="nav-link">BRAND</a>
-							    <ul class="submenu" style="flex-wrap: wrap; justify-content: center; gap: 20px;">
-							        <c:forEach begin="1" end="3">
-							            <li style="list-style: none; text-align: center;">
-							                <a href="#" style="display: block;">
-							                    <img src="${ctp}/main/main1.jpg" width="400px" style="display: block; margin: 0 auto;">
-							                    <p style="margin-top: 10px; font-size: 14px; color: #333;">브랜드 이름 ${index}</p>
-							                </a>
-							            </li>
-							        </c:forEach>
-							    </ul>
-								</li>
-                <li class="nav-item">
                   <a href="${ctp}/event/event" class="nav-link">EVENT</a>
                 </li>
+                <li class="nav-item"><a href="${ctp}/common/info" class="nav-link">INFO</a></li>
             </ul>
 
             <!-- 액션 -->

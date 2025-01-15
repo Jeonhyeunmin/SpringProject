@@ -119,7 +119,9 @@ public class ShopContoller {
 	
 	@GetMapping("/shopSubList")
 	public String shopSubListGet(Model model, String subCategory,
-			@RequestParam(name = "company", defaultValue = "all") String company			
+			@RequestParam(name = "company", defaultValue = "all") String company,			
+			@RequestParam(name = "alignColumn", defaultValue = "") String alignColumn,			
+			@RequestParam(name = "align", defaultValue = "asc") String align			
 	) {
 		ArrayList<ShopVO> allList = shopService.getShopList(subCategory, "subCategory", "yes", "");
 		ArrayList<ShopVO> vos = shopService.getShopList(subCategory, "subCategory", "yes", company);
@@ -270,7 +272,7 @@ public class ShopContoller {
 		ArrayList<ShopVO> vos = shopService.getList();
 		model.addAttribute("title", "게시물 등록");
 		model.addAttribute("vos", vos);
-		return "shop/shopInput";
+		return "/shop/shopInput";
 	}
 	
 	@PostMapping("/shopInput")
@@ -309,7 +311,7 @@ public class ShopContoller {
 		ShopVO vo = shopService.getShopContent(idx);
 		model.addAttribute("title", vo.getTitle() + "리뷰 등록 | Min's");
 		model.addAttribute("vo", vo);
-		return "shop/shopReview";
+		return "/shop/shopReview";
 	}
 	
 	@PostMapping("/shopReviewInput")
@@ -457,13 +459,16 @@ public class ShopContoller {
 			@RequestParam(name = "totalPrice", defaultValue = "0", required = false) int totalPrice, 
 			String idxArr, String quantityArr, String totalPriceArr
 	) {
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		
 		ShopOrderVO vo = null;
 		ArrayList<ShopOrderVO> vos = new ArrayList<ShopOrderVO>();
+		
+		int pay = 0;
 		if(idx == 0) {
 			String[] cartIdx = idxArr.split("/"); 
 			String cartQuantity[] = quantityArr.split("/"); 
 			String cartTotalPrice[] = totalPriceArr.split("/");
-			int pay = 0;
 			for(int i = 0; i < cartIdx.length; i++) {
 				vo = shopService.getIdxCart(cartIdx[i]);
 				pay = Integer.parseInt(cartTotalPrice[i]) / Integer.parseInt(cartQuantity[i]);
@@ -476,13 +481,16 @@ public class ShopContoller {
 		}
 		else {
 			vo = shopService.getOneOrder(idx);
+			vo.setMid(mid);
 			vo.setShopIdx(idx);
+			pay = totalPrice / quantity;
+			vo.setPay(pay);
+			
 			vo.setQuantity(quantity);
 			vo.setTotalPrice(totalPrice);
 			vos.add(vo);
 		}
-		
-		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		System.out.println("vos : " + vos);
 		MemberVO memberVO = commonService.getMemberIdSearch(mid);
 		session.setAttribute("sOrderVOS", vos);
 		
@@ -586,7 +594,9 @@ public class ShopContoller {
 
 		for(ShopOrderVO vo : orderVos) {
 			shopService.setShopOrder(vo);
-			shopService.setCartDeleteAll(vo.getCartIdx());
+			if(vo.getCartIdx() != 0) {
+				shopService.setCartDeleteAll(vo.getCartIdx());
+			}
 			shopService.setUseCoupon(vo);
 		}
 		String mid = orderVos.get(0).getMid();
@@ -600,7 +610,6 @@ public class ShopContoller {
 	@GetMapping("/shopOrderOk")
 	public String shopOrderOkGet(HttpSession session, Model model) {
 		List<ShopOrderVO> orderVos = (List<ShopOrderVO>) session.getAttribute("sOrderVOS");
-		session.removeAttribute("sOrderVOS");
 		model.addAttribute("orderVos", orderVos);
 		model.addAttribute("title", "구매내역");
 		

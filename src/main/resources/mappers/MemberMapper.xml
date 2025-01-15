@@ -5,6 +5,10 @@
 	<select id="getMyCoupon" resultType="com.spring.javaGroupS6.vo.CouponVO">
 		select * from coupon where mid = #{mid} and status = 'active' and curdate() between startDate and endDate;
 	</select>
+
+	<select id="getMyOrder" resultType="com.spring.javaGroupS6.vo.ShopOrderVO">
+		select * from shopOrder where mid = #{mid} order by orderDate desc;
+	</select>
 	
 	<update id="setMemberUpdate">
 		update customer set name = #{vo.name}, gender = #{vo.gender}, birthday = #{vo.birthday}, tel = #{vo.tel}, address = #{vo.address}, email = #{vo.email}, photo = #{vo.photo} where mid = #{vo.mid};
@@ -20,6 +24,14 @@
 	
 	<update id="setPointUpdate">
 		update customer set point = point + #{addPoint}, point = point - #{usePoint} where mid = #{mid};
+	</update>
+	
+	<update id="setBuyDecide">
+		update shopOrder set decide = '구매확정' where idx = #{idx};
+	</update>
+	
+	<update id="setorderExchange">
+		update shopOrder set decide = '교환 및 환불' where idx = #{idx};
 	</update>
 
 

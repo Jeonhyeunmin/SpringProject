@@ -84,11 +84,11 @@ public class CommonContoller {
 		
 		MemberVO memberVO = commonService.getMemberIdSearch(mid);
 		PartnerVO partnerVO = commonService.getPartnerIdSearch(mid);
-		int level = memberVO.getLevel();
-		String pwdChange = memberVO.getPwdChange();
-		
+		int level = 0;
 		
 		if(memberVO != null && (memberVO.getMid().equals(mid) && passwordEncoder.matches(pwd, memberVO.getPwd()))) {
+			level = memberVO.getLevel();
+			String pwdChange = memberVO.getPwdChange();
 			
 			session.setAttribute("sMid", mid);
 			session.setAttribute("sLevel", memberVO.getLevel());
@@ -389,5 +389,11 @@ public class CommonContoller {
 			res = "1";
 		}
 		return res;
+	}
+	
+	@GetMapping("/info")
+	public String infoGet() {
+		
+		return "common/info";
 	}
 }

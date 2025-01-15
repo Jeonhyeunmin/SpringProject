@@ -10,14 +10,12 @@
   	footer {
 		  font-family: 'GmarketSansMedium';
 		  overflow-x: hidden;
-		  background-color: #a67d3f;
 		  padding: 1.5%;
 		}
 		
 		hr.footer-hr {
 		    border: 0;
 		    height: 1.5px;
-		    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
 		    margin: 0;
 		    margin-bottom: 10px;
 		}

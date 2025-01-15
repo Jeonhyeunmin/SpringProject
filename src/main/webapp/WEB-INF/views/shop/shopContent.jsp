@@ -1042,7 +1042,6 @@
 	  		<div class="content">
 	  			${vo.content}
 	  		</div>
-  			<div><button class="reviewButton" onclick="location.href='${ctp}/shop/shopReview?idx=${vo.idx}'">리뷰 작성</button></div>
   			<c:if test="${!empty reviewVOS}">
 		  		<div class="review">
 					  <div class="review-header">

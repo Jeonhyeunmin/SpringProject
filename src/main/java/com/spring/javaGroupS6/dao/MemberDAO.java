@@ -20,5 +20,11 @@ public interface MemberDAO {
 
 	void setPointUpdate(@Param("addPoint") int addPoint, @Param("usePoint") int usePoint, @Param("mid") String mid);
 
+	ArrayList<ShopOrderVO> getMyOrder(@Param("mid") String mid);
+
+	int setBuyDecide(@Param("idx") int idx);
+
+	int setorderExchange(@Param("idx") int idx);
+
 
 }

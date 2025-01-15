@@ -83,4 +83,19 @@ public class MemberServiceImpl implements MemberService {
 	public void setPointUpdate(int addPoint, int usePoint, String mid) {
 		memberDAO.setPointUpdate(addPoint, usePoint, mid);
 	}
+
+	@Override
+	public ArrayList<ShopOrderVO> getMyOrder(String mid) {
+		return memberDAO.getMyOrder(mid);
+	}
+
+	@Override
+	public int setBuyDecide(int idx) {
+		return memberDAO.setBuyDecide(idx);
+	}
+
+	@Override
+	public int setorderExchange(int idx) {
+		return memberDAO.setorderExchange(idx);
+	}
 }

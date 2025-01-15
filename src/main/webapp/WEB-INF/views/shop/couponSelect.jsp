@@ -10,10 +10,23 @@
   <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
   
   <style type="text/css">
-  	table .couponList:hover{
-			background: #eee;
-			cursor: pointer;
+  	table {
+		  width: 100%;
+		  border-collapse: collapse;
+		  margin-bottom: 20px;
 		}
+		
+		table th{
+			background: #ddd;
+  	}
+		
+		table th, table td {
+		  padding: 15px;
+		  text-align: center;
+		  border: 1px solid #ddd;
+		}
+		
+		
   </style>
 </head>
 <body>

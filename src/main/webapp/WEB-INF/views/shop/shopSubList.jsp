@@ -216,12 +216,11 @@
 	</div>
   <div class="button-group">
   	<ul class="button-group-ul">
-			<li><button type="button" onclick="">많이팔린순</button></li>
-			<li><button type="button" onclick="">최근등록순</button></li>
-			<li><button type="button" onclick="">낮은가격순</button></li>
-			<li><button type="button" onclick="">높은가격순</button></li>
-			<li><button type="button" onclick="">상품평개수순</button></li>
-			<li><button type="button" onclick="location.href='${ctp}/shop/shopInput'">등록</button></li>
+			<li><button type="button" onclick="location.href='${ctp}/shop/shopSubList?subCategory=${subCategory}&company=${param.company}">많이팔린순</button></li>
+			<li><button type="button" onclick="location.href='${ctp}/shop/shopSubList?subCategory=${subCategory}&company=${param.company}">최근등록순</button></li>
+			<li><button type="button" onclick="location.href='${ctp}/shop/shopSubList?subCategory=${subCategory}&company=${param.company}">낮은가격순</button></li>
+			<li><button type="button" onclick="location.href='${ctp}/shop/shopSubList?subCategory=${subCategory}&company=${param.company}'">높은가격순</button></li>
+			<li><button type="button" onclick="location.href='${ctp}/shop/shopSubList?subCategory=${subCategory}&company=${param.company}">상품평개수순</button></li>
   	</ul>
 	</div>
 	

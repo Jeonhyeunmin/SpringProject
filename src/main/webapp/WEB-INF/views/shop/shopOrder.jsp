@@ -88,6 +88,11 @@
 		  border: 1px solid #ddd;
 		}
 		
+		table .couponList:hover{
+			background: #eee;
+			cursor: pointer;
+		}
+		
 		
 		table img {
 		  border-radius: 4px;

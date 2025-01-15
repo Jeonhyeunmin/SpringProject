@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.javaGroupS6.dao.PartnerDAO">
-
+	
+	<select id="getOrderList" resultType="com.spring.javaGroupS6.vo.ShopOrderVO">
+		select so.*, c.name as buyerName, c.email as buyerEmail, c.tel as buyerTel, c.address as buyerAddress from shopOrder so, customer c where c.mid = so.mid and so.partnerMid = #{mid};
+	</select>
+	
+	<select id="getShopList" resultType="com.spring.javaGroupS6.vo.ShopVO">
+		select * from shop where mid = #{mid};
+	</select>
+	
+	
+	<update id="setPartnerLeave">
+		update partner set userDel = 'YES', level = 99 where mid = #{mid};
+	</update>
 </mapper>

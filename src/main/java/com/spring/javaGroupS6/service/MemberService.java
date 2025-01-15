@@ -22,5 +22,11 @@ public interface MemberService {
 
 	void setPointUpdate(int addPoint, int usePoint, String mid);
 
+	ArrayList<ShopOrderVO> getMyOrder(String mid);
+
+	int setBuyDecide(int idx);
+
+	int setorderExchange(int idx);
+
 
 }
