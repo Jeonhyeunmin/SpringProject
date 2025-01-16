@@ -14,7 +14,6 @@
       margin: 0;
       padding: 0;
       font-family: 'Arial', sans-serif;
-      overflow: hidden; 
     }
 
     .menu-container {
@@ -77,6 +76,16 @@
   		}
 		}
 		
+		function shopInput() {
+		  if ("${vo.accept}" == "NO") {
+		    alert("관리자 승인 후 상품 등록이 가능합니다.");
+		    return false;
+		  }
+
+		  const url = "${ctp}/shop/shopInput";
+		  window.open(url, "partner");
+		}
+		
   </script>
 </head>
 <body>
@@ -86,7 +95,7 @@
       <div class="menu-title">상품관리</div>
       <ul>
         <li><a href="${ctp}/partner/shopList" target="partner">상품리스트</a></li>
-        <li><a href="${ctp}/shop/shopInput" target="partner">상품등록</a></li>
+        <li><a href="javascript:shopInput()">상품등록</a></li>
       </ul>
     </div>
 
@@ -94,25 +103,26 @@
       <div class="menu-title">판매관리</div>
       <ul>
         <li><a href="${ctp}/partner/orderList" target="partner">주문목록</a></li>
-        <li><a href="#">정산</a></li>
-        <li><a href="#">환불 및 반품</a></li>
-        <li><a href="#">마케팅</a></li>
+        <li><a href="${ctp}/partner/adjustment" target="partner">정산</a></li>
+        <li><a href="${ctp}/partner/exchange" target="partner">환불 및 반품</a></li>
+        <li><a href="${ctp}/partner/marketing" target="partner">마케팅</a></li>
       </ul>
     </div>
     
     <div class="menu-section">
       <div class="menu-title">고객관리</div>
       <ul>
-        <li><a href="${ctp}/" target="partner">문의</a></li>
-        <li><a href="#">리뷰</a></li>
+        <li><a href="">문의</a></li>
+        <li><a href="">리뷰</a></li>
+        <li><a href="${ctp}/partner/claimPost" target="partner">신고된 글</a></li>
       </ul>
     </div>
 
     <div class="menu-section">
       <div class="menu-title">계정관리</div>
       <ul>
-        <li><a href="" target="partner">계정 정보</a></li>
-        <li><a href="#">정산 계좌 관리</a></li>
+        <li><a href="">계정 정보</a></li>
+        <li><a href="">정산 계좌 관리</a></li>
         <li><a href="javascript:userLeavel()">회원 탈퇴</a></li> 
       </ul>
     </div>

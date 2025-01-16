@@ -3,15 +3,57 @@
 <mapper namespace="com.spring.javaGroupS6.dao.PartnerDAO">
 	
 	<select id="getOrderList" resultType="com.spring.javaGroupS6.vo.ShopOrderVO">
-		select so.*, c.name as buyerName, c.email as buyerEmail, c.tel as buyerTel, c.address as buyerAddress from shopOrder so, customer c where c.mid = so.mid and so.partnerMid = #{mid};
+		select so.*, c.name as buyerName, c.email as buyerEmail, c.tel as buyerTel, c.address as buyerAddress 
+		from shopOrder so, customer c 
+		where c.mid = so.mid 
+		and so.partnerMid = #{mid} 
+		<if test='status == "ready"'>and so.delivery = '배송준비'</if>
+		<if test='status == "exchange"'>and so.decide = '교환 및 환불'</if>
+		order by idx desc
+	</select>
+	
+	<select id="getOrderDetail" resultType="com.spring.javaGroupS6.vo.ShopOrderVO">
+		select so.*, c.name as buyerName, c.email as buyerEmail, c.tel as buyerTel, c.address as buyerAddress 
+		from shopOrder so, customer c 
+		where c.mid = so.mid 
+		and so.idx = #{idx} 
 	</select>
 	
 	<select id="getShopList" resultType="com.spring.javaGroupS6.vo.ShopVO">
 		select * from shop where mid = #{mid};
 	</select>
 	
+	<select id="getClaimPostList" resultType="com.spring.javaGroupS6.vo.ShopVO">
+		select * from shop where mid = #{mid} and claim = 'YES';
+	</select>
 	
 	<update id="setPartnerLeave">
 		update partner set userDel = 'YES', level = 99 where mid = #{mid};
 	</update>
+	
+	<update id="setDeliveryStart">
+		update shopOrder set delivery = '배송중' where idx = #{idx};
+	</update>
+	
+	<update id="setDeliveryEnd">
+		update shopOrder set delivery = '배송완료' where idx = #{idx} and delivery = '배송중';
+	</update>
+	
+	<update id="setDeliveryAll">
+		update shopOrder set delivery = '배송중' where partnerMid = #{mid} and delivery = '배송준비';
+	</update>
+	
+	<update id="setSelectDelivery">
+		update shopOrder set delivery = '배송중' where partnerMid = #{mid} and delivery = '배송준비' and idx = #{idx};
+	</update>
+	
+	<update id="setDeliveryFinish">
+		update shopOrder set delivery = '배송완료' where partnerMid = #{mid} and delivery = '배송중';
+	</update>
+	
+	<update id="setAdjustment">
+		update shopOrder set adjustment = 'ING' where idx = #{idx};
+	</update>
+	
+	
 </mapper>

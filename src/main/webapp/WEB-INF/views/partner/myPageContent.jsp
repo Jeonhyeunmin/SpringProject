@@ -165,11 +165,11 @@
           <i class="fa-solid fa-shopping-cart"></i>
           <span>주문 ${fn: length(orderVOS)}건</span>
         </div>
-        <div class="status-item">
+        <div class="status-item" onclick="location.href='${ctp}/partner/exchange'">
           <i class="fa-solid fa-undo"></i>
           <span>교환 및 환불 ${exchage}건</span>
         </div>
-        <div class="status-item">
+        <div class="status-item" onclick="location.href='${ctp}/partner/claimPost'">
           <i class="fa-solid fa-exclamation-triangle"></i>
           <span>신고글 ${claim}건</span>
         </div>
@@ -178,9 +178,9 @@
     <div class="recent-orders">
       <h3 style="font-weight: bold;">리뷰가 달린 게시물</h3>
       <c:if test="${empty orderVOS}">
-      <p>최근 구매 내역이 없습니다.</p>
+      <p>최근 리뷰가 달린 게시물이 없습니다.</p>
       </c:if>
-      <c:if test="${!empty orderVOS}">
+      <%-- <c:if test="${!empty orderVOS}">
 		    <div class="table-wrapper">
 				  <table>
 				    <thead>
@@ -205,9 +205,9 @@
 						    </c:if>
 						    <c:if test="${stop != true}">
 				        <tr onclick="window.open('${ctp}/shop/shopContent?idx=${orderVO.shopIdx}')">
-				          <td>${vo.name}</td>
-				          <td>${fn: replace(vo.address, '/', '')}</td>
-				          <td>${vo.tel}</td>
+				          <td>${orderVO.buyerName}</td>
+				          <td>${fn: replace(orderVO.buyerAddress, '/', '')}</td>
+				          <td>${orderVO.buyerTel}</td>
 				          <td>${orderVO.shopTitle}</td>
 				          <td>${orderVO.quantity}개</td>
 				          <c:if test="${empty orderVO.coupon}">
@@ -237,7 +237,7 @@
 				    </tbody>
 				  </table>
 				</div>
-			</c:if>
+			</c:if> --%>
 		</div>
   </div>
 </body>

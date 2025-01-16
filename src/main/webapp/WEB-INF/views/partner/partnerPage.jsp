@@ -12,7 +12,7 @@
     body, html {
       margin: 0;
       padding: 0;
-      height: 2300px;
+      height: 2500px;
     }
     #header {
       height: 200px;
@@ -45,11 +45,11 @@
 <body>
 		<div id="header">
 			<div style="margin-top: 3%;"></div>
-	    <iframe src="${ctp}/partner/header" name="customerPageHeader"></iframe>
+	    <iframe src="${ctp}/partner/header" name="partnerPageHeader"></iframe>
 	  </div>
 	  <div id="main">
 	    <div id="nav">
-	      <iframe src="${ctp}/partner/nav" name="customerPageNav"></iframe>
+	      <iframe src="${ctp}/partner/nav" name="partnerPageNav"></iframe>
 	    </div>
 	    <div id="content">
 	      <iframe src="${ctp}/partner/content" name="partner"></iframe>

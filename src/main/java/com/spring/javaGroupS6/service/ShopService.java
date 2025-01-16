@@ -23,7 +23,6 @@ public interface ShopService {
 
 	ArrayList<Integer> getSubCateCnt(String mainCategory);
 
-
 	ArrayList<Integer> getBrandCateCnt(String subCategory);
 
 	ShopVO getShopContent(int idx);
@@ -87,5 +86,7 @@ public interface ShopService {
 	void setCartDeleteAll(int cartIdx);
 
 	void setUseCoupon(ShopOrderVO vo);
+
+	void setReviewOk(int idx);
 
 }

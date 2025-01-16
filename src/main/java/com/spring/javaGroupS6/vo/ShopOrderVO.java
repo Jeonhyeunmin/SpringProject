@@ -26,6 +26,7 @@ public class ShopOrderVO {
 	private String review;
 	private String delivery;
 	private String decide;
+	private String adjustment;
 	
 	private String company;
 	private String partnerMid;
@@ -33,5 +34,8 @@ public class ShopOrderVO {
 	private String buyerAddress;
 	private String buyerTel;
 	private String buyerEmail;
+	
+	private int orderCnt;
+	private String vipName;
 	
 }

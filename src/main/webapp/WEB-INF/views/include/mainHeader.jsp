@@ -501,11 +501,12 @@
                 <a href="${ctp}/shop/shopCart" class="action-link"><i class="fas fa-shopping-cart"></i></a>
                 <ul class="nav">
                   <li class="nav-item">
-                    <c:if test="${empty sMid}"><a href="#" class="nav-link login" style="padding-left: 0; padding-right: 0;"><i class="fas fa-user"></i></a></c:if>
-                    <c:if test="${!empty sMid}"><a href="${ctp}/common/myPage" class="nav-link" style="padding-left: 0; padding-right: 0;"><i class="fas fa-user"></i></a></c:if>
+                    <c:if test="${empty sMid && sLevel != 0}"><a href="#" class="nav-link login" style="padding-left: 0; padding-right: 0;"><i class="fas fa-user"></i></a></c:if>
+                    <c:if test="${!empty sMid && sLevel != 0}"><a href="${ctp}/common/myPage" class="nav-link" style="padding-left: 0; padding-right: 0;"><i class="fas fa-user"></i></a></c:if>
+                    <c:if test="${sLevel == 0}"><a href="${ctp}/admin/admin" class="nav-link" style="padding-left: 0; padding-right: 0;"><i class="fas fa-user"></i></a></c:if>
                     <ul class="myPage">
                         <c:if test="${empty sMid}"><li><a href="#" class="login">로그인</a></li></c:if>
-                        <c:if test="${!empty sMid}"><li><a href="${ctp}/common/myPage">마이페이지</a></li></c:if>
+                        <c:if test="${!empty sMid && sLevel > 0 && sLevel <= 3}"><li><a href="${ctp}/common/myPage">마이페이지</a></li></c:if>
                         <c:if test="${!empty sMid}"><li><a href="${ctp}/common/logout">로그아웃</a></li></c:if>
                         <c:if test="${sLevel == 1 || sLevel > 3 || empty sLevel}"><li><a href="#" class="partner">파트너신청</a></li></c:if>
                     </ul>

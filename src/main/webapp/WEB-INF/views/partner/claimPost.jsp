@@ -133,9 +133,9 @@
     </style>
 </head>
 <body>
-	<h3 class="text-start mt-4" style="font-weight: bold;">게시물 리스트</h3>
+	<h3 class="text-start mt-4" style="font-weight: bold;">신고된 글 <font color="red" size="2px"> * 신고된 글은 고객에게 보이지 않습니다 수정 후 관리자에게 문의 바랍니다.</font></h3>
 	<div class="grid-container">
-	  <c:forEach var="vo" items="${shopVOS}" varStatus="st">
+	  <c:forEach var="vo" items="${vos}" varStatus="st">
 	    <div class="grid-item">
 	      <c:if test="${vo.discount != 0}">
 	      	<div class="discount-badge">${vo.company} ${vo.discount}%</div>

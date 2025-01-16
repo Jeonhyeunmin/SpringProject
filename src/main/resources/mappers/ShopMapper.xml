@@ -101,7 +101,7 @@
 	</insert>
 	
 	<insert id="setShopOrder">
-		insert into shopOrder values(default, #{vo.shopIdx}, #{vo.mid}, #{vo.partnerMid}, #{vo.company}, #{vo.shopTitle}, #{vo.price}, #{vo.quantity}, #{vo.discount}, #{vo.couponIdx}, #{vo.coupon}, #{vo.couponDiscount}, #{vo.pay}, #{vo.totalPrice}, #{vo.usePoint}, #{vo.addPoint}, #{vo.thumbnail}, #{vo.optionSelect}, default, default, default, default);
+		insert into shopOrder values(default, #{vo.shopIdx}, #{vo.mid}, #{vo.partnerMid}, #{vo.company}, #{vo.shopTitle}, #{vo.price}, #{vo.quantity}, #{vo.discount}, #{vo.couponIdx}, #{vo.coupon}, #{vo.couponDiscount}, #{vo.pay}, #{vo.totalPrice}, #{vo.usePoint}, #{vo.addPoint}, #{vo.thumbnail}, #{vo.optionSelect}, default, default, default, default, default);
 	</insert>
 	
 	<update id="setShopUpdate">
@@ -130,6 +130,10 @@
 	
 	<update id="setUseCoupon">
 		update coupon set status = 'used', useDate = now() where idx = #{vo.couponIdx};
+	</update>
+	
+	<update id="setReviewOk">
+		update shopOrder set review = 'YES' where idx = #{idx};
 	</update>
 	
 	<delete id="setShopDelete">

@@ -171,7 +171,7 @@
       <div class="order-card">
         <div class="order-header">
           <h5>${vo.company}</h5>
-          <c:if test="${vo.decide != '교환 및 환불'}"><a href='javascript:exchange(${vo.idx})' style="text-decoration: none;" class="badge bg-danger">교환 및 환불</a></c:if>
+          <c:if test="${vo.decide != '교환 및 환불' && vo.decide != '구매확정'}"><a href='javascript:exchange(${vo.idx})' style="text-decoration: none;" class="badge bg-danger">교환 및 환불</a></c:if>
         </div>
         <div class="order-body" onclick="window.open('${ctp}/shop/shopContent?idx=${vo.shopIdx}')">
           <div class="order-thumbnail">
@@ -190,7 +190,7 @@
                 <td class="total-price"><fmt:formatNumber value="${vo.totalPrice}"/>원</td>
               </tr>
               <tr>
-                <th>현황:</th>
+                <th>배송 현황:</th>
                 <td>${vo.delivery}</td>
               </tr>
             </table>
@@ -199,8 +199,8 @@
         <div class="order-actions">
           <c:if test="${vo.decide == 'no'}"><button type="button" onclick="buyDecide(${vo.idx})" class="track-btn">구매확정</button></c:if>
           <button type="button" class="reorder-btn" onclick="window.open('${ctp}/shop/shopContent?idx=${vo.shopIdx}')"><i class="fas fa-redo"></i> 재구매</button>
-          <c:if test="${vo.review == 'no' && vo.decide != '교환 및 환불'}">
-          	<button type="button" class="review-btn" onclick="location.href='${ctp}/shop/shopReview?idx=${vo.shopIdx}'">리뷰쓰기</button>
+          <c:if test="${vo.review == 'NO' && vo.decide != '교환 및 환불'}">
+          	<button type="button" class="review-btn" onclick="location.href='${ctp}/shop/shopReview?idx=${vo.shopIdx}&orderIdx=${vo.idx}'">리뷰쓰기</button>
           </c:if>
         </div>
       </div>

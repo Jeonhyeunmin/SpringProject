@@ -476,7 +476,7 @@
       </div>
 
       <div class="form-group">
-        <div class="section-title">최종 판매가</div>
+        <div class="section-title">최종 판매가 <font color="red" size="2px">* 최종 판매가의 5% 수수료가 발생합니다.</font></div>
         <div class="price-group">
           <input type="text" name="pay" id="pay" class="form-control" readonly>
           <input type="text" value="원" tabindex="-1" readonly class="form-control">

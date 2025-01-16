@@ -85,5 +85,7 @@ public interface ShopDAO {
 
 	void setUseCoupon(@Param("vo") ShopOrderVO vo);
 
+	void setReviewOk(@Param("idx") int idx);
+
 
 }

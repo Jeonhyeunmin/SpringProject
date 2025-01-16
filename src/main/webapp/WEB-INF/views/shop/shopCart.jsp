@@ -199,7 +199,7 @@
       width: 20px;
       height: 20px;
       margin: 0;
-      border-radius: 0; /* 박스 모서리를 네모로 설정 */
+      border-radius: 0;
       vertical-align: middle;
     }
     

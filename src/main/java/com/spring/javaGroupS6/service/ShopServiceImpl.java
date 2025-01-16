@@ -322,4 +322,9 @@ public class ShopServiceImpl implements ShopService {
 	public void setUseCoupon(ShopOrderVO vo) {
 		shopDAO.setUseCoupon(vo);
 	}
+	
+	@Override
+	public void setReviewOk(int idx) {
+		shopDAO.setReviewOk(idx);
+	}
 }

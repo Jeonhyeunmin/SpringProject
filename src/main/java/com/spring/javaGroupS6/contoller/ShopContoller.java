@@ -247,7 +247,7 @@ public class ShopContoller {
 		model.addAttribute("vos", vos);
 		model.addAttribute("title", "게시물 수정");
 		model.addAttribute("vo", vo);
-		return "shop/shopUpdate";
+		return "/shop/shopUpdate";
 	}
 	
 	@PostMapping("/shopUpdate")
@@ -307,17 +307,19 @@ public class ShopContoller {
 	}
 	
 	@GetMapping("/shopReview")
-	public String shopReviewGet(Model model, int idx) {
+	public String shopReviewGet(Model model, int idx, int orderIdx) {
 		ShopVO vo = shopService.getShopContent(idx);
 		model.addAttribute("title", vo.getTitle() + "리뷰 등록 | Min's");
 		model.addAttribute("vo", vo);
+		model.addAttribute("orderIdx", orderIdx);
 		return "/shop/shopReview";
 	}
 	
 	@PostMapping("/shopReviewInput")
-	public String shopReviewInputPost(Model model, ShopReviewVO vo, int idx, String mid) {
+	public String shopReviewInputPost(Model model, ShopReviewVO vo, int idx, String mid, int orderIdx) {
 		int res = shopService.setReviewInput(vo, idx, mid);
 		shopService.setPointUp(mid, "10");
+		shopService.setReviewOk(orderIdx);
 		model.addAttribute("idx", idx);
 		if(res != 0) {
 			return "redirect:/message/reviewInputOk";

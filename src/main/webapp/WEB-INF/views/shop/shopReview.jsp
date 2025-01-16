@@ -132,12 +132,13 @@
 	        </div>
 	        <!-- 하단 버튼 -->
 	        <div class="form-footer">
-	          <button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/member/content'">취소하기</button>
+	          <button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/common/myPage'">취소하기</button>
 	          <button type="button" onclick="reviewCheck()" class="btn btn-primary">등록하기</button>
 	        </div>
 	        <!-- Hidden fields -->
 	        <input type="hidden" name="mid" value="${sMid}">
 	        <input type="hidden" name="idx" value="${vo.idx}">
+	        <input type="hidden" name="orderIdx" value="${orderIdx}">
 	    </div>
     </form>
   </div>

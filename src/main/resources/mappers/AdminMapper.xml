@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.javaGroupS6.dao.AdminDAO">
+
+	<select id="getCutomerList" resultType="com.spring.javaGroupS6.vo.MemberVO">
+		select * from customer
+	</select>
+
+	<select id="getPartnerList" resultType="com.spring.javaGroupS6.vo.PartnerVO">
+		select * from partner
+	</select>
+
+	<select id="getShopList" resultType="com.spring.javaGroupS6.vo.ShopVO">
+		select * from shop
+	</select>
+
+	<select id="getReviewList" resultType="com.spring.javaGroupS6.vo.ShopReviewVO">
+		select * from shopReview<if test='idx != 0'> where shopIdx = #{idx}</if>
+	</select>
+
+	<select id="getOrderList" resultType="com.spring.javaGroupS6.vo.ShopOrderVO">
+		select * from shopOrder
+	</select>
+
+	<select id="getCouponList" resultType="com.spring.javaGroupS6.vo.CouponVO">
+		select * from coupon
+	</select>
+
+	<select id="getShopReviewList" resultType="com.spring.javaGroupS6.vo.ShopVO">
+		select s.* from shop s, shopReview sr where s.idx = sr.shopIdx group by s.idx;
+	</select>
+
+	<select id="getVIP" resultType="com.spring.javaGroupS6.vo.ShopOrderVO">
+		select count(so.mid) as orderCnt, c.name as vipName from shopOrder so, customer c where so.mid = c.mid group by so.mid order by orderCnt desc limit 7;
+	</select>
+	
+</mapper>

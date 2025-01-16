@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -8,9 +9,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
-    .container {
+  	body{
+  		height: 100%; 
+  	}
+    .list-container {
       margin-top: 2%;
     }
     .order-card {
@@ -117,81 +120,327 @@
         width: 100px;
       }
     }
+    .table-responsive {
+	    overflow-x: auto;
+	  }
+	  table {
+	    white-space: nowrap; /* 줄바꿈 방지 */
+	  }
+	  table th, table td {
+	    text-align: center; /* 중앙 정렬 */
+	    vertical-align: middle; /* 세로 가운데 정렬 */
+	  }
+	  table td {
+	    max-width: 200px; /* 열 너비 제한 */
+	    overflow: hidden; /* 초과 내용 숨기기 */
+	    text-overflow: ellipsis; /* 말줄임표 처리 */
+	  }
+	  th, td {
+	    padding: 8px 12px;
+	  }
+	  
+	  .action-buttons {
+	    display: flex;
+	    gap: 10px;
+	    margin-bottom: 10px;
+	    margin-top: 10px;
+	  }
+	  .action-buttons button {
+	    padding: 10px 15px;
+	    font-size: 14px;
+	    font-weight: bold;
+	    border: none;
+	    border-radius: 5px;
+	    color: white;
+	    transition: background-color 0.3s ease, transform 0.2s ease;
+	    cursor: pointer;
+	  }
+	  .action-buttons .btn-delivery-all {
+	    background-color: #007bff;
+	  }
+	  .action-buttons .btn-delivery-all:hover {
+	    background-color: #0056b3;
+	  }
+	  .action-buttons .btn-delivery-selected {
+	    background-color: #e35c61;
+	  }
+	  .action-buttons .btn-delivery-selected:hover {
+	    background-color: #ac3f43;
+	  }
+	  .action-buttons .btn-delivery-finish {
+	    background-color: #28a745;
+	  }
+	  .action-buttons .btn-delivery-finish:hover {
+	    background-color: #1e7e34;
+	  }
+	  .action-buttons .btn-return {
+	    background-color: #eec816;
+	  }
+	  .action-buttons .btn-return:hover {
+	    background-color: #ad9836;
+	  }
+	  .action-buttons .btn-return-all {
+	    background-color: #dc3545;
+	  }
+	  .action-buttons .btn-return-all:hover {
+	    background-color: #a71d2a;
+	  }
+	  .action-buttons button:active {
+	    transform: scale(0.95);
+	  }
+	  
+	  .allCheckBox {
+      width: 20px;
+      height: 20px;
+      margin: 0;
+      border-radius: 0;
+      vertical-align: middle;
+    }
+    
+    a{
+    	text-decoration: none;
+    }
   </style>
+  <script type="text/javascript">
+	  document.addEventListener("DOMContentLoaded", function () {
+			allCheck();
+		});
+	  
+  	function deliveryStart(idx) {
+			let ans = confirm("제품을 배송중으로 업데이트 하시겠습니까?");
+			if(ans){
+				$.ajax({
+					type : "post",
+					url : "${ctp}/partner/deliveryStart",
+					data : {
+						idx : idx
+					},
+					success: function(res) {
+						if(res != "0"){
+							alert("제품을 배송중으로 업데이트 했습니다.");
+							location.reload();
+						}
+					},
+					error: function() {
+						alert("전송오류");
+					}
+				});
+			}
+		}
+  	
+  	function deliveryEnd(idx) {
+			let ans = confirm("제품을 배송완료로 업데이트 하시겠습니까?");
+			if(ans){
+				$.ajax({
+					type : "post",
+					url : "${ctp}/partner/deliveryEnd",
+					data : {
+						idx : idx
+					},
+					success: function(res) {
+						if(res != "0"){
+							alert("제품을 배송완료로 업데이트 했습니다.");
+							location.reload();
+						}
+					},
+					error: function() {
+						alert("전송오류");
+					}
+				});
+			}
+		}
+  	
+  	function allCheck(){
+    	let minIdx = parseInt(document.getElementById("minIdx").value);
+      let maxIdx = parseInt(document.getElementById("maxIdx").value);
+      if(document.getElementById("allcheck").checked){
+        for(let i=minIdx;i<=maxIdx;i++){
+          if($("#check"+i).length != 0){
+            document.getElementById("check"+i).checked=true;
+          }
+        }
+      }
+      else {
+        for(let i=minIdx;i<=maxIdx;i++){
+          if($("#check"+i).length != 0){
+            document.getElementById("check"+i).checked=false;
+          }
+        }
+      }
+    }
+  	
+  	function onCheck() {
+      let minIdx = parseInt(document.getElementById("minIdx").value);
+      let maxIdx = parseInt(document.getElementById("maxIdx").value);
+      
+      let emptyCnt=0;
+      for(let i=minIdx;i<=maxIdx;i++){
+        if($("#check"+i).length != 0 && document.getElementById("check"+i).checked==false){
+          emptyCnt++;
+          break;
+        }
+      }
+      if(emptyCnt!=0){
+        document.getElementById("allcheck").checked=false;
+      } 
+      else {
+        document.getElementById("allcheck").checked=true;
+      }
+    }
+  	
+  	function deliveryAll() {
+  		let ans = confirm("전체 배송을 시작하시겠습니까?");
+  		if(ans){
+				$.ajax({
+					type:"post",
+					url : "${ctp}/partner/deliveryAll",
+					success: function(res) {
+						if(res != "0"){
+							alert(res + "건을 배송 시작으로 업데이트 하였습니다.");
+							location.reload();
+						}
+					},
+					error: function() {
+						alert("전송오류");
+					}
+				});
+  		}
+		}
+  	
+  	function deliveryFinish() {
+  		let ans = confirm("전체 배송완료 하시겠습니까?");
+  		if(ans){
+				$.ajax({
+					type:"post",
+					url : "${ctp}/partner/deliveryFinish",
+					success: function(res) {
+						if(res != "0"){
+							alert(res + "건을 배송 완료로 업데이트 하였습니다.");
+							location.reload();
+						}
+					},
+					error: function() {
+						alert("전송오류");
+					}
+				});
+  		}
+		}
+  	
+  	function delivery() {
+  		let idxArr = "";
+    	for(let i = 0; i < myform.check.length; i++){
+				if(myform.check[i].checked){
+					idxArr += myform.check[i].value + "/";
+				}
+			}
+    	idxArr = idxArr.substring(0,idxArr.length-1);
+    	
+			let ans = confirm("선택된 항목들을 배송처리 하시겠습니까?");
+    	
+    	if(!ans){
+    		return false;
+    	}
+    	$.ajax({
+    		type : "post",
+    		url : "${ctp}/partner/selectDelivery",
+    		data : {
+    			idxArr : idxArr
+    		},
+    		success: function(res) {
+    			if(res != "0"){
+	    			alert("배송중 상태로 업데이트 되었습니다.");
+						location.reload();
+    			}
+				},
+				error: function() {
+					alert("전송오류");
+				}
+    	});
+		}
+  </script>
 </head>
 <body>
-  <div class="container">
-    <h4 class="text-start mt-4" style="font-weight: bold;">주문 목록</h4>
-    <c:forEach var="vo" items="${orderVOS}">
-      <div class="order-card">
-        <div class="order-header">
-          <h5>${vo.shopTitle}</h5>
-          <i class="fas fa-check-circle text-success"></i>
-        </div>
-        <div class="order-body" onclick="window.open('${ctp}/shop/shopContent?idx=${vo.shopIdx}')">
-          <div class="order-thumbnail">
-            <img src="${ctp}/category/${vo.thumbnail}" alt="상품 이미지">
-          </div>
-          <div class="order-details">
-            <p><strong>구매확정완료</strong></p>
-            <p><c:if test="${!empty vo.optionSelect}">[옵션: ${vo.optionSelect}] </c:if>${vo.shopTitle}</p>
-            <table class="order-details-table">
-              <tr>
-                <th>구매자:</th>
-                <td>${vo.buyerName}</td>
-              </tr>
-              <tr>
-                <th>구매자 이메일:</th>
-                <td>${vo.buyerEmail}</td>
-              </tr>
-              <tr>
-                <th>구매자 연락처:</th>
-                <td>${vo.buyerTel}</td>
-              </tr>
-              <tr>
-                <th>구매자 주소:</th>
-                <td>${vo.buyerAddress}</td>
-              </tr>
-            	<c:if test="${vo.discount != 0}">
-	              <tr>
-	                <th>즉시할인:</th>
-	                <td><span class="badge bg-danger" style="font-weight: normal;">${vo.discount}%</span></td>
-	              </tr>
-              </c:if>
-              <c:if test="${vo.couponDiscount != 0}">
-	              <tr>
-	                <th>쿠폰할인:</th>
-	                <td><span class="badge bg-danger" style="font-weight: normal;">${vo.couponDiscount}%</span></td>
-	              </tr>
-              </c:if>
-              <tr>
-                <th>할인 금액:</th>
-                <td><font color="red"><fmt:formatNumber value="${(vo.price * vo.quantity) - vo.totalPrice}"/>원</font></td>
-              </tr>
-              <tr>
-                <th>단가:</th>
-                <td><fmt:formatNumber value="${vo.price}"/>원 × ${vo.quantity}개</td>
-              </tr>
-              <tr>
-                <th>결제 금액:</th>
-                <td><fmt:formatNumber value="${vo.pay}"/>원</td>
-              </tr>
-              <tr>
-                <th>사용 포인트:</th>
-                <td><fmt:formatNumber pattern="#,##0" value="${vo.usePoint}"/>원</td>
-              </tr>
-              <tr>
-                <th>총 금액:</th>
-                <td class="total-price"><fmt:formatNumber value="${vo.totalPrice}"/>원</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <div class="order-actions">
-          <button class="track-btn"><i class="fas fa-truck"></i> 배송 시작</button>
-        </div>
-      </div>
-    </c:forEach>
-  </div>
+	<form name="myform">
+	  <div class="list-container">
+		  <h4 class="text-start mt-4" style="font-weight: bold;">주문 목록</h4>
+		  <div class="action-buttons">
+			  <button type="button" onclick="deliveryAll()" class="btn-delivery-all">전체 배송</button>
+			  <button type="button" class="btn-delivery-selected" onclick="delivery()">선택 배송</button>
+			  <button type="button" class="btn-delivery-finish" onclick="deliveryFinish()">전체 배송 완료</button>
+			</div>
+		  <p>
+		  	<input type="checkbox" id="deliveryReady" ${status != '' ? 'checked' : ''} onclick="location.href='${ctp}/partner/orderList?${status == '' ? 'status=ready' : ''}'"/><label for="deliveryReady" style="padding: 10px;">배송준비 목록 보기</label>
+		  </p>
+		  <div class="table-responsive">
+		    <table class="table table-striped table-bordered table-hover">
+		      <thead class="thead-dark">
+		        <tr>
+		          <th><input type="checkbox" id="allcheck" onclick="allCheck()" class="allCheckBox"></th>
+		          <th>상품명</th>
+		          <th>구매자</th>
+		          <th>연락처</th>
+		          <th>주소</th>
+		          <th>수량</th>
+		          <th>판매 가격</th>
+		          <th>할인 금액</th>
+		          <th>결제 금액</th>
+		          <th>주문일</th>
+		          <th>확정 상태</th>
+		          <th>배송 상태</th>
+		          <th>작업</th>
+		        </tr>
+		      </thead>
+		      <tbody>
+					  <c:forEach var="vo" items="${orderVOS}" varStatus="status">
+					    <tr>
+					      <td>
+					        <input type="checkbox" id="check${vo.idx}" name="check" value="${vo.idx}" onClick="onCheck()">
+					      </td>
+					      <td><a href='${ctp}/partner/orderDetail?idx=${vo.idx}'>${vo.shopTitle}</a></td>
+					      <td>${vo.buyerName}</td>
+					      <td>${vo.buyerTel}</td>
+					      <td>${vo.buyerAddress}</td>
+					      <td>${vo.quantity}</td>
+					      <td><fmt:formatNumber value="${vo.pay}" />원</td>
+					      <td><fmt:formatNumber value="${(vo.price * vo.quantity) - vo.totalPrice}" />원</td>
+					      <td class="text-success"><fmt:formatNumber value="${vo.totalPrice}" />원</td>
+					      <td>${fn:substring(vo.orderDate, 0, 10)}</td>
+					      <td>
+					      	<c:if test="${vo.decide == '교환 및 환불'}">
+						      	<font color="red">교환 및 환불</font>
+						      </c:if>
+					      	<c:if test="${vo.decide != '교환 및 환불'}">
+					      		${vo.decide == 'no' ? '구매 확정 전' : '구매확정'}
+				      		</c:if>
+				      	</td>
+					      <td>${vo.delivery}</td>
+					      <td>
+					      	<c:if test="${vo.delivery == '배송완료' }">
+					      		완료
+					        </c:if>
+					      	<c:if test="${vo.delivery == '배송중' }">
+						        <button type="button" class="btn btn-success btn-sm" onclick="deliveryEnd(${vo.idx})">
+						          <i class="fas fa-truck"></i> 배송완료
+						        </button>
+					        </c:if>
+					      	<c:if test="${vo.delivery == '배송준비' }">
+						        <button type="button" class="btn btn-primary btn-sm" onclick="deliveryStart(${vo.idx})">
+						          <i class="fas fa-truck"></i> 배송 시작
+						        </button>
+					        </c:if>
+					      </td>
+					    </tr>
+					  </c:forEach>
+					</tbody>
+		    </table>
+		    <c:set var="maxIdx" value="${orderVOS[0].idx}"/>
+			  <c:set var="maxSize" value="${fn:length(orderVOS)-1}"/>		
+			  <c:set var="minIdx" value="${orderVOS[maxSize].idx}"/>
+			  <input type="hidden" id="minIdx" name="minIdx" value="${minIdx}"/>
+			  <input type="hidden" id="maxIdx" name="maxIdx" value="${maxIdx}"/>
+		  </div>
+		</div>
+	</form>
+
 </body>
 </html>

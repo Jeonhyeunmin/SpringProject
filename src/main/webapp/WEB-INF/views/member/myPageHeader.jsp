@@ -143,7 +143,7 @@
       <div class="info-title">Min's 포인트</div>
       <div class="info-cnt">${vo.point}P</div>
     </div>
-    <button class="logout" onclick="location.href='${ctp}/common/logout'">로그아웃</button>
+    <a class="logout" href='${ctp}/common/logout' target="_top">로그아웃</a>
   </div>
 </body>
 </html>
