@@ -68,14 +68,6 @@
     }
   </style>
   <script type="text/javascript">
-		function userLeavel() {
-  		let ans = confirm("회원 탈퇴를 진행하시겠습니까?")
-  		
-  		if(ans){
-  			location.href='${ctp}/partner/partnerLeave';
-  		}
-		}
-		
 		function shopInput() {
 		  if ("${vo.accept}" == "NO") {
 		    alert("관리자 승인 후 상품 등록이 가능합니다.");
@@ -121,9 +113,8 @@
     <div class="menu-section">
       <div class="menu-title">계정관리</div>
       <ul>
-        <li><a href="">계정 정보</a></li>
+        <li><a href="${ctp}/partner/partnerUpdate" target="partner">계정 정보</a></li>
         <li><a href="">정산 계좌 관리</a></li>
-        <li><a href="javascript:userLeavel()">회원 탈퇴</a></li> 
       </ul>
     </div>
   </div>

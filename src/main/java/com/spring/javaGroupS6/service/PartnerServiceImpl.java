@@ -1,11 +1,20 @@
 package com.spring.javaGroupS6.service;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.spring.javaGroupS6.common.JavaProvide;
 import com.spring.javaGroupS6.dao.PartnerDAO;
+import com.spring.javaGroupS6.vo.MemberVO;
+import com.spring.javaGroupS6.vo.PartnerVO;
 import com.spring.javaGroupS6.vo.ShopOrderVO;
 import com.spring.javaGroupS6.vo.ShopVO;
 
@@ -14,6 +23,12 @@ public class PartnerServiceImpl implements PartnerService {
 	
 	@Autowired
 	PartnerDAO partnerDAO;
+	
+	@Autowired
+	CommonService commonService;
+	
+	@Autowired
+	JavaProvide provide;
 
 	@Override
 	public int setPartnerLeave(String mid) {
@@ -68,6 +83,38 @@ public class PartnerServiceImpl implements PartnerService {
 	@Override
 	public ArrayList<ShopVO> getClaimPostList(String mid) {
 		return partnerDAO.getClaimPostList(mid);
+	}
+	
+	@Override
+	public void setPartnerPwdChange(String pwd, String mid) {
+		partnerDAO.setPartnerPwdChange(pwd, mid);
+	}
+	
+	@Override
+	public int setPartnerUpdate(MultipartFile file, PartnerVO vo, HttpSession session) {
+		try {
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
+			
+			String oFileName = file.getOriginalFilename();
+			String sFileName = sdf.format(date) + "_" + oFileName;
+		
+			provide.WriteFile(file, sFileName, "partner/logo");
+			
+			String realPath = session.getServletContext().getRealPath("/resources/data/partner/logo/");
+			PartnerVO parVO = commonService.getPartnerIdSearch(vo.getMid());
+			if(file.getOriginalFilename() == null || file.getOriginalFilename().equals("")) {
+				vo.setLogo(parVO.getLogo());
+			}
+			else {
+				if(!parVO.getLogo().equals("noimage.png")) {
+					provide.fileDelete(realPath + parVO.getLogo());
+				}
+				vo.setLogo(sFileName);
+			}
+			
+		} catch (IOException e) {e.printStackTrace();}
+		return partnerDAO.setPartnerUpdate(vo);
 	}
 	
 }

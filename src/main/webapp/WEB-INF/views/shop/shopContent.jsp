@@ -966,6 +966,8 @@
 				      <div class="company">${vo.company}</div>
 				      <p class="post-count">게시물 <fmt:formatNumber value="${postCount}" pattern="#,##0"/>개</p>
 				    </div>
+				    <c:if test="${sLevel == 0 && vo.accept == 'NO'}"><button type="button" onclick="accept()" class="btn btn-outline-success" style="margin-left: 5%;">승인</button></c:if>
+				    <c:if test="${sLevel == 0 && (vo.accept == 'NO' || vo.claim == 'YES')}"><button type="button" onclick="accept()" class="btn btn-outline-danger" style="margin-left: 5%;">삭제</button></c:if>
 				  </div>
 				  <h2>${vo.title}</h2>
 				  <c:if test="${vo.discount > 0}">

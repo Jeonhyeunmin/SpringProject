@@ -336,8 +336,8 @@
 				let price = $("#price").val();
 				let discount = $("#discount").val();
 				let pay = $("#pay").val();
-				let optionNames = document.getElementsByName("optionName[]");
-				let optionPrices = document.getElementsByName("optionPrice[]");
+				let optionNames = document.getElementsByName("optionNames[]");
+				let optionPrices = document.getElementsByName("optionPrices[]");
 				
 		    let optionName = "";
 		    let optionPrice = "";
@@ -400,13 +400,13 @@
 	
 			  const optionName = document.createElement("input");
 			  optionName.type = "text";
-			  optionName.name = "optionName[]";
+			  optionName.name = "optionNames[]";
 			  optionName.placeholder = "옵션명을 입력해주세요";
 			  optionName.classList.add("form-control");
 	
 			  const optionPrice = document.createElement("input");
 			  optionPrice.type = "number";
-			  optionPrice.name = "optionPrice[]";
+			  optionPrice.name = "optionPrices[]";
 			  optionPrice.placeholder = "옵션 가격";
 			  optionPrice.classList.add("form-control");
 			  

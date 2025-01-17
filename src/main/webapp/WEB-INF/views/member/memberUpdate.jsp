@@ -7,6 +7,7 @@
 <head>
   <meta charset="UTF-8">
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
   <script src="${ctp}/js/woo.js"></script>
   <script type="text/javascript">
   	'use strict';
@@ -634,7 +635,7 @@
 		
 		/* 수정 폼 활성화 */
 		.pwdChangeForm.show {
-		  bottom: 40%; /* 화면에 보이도록 */
+		  bottom: 60%; /* 화면에 보이도록 */
 		  opacity: 1;
 		}
 		

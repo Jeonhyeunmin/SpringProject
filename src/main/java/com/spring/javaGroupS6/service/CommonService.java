@@ -21,5 +21,7 @@ public interface CommonService {
 
 	int setMemberUpdate(MemberVO vo);
 
+	void setLastDateUpdate(String table, String today, String mid);
+
 
 }

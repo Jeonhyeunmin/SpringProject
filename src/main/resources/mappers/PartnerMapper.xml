@@ -55,5 +55,13 @@
 		update shopOrder set adjustment = 'ING' where idx = #{idx};
 	</update>
 	
+	<update id="setPartnerPwdChange">
+		update partner set pwd = #{pwd} where mid = #{mid};
+	</update>
+	
+	<update id="setPartnerUpdate">
+		update partner set logo = #{vo.logo}, company = #{vo.company}, businessNumber = #{vo.businessNumber}, email = #{vo.email}, tel = #{vo.tel}, address = #{vo.address} where mid = #{vo.mid};
+	</update>
+	
 	
 </mapper>

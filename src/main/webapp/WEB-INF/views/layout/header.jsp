@@ -505,7 +505,7 @@
                   <li class="nav-item">
                     <c:if test="${empty sMid && sLevel != 0}"><a href="#" class="nav-link login" style="padding-left: 0 !important; padding-right: 0 !important;"><i class="fas fa-user"></i></a></c:if>
                     <c:if test="${!empty sMid && sLevel != 0}"><a href="${ctp}/common/myPage" class="nav-link" style="padding-left: 0 !important; padding-right: 0 !important;"><i class="fas fa-user"></i></a></c:if>
-                    <c:if test="${sLevel == 0}"><a href="${ctp}/admin/admin" class="nav-link" style="padding-left: 0; padding-right: 0;"><i class="fas fa-user"></i></a></c:if>
+                    <c:if test="${sLevel == 0}"><a href="${ctp}/admin/admin" class="nav-link" style="padding-left: 0 !important; padding-right: 0 !important;"><i class="fas fa-user"></i></a></c:if>
                     <ul class="myPage">
                         <c:if test="${empty sMid}"><li><a href="#" class="login">로그인</a></li></c:if>
                         <c:if test="${!empty sMid && sLevel > 0 && sLevel <= 3}"><li><a href="${ctp}/common/myPage">마이페이지</a></li></c:if>

@@ -34,23 +34,23 @@ public class MessageController {
 		}
 		else if((level == 2 || level == 3) && msgFlag.equals("loginOk")) {
 			model.addAttribute("message", company + "님 반갑습니다.");
-			model.addAttribute("url", "/");
+			model.addAttribute("url", "");
 		}
 		else if(msgFlag.equals("loginNo")) {
 			model.addAttribute("message", "회원님 로그인 실패");
-			model.addAttribute("url", "/");
+			model.addAttribute("url", "");
 		}
 		else if(msgFlag.equals("joinOk")) {
 			model.addAttribute("message", "회원가입 성공 다시 로그인해주세요");
-			model.addAttribute("url", "/");
+			model.addAttribute("url", "");
 		}
 		else if(msgFlag.equals("joinNo")) {
 			model.addAttribute("message", "회원가입 실패");
-			model.addAttribute("url", "/");
+			model.addAttribute("url", "");
 		}
 		else if(msgFlag.equals("partnerJoinOk")) {
 			model.addAttribute("message", "파트너 신청이 완료되었습니다 관리자 승인 후 게시물 등록 가능합니다.");
-			model.addAttribute("url", "/");
+			model.addAttribute("url", "");
 		}
 		else if(msgFlag.equals("partnerJoinNo")) {
 			model.addAttribute("message", "신청 실패");
@@ -70,14 +70,17 @@ public class MessageController {
 		}
 		else if(msgFlag.equals("shopInputOk")) {
 			model.addAttribute("message", "게시물 등록이 완료되었습니다. 관리자 승인 후 게시물이 노출됩니다.");
+			model.addAttribute("top", "on");
 			model.addAttribute("url", "");
 		}
-		
+		else if(msgFlag.equals("logout")) {
+			model.addAttribute("url", "");
+			model.addAttribute("top", "on");
+		}
 		else if(msgFlag.equals("shopInputOk")) {
 			model.addAttribute("message", "게시물 등록 실패");
 			model.addAttribute("url", "shop/shopInput");
 		}
-		
 		else if(msgFlag.equals("shopDeleteOk")) {
 			model.addAttribute("message", "게시물 삭제 성공");
 			model.addAttribute("url", "");
@@ -96,7 +99,7 @@ public class MessageController {
 		}
 		else if(msgFlag.equals("pwdChangeOk")) {
 			model.addAttribute("message", "비밀번호 변경이 완료되었습니다");
-			model.addAttribute("url", "");
+			model.addAttribute("url", "common/myPage");
 		}
 		else if(msgFlag.equals("pwdChangeNo")) {
 			model.addAttribute("message", "임시 비밀번호 발급 후 변경을 하시지 않으셨습니다.");
@@ -146,13 +149,33 @@ public class MessageController {
 			model.addAttribute("message", "탈퇴 신청 실패");
 			model.addAttribute("url", "");
 		}
+		else if(msgFlag.equals("partnerLeaveOk")) {
+			model.addAttribute("message", "탈퇴 신청이 완료되었습니다.");
+			model.addAttribute("url", "common/logout");
+		}
+		else if(msgFlag.equals("partnerLeaveNo")) {
+			model.addAttribute("message", "탈퇴 신청 실패");
+			model.addAttribute("url", "");
+		}
 		else if(msgFlag.equals("memberPwdCheckNo")) {
 			model.addAttribute("message", "비밀번호를 다시 확인해주세요.");
-			model.addAttribute("url", "member/memberPwdCheck");
+			model.addAttribute("url", "member/memberUpdate");
+		}
+		else if(msgFlag.equals("partnerPwdCheckNo")) {
+			model.addAttribute("message", "비밀번호를 다시 확인해주세요.");
+			model.addAttribute("url", "partner/partnerUpdate");
+		}
+		else if(msgFlag.equals("partnerPwdCheckNo")) {
+			model.addAttribute("message", "비밀번호를 다시 확인해주세요.");
+			model.addAttribute("url", "partner/memberPwdCheck");
 		}
 		else if(msgFlag.equals("paymentResult")) {
 			model.addAttribute("message", "결제가 완료되었습니다");
 			model.addAttribute("url", "shop/shopOrderOk");
+		}
+		else if(msgFlag.equals("notAdmin")) {
+			model.addAttribute("message", "관리자만 접근 가능한 페이지입니다.");
+			model.addAttribute("url", "");
 		}
 		return "include/message";
 	}

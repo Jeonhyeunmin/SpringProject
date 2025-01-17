@@ -1,5 +1,7 @@
 package com.spring.javaGroupS6.contoller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.mail.MessagingException;
@@ -62,6 +64,9 @@ public class CommonContoller {
 			HttpServletRequest request, HttpServletResponse response
 	) {
 		
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
+		
 		if(idSave.equals("on")) {
 			Cookie cookieMid = new Cookie("cMid", mid);
 			cookieMid.setPath("/");
@@ -90,6 +95,8 @@ public class CommonContoller {
 			level = memberVO.getLevel();
 			String pwdChange = memberVO.getPwdChange();
 			
+			commonService.setLastDateUpdate("customer", sdf.format(date), memberVO.getMid());
+			
 			session.setAttribute("sMid", mid);
 			session.setAttribute("sLevel", memberVO.getLevel());
 			session.setAttribute("sName", memberVO.getName());
@@ -106,6 +113,9 @@ public class CommonContoller {
 			session.setAttribute("sMid", mid);
 			session.setAttribute("sLevel", partnerVO.getLevel());
 			session.setAttribute("sCompany", partnerVO.getCompany());
+			
+			commonService.setLastDateUpdate("partner", sdf.format(date), partnerVO.getMid());
+			
 			return "redirect:/message/loginOk";
 		}
 		else {
@@ -121,6 +131,9 @@ public class CommonContoller {
 	
 	@GetMapping("/KakaoLogin")
 	public String KakaoLoginGet(HttpSession session, HttpServletRequest request, String email, String nickName, String accessToken) throws MessagingException {
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
+		
 		session.setAttribute("sAccessToken", accessToken);
 		session.setAttribute("sLogin", "kakao");
 		
@@ -154,6 +167,7 @@ public class CommonContoller {
 		session.setAttribute("sName", vo.getName());
 		session.setAttribute("sLevel", vo.getLevel());
 		session.setAttribute("sPwdChange", vo.getPwdChange());
+		commonService.setLastDateUpdate("customer", sdf.format(date), vo.getMid());
 		
 		if(vo.getPwdChange().equals("no")) {
 			return "redirect:/message/pwdChangeNo";
@@ -165,7 +179,7 @@ public class CommonContoller {
 	@GetMapping("/logout")
 	public String logoutGet(HttpSession session) {
 		session.invalidate();
-		return "redirect:/";
+		return "redirect:/message/logout";
 	}
 	
 	@PostMapping("/join")

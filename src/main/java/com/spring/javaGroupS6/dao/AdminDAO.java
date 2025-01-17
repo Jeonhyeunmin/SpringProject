@@ -6,13 +6,14 @@ import org.apache.ibatis.annotations.Param;
 
 import com.spring.javaGroupS6.vo.CouponVO;
 import com.spring.javaGroupS6.vo.MemberVO;
+import com.spring.javaGroupS6.vo.PartnerVO;
 import com.spring.javaGroupS6.vo.ShopOrderVO;
 import com.spring.javaGroupS6.vo.ShopReviewVO;
 import com.spring.javaGroupS6.vo.ShopVO;
 
 public interface AdminDAO {
 
-	ArrayList<ShopVO> getShopList();
+	ArrayList<ShopVO> getShopList(@Param("accept") String accept, @Param("claim") String claim);
 
 	ArrayList<ShopReviewVO> getReviewList(@Param("idx") int idx);
 
@@ -20,12 +21,39 @@ public interface AdminDAO {
 
 	ArrayList<CouponVO> getCouponList();
 
-	ArrayList<MemberVO> getCutomerList();
+	ArrayList<MemberVO> getCutomerList(@Param("userDel") String userDel);
 
-	ArrayList<MemberVO> getPartnerList();
+	ArrayList<PartnerVO> getPartnerList(@Param("accept") String accept);
 
 	ArrayList<ShopVO> getShopReviewList();
 
-	ArrayList<ShopOrderVO> getVIP();
+	ArrayList<ShopOrderVO> getMostUser();
+
+	ArrayList<ShopOrderVO> getMostCompany();
+
+	MemberVO getCustomerInfo(@Param("idx") int idx);
+
+	int getCustomerDelete(@Param("idx") int idx);
+
+	PartnerVO getPartnerInfo(@Param("idx") int idx);
+
+	int setPartnerAllAccpet();
+
+	int setSelectAccept(@Param("idx") int idx);
+
+	int setCustomerDeleteAll();
+
+	int setMemberLeaveCancel(@Param("idx") int idx);
+
+	int setPartnerLeaveCancel(@Param("idx") int idx);
+
+	ArrayList<ShopReviewVO> getReview();
+
+	int setSelectNoPartnerAccept(@Param("idx") int idx);
+
+	int setNoPartner(@Param("idx") int idx);
+
+	int setPartnerYes(@Param("idx")int idx);
+
 
 }

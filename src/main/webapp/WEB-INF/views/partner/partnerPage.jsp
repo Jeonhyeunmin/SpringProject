@@ -40,6 +40,7 @@
 	  if (window.top !== window.self) {
 	    window.top.location = window.location.href;
 	  }
+	  
   </script>
 </head>
 <body>

@@ -84,6 +84,10 @@ public class CommonServiceImpl implements CommonService {
 			
 			provide.WriteFile(file, sFileName, "partner/logo");
 			
+			if(file.getOriginalFilename() == null || file.getOriginalFilename().equals("")) {
+				vo.setLogo("noimage.png");
+			}
+			
 			vo.setLogo(sFileName);
 			vo.setLevel(2);
 			
@@ -101,5 +105,10 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public int setMemberUpdate(MemberVO vo) {
 		return commonDAO.setMemberUpdate(vo);
+	}
+
+	@Override
+	public void setLastDateUpdate(String table, String today, String mid) {
+		commonDAO.setLastDateUpdate(table, today, mid);
 	}
 }

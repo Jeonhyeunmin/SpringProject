@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.spring.javaGroupS6.dao.AdminDAO;
 import com.spring.javaGroupS6.vo.CouponVO;
 import com.spring.javaGroupS6.vo.MemberVO;
+import com.spring.javaGroupS6.vo.PartnerVO;
 import com.spring.javaGroupS6.vo.ShopOrderVO;
 import com.spring.javaGroupS6.vo.ShopReviewVO;
 import com.spring.javaGroupS6.vo.ShopVO;
@@ -19,8 +20,8 @@ public class AdminServiceImpl implements AdminService {
 	AdminDAO adminDAO;
 
 	@Override
-	public ArrayList<ShopVO> getShopList() {
-		return adminDAO.getShopList();
+	public ArrayList<ShopVO> getShopList(String accept, String claim) {
+		return adminDAO.getShopList(accept, claim);
 	}
 
 	@Override
@@ -39,13 +40,13 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public ArrayList<MemberVO> getCutomerList() {
-		return adminDAO.getCutomerList();
+	public ArrayList<MemberVO> getCutomerList(String userDel) {
+		return adminDAO.getCutomerList(userDel);
 	}
 
 	@Override
-	public ArrayList<MemberVO> getPartnerList() {
-		return adminDAO.getPartnerList();
+	public ArrayList<PartnerVO> getPartnerList(String accept) {
+		return adminDAO.getPartnerList(accept);
 	}
 	
 	@Override
@@ -54,7 +55,72 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public ArrayList<ShopOrderVO> getVIP() {
-		return adminDAO.getVIP();
+	public ArrayList<ShopOrderVO> getMostUser() {
+		return adminDAO.getMostUser();
+	}
+	
+	@Override
+	public ArrayList<ShopOrderVO> getMostCompany() {
+		return adminDAO.getMostCompany();
+	}
+	
+	@Override
+	public MemberVO getCustomerInfo(int idx) {
+		return adminDAO.getCustomerInfo(idx);
+	}
+	
+	@Override
+	public int getCustomerDelete(int idx) {
+		return adminDAO.getCustomerDelete(idx);
+	}
+	
+	@Override
+	public PartnerVO getPartnerInfo(int idx) {
+		return adminDAO.getPartnerInfo(idx);
+	}
+	
+	@Override
+	public int setPartnerAllAccpet() {
+		return adminDAO.setPartnerAllAccpet();
+	}
+	
+	@Override
+	public int setSelectAccept(int idx) {
+		return adminDAO.setSelectAccept(idx);
+	}
+	
+	@Override
+	public int setCustomerDeleteAll() {
+		return adminDAO.setCustomerDeleteAll();
+	}
+	
+	@Override
+	public int setMemberLeaveCancel(int idx) {
+		return adminDAO.setMemberLeaveCancel(idx);
+	}
+	
+	@Override
+	public int setPartnerLeaveCancel(int idx) {
+		return adminDAO.setPartnerLeaveCancel(idx);
+	}
+
+	@Override
+	public ArrayList<ShopReviewVO> getReview() {
+		return adminDAO.getReview();
+	}
+	
+	@Override
+	public int setSelectNoPartnerAccept(int idx) {
+		return adminDAO.setSelectNoPartnerAccept(idx);
+	}
+	
+	@Override
+	public int setNoPartner(int idx) {
+		return adminDAO.setNoPartner(idx);
+	}
+	
+	@Override
+	public int setPartnerYes(int idx) {
+		return adminDAO.setPartnerYes(idx);
 	}
 }

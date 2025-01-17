@@ -37,10 +37,10 @@
 			</interceptor>
 			
 			<!-- 관리자 -->
-			<!-- <interceptor>
+			<interceptor>
 				<mapping path="/admin/**"/>
 				<beans:ref bean="AdminInterceptor"/>
-			</interceptor> -->
+			</interceptor>
 			
 			
 		</interceptors>

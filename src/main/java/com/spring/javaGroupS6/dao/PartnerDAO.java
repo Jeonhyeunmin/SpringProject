@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.spring.javaGroupS6.vo.PartnerVO;
 import com.spring.javaGroupS6.vo.ShopOrderVO;
 import com.spring.javaGroupS6.vo.ShopVO;
 
@@ -30,6 +31,10 @@ public interface PartnerDAO {
 	int setAdjustment(@Param("idx") int idx);
 
 	ArrayList<ShopVO> getClaimPostList(@Param("mid") String mid);
+
+	void setPartnerPwdChange(@Param("pwd") String pwd, @Param("mid") String mid);
+
+	int setPartnerUpdate(@Param("vo") PartnerVO vo);
 
 
 }

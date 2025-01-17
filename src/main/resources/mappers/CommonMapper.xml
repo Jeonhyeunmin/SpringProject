@@ -21,17 +21,21 @@
 	
 	<insert id="setMemberJoin">
 	  INSERT INTO customer 
-	  (idx, mid, pwd, name, gender, birthday, tel, address, email, photo, level, userInfor, userDel, pwdChange, point, startDate, lastDate)
+	  (idx, mid, pwd, name, gender, birthday, tel, address, email, photo, level, userInfo, userDel, pwdChange, point, startDate, lastDate)
 	  VALUES
-	  (default, #{vo.mid}, #{vo.pwd}, #{vo.name}, #{vo.gender}, #{vo.resident}, #{vo.tel}, #{vo.address}, #{vo.email}, #{vo.photo}, #{vo.level}, default, default, #{vo.pwdChange}, default, default, default);
+	  (default, #{vo.mid}, #{vo.pwd}, #{vo.name}, #{vo.gender}, #{vo.resident}, #{vo.tel}, #{vo.address}, #{vo.email}, #{vo.photo}, #{vo.level}, #{vo.userInfo}, default, #{vo.pwdChange}, default, default, default);
 	</insert>
 	
 	<insert id="setpartnerJoin">
-	  INSERT INTO partner VALUES (default, #{vo.logo}, #{vo.mid}, #{vo.pwd}, #{vo.company}, #{vo.ceoName}, #{vo.businessNumber}, #{vo.email}, #{vo.tel}, #{vo.address}, #{vo.level}, default, default, default, default);
+	  INSERT INTO partner VALUES (default, #{vo.logo}, #{vo.mid}, #{vo.pwd}, #{vo.company}, #{vo.ceoName}, #{vo.businessNumber}, #{vo.email}, #{vo.tel}, #{vo.address}, #{vo.level}, default, default, default);
 	</insert>
 	
 	<update id="setMemberUpdate">
 		update customer set pwd = #{vo.pwd} where idx = #{vo.idx};
+	</update>
+	
+	<update id="setLastDateUpdate">
+		update ${table} set lastDate = #{today} where mid = #{mid};
 	</update>
 	
 </mapper>

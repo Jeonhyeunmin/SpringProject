@@ -21,4 +21,6 @@ public interface CommonDAO {
 
 	int setMemberUpdate(@Param("vo") MemberVO vo);
 
+	void setLastDateUpdate(@Param("table") String table, @Param("today") String today, @Param("mid") String mid);
+
 }

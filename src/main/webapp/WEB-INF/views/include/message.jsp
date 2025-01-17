@@ -9,6 +9,11 @@
 	<script type="text/javascript">
   	if(${!empty message}){
   		alert('${message}');
+  	}
+  	if(${!empty top}){
+			window.top.location.href='${ctp}/${url}';
+  	}
+  	else{
   		location.href='${ctp}/${url}';
   	}
 	</script>

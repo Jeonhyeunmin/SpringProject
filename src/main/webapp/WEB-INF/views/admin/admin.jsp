@@ -17,47 +17,132 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
-	  google.charts.load('current', {'packages':['corechart']});
-	  google.charts.setOnLoadCallback(drawChart);
-	
-	  function drawChart() {
-	    var data = new google.visualization.DataTable();
-	    data.addColumn('string', '이름');
-	    data.addColumn('number', '구매수');
-	
-	    // 데이터 추가
-	    data.addRows([
-	      <c:forEach var="i" begin="0" end="6" varStatus="st">
-	        ['${buyName[i]}', ${buyCnt[i]}],
-	      </c:forEach>
-	    ]);
-	
-	    var options = {
-	      title: 'VIP 고객 구매 분석',
-	      chartArea: { width: '70%', height: '70%' },
-	      hAxis: {
-	        title: '고객 이름',
-	        textStyle: { fontSize: 12 },
-	        titleTextStyle: { fontSize: 14, color: '#333', bold: true }
+  
+  google.charts.load('current', { packages: ['corechart'] });
+
+  function drawChart(res) {
+	  const names = res.names; // 고객 이름 리스트
+	  const months = res.months; // 월 리스트
+	  const total = res.total;
+
+	  // 데이터를 Google Charts에 맞는 형식으로 변환
+	  const uniqueMonths = [...new Set(months)]; // 고유한 월 목록 추출
+	  const uniqueNames = [...new Set(names)]; // 고유한 고객 이름 추출
+
+	  // 기본 데이터 배열 (첫 번째 행에 헤더 추가)
+	  const chartData = [["Month", ...uniqueNames]];
+
+	  // 월별 데이터 초기화
+	  uniqueMonths.forEach((month) => {
+	    const row = [month];
+	    uniqueNames.forEach(() => row.push(0)); // 고객 수만큼 0으로 초기화
+	    chartData.push(row);
+	  });
+
+	  months.forEach((month, index) => {
+	    const customerName = names[index];
+	    const amount = total[index];
+	    const monthIndex = uniqueMonths.indexOf(month) + 1;
+	    const nameIndex = uniqueNames.indexOf(customerName) + 1;
+	    chartData[monthIndex][nameIndex] += amount;
+	  });
+
+	  const data = google.visualization.arrayToDataTable(chartData);
+
+	  // 차트 옵션 설정
+	  const options = {
+	    title: res.title,
+	    titleTextStyle: {
+	      color: "#333",
+	      fontSize: 24,
+	      bold: true,
+	    },
+	    hAxis: {
+	      title: res.unit,
+	      titleTextStyle: { color: "#666", fontSize: 14, italic: true },
+	      slantedText: true,
+	      slantedTextAngle: 45,
+	      gridlines: { color: "#e8e8e8", count: 6 }, // 밝은 그리드라인
+	    },
+	    legend: {
+	      position: "bottom",
+	      textStyle: { fontSize: 12, color: "#444" },
+	      alignment: "center",
+	    },
+	    series: {
+	      0: { lineWidth: 3, pointSize: 8 },
+	      1: { lineWidth: 3, pointSize: 8 },
+	      2: { lineWidth: 3, pointSize: 8 },
+	    },
+	    backgroundColor: {
+	      fill: "linear-gradient(to bottom, #f9f9f9, #ffffff)", // 그라데이션 배경
+	    },
+	    chartArea: {
+	      top: 60,
+	      width: "85%",
+	      height: "65%",
+	    },
+	    pointShape: "diamond", // 데이터 포인트 모양
+	    annotations: {
+	      textStyle: {
+	        fontSize: 10,
+	        bold: true,
+	        color: "#555",
 	      },
-	      vAxis: {
-	        title: '구매 횟수',
-	        textStyle: { fontSize: 12 },
-	        titleTextStyle: { fontSize: 14, color: '#333', bold: true }
-	      },
-	      legend: { position: 'none' },
-	      colors: ['#4caf50', '#ff9800', '#2196f3', '#9c27b0', '#f44336'], // 각 막대의 색상
-	      backgroundColor: '#f9f9f9'
-	    };
-	
-	    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-	    chart.draw(data, options);
-	  }
+	    },
+	    colors: ["#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d"],
+	    lineWidth: 3,
+	    pointSize: 8,
+	    dataOpacity: 0.8, // 투명도
+	    animation: {
+	      duration: 1200,
+	      easing: "inAndOut",
+	    },
+	  };
+
+	  // 차트 생성
+	  const chart = new google.visualization.LineChart(
+	    document.getElementById("linechart_material")
+	  );
+	  chart.draw(data, options);
+	}
+
+  function mostUser() {
+    $.ajax({
+      type: "POST",
+      url: "${ctp}/admin/mostUser",
+      success: function (res) {
+        $("#linechart_material").slideDown(500, function () {
+          drawChart(res);
+        });
+      },
+      error: function () {
+        alert("데이터를 불러오는 중 오류가 발생했습니다.");
+      },
+    });
+  }
+  
+  function mostCompany() {
+    $.ajax({
+      type: "POST",
+      url: "${ctp}/admin/mostCompany",
+      success: function (res) {
+        $("#linechart_material").slideDown(500, function () {
+          drawChart(res);
+        });
+      },
+      error: function () {
+        alert("데이터를 불러오는 중 오류가 발생했습니다.");
+      },
+    });
+  }
+
+
   </script>
 	<style type="text/css">
 		.grey-bg{
 			margin: 0 auto;
-			margin-top: 5%;
+			margin-top: 9.5%;
 		}
 		.card {
 	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -89,27 +174,30 @@
 	  .card .media {
 	    align-items: center;
 	  }
-	
-	  #chart_div {
-	    border: 1px solid #ecf0f1;
-	    background: linear-gradient(135deg, #ffffff, #f9f9f9);
-	    border-radius: 8px;
-	    padding: 20px;
-	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	    margin: 30px auto;
+	  .card .media:hover {
+	    cursor: pointer; 
 	  }
+	
+	  #linechart_material {
+      display: none; /* 처음에는 숨김 */
+      width: 95%;
+      height: 500px;
+      margin: 30px auto;
+    }
+	  
+	  
 	</style>
 </head>
 <body>
-	<div id="chart_div" style="width: 100%; height: 500px; margin: 30px auto;"></div>
 	<div class="grey-bg container-fluid">
+		<div id="linechart_material"></div>
 	  <section id="stats-subtitle">
 		  <div class="row">
 		    <div class="col-xl-6 col-md-12">
 		      <div class="card overflow-hidden">
 		        <div class="card-content">
 		          <div class="card-body cleartfix">
-		            <div class="media align-items-stretch">
+		            <div class="media align-items-stretch" onclick="mostUser()">
 		              <div class="align-self-center">
 		                <i class="fa-solid fa-user primary font-large-2 mr-2"></i>
 		              </div>
@@ -129,12 +217,12 @@
 		      <div class="card">
 		        <div class="card-content">
 		          <div class="card-body cleartfix">
-		            <div class="media align-items-stretch">
+		            <div class="media align-items-stretch" onclick="mostCompany()">
 		              <div class="align-self-center">
 		                <i class="fa-regular fa-building warning font-large-2 mr-2"></i>
 		              </div>
 		              <div class="media-body align-self-center">
-		                <h4 class="m-0">업체</h4>
+		                <h4 class="m-0">파트너</h4>
 		              </div>
 		              <div class="align-self-center"> 
 		                <h1><fmt:formatNumber pattern="#,##0" value="${fn: length(partnerVOS)}"/>개</h1>

@@ -24,7 +24,7 @@
 	  }
 	  table th, table td {
 	    text-align: center; /* 중앙 정렬 */
-	    vertical-align: middle; /* 세로 가운데 정렬 */
+	    vertical-align: middle !important; /* 세로 가운데 정렬 */
 	  }
 	  table td {
 	    max-width: 200px; /* 열 너비 제한 */

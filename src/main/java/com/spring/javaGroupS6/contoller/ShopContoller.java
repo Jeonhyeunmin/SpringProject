@@ -277,6 +277,7 @@ public class ShopContoller {
 	
 	@PostMapping("/shopInput")
 	public String shopInputPost(Model model, MultipartRequest titleImg, ShopVO vo, HttpServletRequest request) {
+		
 		String mid = (String)request.getSession().getAttribute("sMid");
 		vo.setMid(mid);
 		String optionName = vo.getOptionName();

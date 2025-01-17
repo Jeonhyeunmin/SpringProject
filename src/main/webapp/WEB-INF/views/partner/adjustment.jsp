@@ -50,7 +50,7 @@
       font-size: 13px;
       padding: 10px;
       text-align: center;
-      vertical-align: middle;
+      vertical-align: middle !important;
     }
 
     tbody tr:nth-child(even) {

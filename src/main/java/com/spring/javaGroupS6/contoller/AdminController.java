@@ -1,6 +1,9 @@
 package com.spring.javaGroupS6.contoller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,11 +11,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.javaGroupS6.service.AdminService;
+import com.spring.javaGroupS6.service.CommonService;
+import com.spring.javaGroupS6.service.MemberService;
 import com.spring.javaGroupS6.vo.CouponVO;
 import com.spring.javaGroupS6.vo.MemberVO;
+import com.spring.javaGroupS6.vo.PartnerVO;
 import com.spring.javaGroupS6.vo.ShopOrderVO;
 import com.spring.javaGroupS6.vo.ShopReviewVO;
 import com.spring.javaGroupS6.vo.ShopVO;
@@ -24,23 +31,21 @@ public class AdminController {
 	@Autowired
 	AdminService adminService;
 	
+	@Autowired
+	MemberService memberService;
+	
+	@Autowired
+	CommonService commonService;
+	
 	@GetMapping("/admin")
 	public String adminGet(Model model) {
-		ArrayList<MemberVO> customerVOS = adminService.getCutomerList();
-		ArrayList<MemberVO> partnerVOS = adminService.getPartnerList();
-		ArrayList<ShopVO> shopVOS = adminService.getShopList();
+		ArrayList<MemberVO> customerVOS = adminService.getCutomerList("");
+		ArrayList<PartnerVO> partnerVOS = adminService.getPartnerList("");
+		ArrayList<ShopVO> shopVOS = adminService.getShopList("", "");
 		ArrayList<ShopOrderVO> orderVOS = adminService.getOrderList();
 		ArrayList<CouponVO> couponVOS = adminService.getCouponList();
 		ArrayList<ShopReviewVO> reviewVOS = adminService.getReviewList(0);
 		
-		ArrayList<ShopOrderVO> mostVOS = adminService.getVIP();
-		int buyCnt[] = new int[7];
-		String buyName[] = new String[7];
-		
-		for(int i = 0; i< mostVOS.size(); i++) {
-			buyCnt[i] = mostVOS.get(i).getOrderCnt();
-			buyName[i] = mostVOS.get(i).getVipName();
-		}
 		int claim = 0;
 		int reviewClaim = 0;
 		int partnerSale = 0;
@@ -80,8 +85,6 @@ public class AdminController {
 			totalSell += vo.getTotalPrice();
 		}
 		
-		model.addAttribute("buyCnt", buyCnt);
-		model.addAttribute("buyName", buyName);
 		model.addAttribute("totalSell", totalSell);
 		model.addAttribute("adjustment", adjustment);
 		model.addAttribute("acceptPost", acceptPost);
@@ -99,30 +102,85 @@ public class AdminController {
 	}
 	
 	@GetMapping("/userManage")
-	public String userManageGet(Model model) {
-		ArrayList<MemberVO> customerVOS = adminService.getCutomerList();
+	public String userManageGet(Model model,
+			@RequestParam(name = "userDel", defaultValue = "all", required = false) String userDel
+	) {
+		ArrayList<MemberVO> customerVOS = adminService.getCutomerList(userDel);
 		model.addAttribute("customerVOS", customerVOS);
 		return "admin/userManage";
 	}
 	
+	@GetMapping("/userDetail")
+	public String userDetailGet(Model model, int idx) {
+		MemberVO vo = adminService.getCustomerInfo(idx);
+		model.addAttribute("vo", vo);
+		return "admin/userDetail";
+	}
+	
+	@ResponseBody
+	@PostMapping("/CustomerDelete")
+	public int CustomerDeletePost(int idx) {
+		int res = adminService.getCustomerDelete(idx);
+		return res;
+	}
+	
 	@GetMapping("/partnerManage")
-	public String partnerManageGet(Model model) {
-		ArrayList<MemberVO> partnerVOS = adminService.getPartnerList();
+	public String partnerManageGet(Model model,
+			@RequestParam(name = "accept", defaultValue = "all", required = false) String accept
+	) {
+		ArrayList<PartnerVO> partnerVOS = adminService.getPartnerList(accept);
 		model.addAttribute("partnerVOS", partnerVOS);
 		return "admin/partnerManage";
 	}
 	
+	@GetMapping("/partnerDetail")
+	public String partnerDetailGet(Model model, int idx) {
+		PartnerVO vo = adminService.getPartnerInfo(idx);
+		model.addAttribute("vo", vo);
+		return "admin/partnerDetail";
+	}
+	
 	@GetMapping("/orderManage")
 	public String orderManageGet(Model model) {
-		ArrayList<MemberVO> partnerVOS = adminService.getPartnerList();
-		model.addAttribute("partnerVOS", partnerVOS);
+//		ArrayList<ShopOrderVO> partnerVOS = adminService.getPartnerList();
+//		model.addAttribute("partnerVOS", partnerVOS);
 		return "admin/orderManage";
+	}
+	
+	@GetMapping("/acceptPost")
+	public String acceptPostGet(Model model,
+			@RequestParam(name = "accept", defaultValue = "NO", required = false) String accept
+	) {
+		ArrayList<ShopVO> shopVOS = adminService.getShopList(accept, "");
+		model.addAttribute("shopVOS", shopVOS);
+		return "admin/acceptPost";
+	}
+	
+	@GetMapping("/claimPost")
+	public String claimPostGet(Model model,
+			@RequestParam(name = "claim", defaultValue = "YES", required = false) String claim
+	) {
+		ArrayList<ShopVO> shopVOS = adminService.getShopList("", claim);
+		model.addAttribute("shopVOS", shopVOS);
+		return "admin/claimPost";
 	}
 	
 	@GetMapping("/reviewManage")
 	public String reviewManageGet(Model model) {
-		ArrayList<ShopVO> shopVOS = adminService.getShopReviewList();
-		model.addAttribute("shopVOS", shopVOS);
+		ArrayList<ShopVO> reviewShopVOS = adminService.getShopReviewList();
+		ArrayList<ShopReviewVO> reviewVOS = adminService.getReview();
+		ArrayList<Integer> ClaimReviewIdx = new ArrayList<Integer>();
+		
+		for(ShopReviewVO vo : reviewVOS) {
+			if(vo.getClaim().equals("YES")) {
+				ClaimReviewIdx.add(vo.getShopIdx());
+			}
+		}
+		
+		
+		model.addAttribute("reviewShopVOS", reviewShopVOS);
+		model.addAttribute("reviewVOS", reviewVOS);
+		model.addAttribute("ClaimReviewIdx", ClaimReviewIdx);
 		return "admin/reviewManage";
 	}
 	
@@ -131,5 +189,120 @@ public class AdminController {
 	public ArrayList<ShopReviewVO> reviewLoadPost(int idx) {
 		ArrayList<ShopReviewVO> reviewVOS = adminService.getReviewList(idx);
 		return reviewVOS;
+	}
+	
+	@ResponseBody
+	@PostMapping("/mostUser")
+	public Map<String, Object> mostUserPost(Model model) {
+    // DB에서 가져온 데이터 (모든 고객의 월별 구매 정보)
+    ArrayList<ShopOrderVO> mostUser = adminService.getMostUser();
+
+    // JSON 반환을 위한 데이터 준비
+    List<String> names = new ArrayList<>();          // 고객 이름 리스트
+    List<String> months = new ArrayList<>();         // 월 리스트
+    List<Integer> totalPurchases = new ArrayList<>();
+
+    for (ShopOrderVO user : mostUser) {
+      names.add(user.getName());                   // 고객 이름 추가
+      months.add(user.getPurchase_month());        // 구매 월 추가
+      totalPurchases.add(user.getTotal());
+    }
+
+    // JSON 데이터로 반환
+    Map<String, Object> resultMap = new HashMap<>();
+    resultMap.put("names", names);
+    resultMap.put("months", months);
+    resultMap.put("total", totalPurchases);
+    resultMap.put("title", "VIP 고객 월 구매 수");
+    resultMap.put("unit", "MONTH");
+
+    return resultMap;
+	}
+	
+	@ResponseBody
+	@PostMapping("/mostCompany")
+	public Map<String, Object> mostCompanyPost(Model model) {
+		// DB에서 가져온 데이터 (모든 고객의 월별 구매 정보)
+		ArrayList<ShopOrderVO> mostCompany= adminService.getMostCompany();
+		
+		// JSON 반환을 위한 데이터 준비
+		List<String> names = new ArrayList<>();
+		List<String> months = new ArrayList<>();
+		List<Integer> totalPurchases = new ArrayList<>();
+		
+		for (ShopOrderVO company : mostCompany) {
+			names.add(company.getName());
+			months.add(company.getPurchase_month());
+			totalPurchases.add(company.getTotal());
+		}
+		
+		// JSON 데이터로 반환
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("names", names);
+		resultMap.put("months", months);
+		resultMap.put("total", totalPurchases);
+		resultMap.put("title", "상위 파트너 월 판매 수");
+		resultMap.put("unit", "MONTH");
+		
+		return resultMap;
+	}
+	
+	@ResponseBody
+	@PostMapping("/partnerAllAccpet")
+	public int partnerAllAccpetPost() {
+		int res = adminService.setPartnerAllAccpet();
+		return res;
+	}
+	
+	@ResponseBody
+	@PostMapping("/selectAccept")
+	public int selectAcceptPost(String idxArr) {
+		String idx[] = idxArr.split("/");
+		int res = 0;
+		for(String i : idx) {
+			res += adminService.setSelectAccept(Integer.parseInt(i));
+		}
+		return res;
+	}
+	
+	@ResponseBody
+	@PostMapping("/selectNoPartner")
+		public int partnerDeleteAllPost(String idxArr) {
+		String idx[] = idxArr.split("/");
+		int res = 0;
+		for(String i : idx) {
+			res += adminService.setSelectNoPartnerAccept(Integer.parseInt(i));
+		}
+		return res;
+	}
+	
+	@ResponseBody
+	@PostMapping("/partnerNo")
+	public int partnerNoPost(int idx) {
+		int res = adminService.setNoPartner(idx);
+		return res;
+	}
+	
+	@ResponseBody
+	@PostMapping("/userDeleteAll")
+	public int userDeleteAllPost() {
+		int res = 0;
+		res += adminService.setCustomerDeleteAll();
+		return res;
+	}
+	
+	@ResponseBody
+	@PostMapping("/MemberLeaveCancel")
+	public int MemberLeaveCancelPost(int idx) {
+		int res = 0;
+		res += adminService.setMemberLeaveCancel(idx);
+		return res;
+	}
+	
+	@ResponseBody
+	@PostMapping("/partnerYes")
+	public int partnerYesPost(int idx) {
+		int res = adminService.setPartnerYes(idx);
+		return res;
 	}
 }

@@ -16,7 +16,6 @@ public class PartnerVO {
 	private String address;
 	private String userInfor;
 	private int level;
-	private String userDel;
 	private String startDate;
 	private String lastDate;
 	private String accept;

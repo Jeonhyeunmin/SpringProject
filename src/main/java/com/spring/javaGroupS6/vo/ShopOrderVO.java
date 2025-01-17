@@ -35,7 +35,7 @@ public class ShopOrderVO {
 	private String buyerTel;
 	private String buyerEmail;
 	
-	private int orderCnt;
-	private String vipName;
-	
+	private int total;
+	private String name;
+	private String purchase_month;
 }

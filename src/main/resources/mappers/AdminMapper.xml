@@ -3,15 +3,17 @@
 <mapper namespace="com.spring.javaGroupS6.dao.AdminDAO">
 
 	<select id="getCutomerList" resultType="com.spring.javaGroupS6.vo.MemberVO">
-		select * from customer
+		select * from customer <if test='userDel == "YES"'>where userDel = 'YES'</if>;
 	</select>
 
 	<select id="getPartnerList" resultType="com.spring.javaGroupS6.vo.PartnerVO">
-		select * from partner
+		select * from partner <if test='accept == "NO"'>where accept = 'NO'</if>;
 	</select>
 
 	<select id="getShopList" resultType="com.spring.javaGroupS6.vo.ShopVO">
 		select * from shop
+		<if test='accept == "NO"'>where accept = 'NO'</if>
+		<if test='claim == "YES"'>where claim = 'YES'</if>
 	</select>
 
 	<select id="getReviewList" resultType="com.spring.javaGroupS6.vo.ShopReviewVO">
@@ -30,8 +32,140 @@
 		select s.* from shop s, shopReview sr where s.idx = sr.shopIdx group by s.idx;
 	</select>
 
-	<select id="getVIP" resultType="com.spring.javaGroupS6.vo.ShopOrderVO">
-		select count(so.mid) as orderCnt, c.name as vipName from shopOrder so, customer c where so.mid = c.mid group by so.mid order by orderCnt desc limit 7;
+	<select id="getReview" resultType="com.spring.javaGroupS6.vo.ShopReviewVO">
+		select * from shopReview;
 	</select>
+
+	<select id="getMostUser" resultType="com.spring.javaGroupS6.vo.ShopOrderVO">
+		SELECT 
+    tc.customer_idx,
+    tc.name,
+    cal.purchase_month,
+    IFNULL(COUNT(so.idx), 0) AS total
+		FROM 
+		    (
+		        SELECT 
+		            DATE_FORMAT(DATE_ADD(NOW(), INTERVAL - (a.a + (10 * b.a)) MONTH), '%Y-%m') AS purchase_month
+		        FROM 
+		            (SELECT 0 AS a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 
+		             UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS a,
+		            (SELECT 0 AS a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 
+		             UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS b
+		        WHERE 
+		            DATE_ADD(NOW(), INTERVAL - (a.a + (10 * b.a)) MONTH) >= DATE_ADD(NOW(), INTERVAL -6 MONTH)
+		            AND DATE_ADD(NOW(), INTERVAL - (a.a + (10 * b.a)) MONTH) &lt;= NOW()
+		    ) AS cal
+		CROSS JOIN 
+		    (
+		        SELECT 
+		            so.mid,
+		            c.idx AS customer_idx,
+		            c.name AS name,
+		            COUNT(so.idx) AS total_purchases
+		        FROM 
+		            shopOrder so
+		        JOIN 
+		            customer c ON so.mid = c.mid
+		        WHERE 
+		            so.orderDate >= DATE_ADD(NOW(), INTERVAL -1 YEAR)
+		        GROUP BY 
+		            so.mid
+		        ORDER BY 
+		            total_purchases DESC
+		        LIMIT 3
+		    ) AS tc
+		LEFT JOIN 
+		    shopOrder so ON cal.purchase_month = DATE_FORMAT(so.orderDate, '%Y-%m') AND so.mid = tc.mid
+		GROUP BY 
+		    tc.customer_idx, tc.name, cal.purchase_month
+		ORDER BY 
+		    cal.purchase_month, tc.customer_idx;
+	</select>
+	
+	<select id="getMostCompany" resultType="com.spring.javaGroupS6.vo.ShopOrderVO">
+		SELECT 
+		    tc.partner_idx,
+		    tc.company AS name,
+		    cal.purchase_month,
+		    IFNULL(COUNT(so.idx), 0) AS total
+		FROM 
+		    (
+		        SELECT 
+		            DATE_FORMAT(DATE_ADD(NOW(), INTERVAL - (a.a + (10 * b.a)) MONTH), '%Y-%m') AS purchase_month
+		        FROM 
+		            (SELECT 0 AS a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 
+		             UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS a,
+		            (SELECT 0 AS a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 
+		             UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS b
+		        WHERE 
+		            DATE_ADD(NOW(), INTERVAL - (a.a + (10 * b.a)) MONTH) >= DATE_ADD(NOW(), INTERVAL -6 MONTH)
+		            AND DATE_ADD(NOW(), INTERVAL - (a.a + (10 * b.a)) MONTH) &lt;= NOW()
+		    ) AS cal
+		CROSS JOIN 
+		    (
+		        SELECT 
+		            p.idx AS partner_idx,
+		            p.company,
+		            COUNT(so.idx) AS total_sales
+		        FROM 
+		            shopOrder so
+		        JOIN partner p ON so.partnerMid = p.mid
+		        WHERE 
+		            so.orderDate >= DATE_ADD(NOW(), INTERVAL -6 MONTH)
+		        GROUP BY 
+		            p.idx, p.company
+		        ORDER BY 
+		            total_sales DESC
+		        LIMIT 3
+		    ) AS tc
+		LEFT JOIN 
+		    shopOrder so ON cal.purchase_month = DATE_FORMAT(so.orderDate, '%Y-%m') 
+		    AND so.partnerMid = (SELECT mid FROM partner WHERE idx = tc.partner_idx)
+		GROUP BY 
+		    tc.partner_idx, tc.company, cal.purchase_month
+		ORDER BY 
+		    cal.purchase_month, tc.partner_idx;
+
+	</select>
+
+	<select id="getCustomerInfo" resultType="com.spring.javaGroupS6.vo.MemberVO">
+		select * from customer where idx = #{idx};
+	</select>
+
+	<select id="getPartnerInfo" resultType="com.spring.javaGroupS6.vo.PartnerVO">
+		select * from partner where idx = #{idx};
+	</select>
+	
+	<update id="setPartnerAllAccpet">
+		update partner set accept = 'YES' where accept = 'NO';
+	</update>
+	
+	<update id="setSelectAccept">
+		update partner set accept = 'YES' where idx = #{idx} and accept = 'NO';
+	</update>
+	
+	<update id="setPartnerLeaveCancel">
+		update partner set userDel = 'NO', level = 2 where idx = #{idx};
+	</update>
+	
+	<update id="setSelectNoPartnerAccept">
+		update partner set accept = 'NO' where idx = #{idx};
+	</update>
+	
+	<update id="setNoPartner">
+		update partner set accept = 'NO' where idx = #{idx};
+	</update>
+	
+	<update id="setPartnerYes">
+		update partner set accept = 'YES' where idx = #{idx};
+	</update>
+	
+	<delete id="getCustomerDelete">
+		delete from customer where idx = #{idx}
+	</delete>
+	
+	<delete id="setCustomerDeleteAll">
+		delete from customer where userDel = 'YES';
+	</delete>
 	
 </mapper>

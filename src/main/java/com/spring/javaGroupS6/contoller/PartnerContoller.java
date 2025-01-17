@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.javaGroupS6.service.CommonService;
 import com.spring.javaGroupS6.service.PartnerService;
@@ -32,6 +34,9 @@ public class PartnerContoller {
 	
 	@Autowired
 	ShopService shopService;
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 	
 	@GetMapping("/myPage")
 	public String myPageGet(Model model, HttpSession session) {
@@ -86,19 +91,6 @@ public class PartnerContoller {
 		model.addAttribute("orderVOS", orderVOS);
 		model.addAttribute("vo", vo);
 		return "/partner/myPageContent";
-	}
-	
-	@GetMapping("/partnerLeave")
-	public String partnerLeaveGet(Model model, HttpSession session) {
-		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
-		int res = partnerService.setPartnerLeave(mid);
-		
-		if(res != 0) {
-			return "redirect:/message/memberUserLeaveOk";
-		}
-		else {
-			return "redirect:/message/memberUserLeaveNo";
-		}
 	}
 	
 	@GetMapping("/shopList")
@@ -214,6 +206,81 @@ public class PartnerContoller {
 		model.addAttribute("vos", vos);
 		
 		return "/partner/claimPost";
+	}
+	
+	@GetMapping("/partnerUpdate")
+	public String partnerUpdateGet(HttpSession session, Model model) {
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		PartnerVO vo = commonService.getPartnerIdSearch(mid);
+		model.addAttribute("vo", vo);
+		
+		return "/partner/partnerPwdCheck";
+	}
+	
+	@PostMapping("/partnerUpdate")
+	public String memberUpdatePost(HttpSession session, MultipartFile file, PartnerVO vo) {
+		
+		int res = partnerService.setPartnerUpdate(file, vo, session);
+		
+		if(res != 0) {
+			return "redirect:/message/memberUpdateOk"; 
+		}
+		else {
+			return "redirect:/message/memberUpdateNo"; 
+		}
+	}
+	
+	@PostMapping("/pwdCheck")
+	public String partnerPwdCheckPost(Model model, HttpSession session, String pwd) {
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		PartnerVO vo = commonService.getPartnerIdSearch(mid);
+		
+		if(passwordEncoder.matches(pwd, vo.getPwd())) {
+			model.addAttribute("vo", vo);
+			model.addAttribute("title", vo.getCompany() + "님 정보수정");
+			return "/partner/partnerUpdate";
+		}
+		else {
+			return "redirect:/message/partnerPwdCheckNo";
+		}
+	}
+	
+	@GetMapping("/partnerPwdChangeForm")
+	public String partnerPwdChangeForm() {
+		return "/partner/partnerPwdChangeForm";
+	}
+	
+	@ResponseBody
+	@PostMapping("/partnerPwdChangeOk")
+	public String memberPwdChangeOkPost(HttpSession session, String nowPwd, String pwd) {
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		PartnerVO vo = commonService.getPartnerIdSearch(mid);
+		
+		String res = "0";
+		if(passwordEncoder.matches(nowPwd, vo.getPwd())) {
+			pwd = passwordEncoder.encode(pwd);
+			partnerService.setPartnerPwdChange(pwd, mid);
+			res = "1";
+		}
+		else {
+			res = "99";
+		}
+		
+		return res; 
+	}
+	
+	@GetMapping("/partnerLeave")
+	public String partnerLeaveGet(HttpSession session) {
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		
+		int res = partnerService.setPartnerLeave(mid);
+		
+		if(res != 0) {
+			return "redirect:/message/partnerLeaveOk"; 
+		}
+		else {
+			return "redirect:/message/partnerLeaveNo"; 
+		}
 	}
 	
 }

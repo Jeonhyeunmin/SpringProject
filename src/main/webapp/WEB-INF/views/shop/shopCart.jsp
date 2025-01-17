@@ -200,7 +200,7 @@
       height: 20px;
       margin: 0;
       border-radius: 0;
-      vertical-align: middle;
+      vertical-align: middle  !important;
     }
     
     .selectDelete {
