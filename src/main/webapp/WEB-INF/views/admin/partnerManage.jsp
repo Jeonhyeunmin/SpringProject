@@ -282,6 +282,58 @@
 				});
 			}
 		}
+  	
+  	function partnerSerch() {
+  	  const keyword = document.getElementById('searchKeyword').value.trim(); // 검색어 가져오기
+
+  	  if (keyword === '') {
+  	    alert('검색어를 입력해주세요.');
+  	    return;
+  	  }
+
+  	  $.ajax({
+  	    url: '${ctp}/admin/searchPartners', // 서버에서 검색 결과를 처리할 엔드포인트
+  	    type: 'GET', // GET 요청
+  	    data: { keyword: keyword }, // 검색어 전달
+  	    success: function (response) {
+  	      updatePartnerTable(response); // 응답 데이터를 테이블에 업데이트
+  	    },
+  	    error: function (error) {
+  	      alert('검색 중 오류가 발생했습니다.');
+  	      console.error('Error:', error);
+  	    },
+  	  });
+  	}
+
+  	// 검색 결과로 테이블 업데이트
+  	function updatePartnerTable(partners) {
+  	  const tbody = document.querySelector('table tbody');
+  	  tbody.innerHTML = ''; // 기존 테이블 내용 제거
+
+  	  partners.forEach((partner) => {
+  	    const row =
+  	      '<tr onclick="location.href=\'${ctp}/admin/partnerDetail?idx=' + partner.idx + '\'">' +
+  	      '<td><input type="checkbox" id="check' + partner.idx + '" name="check" value="' + partner.idx + '" onClick="stopPropagation(event); onCheck()"></td>' +
+  	      '<td><img src="${ctp}/logo/' + partner.logo + '" class="img-thumbnail" width="50px"></td>' +
+  	      '<td>' + partner.mid + '</td>' +
+  	      '<td>' + partner.company + '</td>' +
+  	      '<td>' + partner.ceoName + '</td>' +
+  	      '<td>' + partner.businessNumber.substring(0, 3) + '-' + partner.businessNumber.substring(3, 5) + '-' + partner.businessNumber.substring(5) + '</td>' +
+  	      '<td>' + partner.tel + '</td>' +
+  	      '<td class="text-truncate" style="max-width: 150px;" title="' + partner.address + '">' + partner.address.replace('/', ' ') + '</td>' +
+  	      '<td class="text-truncate" style="max-width: 150px;" title="' + partner.email + '">' + partner.email + '</td>' +
+  	      '<td>' + (partner.accept === 'NO' ? '승인대기' : 'PARTNER') + '</td>' +
+  	      '<td>' +
+  	        (partner.accept === 'YES'
+  	          ? '<button onclick="stopPropagation(event); PartnerNo(' + partner.idx + ')" class="btn btn-danger btn-sm">파트너 해제</button>'
+  	          : '<button onclick="stopPropagation(event); PartnerYes(' + partner.idx + ')" class="btn btn-info btn-sm">파트너 승인</button>') +
+  	      '</td>' +
+  	      '</tr>';
+
+  	    tbody.insertAdjacentHTML('beforeend', row);
+  	  });
+  	}
+
 	</script>
 </head>
 <body>
@@ -316,6 +368,14 @@
 		  <button type="button" class="btn-delivery-finish" onclick="selectAccept()">선택 승인</button>
 		  <button type="button" class="btn-delivery-selected" onclick="SelectPartnerNo()">선택 파트너 해제</button>
 		</div>
+	  <div class="row">
+		  <div class="col-md-4">
+		    <input type="text" id="searchKeyword" class="form-control" placeholder="상품명, 업체명 검색">
+		  </div>
+		  <div class="col-md-3">
+		    <button class="btn btn-primary w-100" onclick="partnerSerch()">검색</button>
+		  </div>
+	  </div>
 	  <table class="table table-bordered table-hover table-striped text-center align-middle">
 	    <thead class="thead-dark">
         <tr>

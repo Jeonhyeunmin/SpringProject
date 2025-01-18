@@ -15,11 +15,11 @@ import com.spring.javaGroupS6.vo.SubCategoryVO;
 
 public interface ShopDAO {
 
-	ArrayList<ShopVO> getShopList(@Param("category") String category, @Param("column") String column, @Param("accept") String accept, @Param("company") String company);
+	ArrayList<ShopVO> getShopList(@Param("category") String category, @Param("mainCategory") String mainCategory, @Param("subCategory") String subCategory, @Param("accept") String accept, @Param("company") String company);
 
-	ArrayList<Integer> getSubCateCnt(@Param("mainCategory") String mainCategory);
+	ArrayList<Integer> getSubCateCnt(@Param("category") String category, @Param("mainCategory") String mainCategory);
 
-	ArrayList<Integer> getBrandCateCnt(@Param("subCategory") String subCategory);
+	ArrayList<Integer> getBrandCateCnt(@Param("category") String category, @Param("mainCategory") String mainCategory, @Param("subCategory") String subCategory);
 
 	ShopVO getShopContent(@Param("idx") int idx);
 

@@ -131,6 +131,33 @@
 			  }
 
     </style>
+    <script type="text/javascript">
+	  	function shopDelete(idx) {
+				let ans = confirm("해당 게시물을 삭제하시겠습니까?");
+				if(!ans) return false;
+				
+				$.ajax({
+					type:"post",
+					url:"${ctp}/shop/shopDelete",
+					data : {
+						idx : idx
+					},
+					success: function(res) {
+						if(res != "0"){
+							alert("게시물을 삭제하였습니다.");
+							location.reload();
+						}
+					},
+					error: function() {
+						alert("전송오류");
+					}
+				});
+			}
+	  	
+	  	function stopPropagation(event) {
+		    event.stopPropagation(); // 이벤트 버블링을 중단
+		  }
+    </script>
 </head>
 <body>
 	<h3 class="text-start mt-4" style="font-weight: bold;">게시물 리스트</h3>
@@ -143,7 +170,8 @@
 	      <div class="moveContent">
 	        <img src="${ctp}/category/${vo.thumbnail}" alt="Thumbnail">
 	        <div class="overlay-buttons">
-	          <a href="${ctp}/shop/shopUpdate?idx=${vo.idx}" target="partner" ><i class="fa-solid fa-pencil-alt"></i>게시물 수정</a>
+	          <a href="${ctp}/shop/shopUpdate?idx=${vo.idx}" target="partner" ><i class="fa-solid fa-pencil-alt"></i>수정</a>
+	          <a href="javascript:shopDelete(${vo.idx})"><i class="fa-solid fa-pencil-alt"></i>삭제</a>
         	</div>
 	      </div>
 	      <div class="info">

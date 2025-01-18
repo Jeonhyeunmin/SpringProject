@@ -135,6 +135,37 @@
 	<select id="getPartnerInfo" resultType="com.spring.javaGroupS6.vo.PartnerVO">
 		select * from partner where idx = #{idx};
 	</select>
+
+	<select id="filterOrders" resultType="com.spring.javaGroupS6.vo.ShopOrderVO">
+		SELECT * FROM shopOrder
+	  WHERE 1=1
+	  <if test="keyword != null and keyword != ''">
+	    AND (shopTitle LIKE CONCAT('%', #{keyword}, '%') OR company LIKE CONCAT('%', #{keyword}, '%'))
+	  </if>
+	  <if test="status != null and status != ''">
+	    AND delivery = #{status}
+	  </if>
+	  <if test="date != null and date != ''">
+	    AND DATE(orderDate) = #{date}
+	  </if>
+	</select>
+
+	<select id="getOrderDetails" resultType="com.spring.javaGroupS6.vo.ShopOrderVO">
+		SELECT * FROM shopOrder WHERE idx = #{idx}
+	</select>
+
+	<select id="searchUsers" resultType="com.spring.javaGroupS6.vo.MemberVO">
+		SELECT * FROM customer
+  	WHERE mid LIKE CONCAT('%', #{keyword}, '%')
+     OR name LIKE CONCAT('%', #{keyword}, '%')
+	</select>
+
+	<select id="searchPartners" resultType="com.spring.javaGroupS6.vo.PartnerVO">
+		SELECT * FROM partner
+  	WHERE company LIKE CONCAT('%', #{keyword}, '%')
+     OR ceoName LIKE CONCAT('%', #{keyword}, '%')
+     OR mid LIKE CONCAT('%', #{keyword}, '%')
+	</select>
 	
 	<update id="setPartnerAllAccpet">
 		update partner set accept = 'YES' where accept = 'NO';
@@ -160,12 +191,32 @@
 		update partner set accept = 'YES' where idx = #{idx};
 	</update>
 	
+	<update id="setAllAccept">
+		update shop set accept = 'YES' where accept = 'NO';
+	</update>
+	
+	<update id="setSelectAcceptPost">
+		update shop set accept = 'YES' where accept = 'NO' and idx = #{idx};
+	</update>
+	
+	<update id="setShopClaimNo">
+		update shop set claim = 'NO' where idx = #{idx};
+	</update>
+	
 	<delete id="getCustomerDelete">
 		delete from customer where idx = #{idx}
 	</delete>
 	
 	<delete id="setCustomerDeleteAll">
 		delete from customer where userDel = 'YES';
+	</delete>
+	
+	<delete id="setClaimAllDelete">
+		delete from shop where claim = 'YES';
+	</delete>
+	
+	<delete id="setSelectDelete">
+		delete from shop where idx = #{idx};
 	</delete>
 	
 </mapper>

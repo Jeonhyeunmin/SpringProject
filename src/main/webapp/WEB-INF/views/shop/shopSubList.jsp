@@ -203,7 +203,7 @@
 <body>
 	 <!-- 상단 제목 및 경로 -->
   <div class="page-header">
-    <div class="breadcrumb">HOME > <a href="${ctp}/shop/shopList?category=${category}">${fn: toUpperCase(category)}</a> > <a href="${ctp}/shop/shopMainList?mainCategory=${mainCategory}">${fn: toUpperCase(mainCategory)}</a> > <a href="${ctp}/shop/shopSubList?subCategory=${subCategory}">${fn: toUpperCase(subCategory)}</a></div>
+    <div class="breadcrumb">HOME > <a href="${ctp}/shop/shopList?category=${fn: toUpperCase(category)}">${fn: toUpperCase(category)}</a> > <a href="${ctp}/shop/shopMainList?category=${category}&mainCategory=${mainCategory}">${fn: toUpperCase(mainCategory)}</a> > <a href="${ctp}/shop/shopSubList?category=${category}&mainCategory=${mainCategory}&subCategory=${subCategory}">${fn: toUpperCase(subCategory)}</a></div>
     <h2>${fn: toUpperCase(mainCategory)}</h2>
   </div>
   

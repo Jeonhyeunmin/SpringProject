@@ -325,7 +325,7 @@
 		          <div class="card-body cleartfix">
 		            <div class="media align-items-stretch">
 		              <div class="align-self-center">
-		                <i class="fas fa-shopping-cart success font-large-2 mr-2"></i>
+		                <i class="fa-solid fa-check success font-large-2 mr-2"></i>
 		              </div>
 		              <div class="media-body align-self-center">
 		                <h4 class="m-0">게시물 승인</h4>

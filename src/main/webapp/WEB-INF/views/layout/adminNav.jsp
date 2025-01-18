@@ -159,7 +159,7 @@
       <i class="fas fa-receipt"></i> <!-- 주문관리 아이콘 -->
       주문관리
     </a>
-    <a href="#">
+    <a href="${ctp}/admin/adjustmentManage">
       <i class="fas fa-calculator"></i> <!-- 정산 아이콘 -->
       정산
     </a>

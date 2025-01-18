@@ -198,14 +198,14 @@
 <body>
 	 <!-- 상단 제목 및 경로 -->
   <div class="page-header">
-    <div class="breadcrumb">HOME > <a href="${ctp}/shop/shopList?category=${category}">${fn: toUpperCase(category)}</a> > <a href="${ctp}/shop/shopMainList?mainCategory=${mainCategory}">${fn: toUpperCase(mainCategory)}</a></div>
+    <div class="breadcrumb">HOME > <a href="${ctp}/shop/shopList?category=${fn: toUpperCase(category)}">${fn: toUpperCase(category)}</a> > <a href="${ctp}/shop/shopMainList?category=${category}&mainCategory=${mainCategory}">${fn: toUpperCase(mainCategory)}</a></div>
     <h2>${fn: toUpperCase(mainCategory)}</h2>
   </div>
   
   <div class="button-group">
   	<ul class="button-group-ul">
   		<c:forEach var="subCategoryList" items="${subCategoryList}" varStatus="st">
-  			<li><button type="button" onclick="location.href='${ctp}/shop/shopSubList?subCategory=${subCategoryList}'">${subCategoryList}(${subCateCnt[st.index]})</button></li>
+  			<li><button type="button" onclick="location.href='${ctp}/shop/shopSubList?category=${category}&mainCategory=${mainCategory}&subCategory=${subCategoryList}'">${subCategoryList}(${subCateCnt[st.index]})</button></li>
 			</c:forEach>
   	</ul>
 	</div>

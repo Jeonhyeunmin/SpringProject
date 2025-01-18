@@ -1,6 +1,7 @@
 package com.spring.javaGroupS6.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -122,5 +123,50 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int setPartnerYes(int idx) {
 		return adminDAO.setPartnerYes(idx);
+	}
+
+	@Override
+	public int setAllAccept() {
+		return adminDAO.setAllAccept();
+	}
+	
+	@Override
+	public int setSelectAcceptPost(int idx) {
+		return adminDAO.setSelectAcceptPost(idx);
+	}
+
+	@Override
+	public int setClaimAllDelete() {
+		return adminDAO.setClaimAllDelete();
+	}
+	
+	@Override
+	public int setSelectDelete(int idx) {
+		return adminDAO.setSelectDelete(idx);
+	}
+	
+	@Override
+	public int setShopClaimNo(int idx) {
+		return adminDAO.setShopClaimNo(idx);
+	}
+	
+	@Override
+	public List<ShopOrderVO> filterOrders(String keyword, String status, String date) {
+		return adminDAO.filterOrders(keyword, status, date);
+	}
+	
+	@Override
+	public ShopOrderVO getOrderDetails(int idx) {
+		return adminDAO.getOrderDetails(idx);
+	}
+	
+	@Override
+	public List<MemberVO> searchUsers(String keyword) {
+		return adminDAO.searchUsers(keyword);
+	}
+	
+	@Override
+	public List<PartnerVO> searchPartners(String keyword) {
+		return adminDAO.searchPartners(keyword);
 	}
 }

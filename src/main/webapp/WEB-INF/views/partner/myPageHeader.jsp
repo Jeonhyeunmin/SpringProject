@@ -92,15 +92,16 @@
 </head>
 <body>
   <div class="info">
-    <div class="profile"><img src="${ctp}/logo/${vo.logo}"/></div>
-  	<div class="info-detail">
-      <div class="name">
-      	${vo.company} 님
-      	<c:if test="${vo.accept == 'NO'}"><font color="red" size="2px">* 관리자 승인 후 게시물 등록이 가능합니다.</font></c:if>
-      </div>
-      <div class="id">${vo.mid}</div>
+    <a href="${ctp}/partner/content" target="partner"><div class="profile"><img src="${ctp}/logo/${vo.logo}"/></div></a>
+	  	<a href="${ctp}/partner/content" target="partner">
+				<div class="info-detail">
+      		<div class="name">
+      			${vo.company} 님
+      			<c:if test="${vo.accept == 'NO'}"><font color="red" size="2px">* 관리자 승인 후 게시물 등록이 가능합니다.</font></c:if>
+      		</div>
+      		<div class="id">${vo.mid}</div>
+  		</a>
     </div>
 		<a class="logout" href='${ctp}/common/logout'>로그아웃</a>
-  </div>
 </body>
 </html>

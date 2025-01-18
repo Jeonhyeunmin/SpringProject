@@ -5,20 +5,22 @@
 	<select id="getShopList" resultType="com.spring.javaGroupS6.vo.ShopVO">
 		select s.*, avg(sr.star) as star, count(sr.idx) as reviewCnt 
 		from shop s left join shopReview sr on s.idx = sr.shopIdx
-		where s.${column} = #{category}
-		<if test='accept == "yes"'>and s.accept = '승인' </if> 
-		<if test='accept == "no"'>and s.accept = 'NO' </if>
+		where s.category = #{category}
+		<if test='mainCategory != ""'>and s.mainCategory = #{mainCategory}</if>
+		<if test='subCategory != ""'>and s.subCategory = #{subCategory}</if>
+		<if test='accept == "YES"'>and s.accept = 'YES' </if> 
+		<if test='accept == "NO"'>and s.accept = 'NO' </if>
 		<if test='company != "all" and company != ""'>and s.company = #{company}</if> 
 		group by s.idx
-		order by s.${column};
+		order by s.category;
 	</select>
 
 	<select id="getSubCateCnt" resultType="int">
-		select COUNT(*) as count from shop where mainCategory = #{mainCategory} and accept = '승인'  group by subCategory order by mainCategory;
+		select COUNT(*) as count from shop where category = #{category} and mainCategory = #{mainCategory} and accept = 'YES'  group by subCategory order by category;
 	</select>
 
 	<select id="getBrandCateCnt" resultType="int">
-		select COUNT(*) as count from shop where subCategory = #{subCategory} and accept = '승인'  group by company order by company;
+		select COUNT(*) as count from shop where category = #{category} and mainCategory = #{mainCategory} and subCategory = #{subCategory} and accept = 'YES'  group by company order by company;
 	</select>
 
 	<select id="getShopContent" resultType="com.spring.javaGroupS6.vo.ShopVO">

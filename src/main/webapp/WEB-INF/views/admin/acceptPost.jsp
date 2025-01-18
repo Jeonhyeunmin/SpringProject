@@ -194,6 +194,104 @@
   	function stopPropagation(event) {
 	    event.stopPropagation(); // 이벤트 버블링을 중단
 	  }
+  	
+  	function allAccept() {
+			let ans = confirm("게시물을 모두 승인하시겠습니까?");
+			if(ans){
+				$.ajax({
+					type : "post",
+					url : "${ctp}/admin/allAccept",
+					success: function(res) {
+						if(res){
+							alert("게시물을 모두 승인하였습니다.");
+							location.reload();
+						}
+					}
+				});
+			}
+		}
+  	
+  	function selectAccept() {
+  		let idxArr = "";
+  	  let checkboxes = document.getElementsByName("check");
+  	  
+  	  for (let i = 0; i < checkboxes.length; i++) {
+  	    if (checkboxes[i].checked) {
+  	      idxArr += checkboxes[i].value + "/";
+  	    }
+  	  }
+    	idxArr = idxArr.substring(0,idxArr.length-1);
+    	
+    	if(idxArr == ""){
+    		alert("체크된 게시물이 없습니다 없습니다.");
+    		return false;
+    	}
+    	
+			let ans = confirm("선택된 게시물을 승인 하시겠습니까?");
+    	
+    	if(ans){
+	    	$.ajax({
+	    		type : "post",
+	    		url : "${ctp}/admin/selectAcceptPost",
+	    		data : {
+	    			idxArr : idxArr
+	    		},
+	    		success: function(res) {
+	    			if(res != "0"){
+		    			alert("선택 게시물을 승인하였습니다.");
+							location.reload();
+	    			}
+					},
+					error: function() {
+						alert("전송오류");
+					}
+	    	});
+    	}
+		}
+  	
+  	function accept(idx) {
+			let ans = confirm("게시물을 승인하시겠습니까?");
+			if(ans){
+				$.ajax({
+					type:"post",
+					url:"${ctp}/admin/accept",
+					data : {
+						idx : idx
+					},
+					success: function(res) {
+						if(res != "0"){
+							alert("게시물을 승인하였습니다.");
+							location.reload();
+						}
+					},
+					error: function() {
+						alert("전송오류");
+					}
+				});
+			}
+		}
+  	
+  	function shopDelete(idx, title) {
+			let ans = confirm("해당 게시물을 삭제하시겠습니까?");
+			if(!ans) return false;
+			
+			$.ajax({
+				type:"post",
+				url:"${ctp}/shop/shopDelete",
+				data : {
+					idx : idx
+				},
+				success: function(res) {
+					if(res != "0"){
+						alert("게시물을 삭제하였습니다.");
+						location.reload();
+					}
+				},
+				error: function() {
+					alert("전송오류");
+				}
+			});
+		}
   </script>
 </head>
 <body>
@@ -233,6 +331,7 @@
 		        <th>게시물 사진</th>
 		        <th>업체명</th>
 		        <th>상품명</th>
+		        <th>카테고리</th>
 		        <th>옵션명 / 옵션 가격</th>
 		        <th>가격</th>
 		        <th>할인율</th>
@@ -249,6 +348,7 @@
 		          <td><img src="${ctp}/category/${shopVO.thumbnail}" alt="Thumbnail"></td>
 		          <td>${shopVO.company}</td>
 		          <td>${shopVO.title}</td>
+		          <td>${shopVO.category} - ${shopVO.mainCategory} - ${shopVO.subCategory}</td>
 		          <td>
 		            <c:if test="${empty option[0]}">
 		              옵션 없음
@@ -270,9 +370,9 @@
 		          </td>
 		          <td>${fn: substring(shopVO.WDate, 0, 10)}</td>
 		          <td>
-		            <button class="btn-approve" onclick="stopPropagation(event);"><i class="fas fa-check-circle"></i> 승인</button>
-		            <button class="btn-delete" onclick="stopPropagation(event);">
-                	<i class="fas fa-trash"></i> 삭제
+		            <button type="button" class="btn-approve" onclick="stopPropagation(event); accept(${shopVO.idx})"><i class="fas fa-check-circle"></i> 승인</button>
+		            <button type="button" class="btn-delete" onclick="stopPropagation(event); shopDelete(${shopVO.idx})">
+                	<i class="fas fa-trash"></i> 삭제 
               	</button>
 		          </td>
 		        </tr>

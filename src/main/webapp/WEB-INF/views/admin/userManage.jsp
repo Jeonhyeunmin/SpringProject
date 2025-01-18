@@ -179,6 +179,76 @@
 				});
 			}
 		}
+  	
+  	function nameSerch() {
+  	  const keyword = document.getElementById('searchKeyword').value.trim();
+
+  	  $.ajax({
+  	    url: '${ctp}/admin/searchUsers', // 서버의 검색 엔드포인트
+  	    type: 'GET',
+  	    data: { keyword: keyword }, // 검색어 전달
+  	    success: function (response) {
+  	      updateTable(response); // 응답 데이터를 테이블에 반영
+  	    },
+  	    error: function (error) {
+  	      alert('검색 중 오류가 발생했습니다.');
+  	      console.error('Error:', error);
+  	    },
+  	  });
+  	}
+
+  	function updateTable(users) {
+  	  const tbody = document.querySelector('table tbody');
+  	  tbody.innerHTML = ''; // 기존 내용 초기화
+
+  	  users.forEach((user) => {
+  	    const row =
+  	      '<tr onclick="location.href=${ctp}'
+  	      + '/admin/userDetail?idx=' +
+  	      user.idx +
+  	      '\'">' +
+  	      '<td><img src="${ctp}'
+  	      + '/member/' +
+  	      user.photo +
+  	      '" class="img-thumbnail" width="50px"></td>' +
+  	      '<td>' +
+  	      user.mid +
+  	      '</td>' +
+  	      '<td>' +
+  	      user.name +
+  	      '</td>' +
+  	      '<td>' +
+  	      user.gender +
+  	      '</td>' +
+  	      '<td>' +
+  	      user.birthday.substring(0, 10) +
+  	      '</td>' +
+  	      '<td>' +
+  	      user.tel +
+  	      '</td>' +
+  	      '<td class="text-truncate" style="max-width: 150px;" title="' +
+  	      user.address +
+  	      '">' +
+  	      user.address.replace('/', ' ') +
+  	      '</td>' +
+  	      '<td class="text-truncate" style="max-width: 150px;" title="' +
+  	      user.email +
+  	      '">' +
+  	      user.email +
+  	      '</td>' +
+  	      '<td>' +
+  	      (user.userDel === 'NO'
+  	        ? '활동중'
+  	        : '<font color="red">탈퇴신청</font>') +
+  	      '</td>' +
+  	      '<td><button onclick="MemberDelete(' +
+  	      user.idx +
+  	      ')" class="btn btn-danger btn-sm">회원탈퇴</button></td>' +
+  	      '</tr>';
+
+  	    tbody.insertAdjacentHTML('beforeend', row);
+  	  });
+  	}
 	</script>
 </head>
 <body>
@@ -210,6 +280,14 @@
 	  <div class="action-buttons">
 		  <button type="button" class="btn-delivery-selected" onclick="userDeleteAll()">탈퇴 신청 일괄처리</button>
 		</div>
+		<div class="row">
+		  <div class="col-md-4">
+		    <input type="text" id="searchKeyword" class="form-control" placeholder="상품명, 업체명 검색">
+		  </div>
+		  <div class="col-md-3">
+		    <button class="btn btn-primary w-100" onclick="nameSerch()">검색</button>
+		  </div>
+	  </div>
 	  <table class="table table-bordered table-hover table-striped text-center align-middle">
 	    <thead class="thead-dark">
         <tr>

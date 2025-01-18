@@ -1,6 +1,7 @@
 package com.spring.javaGroupS6.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.spring.javaGroupS6.vo.CouponVO;
 import com.spring.javaGroupS6.vo.MemberVO;
@@ -52,6 +53,24 @@ public interface AdminService {
 	int setNoPartner(int idx);
 
 	int setPartnerYes(int idx);
+
+	int setAllAccept();
+
+	int setSelectAcceptPost(int idx);
+
+	int setClaimAllDelete();
+
+	int setSelectDelete(int idx);
+
+	int setShopClaimNo(int idx);
+
+	List<ShopOrderVO> filterOrders(String keyword, String status, String date);
+
+	ShopOrderVO getOrderDetails(int idx);
+
+	List<MemberVO> searchUsers(String keyword);
+
+	List<PartnerVO> searchPartners(String keyword);
 
 
 }

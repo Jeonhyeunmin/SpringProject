@@ -65,7 +65,7 @@ public class ShopContoller {
 		
 		model.addAttribute("files", files);
 		
-		ArrayList<ShopVO> vos = shopService.getShopList(category, "category", "yes" ,"");
+		ArrayList<ShopVO> vos = shopService.getShopList(category, "", "", "YES" ,"");
 		ArrayList<String> mainCategory = new ArrayList<String>();
 		ArrayList<ShopVO> products = new ArrayList<ShopVO>();
 		ArrayList<String> brands = new ArrayList<String>();
@@ -93,17 +93,16 @@ public class ShopContoller {
 	}
 	
 	@GetMapping("/shopMainList")
-	public String shopMainListGet(Model model, String mainCategory) {
-		
-		ArrayList<ShopVO> vos = shopService.getShopList(mainCategory, "mainCategory", "yes", "");
+	public String shopMainListGet(Model model, String category, String mainCategory) {
+		System.out.println("category : " + category);
+		System.out.println("mainCategory : " + mainCategory);
+		ArrayList<ShopVO> vos = shopService.getShopList(category, mainCategory, "", "YES", "");
 		ArrayList<String> subCategory = new ArrayList<String>();
-		ArrayList<Integer> subCateCnt = shopService.getSubCateCnt(mainCategory);
-		String category = "";
+		ArrayList<Integer> subCateCnt = shopService.getSubCateCnt(category, mainCategory);
 		
 		for(int i = 0; i < vos.size(); i++) {
 			if(!subCategory.contains(vos.get(i).getSubCategory())) {
 				subCategory.add(vos.get(i).getSubCategory());
-				category = vos.get(i).getCategory();
 			}
 		}
 		
@@ -118,23 +117,19 @@ public class ShopContoller {
 	}
 	
 	@GetMapping("/shopSubList")
-	public String shopSubListGet(Model model, String subCategory,
+	public String shopSubListGet(Model model, String category, String mainCategory, String subCategory,
 			@RequestParam(name = "company", defaultValue = "all") String company,			
 			@RequestParam(name = "alignColumn", defaultValue = "") String alignColumn,			
 			@RequestParam(name = "align", defaultValue = "asc") String align			
 	) {
-		ArrayList<ShopVO> allList = shopService.getShopList(subCategory, "subCategory", "yes", "");
-		ArrayList<ShopVO> vos = shopService.getShopList(subCategory, "subCategory", "yes", company);
+		ArrayList<ShopVO> allList = shopService.getShopList(category, mainCategory, subCategory, "YES", "");
+		ArrayList<ShopVO> vos = shopService.getShopList(category, mainCategory, subCategory, "YES", company);
 		ArrayList<String> BrandList = new ArrayList<String>();
-		ArrayList<Integer> BrandCnt = shopService.getBrandCateCnt(subCategory);
-		String category = "";
-		String mainCategory = "";
+		ArrayList<Integer> BrandCnt = shopService.getBrandCateCnt(category, mainCategory, subCategory);
 		
 		for(int i = 0; i < allList.size(); i++) {
 			if(!BrandList.contains(allList.get(i).getCompany())) {
 				BrandList.add(allList.get(i).getCompany());
-				category = allList.get(i).getCategory();
-				mainCategory = allList.get(i).getMainCategory();
 			}
 		}
 		
@@ -295,16 +290,11 @@ public class ShopContoller {
 		}
 	}
 	
-	@GetMapping("/shopDelete")
-	public String shopDeleteGet(int idx) {
+	@ResponseBody
+	@PostMapping("/shopDelete")
+	public int shopDeletePost(int idx) {
 		int res = shopService.setShopDelete(idx);
-		
-		if(res != 0) {
-			return "redirect:/message/shopDeleteOk";
-		}
-		else {
-			return "redirect:/message/shopDeleteNo?idx=" + idx;
-		}
+			return res;
 	}
 	
 	@GetMapping("/shopReview")

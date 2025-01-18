@@ -1,6 +1,7 @@
 package com.spring.javaGroupS6.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -54,6 +55,24 @@ public interface AdminDAO {
 	int setNoPartner(@Param("idx") int idx);
 
 	int setPartnerYes(@Param("idx")int idx);
+
+	int setAllAccept();
+
+	int setSelectAcceptPost(@Param("idx") int idx);
+
+	int setClaimAllDelete();
+
+	int setSelectDelete(@Param("idx") int idx);
+
+	int setShopClaimNo(@Param("idx") int idx);
+
+	List<ShopOrderVO> filterOrders(@Param("keyword") String keyword, @Param("status") String status, @Param("date") String date);
+
+	ShopOrderVO getOrderDetails(@Param("idx") int idx);
+
+	List<MemberVO> searchUsers(@Param("keyword") String keyword);
+
+	List<PartnerVO> searchPartners(@Param("keyword")String keyword);
 
 
 }

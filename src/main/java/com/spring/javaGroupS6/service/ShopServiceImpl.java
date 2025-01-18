@@ -36,20 +36,20 @@ public class ShopServiceImpl implements ShopService {
 	JavaProvide provide;
 
 	@Override
-	public ArrayList<ShopVO> getShopList(String category, String column, String accept, String company) {
-		return shopDAO.getShopList(category, column, accept, company);
+	public ArrayList<ShopVO> getShopList(String category, String mainCategory, String subCategory, String accept, String company) {
+		return shopDAO.getShopList(category, mainCategory, subCategory, accept, company);
 	}
 
 
 	@Override
-	public ArrayList<Integer> getSubCateCnt(String mainCategory) {
-		return shopDAO.getSubCateCnt(mainCategory);
+	public ArrayList<Integer> getSubCateCnt(String category, String mainCategory) {
+		return shopDAO.getSubCateCnt(category, mainCategory);
 	}
 
 
 	@Override
-	public ArrayList<Integer> getBrandCateCnt(String subCategory) {
-		return shopDAO.getBrandCateCnt(subCategory);
+	public ArrayList<Integer> getBrandCateCnt(String category, String mainCategory, String subCategory) {
+		return shopDAO.getBrandCateCnt(category, mainCategory, subCategory);
 	}
 
 

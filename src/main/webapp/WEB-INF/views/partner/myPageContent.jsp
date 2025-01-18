@@ -177,9 +177,9 @@
     </div>
     <div class="recent-orders">
       <h3 style="font-weight: bold;">리뷰가 달린 게시물</h3>
-      <c:if test="${empty orderVOS}">
+      <%-- <c:if test="${empty orderVOS}"> --%>
       <p>최근 리뷰가 달린 게시물이 없습니다.</p>
-      </c:if>
+      <%-- </c:if> --%>
       <%-- <c:if test="${!empty orderVOS}">
 		    <div class="table-wrapper">
 				  <table>

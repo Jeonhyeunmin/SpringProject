@@ -584,11 +584,26 @@
   	}
 
   	
-  	function shopDelete() {
+  	function shopDelete(idx) {
 			let ans = confirm("${vo.title}을 삭제하시겠습니까?");
 			if(!ans) return false;
 			
-			location.href="${ctp}/shop/shopDelete?idx=${vo.idx}";
+			$.ajax({
+				type:"post",
+				url:"${ctp}/shop/shopDelete",
+				data : {
+					idx : idx
+				},
+				success: function(res) {
+					if(res != "0"){
+						alert("게시물을 삭제하였습니다.");
+						location.href="${ctp}";
+					}
+				},
+				error: function() {
+					alert("전송오류");
+				}
+			});
 		}
   	
   	function selectOption() {
@@ -936,6 +951,51 @@
         }
 	    });
   	}
+  	
+  	
+  	function accept(idx) {
+			let ans = confirm("게시물을 승인하시겠습니까?");
+			if(ans){
+				$.ajax({
+					type:"post",
+					url:"${ctp}/admin/accept",
+					data : {
+						idx : idx
+					},
+					success: function(res) {
+						if(res != "0"){
+							alert("게시물을 승인하였습니다.");
+						}
+					},
+					error: function() {
+						alert("전송오류");
+					}
+				});
+			}
+		}
+  	
+  	function shopClaimNo(idx) {
+			let ans = confirm("신고를 해제하시겠습니까?");
+			
+			if(ans){
+	    	$.ajax({
+	    		type : "post",
+	    		url : "${ctp}/admin/shopClaimNo",
+	    		data : {
+	    			idx : idx
+	    		},
+	    		success: function(res) {
+	    			if(res != "0"){
+		    			alert("신고가 해제되었습니다.");
+							location.reload();
+	    			}
+					},
+					error: function() {
+						alert("전송오류");
+					}
+	    	});
+			}
+		}
 
   	
   </script>
@@ -966,10 +1026,16 @@
 				      <div class="company">${vo.company}</div>
 				      <p class="post-count">게시물 <fmt:formatNumber value="${postCount}" pattern="#,##0"/>개</p>
 				    </div>
-				    <c:if test="${sLevel == 0 && vo.accept == 'NO'}"><button type="button" onclick="accept()" class="btn btn-outline-success" style="margin-left: 5%;">승인</button></c:if>
-				    <c:if test="${sLevel == 0 && (vo.accept == 'NO' || vo.claim == 'YES')}"><button type="button" onclick="accept()" class="btn btn-outline-danger" style="margin-left: 5%;">삭제</button></c:if>
 				  </div>
-				  <h2>${vo.title}</h2>
+				  <h2>
+				  	<c:if test="${vo.accept == 'NO'}">
+				  		<p><font color="green" size="2px"> * 미승인 게시물입니다.</font></p>
+			  		</c:if>
+				  	<c:if test="${vo.claim == 'YES'}">
+				  		<p><font color="red" size="2px"> * 신고된 게시물입니다.</font></p>
+			  		</c:if>
+			  		${vo.title}
+	  			</h2>
 				  <c:if test="${vo.discount > 0}">
 				    <span class="discount-badge">${vo.company}의 ${vo.discount}% 할인</span>
 					  <p class="original-price"><fmt:formatNumber value="${vo.price}" pattern="#,##0"/> 원</p>
@@ -1028,6 +1094,9 @@
 						  <input type="hidden" id="optionSelectValue" name="optionSelect">
 						  <button type="button" onclick="buy()" class="btn btn-outline-secondary mt-3">구매하기</button>
 					  	<button type="button" onclick="cartCheck()" class="btn btn-outline-secondary mt-3">장바구니 담기</button>
+					  	<c:if test="${sLevel == 0 && vo.accept == 'NO'}"><button type="button" onclick="accept()" class="btn btn-outline-success mt-3 ms-4">승인</button></c:if>
+				    	<c:if test="${sLevel == 0}"><button type="button" onclick="shopClaimNo(${shopVO.idx})" class="btn btn-outline-warning mt-3 ms-1">신고해제</button></c:if>
+				    	<c:if test="${sLevel == 0 || vo.mid == sMid}"><button type="button" onclick="shopDelete(${vo.idx})" class="btn btn-outline-danger mt-3 ms-1">삭제</button></c:if>
 						</form>
 					</div>
 				</div>

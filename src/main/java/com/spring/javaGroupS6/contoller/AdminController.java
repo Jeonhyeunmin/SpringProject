@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -142,8 +143,16 @@ public class AdminController {
 	
 	@GetMapping("/orderManage")
 	public String orderManageGet(Model model) {
-//		ArrayList<ShopOrderVO> partnerVOS = adminService.getPartnerList();
-//		model.addAttribute("partnerVOS", partnerVOS);
+		int totalSell = 0;
+		
+		ArrayList<ShopOrderVO> orderVOS = adminService.getOrderList();
+		
+		for(ShopOrderVO vo : orderVOS) {
+			totalSell += vo.getTotalPrice();
+		}
+		
+		model.addAttribute("orderVOS", orderVOS);
+		model.addAttribute("totalSell", totalSell);
 		return "admin/orderManage";
 	}
 	
@@ -305,4 +314,101 @@ public class AdminController {
 		int res = adminService.setPartnerYes(idx);
 		return res;
 	}
+	
+	@ResponseBody
+	@PostMapping("/allAccept")
+	public int allAcceptPost() {
+		return adminService.setAllAccept();
+	}
+	
+	@ResponseBody
+	@PostMapping("/selectAcceptPost")
+	public int selectAccept(String idxArr) {
+		int res = 0;
+		String idx[] = idxArr.split("/");
+		
+		for(String i : idx) {
+			res += adminService.setSelectAcceptPost(Integer.parseInt(i));
+		}
+		
+		return res;
+	}
+	
+	@ResponseBody
+	@PostMapping("/accept")
+	public int acceptPost(int idx) {
+		return adminService.setSelectAcceptPost(idx);
+	}
+	
+	@ResponseBody
+	@PostMapping("/claimAllDelete")
+	public int claimAllDeletePost() {
+		return adminService.setClaimAllDelete();
+	}
+	
+	@ResponseBody
+	@PostMapping("/selectDelete")
+	public int selectDeletePost(String idxArr) {
+		int res = 0;
+		String idx[] = idxArr.split("/");
+		
+		for(String i : idx) {
+			res += adminService.setSelectDelete(Integer.parseInt(i));
+		}
+		
+		return res;
+	}
+	
+	@ResponseBody
+	@PostMapping("/shopClaimNo")
+	public int shopClaimNoPost(int idx) {
+		return adminService.setShopClaimNo(idx);
+	}
+	
+	@ResponseBody
+	@PostMapping("/filterOrders")
+	public List<ShopOrderVO> filterOrders(
+    @RequestParam(required = false) String keyword,
+    @RequestParam(required = false) String status,
+    @RequestParam(required = false) String date) {
+
+    return adminService.filterOrders(keyword, status, date);
+	}
+	
+	@ResponseBody
+	@GetMapping("/orderDetails")
+	public ShopOrderVO getOrderDetails(@RequestParam("idx") int idx) {
+    return adminService.getOrderDetails(idx);
+	}
+	
+	@ResponseBody
+	@GetMapping("/searchUsers")
+	public List<MemberVO> searchUsers(@RequestParam("keyword") String keyword) {
+    return adminService.searchUsers(keyword);
+	}
+	
+	@ResponseBody
+	@GetMapping("/searchPartners")
+	public List<PartnerVO> searchPartners(@RequestParam("keyword") String keyword) {
+    return adminService.searchPartners(keyword);
+	}
+	
+	@GetMapping("/adjustmentManage")
+	public String adjustmentManageGet(Model model) {
+		int totalSell = 0;
+		int adjustment = 0;
+		ArrayList<ShopOrderVO> orderVOS = adminService.getOrderList();
+		for(ShopOrderVO vo : orderVOS) {
+			totalSell += vo.getTotalPrice();
+			if(vo.getAdjustment().equals("NO") && vo.getDecide().equals("구매확정") && vo.getDelivery().equals("배송완료")) {
+				adjustment++;
+			}
+		}
+		
+		model.addAttribute("totalSell", totalSell);
+		model.addAttribute("adjustment", adjustment);
+		model.addAttribute("orderVOS", orderVOS);
+		return "admin/adjustmentManage";
+	}
+
 }

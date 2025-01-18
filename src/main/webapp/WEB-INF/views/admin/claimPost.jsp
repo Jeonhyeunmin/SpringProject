@@ -77,7 +77,7 @@
 	    cursor: pointer;
 	    transition: background-color 0.3s ease, transform 0.2s ease;
 	  }
-	  .btn-approve, .btn-delete {
+	  .btn-approve, .btn-delete, .btn-claimNo {
 	    padding: 8px 12px;
 	    font-size: 14px;
 	    color: #fff;
@@ -101,9 +101,9 @@
 	    transform: scale(1.05);
 	  }
 		
-		  .btn i {
-		    margin-right: 5px;
-		  }
+	  .btn i {
+	    margin-right: 5px;
+	  }
 	
 	  .btn-approve i {
 	    margin-right: 5px;
@@ -126,6 +126,7 @@
 	    gap: 10px;
 	    margin-bottom: 20px;
 	  }
+	
 	  .action-buttons button {
 	    padding: 10px 15px;
 	    font-size: 14px;
@@ -136,20 +137,55 @@
 	    transition: background-color 0.3s ease, transform 0.2s ease;
 	    cursor: pointer;
 	  }
-	  .action-buttons .btn-delete-all {
-	    background-color: #e35c61;
+	
+    .btn-delete-all {
+	    background-color: #d9534f; /* 빨강 */
+	    color: white;
 	  }
-	  .action-buttons .btn-delete-all:hover {
-	    background-color: #ac3f43;
+	  .btn-delete-all:hover {
+	    background-color: #c9302c;
+	    transform: scale(1.05);
 	  }
-	  .action-buttons .btn-delete-select {
-	    background-color: #e35c61;
+	
+	  .btn-delete-select {
+	    background-color: #0275d8; /* 파랑 */
+	    color: white;
 	  }
-	  .action-buttons .btn-delete-select:hover {
-	    background-color: #ac3f43;
+	  .btn-delete-select:hover {
+	    background-color: #025aa5;
+	    transform: scale(1.05);
 	  }
-	  .action-buttons button:active {
-	    transform: scale(0.95);
+	
+	  .btn-claimNo {
+	    background-color: #f0ad4e; /* 노랑 */
+	    color: white;
+	  }
+	  .btn-claimNo:hover {
+	    background-color: #ec971f;
+	    transform: scale(1.05);
+	  }
+	
+	  .btn-delete {
+	    background-color: #d9534f; /* 빨강 */
+	    color: white;
+	  }
+	  .btn-delete:hover {
+	    background-color: #c9302c;
+	    transform: scale(1.05);
+	  }
+	
+	  .btn-approve {
+	    background-color: #28a745; /* 녹색 */
+	    color: white;
+	  }
+	
+	  .btn-approve:hover {
+	    background-color: #218838; /* 조금 더 어두운 녹색 */
+	    transform: scale(1.05);
+	  }
+	
+	  .btn i {
+	    margin-right: 5px;
 	  }
   </style>
   <script type="text/javascript">
@@ -194,6 +230,108 @@
   	function stopPropagation(event) {
 	    event.stopPropagation(); // 이벤트 버블링을 중단
 	  }
+  	
+  	function shopDelete(idx, title) {
+			let ans = confirm("해당 게시물을 삭제하시겠습니까?");
+			if(!ans) return false;
+			
+			$.ajax({
+				type:"post",
+				url:"${ctp}/shop/shopDelete",
+				data : {
+					idx : idx
+				},
+				success: function(res) {
+					if(res != "0"){
+						alert("게시물을 삭제하였습니다.");
+						location.reload();
+					}
+				},
+				error: function() {
+					alert("전송오류");
+				}
+			});
+		}
+  	
+  	function deleteAll() {
+			let ans = confirm("신고된 게시물을 모두 삭제하시겠습니까?");
+			if(ans){
+				$.ajax({
+					type:"post",
+					url:"${ctp}/admin/claimAllDelete",
+					success: function(res) {
+						if(res != "0"){
+							alert("신고된 게시물을 모두 삭제하였습니다.");
+							location.reload();
+						}
+					},
+					error: function() {
+						alert("전송오류");
+					}
+				});
+			}
+		}
+  	
+  	function selectDelete() {
+  		let idxArr = "";
+  	  let checkboxes = document.getElementsByName("check");
+  	  
+  	  for (let i = 0; i < checkboxes.length; i++) {
+  	    if (checkboxes[i].checked) {
+  	      idxArr += checkboxes[i].value + "/";
+  	    }
+  	  }
+    	idxArr = idxArr.substring(0,idxArr.length-1);
+    	
+    	if(idxArr == ""){
+    		alert("체크된 게시물이 없습니다 없습니다.");
+    		return false;
+    	}
+    	
+			let ans = confirm("선택된 게시물을 삭제 하시겠습니까?");
+    	
+    	if(ans){
+	    	$.ajax({
+	    		type : "post",
+	    		url : "${ctp}/admin/selectDelete",
+	    		data : {
+	    			idxArr : idxArr
+	    		},
+	    		success: function(res) {
+	    			if(res != "0"){
+		    			alert("선택 게시물을 삭제하였습니다.");
+							location.reload();
+	    			}
+					},
+					error: function() {
+						alert("전송오류");
+					}
+	    	});
+    	}
+		}
+  	
+  	function shopClaimNo(idx) {
+			let ans = confirm("신고를 해제하시겠습니까?");
+			
+			if(ans){
+	    	$.ajax({
+	    		type : "post",
+	    		url : "${ctp}/admin/shopClaimNo",
+	    		data : {
+	    			idx : idx
+	    		},
+	    		success: function(res) {
+	    			if(res != "0"){
+		    			alert("신고가 해제되었습니다.");
+							location.reload();
+	    			}
+					},
+					error: function() {
+						alert("전송오류");
+					}
+	    	});
+    	}
+		}
   </script>
 </head>
 <body>
@@ -222,8 +360,12 @@
 		  </div>
 	  </section>
 		<div class="action-buttons">
-		  <button type="button" onclick="allAccept()" class="btn-delete-all">전체 삭제</button>
-		  <button type="button" onclick="allAccept()" class="btn-delete-select">선택 삭제</button>
+		  <button type="button" onclick="deleteAll()" class="btn-delete-all">
+		    <i class="fas fa-arrow-circle-up"></i> 전체 삭제
+		  </button>
+		  <button type="button" onclick="selectDelete()" class="btn-delete-select">
+		    <i class="fas fa-check-circle"></i> 선택 삭제
+		  </button>
 		</div>
 	  <div class="table-container">
 		  <table class="table table-bordered">
@@ -270,10 +412,13 @@
 		          </td>
 		          <td>${fn: substring(shopVO.WDate, 0, 10)}</td>
 		          <td>
-		            <button class="btn-delete" onclick="stopPropagation(event);">
-                	<i class="fas fa-trash"></i> 삭제
-              	</button>
-		          </td>
+							  <button class="btn-claimNo" onclick="stopPropagation(event); shopClaimNo(${shopVO.idx})">
+							    <i class="fas fa-unlock"></i> 해제
+							  </button>
+							  <button class="btn-delete" onclick="stopPropagation(event); shopDelete(${shopVO.idx})">
+							    <i class="fas fa-times-circle"></i> 삭제
+							  </button>
+							</td>
 		        </tr>
 		      </c:forEach>
 		    </tbody>
