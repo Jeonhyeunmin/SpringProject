@@ -166,6 +166,33 @@
      OR ceoName LIKE CONCAT('%', #{keyword}, '%')
      OR mid LIKE CONCAT('%', #{keyword}, '%')
 	</select>
+
+	<select id="getAdjustMentList" resultType="com.spring.javaGroupS6.vo.ShopOrderVO">
+		SELECT * FROM shopOrder where adjustment != 'NO' order by adjustment;
+	</select>
+
+	<select id="searchOrders" resultType="com.spring.javaGroupS6.vo.ShopOrderVO">
+		SELECT * FROM shopOrder 
+		where (company like concat('%', #{keyword}, '%') 
+		or shopTitle like concat('%', #{keyword}, '%'))
+		and delivery = '배송완료'
+		and decide = '구매확정';
+	</select>
+
+	<select id="getEventList" resultType="com.spring.javaGroupS6.vo.EventVO">
+		select * from event 
+	</select>
+
+	<select id="getFilterEvents" resultType="com.spring.javaGroupS6.vo.EventVO">
+		select * from event 
+		WHERE 1=1
+	  <if test="keyword != null and keyword != ''">
+	    AND (title LIKE CONCAT('%', #{keyword}, '%') OR subTitle LIKE CONCAT('%', #{keyword}, '%'))
+	  </if>
+	  <if test="status != null and status != ''">
+	    AND status = #{status}
+	  </if>
+	</select>
 	
 	<update id="setPartnerAllAccpet">
 		update partner set accept = 'YES' where accept = 'NO';
@@ -201,6 +228,22 @@
 	
 	<update id="setShopClaimNo">
 		update shop set claim = 'NO' where idx = #{idx};
+	</update>
+	
+	<update id="setAllAdjustment">
+		update shopOrder set adjustment = 'YES' where adjustment = 'ING';
+	</update>
+	
+	<update id="setSelectAdjustment">
+		update shopOrder set adjustment = 'YES' where adjustment = 'ING' and idx = #{idx};
+	</update>
+	
+	<update id="setActiveEvent">
+		update event set status = 'active' where idx = #{idx};
+	</update>
+	
+	<update id="setDeActiveEvent">
+		update event set status = 'deactive' where idx = #{idx};
 	</update>
 	
 	<delete id="getCustomerDelete">

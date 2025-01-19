@@ -289,7 +289,7 @@
 		                <h4 class="m-0">신고 게시물</h4>
 		              </div>
 		              <div class="align-self-center">
-		                <h1>${claim}건</h1>
+		              	<h1><fmt:formatNumber pattern="#,##0" value="${claim}"/>건</h1>
 		              </div>
 		            </div>
 		          </div>
@@ -309,7 +309,7 @@
 		                <h4 class="m-0">신고 리뷰</h4>
 		              </div>
 		              <div class="align-self-center">
-		                <h1>${reviewClaim}건</h1>
+		                <h1><fmt:formatNumber pattern="#,##0" value="${reviewClaim}"/>건</h1>
 		              </div>
 		            </div>
 		          </div>
@@ -331,7 +331,7 @@
 		                <h4 class="m-0">게시물 승인</h4>
 		              </div>
 		              <div class="align-self-center">
-		                <h1>${acceptPost}건</h1>
+		                <h1><fmt:formatNumber pattern="#,##0" value="${acceptPost}"/>건</h1>
 		              </div>
 		            </div>
 		          </div>
@@ -373,7 +373,7 @@
 		                <h4 class="m-0">정산 대기</h4>
 		              </div>
 		              <div class="align-self-center">
-		                <h1>${adjustment}건</h1>
+		                <h1><fmt:formatNumber pattern="#,##0" value="${adjustment}"/>건</h1>
 		              </div>
 		            </div>
 		          </div>

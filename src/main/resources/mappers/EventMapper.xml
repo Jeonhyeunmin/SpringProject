@@ -3,7 +3,7 @@
 <mapper namespace="com.spring.javaGroupS6.dao.EventDAO">
 	
 	<select id="getEventList" resultType="com.spring.javaGroupS6.vo.EventVO">
-		select * from event where curdate() between startDate and endDate order by uploadDate desc;
+		select * from event where curdate() between startDate and endDate and status = 'active' order by uploadDate desc;
 	</select>
 	
 	<select id="getEvent" resultType="com.spring.javaGroupS6.vo.EventVO">
@@ -19,7 +19,7 @@
 	</select>
 	
 	<insert id="setEventInput">
-		insert into event values(default, #{vo.thumbnail}, #{vo.title}, #{vo.subTitle}, #{vo.couponName}, #{vo.content}, #{vo.discount}, #{vo.saleUnit}, #{vo.startDate}, #{vo.endDate}, default);
+		insert into event values(default, #{vo.thumbnail}, #{vo.title}, #{vo.subTitle}, #{vo.couponName}, #{vo.content}, #{vo.discount}, #{vo.saleUnit}, #{vo.startDate}, #{vo.endDate}, default, default);
 	</insert>
 	
 	<insert id="setCoupon">

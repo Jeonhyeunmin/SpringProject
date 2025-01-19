@@ -15,5 +15,6 @@ public class EventVO {
 	private String startDate;
 	private String endDate;
 	private String uploadDate;
+	private String status;
 	
 }

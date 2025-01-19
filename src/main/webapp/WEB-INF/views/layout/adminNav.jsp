@@ -104,13 +104,25 @@
   </style>
   <script>
   	document.addEventListener("DOMContentLoaded", function () {
-      // 하위 메뉴 토글
-      const postMenu = document.querySelector(".menu-post");
-      const submenu = document.querySelector(".submenu");
+  	  const submenus = document.querySelectorAll(".submenu");
+  	  const menus = document.querySelectorAll(".menu-post, .menu-event");
 
-      postMenu.addEventListener("click", function () {
-        submenu.classList.toggle("open");
-      });
+  	  menus.forEach(menu => {
+  	    menu.addEventListener("click", function () {
+  	      // 현재 메뉴에 연결된 서브메뉴 찾기
+  	      const targetSubmenu = this.nextElementSibling;
+
+  	      // 모든 서브메뉴 닫기
+  	      submenus.forEach(submenu => {
+  	        if (submenu !== targetSubmenu) {
+  	          submenu.classList.remove("open");
+  	        }
+  	      });
+
+  	      // 클릭한 메뉴의 서브메뉴 토글
+  	      targetSubmenu.classList.toggle("open");
+  	    });
+  	  });
 
       // 현재 URL 활성화
       const links = document.querySelectorAll(".sidebar a");
@@ -143,7 +155,7 @@
       <i class="fas fa-store"></i> <!-- 업체관리 아이콘 -->
       파트너관리
     </a>
-    <a href="javascript:void(0)" class="menu-post">
+    <a href="javascript:void(1)" class="menu-post">
       <i class="fas fa-file-alt"></i> <!-- 게시물 관리 아이콘 -->
       게시물 관리
     </a>
@@ -163,16 +175,20 @@
       <i class="fas fa-calculator"></i> <!-- 정산 아이콘 -->
       정산
     </a>
-    <a href="#">
+    <a href="javascript:void(1)" class="menu-event">
       <i class="fas fa-gift"></i> <!-- 이벤트 아이콘 -->
       이벤트
     </a>
+    <div class="submenu submenu-event">
+		  <a href="${ctp}/admin/eveneManage">이벤트 관리</a>
+		  <a href="${ctp}/event/eventInput">이벤트 등록</a>
+		</div>
     <a href="#">
       <i class="fas fa-ticket-alt"></i> <!-- 쿠폰관리 아이콘 -->
       쿠폰관리
     </a>
     <a href="#">
-      <i class="fas fa-ticket-alt"></i> <!-- 쿠폰관리 아이콘 -->
+      <i class="fa-solid fa-ranking-star"></i>
       마케팅
     </a>
     <div class="bottom-link" onclick="location.href='${ctp}'">

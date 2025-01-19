@@ -58,7 +58,8 @@
 		
 		thead th {
 	    font-size: 16px;
-	    text-transform: uppercase; /* 헤더 텍스트를 대문자로 표시 */
+	    text-transform: uppercase;
+	    cursor: pointer;
 		}
 		
 		tbody td {
@@ -137,10 +138,6 @@
 		  const status = document.getElementById('orderStatusFilter').value; // 상태 필터
 		  const date = document.getElementById('dateFilter').value; // 날짜 필터
 
-		  // 필터 조건 확인 (디버깅용)
-		  console.log('Filters:', { keyword, status, date });
-
-		  // AJAX 요청 보내기
 		  $.ajax({
 		    url: '${ctp}/admin/filterOrders', // 필터링된 주문 데이터를 처리할 서버 엔드포인트
 		    type: 'POST', // POST 요청
@@ -217,6 +214,30 @@
 		    },
 		  });
 		}
+		
+		function sortTable(columnIndex, type) {
+	    const table = document.querySelector('table');
+	    const rows = Array.from(table.querySelectorAll('tbody tr'));
+	    const isAscending = table.dataset.sortDirection !== 'asc';
+
+	    rows.sort((rowA, rowB) => {
+	      const cellA = rowA.cells[columnIndex].innerText.trim();
+	      const cellB = rowB.cells[columnIndex].innerText.trim();
+
+	      if (type === 'number') {
+	        return isAscending
+	          ? parseFloat(cellA.replace(/,/g, '')) - parseFloat(cellB.replace(/,/g, ''))
+	          : parseFloat(cellB.replace(/,/g, '')) - parseFloat(cellA.replace(/,/g, ''));
+	      } else {
+	        return isAscending
+	          ? cellA.localeCompare(cellB, 'ko')
+	          : cellB.localeCompare(cellA, 'ko');
+	      }
+	    });
+
+	    rows.forEach(row => table.querySelector('tbody').appendChild(row));
+	    table.dataset.sortDirection = isAscending ? 'asc' : 'desc';
+	  }
 	</script>
 </head>
 <body>
@@ -263,7 +284,7 @@
 	    </div>
 	  </div>
 		
-		<div class="row mb-4">
+		<div class="row mb-1">
 		  <div class="col-md-4">
 		    <input type="text" id="searchKeyword" class="form-control" placeholder="상품명, 업체명 검색">
 		  </div>
@@ -287,12 +308,12 @@
 		  <thead class="thead-dark">
 		    <tr>
 		      <th>제품사진</th>
-		      <th>상품명</th>
-		      <th>업체명</th>
-		      <th>가격</th>
-		      <th>주문일</th>
-		      <th>확정상태</th>
-		      <th>상태</th>
+		      <th onclick="sortTable(1, 'text')">상품명  <i class="fas fa-sort sort-icon"></i></th>
+		      <th onclick="sortTable(2, 'text')">업체명  <i class="fas fa-sort sort-icon"></i></th>
+		      <th onclick="sortTable(3, 'number')">가격  <i class="fas fa-sort sort-icon"></i></th>
+		      <th onclick="sortTable(4, 'text')">주문일  <i class="fas fa-sort sort-icon"></i></th>
+		      <th onclick="sortTable(5, 'text')">확정상태  <i class="fas fa-sort sort-icon"></i></th>
+		      <th onclick="sortTable(6, 'text')">상태  <i class="fas fa-sort sort-icon"></i></th>
 		      <th>작업</th>
 		    </tr>
 		  </thead>

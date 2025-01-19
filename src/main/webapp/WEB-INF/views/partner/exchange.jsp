@@ -62,6 +62,9 @@
 		        </tr>
 		      </thead>
 		      <tbody>
+		      	<c:if test="${empty orderVos}">
+		      		<tr><td colspan="11">교환 및 환불 내역이 없습니다.</td></tr>
+		      	</c:if>
 					  <c:forEach var="vo" items="${orderVOS}" varStatus="status">
 					    <tr>
 					      <td><a href='${ctp}/partner/orderDetail?idx=${vo.idx}'>${vo.shopTitle}</a></td>

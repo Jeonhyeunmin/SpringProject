@@ -100,7 +100,7 @@
     <div class="menu-section">
       <div class="menu-title">Min's 다이어리</div>
       <ul>
-        <li><a href="${ctp}/" target="customer">쿠폰</a></li>
+        <li><a href="${ctp}/shop/couponSelect" target="customer">쿠폰</a></li>
         <li><a href="#">Min's Point</a></li>
         <li><a href="${ctp}/" target="customer">상품평 관리</a></li>
         <li><a href="${ctp}/" target="customer">상품 Q&A</a></li>

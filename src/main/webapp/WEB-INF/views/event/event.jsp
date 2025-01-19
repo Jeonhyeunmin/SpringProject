@@ -83,7 +83,6 @@
 <body>
   <div class="event-container">
     <h1>이벤트</h1>
-		<button onclick="location.href='${ctp}/event/eventInput'">등록</button>
     <section class="event-section">
       <h2>쿠폰</h2>
       <div class="card-container">

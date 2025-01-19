@@ -117,4 +117,9 @@ public class PartnerServiceImpl implements PartnerService {
 		return partnerDAO.setPartnerUpdate(vo);
 	}
 	
+	@Override
+	public int setAllApplication(String mid) {
+		return partnerDAO.setAllApplication(mid);
+	}
+	
 }

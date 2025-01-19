@@ -36,5 +36,7 @@ public interface PartnerDAO {
 
 	int setPartnerUpdate(@Param("vo") PartnerVO vo);
 
+	int setAllApplication(@Param("mid") String mid);
+
 
 }

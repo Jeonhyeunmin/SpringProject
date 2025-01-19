@@ -116,9 +116,81 @@
     .btn-progress:hover {
       background-color: #ffc107;
     }
+    
+    .action-buttons {
+	    display: flex;
+	    gap: 10px;
+	    margin-bottom: 20px;
+	  }
+	  .action-buttons button {
+	    padding: 10px 15px;
+	    font-size: 14px;
+	    font-weight: bold;
+	    border: none;
+	    border-radius: 5px;
+	    color: white;
+	    transition: background-color 0.3s ease, transform 0.2s ease;
+	    cursor: pointer;
+	  }
+	  .action-buttons .btn-accept-all {
+	    background-color: #007bff;
+	  }
+	  .action-buttons .btn-accept-all:hover {
+	    background-color: #0056b3;
+	  }
+	  .action-buttons .btn-accept-select {
+	    background-color: #e35c61;
+	  }
+	  .action-buttons .btn-accept-select:hover {
+	    background-color: #ac3f43;
+	  }
+	  .action-buttons button:active {
+	    transform: scale(0.95);
+	  }
 
   </style>
   <script type="text/javascript">
+	  function allCheck(){
+	  	let minIdx = parseInt(document.getElementById("minIdx").value);
+	    let maxIdx = parseInt(document.getElementById("maxIdx").value);
+	    if(document.getElementById("allcheck").checked){
+	      for(let i=minIdx;i<=maxIdx;i++){
+	        if($("#check"+i).length != 0){
+	          document.getElementById("check"+i).checked=true;
+	        }
+	      }
+	    }
+	    else {
+	      for(let i=minIdx;i<=maxIdx;i++){
+	        if($("#check"+i).length != 0){
+	          document.getElementById("check"+i).checked=false;
+	        }
+	      }
+	    }
+	  }
+		
+		function onCheck() {
+	    let minIdx = parseInt(document.getElementById("minIdx").value);
+	    let maxIdx = parseInt(document.getElementById("maxIdx").value);
+	    
+	    let emptyCnt=0;
+	    for(let i=minIdx;i<=maxIdx;i++){
+	      if($("#check"+i).length != 0 && document.getElementById("check"+i).checked==false){
+	        emptyCnt++;
+	        break;
+	      }
+	    }
+	    if(emptyCnt!=0){
+	      document.getElementById("allcheck").checked=false;
+	    } 
+	    else {
+	      document.getElementById("allcheck").checked=true;
+	    }
+	  }
+		
+		function stopPropagation(event) {
+	    event.stopPropagation();
+	  }
   	function adjustment(idx) {
 			$.ajax({
 				type:"post",
@@ -137,15 +209,78 @@
 				}
 			});
 		}
+  	
+  	function allApplication() {
+			if(confirm("전부 정산 신청하시겠습니까?")){
+				$.ajax({
+					type : "post",
+					url :"${ctp}/partner/allApplication",
+					success: function(res) {
+						if(res != "0"){
+							alert("모든 항목을 정산신청 하였습니다");
+							location.reload();
+						}
+					},
+					error: function() {
+						alert("전송오류");
+					}
+				});
+				
+			}
+		}
+  	
+  	
+  	function selectApplication() {
+  		let idxArr = "";
+  	  let checkboxes = document.getElementsByName("check");
+  	  
+  	  for (let i = 0; i < checkboxes.length; i++) {
+  	    if (checkboxes[i].checked) {
+  	      idxArr += checkboxes[i].value + "/";
+  	    }
+  	  }
+    	idxArr = idxArr.substring(0,idxArr.length-1);
+    	
+    	if(idxArr == ""){
+    		alert("체크된 주문내역이 없습니다 없습니다.");
+    		return false;
+    	}
+    	
+			let ans = confirm("선택된 내역을 정산신청 하시겠습니까?");
+    	
+    	if(ans){
+	    	$.ajax({
+	    		type : "post",
+	    		url : "${ctp}/partner/selectApplication",
+	    		data : {
+	    			idxArr : idxArr
+	    		},
+	    		success: function(res) {
+	    			if(res != "0"){
+		    			alert("정산신청 완료 하였습니다.");
+							location.reload();
+	    			}
+					},
+					error: function() {
+						alert("전송오류");
+					}
+	    	});
+    	}
+		}
   </script>
 </head>
 <body>
   <div class="list-container">
     <h4>정산 상태</h4>
     <div class="table-responsive">
+    	<div class="action-buttons">
+			  <button type="button" onclick="allApplication()" class="btn-accept-all">전체 신청</button>
+			  <button type="button" class="btn-accept-select" onclick="selectApplication()">선택 신청</button>
+			</div>
       <table class="table table-striped table-bordered">
         <thead>
           <tr>
+          	<th><input type="checkbox" id="allcheck" onclick="allCheck()" class="allCheckBox"></th>
             <th>업체명</th>
             <th>상품명[옵션명]</th>
             <th>가격</th>
@@ -169,6 +304,7 @@
               <c:forEach var="vo" items="${orderVOS}" varStatus="status">
                 <c:if test="${vo.decide == '구매확정' && vo.delivery == '배송완료'}">
                   <tr>
+                  	<td><input type="checkbox" id="check${vo.idx}" name="check" value="${vo.idx}" onClick="stopPropagation(event); onCheck()"></td>
                     <td>${vo.company}</td>
                     <td>
                       <a href='${ctp}/partner/orderDetail?idx=${vo.idx}'>
@@ -205,5 +341,10 @@
       </table>
     </div>
   </div>
+  <c:set var="maxIdx" value="${orderVOS[0].idx}"/>
+  <c:set var="maxSize" value="${fn:length(orderVOS)-1}"/>
+  <c:set var="minIdx" value="${orderVOS[maxSize].idx}"/>
+  <input type="hidden" id="minIdx" name="minIdx" value="${minIdx}"/>
+  <input type="hidden" id="maxIdx" name="maxIdx" value="${maxIdx}"/>
 </body>
 </html>

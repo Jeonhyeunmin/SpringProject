@@ -63,5 +63,9 @@
 		update partner set logo = #{vo.logo}, company = #{vo.company}, businessNumber = #{vo.businessNumber}, email = #{vo.email}, tel = #{vo.tel}, address = #{vo.address} where mid = #{vo.mid};
 	</update>
 	
+	<update id="setAllApplication">
+		update shopOrder set adjustment = 'ING' where partnerMid = #{mid} and adjustment = 'NO';
+	</update>
+	
 	
 </mapper>

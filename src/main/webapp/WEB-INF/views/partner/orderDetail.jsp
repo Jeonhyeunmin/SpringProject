@@ -213,9 +213,7 @@
         </div>
       </div>
       <div class="order-actions">
-        <c:if test="${vo.delivery == '배송완료' }">
-      		<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='${ctp}/partner/orderList'">목록으로 돌아가기</button>
-        </c:if>
+    		<button type="button" class="btn btn-secondary btn-sm" onclick="history.back()">목록으로 돌아가기</button>
       	<c:if test="${vo.delivery == '배송중' }">
 	        <button type="button" class="btn btn-success btn-sm" onclick="deliveryEnd(${vo.idx})">
 	          <i class="fas fa-truck"></i> 배송완료

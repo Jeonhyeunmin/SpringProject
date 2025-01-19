@@ -283,4 +283,26 @@ public class PartnerContoller {
 		}
 	}
 	
+	@ResponseBody
+	@PostMapping("/allApplication")
+	public int allApplicationPost(HttpSession session) {
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		
+		int res = partnerService.setAllApplication(mid);
+		return res;
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("/selectApplication")
+	public int selectApplicationPost(String idxArr) {
+		String idx[] = idxArr.split("/");
+		int res = 0;
+		for(String i : idx) {
+			res += partnerService.setAdjustment(Integer.parseInt(i));
+		}
+		return res;
+		
+	}
+	
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.spring.javaGroupS6.vo.CouponVO;
+import com.spring.javaGroupS6.vo.EventVO;
 import com.spring.javaGroupS6.vo.MemberVO;
 import com.spring.javaGroupS6.vo.PartnerVO;
 import com.spring.javaGroupS6.vo.ShopOrderVO;
@@ -71,6 +72,22 @@ public interface AdminService {
 	List<MemberVO> searchUsers(String keyword);
 
 	List<PartnerVO> searchPartners(String keyword);
+
+	int setAllAdjustment();
+
+	int setSelectAdjustment(int idx);
+
+	ArrayList<ShopOrderVO> getAdjustMentList();
+
+	List<ShopOrderVO> searchOrders(String keyword);
+
+	ArrayList<EventVO> getEventList();
+
+	int setActiveEvent(int idx);
+
+	int setDeActiveEvent(int idx);
+
+	List<EventVO> getFilterEvents(String keyword, String status);
 
 
 }

@@ -8,7 +8,6 @@
 <title>Min's</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://kit.fontawesome.com/0c69fdf2c0.js" crossorigin="anonymous"></script>
 <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
 
 	<!-- Swiper CSS -->
@@ -262,9 +261,5 @@
 	</h6>					
 <div style="height: 1100px;"></div>
 
-
-
-<!-- footer -->
-<%-- <jsp:include page="/WEB-INF/views/include/mainFooter.jsp" /> --%>
 </body>
 </html>

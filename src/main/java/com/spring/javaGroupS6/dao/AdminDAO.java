@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.spring.javaGroupS6.vo.CouponVO;
+import com.spring.javaGroupS6.vo.EventVO;
 import com.spring.javaGroupS6.vo.MemberVO;
 import com.spring.javaGroupS6.vo.PartnerVO;
 import com.spring.javaGroupS6.vo.ShopOrderVO;
@@ -73,6 +74,22 @@ public interface AdminDAO {
 	List<MemberVO> searchUsers(@Param("keyword") String keyword);
 
 	List<PartnerVO> searchPartners(@Param("keyword")String keyword);
+
+	int setAllAdjustment();
+
+	int setSelectAdjustment(@Param("idx") int idx);
+
+	ArrayList<ShopOrderVO> getAdjustMentList();
+
+	List<ShopOrderVO> searchOrders(@Param("keyword") String keyword);
+
+	ArrayList<EventVO> getEventList();
+
+	int setActiveEvent(@Param("idx") int idx);
+
+	int setDeActiveEvent(@Param("idx") int idx);
+
+	List<EventVO> getFilterEvents(@Param("keyword") String keyword, @Param("status") String status);
 
 
 }

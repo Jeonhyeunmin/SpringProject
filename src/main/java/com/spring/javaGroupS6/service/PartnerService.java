@@ -38,6 +38,8 @@ public interface PartnerService {
 
 	int setPartnerUpdate(MultipartFile file, PartnerVO vo, HttpSession session);
 
+	int setAllApplication(String mid);
+
 
 
 }

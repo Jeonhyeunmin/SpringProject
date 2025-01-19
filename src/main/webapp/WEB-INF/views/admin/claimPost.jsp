@@ -284,7 +284,7 @@
     	idxArr = idxArr.substring(0,idxArr.length-1);
     	
     	if(idxArr == ""){
-    		alert("체크된 게시물이 없습니다 없습니다.");
+    		alert("체크된 게시물이 없습니다.");
     		return false;
     	}
     	

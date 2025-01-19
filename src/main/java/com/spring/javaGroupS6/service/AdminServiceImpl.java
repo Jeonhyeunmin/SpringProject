@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.javaGroupS6.dao.AdminDAO;
 import com.spring.javaGroupS6.vo.CouponVO;
+import com.spring.javaGroupS6.vo.EventVO;
 import com.spring.javaGroupS6.vo.MemberVO;
 import com.spring.javaGroupS6.vo.PartnerVO;
 import com.spring.javaGroupS6.vo.ShopOrderVO;
@@ -168,5 +169,45 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<PartnerVO> searchPartners(String keyword) {
 		return adminDAO.searchPartners(keyword);
+	}
+
+	@Override
+	public int setAllAdjustment() {
+		return adminDAO.setAllAdjustment();
+	}
+	
+	@Override
+	public int setSelectAdjustment(int idx) {
+		return adminDAO.setSelectAdjustment(idx);
+	}
+	
+	@Override
+	public ArrayList<ShopOrderVO> getAdjustMentList() {
+		return adminDAO.getAdjustMentList();
+	}
+	
+	@Override
+	public List<ShopOrderVO> searchOrders(String keyword) {
+		return adminDAO.searchOrders(keyword);
+	}
+	
+	@Override
+	public ArrayList<EventVO> getEventList() {
+		return adminDAO.getEventList();
+	}
+	
+	@Override
+	public int setActiveEvent(int idx) {
+		return adminDAO.setActiveEvent(idx);
+	}
+	
+	@Override
+	public int setDeActiveEvent(int idx) {
+		return adminDAO.setDeActiveEvent(idx);
+	}
+	
+	@Override
+	public List<EventVO> getFilterEvents(String keyword, String status) {
+		return adminDAO.getFilterEvents(keyword, status);
 	}
 }

@@ -13,108 +13,108 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <style>
         body {
-				    font-family: Arial, sans-serif;
-				    margin: 0;
-				    padding: 0;
-				    background-color: #f9f9f9;
+			    font-family: Arial, sans-serif;
+			    margin: 0;
+			    padding: 0;
+			    background-color: #f9f9f9;
 				}
         .brand-container {
-				    display: flex;
-				    max-width: 1000px;
-				    margin: auto;
-				    margin-bottom: 30px; /* new-arrivals-container와 간격 추가 */
-				    text-align: center;
-				    justify-content: center;
+			    display: flex;
+			    max-width: 1000px;
+			    margin: auto;
+			    margin-bottom: 30px; /* new-arrivals-container와 간격 추가 */
+			    text-align: center;
+			    justify-content: center;
 				}
         .category-menu {
-            width: 30%;
-            height: 496px;
-				    display: flex;
-				    flex-direction: column;
-				    color: black;
-				    border-top: 1px solid black;
-				    padding: 20px; /* 패딩 추가로 콘텐츠 간격 확보 */
-				    box-sizing: border-box; /* 패딩과 너비를 합산하지 않도록 설정 */
+          width: 30%;
+          height: 496px;
+			    display: flex;
+			    flex-direction: column;
+			    color: black;
+			    border-top: 1px solid black;
+			    padding: 20px; /* 패딩 추가로 콘텐츠 간격 확보 */
+			    box-sizing: border-box; /* 패딩과 너비를 합산하지 않도록 설정 */
         }
         .category-menu h3 {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-align: center;
-            top: 10px;
-            border-bottom: 1px solid #eee;
-            padding: 25px;
-            padding-top: 10px;
+          font-size: 20px;
+          font-weight: bold;
+          margin-bottom: 10px;
+          text-align: center;
+          top: 10px;
+          border-bottom: 1px solid #eee;
+          padding: 25px;
+          padding-top: 10px;
         }
         .category-menu ul {
-            list-style: none;
-            padding: 10px;
-            margin: 0;
-            text-align: center;
+          list-style: none;
+          padding: 10px;
+          margin: 0;
+          text-align: center;
         }
         .category-menu ul li {
-            margin-bottom: 20px;
+          margin-bottom: 20px;
         }
         .category-menu ul li a {
-            text-decoration: none;
-            font-size: 14px;
+          text-decoration: none;
+          font-size: 14px;
         }
         .category-menu ul li a:hover {
-            color: #e74c3c;
+          color: #e74c3c;
         }
         .swiper-container {
-				    margin: 0 auto;
-				    position: relative;
-				    width: 70%;
+			    margin: 0 auto;
+			    position: relative;
+			    width: 70%;
 				}
 				
 				.swiper {
-				    width: 100%;
-				    height: 400px; /* 슬라이더의 높이를 설정 */
+			    width: 100%;
+			    height: 400px; /* 슬라이더의 높이를 설정 */
 				}
 				
 				.swiper-slide {
-				    display: flex;
-				    justify-content: center;
-				    align-items: center;
-				    overflow: hidden; /* 초과 이미지를 숨기기 위해 사용 */
+			    display: flex;
+			    justify-content: center;
+			    align-items: center;
+			    overflow: hidden; /* 초과 이미지를 숨기기 위해 사용 */
 				}
 				
 				.swiper-slide img {
-				    width: 100%; /* 슬라이더의 너비를 채움 */
-				    height: 100%; /* 슬라이더의 높이를 채움 */
-				    object-fit: cover; /* 이미지가 잘리지 않으면서 공간을 채우도록 설정 */
+			    width: 100%; /* 슬라이더의 너비를 채움 */
+			    height: 100%; /* 슬라이더의 높이를 채움 */
+			    object-fit: cover; /* 이미지가 잘리지 않으면서 공간을 채우도록 설정 */
 				}
 
 				.button-container {
-				    position: absolute;
-				    bottom: -1;
-				    left: 0;
-				    width: 100%;
-				    display: flex;
-				    z-index: 10; /* 버튼이 이미지 위에 렌더링되도록 설정 */
-				    background-color: rgba(0, 0, 0, 0.5); /* 버튼 배경에 반투명 효과 추가 (선택사항) */
+			    position: absolute;
+			    bottom: -1;
+			    left: 0;
+			    width: 100%;
+			    display: flex;
+			    z-index: 10; /* 버튼이 이미지 위에 렌더링되도록 설정 */
+			    background-color: rgba(0, 0, 0, 0.5); /* 버튼 배경에 반투명 효과 추가 (선택사항) */
 				}
 				
 				.control-button {
-				    flex: 1;
-				    padding: 30px;
-				    font-size: 18px;
-				    font-weight: bold;
-				    text-align: center;
-				    background-color: #333;
-				    color: white;
-				    border: none;
-				    cursor: pointer;
-				    transition: background-color 0.3s ease;
+			    flex: 1;
+			    padding: 30px;
+			    font-size: 18px;
+			    font-weight: bold;
+			    text-align: center;
+			    background-color: #333;
+			    color: white;
+			    border: none;
+			    cursor: pointer;
+			    transition: background-color 0.3s ease;
 				}
 				
 				.control-button:hover {
-				    background-color: #e74c3c;
+			    background-color: #e74c3c;
 				}
 				
 				.control-button.active {
-            background-color: #e74c3c; /* Hover 색상을 선택되었을 때에도 유지 */
+          background-color: #e74c3c; /* Hover 색상을 선택되었을 때에도 유지 */
         }
         
 	    	/* 상단 제목 및 경로 */
@@ -154,14 +154,14 @@
 				}
 				
 				.brand-buttons {
-				    width: 20%;
-				    border-top: 1px solid #ddd;
+			    width: 20%;
+			    border-top: 1px solid #ddd;
 				}
 				
 				.brand-buttons ul {
-				    list-style: none;
-				    padding: 0;
-				    margin: 0;
+			    list-style: none;
+			    padding: 0;
+			    margin: 0;
 				}
 				
 				
@@ -176,11 +176,11 @@
 				}
 				
 				.product-display .swiper-container {
-				    width: 100%;
+			    width: 100%;
 				}
 				
 				.swiper-container {
-				    width: 100%;
+			    width: 100%;
 				}
 				
 				.product-card {
@@ -222,10 +222,10 @@
 				}
 				
 				.product-info p {
-				    font-size: 14px;
-				    font-weight: bold;
-				    color: #e74c3c;
-				    margin-top: 5px;
+			    font-size: 14px;
+			    font-weight: bold;
+			    color: #e74c3c;
+			    margin-top: 5px;
 				}
 				
 				.new-arrivals-title{

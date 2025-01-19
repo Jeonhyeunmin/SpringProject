@@ -94,8 +94,6 @@ public class ShopContoller {
 	
 	@GetMapping("/shopMainList")
 	public String shopMainListGet(Model model, String category, String mainCategory) {
-		System.out.println("category : " + category);
-		System.out.println("mainCategory : " + mainCategory);
 		ArrayList<ShopVO> vos = shopService.getShopList(category, mainCategory, "", "YES", "");
 		ArrayList<String> subCategory = new ArrayList<String>();
 		ArrayList<Integer> subCateCnt = shopService.getSubCateCnt(category, mainCategory);
@@ -483,7 +481,6 @@ public class ShopContoller {
 			vo.setTotalPrice(totalPrice);
 			vos.add(vo);
 		}
-		System.out.println("vos : " + vos);
 		MemberVO memberVO = commonService.getMemberIdSearch(mid);
 		session.setAttribute("sOrderVOS", vos);
 		

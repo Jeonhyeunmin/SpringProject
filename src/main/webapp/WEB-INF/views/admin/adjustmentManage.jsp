@@ -199,37 +199,82 @@
 
 	  function processAllAdjustments() {
 	    if (confirm('모든 항목을 정산 처리하시겠습니까?')) {
-	      // AJAX로 전체 정산 요청
+	      $.ajax({
+	    	  type : "post",
+	    	  url : "${ctp}/admin/allAdjustment",
+	    	  success: function(res) {
+						if(res != "0"){
+							alerrt("모든 항목을 정산처리하였습니다.");
+						}
+						else{
+							alert("정산해야 할 내역이 없습니다.");
+						}
+					},
+					error: function() {
+						alert("전송오류");
+					}
+	      });
 	    }
 	  }
 
 	  function processSelectedAdjustments() {
-	    const selected = Array.from(document.querySelectorAll('input[name="orderCheck"]:checked')).map(
-	      (checkbox) => checkbox.value
-	    );
-
-	    if (selected.length === 0) {
-	      alert('선택된 항목이 없습니다.');
-	      return;
-	    }
-
-	    if (confirm('선택된 항목을 정산 처리하시겠습니까?')) {
-	      // AJAX로 선택된 항목 정산 요청
-	    }
+		  let idxArr = "";
+	  	  let checkboxes = document.getElementsByName("check");
+	  	  
+	  	  for (let i = 0; i < checkboxes.length; i++) {
+	  	    if (checkboxes[i].checked) {
+	  	      idxArr += checkboxes[i].value + "/";
+	  	    }
+	  	  }
+	    	idxArr = idxArr.substring(0,idxArr.length-1);
+	    	
+	    	if(idxArr == ""){
+	    		alert("체크된 항목이 없습니다.");
+	    		return false;
+	    	}
+	    	
+				let ans = confirm("선택하신 항목들을 정산하시겠습니까?");
+	    	
+	    	if(ans){
+		    	$.ajax({
+		    		type : "post",
+		    		url : "${ctp}/admin/selectAdjustment",
+		    		data : {
+		    			idxArr : idxArr
+		    		},
+		    		success: function(res) {
+		    			if(res != "0"){
+			    			alert("정산이 완료되었습니다.");
+								location.reload();
+		    			}
+						},
+						error: function() {
+							alert("전송오류");
+						}
+		    	});
+	    	}
 	  }
 
 	  function filterByStatus() {
-	    const status = document.getElementById('statusFilter').value;
-	    const rows = document.querySelectorAll('#orderList tr');
+		  const status = document.getElementById('statusFilter').value; // 선택한 상태값
+		  const rows = document.querySelectorAll('#orderList tr');
 
-	    rows.forEach((row) => {
-	      const rowStatus = row.querySelector('td:last-child button, span')?.innerText;
-	      row.style.display =
-	        status === 'all' || rowStatus.includes(status === 'YES' ? '정산 완료' : status === 'NO' ? '정산 신청' : '진행')
-	          ? ''
-	          : 'none';
-	    });
-	  }
+		  rows.forEach((row) => {
+		    const rowStatusElement = row.querySelector('td:last-child button, span');
+		    const rowStatus = rowStatusElement ? rowStatusElement.innerText.trim() : '';
+
+		    if (status === 'all') {
+		      row.style.display = ''; // 모든 상태 표시
+		    } else if (status === 'YES' && rowStatus === '정산 완료') {
+		      row.style.display = ''; // 정산 완료 상태만 표시
+		    } else if (status === 'ING' && row.querySelector('button')?.innerText === '정산') {
+		      row.style.display = ''; // 정산 대기 상태만 표시
+		    } else {
+		      row.style.display = 'none'; // 그 외는 숨김
+		    }
+		  });
+		}
+
 	  
 	  function sortTable(columnIndex, type) {
 	    const table = document.querySelector('table');
@@ -254,6 +299,110 @@
 	    rows.forEach(row => table.querySelector('tbody').appendChild(row));
 	    table.dataset.sortDirection = isAscending ? 'asc' : 'desc';
 	  }
+	  
+	  function adjustment(idx) {
+			if(confirm("정산처리하시겠습니까?")){
+				$.ajax({
+					type : "post",
+					url : "${ctp}/admin/adjustment",
+					data : {
+						idx : idx
+					},
+					success: function(res) {
+						if(res != "0"){
+							alert("정산이 완료되었습니다.");
+							location.reload();
+						}
+					},
+					error: function() {
+						alert("전송오류");
+					}
+				});
+			}
+		}
+	  
+	  function searchItems() {
+		  const keyword = document.getElementById('searchKeyword').value.trim();
+
+		  if (!keyword) {
+		    alert('검색어를 입력하세요.');
+		    return;
+		  }
+
+		  $.ajax({
+		    type: 'GET',
+		    url: '${ctp}/admin/searchOrders',
+		    data: { keyword },
+		    success: function(response) {
+		    	updateTable(response);
+		    },
+		    error: function() {
+		      alert('검색 요청 중 오류가 발생했습니다.');
+		    }
+		  });
+		}
+
+	  function updateTable(data) {
+		  const tbody = document.getElementById('orderList');
+		  tbody.innerHTML = ''; // 기존 내용 제거
+
+		  if (data.length === 0) {
+		    // 검색 결과가 없을 경우
+		    tbody.innerHTML = '<tr><td colspan="9" class="text-center">검색 결과가 없습니다.</td></tr>';
+		    return;
+		  }
+
+		  // 데이터 순회하며 테이블 행 생성
+		  for (var i = 0; i < data.length; i++) {
+		    var vo = data[i];
+		    var tr = '<tr>';
+
+		    // 체크박스
+		    tr += '<td><input type="checkbox" id="check' + vo.idx + '" name="check" value="' + vo.idx + '" onclick="stopPropagation(event); onCheck()"></td>';
+
+		    // 업체명
+		    tr += '<td>' + vo.company + '</td>';
+
+		    // 상품명 및 옵션명
+		    tr += '<td>' + vo.shopTitle;
+		    if (vo.optionSelect) {
+		      tr += ' [' + vo.optionSelect + ']';
+		    }
+		    tr += '</td>';
+
+		    // 가격
+		    tr += '<td>' + vo.price.toLocaleString() + '원</td>';
+
+		    // 수량
+		    tr += '<td>' + vo.quantity + '개</td>';
+
+		    // 수수료
+		    var fee = vo.pay * 0.05 * vo.quantity;
+		    tr += '<td>' + fee.toLocaleString() + '원</td>';
+
+		    // 정산 금액
+		    var adjustmentAmount = (vo.pay * vo.quantity) - fee;
+		    tr += '<td>' + adjustmentAmount.toLocaleString() + '원</td>';
+
+		    // 주문일
+		    tr += '<td>' + vo.orderDate.substring(0, 10) + '</td>';
+
+		    // 정산 상태
+		    tr += '<td>';
+		    if (vo.adjustment === 'ING') {
+		      tr += '<button class="btn btn-outline-primary btn-sm" onclick="adjustment(' + vo.idx + ')">정산</button>';
+		    } else if (vo.adjustment === 'YES') {
+		      tr += '<span class="text-success">정산 완료</span>';
+		    }
+		    tr += '</td>';
+
+		    tr += '</tr>';
+
+		    // 생성된 행 추가
+		    tbody.innerHTML += tr;
+		  }
+		}
+
   </script>
 </head>
 <body>
@@ -309,7 +458,7 @@
 		                <i class="icon-wallet success font-large-2 mr-2"></i>
 		              </div>
 		              <div class="media-body align-self-center">
-		                <h4 class="m-0">판매액</h4>
+		                <h4 class="m-0">정산 신청 금액</h4>
 		              </div>
 		              <div class="align-self-center">
 		                <h1><fmt:formatNumber pattern="#,##0" value="${totalSell - totalSell * 0.05}"/>원</h1>
@@ -333,8 +482,7 @@
     <div class="col-md-3">
       <select id="statusFilter" class="form-control" onchange="filterByStatus()">
         <option value="all">모든 상태</option>
-        <option value="NO">정산 대기</option>
-        <option value="ING">정산 진행 중</option>
+        <option value="ING">정산 대기</option>
         <option value="YES">정산 완료</option>
       </select>
     </div>
@@ -374,11 +522,8 @@
             <td>${fn:substring(vo.orderDate, 0, 10)}</td>
             <td>
 						  <c:choose>
-						    <c:when test="${vo.adjustment == 'NO'}">
-						      <button class="btn btn-outline-primary btn-sm" onclick="adjustment(${vo.idx})">정산</button>
-						    </c:when>
 						    <c:when test="${vo.adjustment == 'ING'}">
-						      <button class="btn btn-outline-warning btn-sm" disabled>정산 진행 중</button>
+						      <button class="btn btn-outline-primary btn-sm" onclick="adjustment(${vo.idx})">정산</button>
 						    </c:when>
 						    <c:when test="${vo.adjustment == 'YES'}">
 						      <span class="text-success">정산 완료</span>

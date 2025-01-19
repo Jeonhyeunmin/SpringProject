@@ -39,6 +39,7 @@
 			<!-- 관리자 -->
 			<interceptor>
 				<mapping path="/admin/**"/>
+				<mapping path="/event/eventInput*"/>
 				<beans:ref bean="AdminInterceptor"/>
 			</interceptor>
 			

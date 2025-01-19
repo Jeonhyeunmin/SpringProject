@@ -1,5 +1,7 @@
 package com.spring.javaGroupS6.contoller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +20,7 @@ import com.spring.javaGroupS6.service.AdminService;
 import com.spring.javaGroupS6.service.CommonService;
 import com.spring.javaGroupS6.service.MemberService;
 import com.spring.javaGroupS6.vo.CouponVO;
+import com.spring.javaGroupS6.vo.EventVO;
 import com.spring.javaGroupS6.vo.MemberVO;
 import com.spring.javaGroupS6.vo.PartnerVO;
 import com.spring.javaGroupS6.vo.ShopOrderVO;
@@ -61,7 +63,7 @@ public class AdminController {
 		}
 		
 		for(ShopVO vo : shopVOS) {
-			if(!vo.getAccept().equals("승인")) {
+			if(!vo.getAccept().equals("YES")) {
 				acceptPost++;
 			}
 		}
@@ -397,11 +399,13 @@ public class AdminController {
 	public String adjustmentManageGet(Model model) {
 		int totalSell = 0;
 		int adjustment = 0;
-		ArrayList<ShopOrderVO> orderVOS = adminService.getOrderList();
-		for(ShopOrderVO vo : orderVOS) {
+		ArrayList<ShopOrderVO> vos = adminService.getAdjustMentList();
+		ArrayList<ShopOrderVO> orderVOS = new ArrayList<ShopOrderVO>();
+		for(ShopOrderVO vo : vos) {
 			totalSell += vo.getTotalPrice();
-			if(vo.getAdjustment().equals("NO") && vo.getDecide().equals("구매확정") && vo.getDelivery().equals("배송완료")) {
+			if(vo.getAdjustment().equals("ING") && vo.getDecide().equals("구매확정") && vo.getDelivery().equals("배송완료")) {
 				adjustment++;
+				orderVOS.add(vo);
 			}
 		}
 		
@@ -410,5 +414,99 @@ public class AdminController {
 		model.addAttribute("orderVOS", orderVOS);
 		return "admin/adjustmentManage";
 	}
+	
+	@ResponseBody
+	@PostMapping("/allAdjustment")
+	public int allAdjustmentPost() {
+		int res = adminService.setAllAdjustment();
+		return res;
+	}
+	
+	@ResponseBody
+	@PostMapping("/selectAdjustment")
+	public int selectAdjustmentPost(String idxArr) {
+		String idx[] = idxArr.split("/");
+		int res = 0;
+		for(String i : idx) {
+			res = adminService.setSelectAdjustment(Integer.parseInt(i));
+		}
+		return res;
+	}
+	
+	@ResponseBody
+	@PostMapping("/adjustment")
+	public int adjustmentPost(int idx) {
+		int res = adminService.setSelectAdjustment(idx);
+		return res;
+	}
+	
+	@ResponseBody
+	@GetMapping("/searchOrders")
+	public List<ShopOrderVO> searchOrdersPost(String keyword) {
+		List<ShopOrderVO> filteredOrders = adminService.searchOrders(keyword);
+    return filteredOrders;
+	}
+	
+	@GetMapping("/eveneManage")
+	public String eventListGet(Model model) {
+		ArrayList<EventVO> eventVOS = adminService.getEventList();
+		
+		for (EventVO vo : eventVOS) {
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
 
+	    LocalDate endDate = LocalDate.parse(vo.getEndDate(), formatter);
+
+	    LocalDate currentDate = LocalDate.now();
+	    if (currentDate.isAfter(endDate)) {
+        vo.setStatus("종료");
+	    }
+		}
+		
+		model.addAttribute("eventVOS", eventVOS);
+		return "admin/eveneManage";
+	}
+	
+	
+	@ResponseBody
+	@PostMapping("/activeEvent")
+	public int activeEventPost(int idx) {
+    return adminService.setActiveEvent(idx);
+	}
+	
+	@ResponseBody
+	@PostMapping("/deactiveEvent")
+	public int deactiveEventPost(int idx) {
+		return adminService.setDeActiveEvent(idx);
+	}
+	
+	@ResponseBody
+	@PostMapping("/selectActiveEvent")
+	public int selectActiveEventPost(String idxArr) {
+		int res = 0;
+		String idx[] = idxArr.split("/");
+		for(String i : idx) {
+			res += adminService.setActiveEvent(Integer.parseInt(i));
+		}
+		
+		return res;
+	}
+	
+	@ResponseBody
+	@PostMapping("/selectDeactiveEvent")
+	public int selectDeactiveEventPost(String idxArr) {
+		int res = 0;
+		String idx[] = idxArr.split("/");
+		for(String i : idx) {
+			res += adminService.setDeActiveEvent(Integer.parseInt(i));
+		}
+		
+		return res;
+	}
+	
+	@ResponseBody
+	@PostMapping("/filterEvents")
+	public List<EventVO> filterEventsPost(String keyword, String status) {
+		return adminService.getFilterEvents(keyword, status);
+	}
+	
 }
