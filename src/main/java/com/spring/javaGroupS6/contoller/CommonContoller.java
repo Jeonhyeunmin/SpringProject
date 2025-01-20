@@ -407,7 +407,6 @@ public class CommonContoller {
 	
 	@GetMapping("/info")
 	public String infoGet() {
-		
 		return "common/info";
 	}
 }
