@@ -89,5 +89,7 @@ public interface AdminService {
 
 	List<EventVO> getFilterEvents(String keyword, String status);
 
+	List<CouponVO> searchCoupons(String startDate, String endDate, String keyword);
+
 
 }

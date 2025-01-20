@@ -15,4 +15,9 @@ public class ShopReviewVO {
 	
 	private String customerName;
 	private String customerId;
+	
+	private String thumbnail;
+	private String shopTitle;
+	private String optionSelect;
+	private String company;
 }

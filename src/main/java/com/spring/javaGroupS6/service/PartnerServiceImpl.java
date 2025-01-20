@@ -16,6 +16,7 @@ import com.spring.javaGroupS6.dao.PartnerDAO;
 import com.spring.javaGroupS6.vo.MemberVO;
 import com.spring.javaGroupS6.vo.PartnerVO;
 import com.spring.javaGroupS6.vo.ShopOrderVO;
+import com.spring.javaGroupS6.vo.ShopReviewVO;
 import com.spring.javaGroupS6.vo.ShopVO;
 
 @Service
@@ -120,6 +121,16 @@ public class PartnerServiceImpl implements PartnerService {
 	@Override
 	public int setAllApplication(String mid) {
 		return partnerDAO.setAllApplication(mid);
+	}
+
+	@Override
+	public ArrayList<ShopVO> getShopReviewList(String mid) {
+		return partnerDAO.getShopReviewList(mid);
+	}
+	
+	@Override
+	public ArrayList<ShopReviewVO> getReview(String mid) {
+		return partnerDAO.getReview(mid);
 	}
 	
 }

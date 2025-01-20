@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.spring.javaGroupS6.vo.PartnerVO;
 import com.spring.javaGroupS6.vo.ShopOrderVO;
+import com.spring.javaGroupS6.vo.ShopReviewVO;
 import com.spring.javaGroupS6.vo.ShopVO;
 
 public interface PartnerDAO {
@@ -37,6 +38,10 @@ public interface PartnerDAO {
 	int setPartnerUpdate(@Param("vo") PartnerVO vo);
 
 	int setAllApplication(@Param("mid") String mid);
+
+	ArrayList<ShopVO> getShopReviewList(@Param("mid") String mid);
+
+	ArrayList<ShopReviewVO> getReview(@Param("mid") String mid);
 
 
 }

@@ -87,5 +87,9 @@ public interface ShopDAO {
 
 	void setReviewOk(@Param("idx") int idx);
 
+	ArrayList<ShopVO> getPartnerShopList(@Param("mid") String mid);
+
+	ArrayList<ShopVO> getSearch(@Param("query") String query);
+
 
 }

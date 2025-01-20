@@ -6,25 +6,30 @@
 		select s.*, avg(sr.star) as star, count(sr.idx) as reviewCnt 
 		from shop s left join shopReview sr on s.idx = sr.shopIdx
 		where s.category = #{category}
+		and s.claim = 'NO'
 		<if test='mainCategory != ""'>and s.mainCategory = #{mainCategory}</if>
 		<if test='subCategory != ""'>and s.subCategory = #{subCategory}</if>
 		<if test='accept == "YES"'>and s.accept = 'YES' </if> 
 		<if test='accept == "NO"'>and s.accept = 'NO' </if>
 		<if test='company != "all" and company != ""'>and s.company = #{company}</if> 
 		group by s.idx
-		order by s.category;
+		order by s.category, s.mainCategory, s.subCategory;
 	</select>
 
 	<select id="getSubCateCnt" resultType="int">
-		select COUNT(*) as count from shop where category = #{category} and mainCategory = #{mainCategory} and accept = 'YES'  group by subCategory order by category;
+		select COUNT(*) as count from shop where category = #{category} and mainCategory = #{mainCategory} and accept = 'YES' and claim = 'NO'  group by subCategory order by category, mainCategory, subCategory;
 	</select>
 
 	<select id="getBrandCateCnt" resultType="int">
-		select COUNT(*) as count from shop where category = #{category} and mainCategory = #{mainCategory} and subCategory = #{subCategory} and accept = 'YES'  group by company order by company;
+		select COUNT(*) as count from shop where category = #{category} and mainCategory = #{mainCategory} and subCategory = #{subCategory} and accept = 'YES' and claim = 'NO'  group by company order by company;
 	</select>
 
 	<select id="getShopContent" resultType="com.spring.javaGroupS6.vo.ShopVO">
 		select * from shop where idx = #{idx};
+	</select>
+
+	<select id="getPartnerShopList" resultType="com.spring.javaGroupS6.vo.ShopVO">
+		select * from shop where mid = #{mid};
 	</select>
 
 	<select id="getList" resultType="com.spring.javaGroupS6.vo.CategoryVO">
@@ -49,8 +54,7 @@
 
 	<select id="getReview" resultType="com.spring.javaGroupS6.vo.ShopReviewVO">
 		select sr.*, c.name as customerName from shopReview sr, customer c where sr.shopIdx = #{idx} 
-		<if test='user != "admin"'>and sr.claim = "NO"</if>
-		<if test='user == "admin"'>and sr.claim = "YES"</if>
+		<if test='user == "user"'>and sr.claim = "NO"</if>
 		 and sr.mid = c.mid order by sr.reviewDate;
 	</select>
 	
@@ -86,6 +90,18 @@
 		select * from coupon where idx = #{idx};
 	</select>
 	
+	<select id="getSearch" resultType="com.spring.javaGroupS6.vo.ShopVO">
+		select s.*, avg(sr.star) as star, count(sr.idx) as reviewCnt 
+			from shop s
+			left join shopreview sr on s.idx = sr.shopIdx
+			where 
+			    (s.title like concat('%', #{query}, '%') 
+			     or s.company like concat('%', #{query}, '%') 
+			     or s.mid like concat('%', #{query}, '%') 
+			     or s.subCategory like concat('%', #{query}, '%'))
+			group by s.idx;
+	</select>
+	
 	<insert id="shopInput">
 		insert into shop values (default, #{vo.mid}, #{vo.company}, #{vo.category}, #{vo.mainCategory}, #{vo.subCategory}, #{vo.title}, #{vo.discount}, #{vo.price}, #{vo.optionName}, #{vo.optionPrice}, #{vo.thumbnail}, #{vo.titleImg}, #{vo.content}, #{vo.fSize}, default, default, default);
 	</insert>
@@ -107,7 +123,8 @@
 	</insert>
 	
 	<update id="setShopUpdate">
-		update shop set company = #{vo.company}, category = #{vo.category}, mainCategory = #{vo.mainCategory}, subCategory = #{vo.subCategory}, title = #{vo.title}, discount = #{vo.discount}, price = #{vo.price}, optionName = #{vo.optionName}, optionPrice = #{vo.optionPrice}, thumbnail = #{vo.thumbnail}, titleImg = #{vo.titleImg}, content = #{vo.content}, fSize = #{vo.fSize}, wDate = now(), accept = 'NO' where idx = #{vo.idx};
+		<!-- update shop set company = #{vo.company}, category = #{vo.category}, mainCategory = #{vo.mainCategory}, subCategory = #{vo.subCategory}, title = #{vo.title}, discount = #{vo.discount}, price = #{vo.price}, optionName = #{vo.optionName}, optionPrice = #{vo.optionPrice}, thumbnail = #{vo.thumbnail}, titleImg = #{vo.titleImg}, content = #{vo.content}, fSize = #{vo.fSize}, wDate = now(), accept = 'NO' where idx = #{vo.idx}; -->
+		update shop set company = #{vo.company}, category = #{vo.category}, mainCategory = #{vo.mainCategory}, subCategory = #{vo.subCategory}, title = #{vo.title}, discount = #{vo.discount}, price = #{vo.price}, optionName = #{vo.optionName}, optionPrice = #{vo.optionPrice}, thumbnail = #{vo.thumbnail}, titleImg = #{vo.titleImg}, content = #{vo.content}, fSize = #{vo.fSize}, wDate = now() where idx = #{vo.idx};
 	</update>
 	
 	<update id="setPointUp">

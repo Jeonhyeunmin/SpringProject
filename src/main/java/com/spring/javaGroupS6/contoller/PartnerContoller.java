@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.taglibs.standard.lang.jstl.test.beans.PublicBean1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import com.spring.javaGroupS6.service.ShopService;
 import com.spring.javaGroupS6.vo.MemberVO;
 import com.spring.javaGroupS6.vo.PartnerVO;
 import com.spring.javaGroupS6.vo.ShopOrderVO;
+import com.spring.javaGroupS6.vo.ShopReviewVO;
 import com.spring.javaGroupS6.vo.ShopVO;
 
 @RequestMapping("/partner")
@@ -302,7 +304,35 @@ public class PartnerContoller {
 			res += partnerService.setAdjustment(Integer.parseInt(i));
 		}
 		return res;
+	}
+	
+	@GetMapping("/partnerReviewList")
+	public String partnerReviewListGet(HttpSession session, Model model) {
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
 		
+		ArrayList<ShopVO> reviewShopVOS = partnerService.getShopReviewList(mid);
+		ArrayList<ShopReviewVO> reviewVOS = partnerService.getReview(mid);
+		ArrayList<Integer> ClaimReviewIdx = new ArrayList<Integer>();
+		
+		for(ShopReviewVO vo : reviewVOS) {
+			if(vo.getClaim().equals("YES")) {
+				ClaimReviewIdx.add(vo.getShopIdx());
+			}
+		}
+		
+		model.addAttribute("reviewShopVOS", reviewShopVOS);
+		model.addAttribute("reviewVOS", reviewVOS);
+		model.addAttribute("ClaimReviewIdx", ClaimReviewIdx);
+		
+		return "/partner/partnerReviewList";
+	}
+	
+	
+	@ResponseBody
+	@PostMapping("/reviewLoad")
+	public ArrayList<ShopReviewVO> reviewLoadPost(int idx) {
+		ArrayList<ShopReviewVO> reviewVOS = shopService.getReview(idx, "partner");
+		return reviewVOS;
 	}
 	
 }

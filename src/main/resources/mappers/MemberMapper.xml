@@ -9,6 +9,10 @@
 	<select id="getMyOrder" resultType="com.spring.javaGroupS6.vo.ShopOrderVO">
 		select * from shopOrder where mid = #{mid} order by orderDate desc;
 	</select>
+
+	<select id="getMyReviewList" resultType="com.spring.javaGroupS6.vo.ShopReviewVO">
+		select sr.*, so.company, so.thumbnail, so.shopTitle, so.optionSelect from shopReview sr, shopOrder so where sr.mid = #{mid} and sr.shopIdx = so.shopIdx group by sr.idx order by sr.reviewDate desc;
+	</select>
 	
 	<update id="setMemberUpdate">
 		update customer set name = #{vo.name}, gender = #{vo.gender}, birthday = #{vo.birthday}, tel = #{vo.tel}, address = #{vo.address}, email = #{vo.email}, photo = #{vo.photo} where mid = #{vo.mid};

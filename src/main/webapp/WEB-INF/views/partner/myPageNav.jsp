@@ -38,7 +38,7 @@
       padding: 0;
       margin: 0 0 20px 0;
     }
-
+    
     .menu-container ul li {
       margin-bottom: 10px;
     }
@@ -97,15 +97,13 @@
         <li><a href="${ctp}/partner/orderList" target="partner">주문목록</a></li>
         <li><a href="${ctp}/partner/adjustment" target="partner">정산</a></li>
         <li><a href="${ctp}/partner/exchange" target="partner">환불 및 반품</a></li>
-        <li><a href="${ctp}/partner/marketing" target="partner">마케팅</a></li>
       </ul>
     </div>
     
     <div class="menu-section">
       <div class="menu-title">고객관리</div>
       <ul>
-        <li><a href="">문의</a></li>
-        <li><a href="">리뷰</a></li>
+        <li><a href="${ctp}/partner/partnerReviewList" target="partner" >리뷰</a></li>
         <li><a href="${ctp}/partner/claimPost" target="partner">신고된 글</a></li>
       </ul>
     </div>

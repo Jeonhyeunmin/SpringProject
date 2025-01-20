@@ -125,17 +125,6 @@
   	      location.reload();
   	    }
   	  });
-	  	function cookieShopDelete(idx) {
-				$.ajax({
-					type : "post",
-	    		url  : "${ctp}/shop/cookieShopDelete",
-	    		data : {idx : idx},
-	    		success:function() { location.reload(); },
-	    		error : function() { alert("전송오류!"); }
-				});
-				
-				
-			}
   </script>
 </head>
 <body>
@@ -160,7 +149,6 @@
 	    <c:if test="${!empty cookieVos}">
 	    	<c:forEach var="vo" items="${cookieVos}">
 		    	<a href="${ctp}/shop/shopContent?idx=${vo.idx}" title="상세보기"><img src="${ctp}/category/${vo.thumbnail}" width="80px"/></a><br/><br/>
-		    	<a href="javascript:cookieShopDelete(${vo.idx})" title="삭제"><span class="badge bg-warning" style="font-size:8px">x</span></a>
 		    </c:forEach>
 	    </c:if>
 	  </div>

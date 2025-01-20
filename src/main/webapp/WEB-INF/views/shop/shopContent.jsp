@@ -1001,7 +1001,7 @@
   </script>
 </head>
 <body>
-<div class="breadcrumb">HOME > <a href="${ctp}/shop/shopList?category=${vo.category}">${fn: toUpperCase(vo.category)}</a> > <a href="${ctp}/shop/shopMainList?mainCategory=${vo.mainCategory}">${fn: toUpperCase(vo.mainCategory)}</a> > <a href="${ctp}/shop/shopSubList?subCategory=${vo.subCategory}">${fn: toUpperCase(vo.subCategory)}</a></div>
+<div class="breadcrumb">HOME > <a href="${ctp}/shop/shopList?category=${fn: toUpperCase(category)}">${fn: toUpperCase(category)}</a> > <a href="${ctp}/shop/shopMainList?category=${category}&mainCategory=${mainCategory}">${fn: toUpperCase(mainCategory)}</a> > <a href="${ctp}/shop/shopSubList?category=${category}&mainCategory=${mainCategory}&subCategory=${subCategory}">${fn: toUpperCase(subCategory)}</a></div>
 <div id="content-form">
   <table id="content-table" style="width: 85%; margin: 0 auto; border-collapse: collapse;">
 	  <!-- 이미지와 제품 정보 -->
@@ -1020,7 +1020,7 @@
 	    </td>
 	    <td style="width: 50%; vertical-align: top; padding: 10px;">
 	      <div class="product-info">
-				  <div class="author-info" onclick="location.href=''">
+				  <div class="author-info" onclick="location.href='${ctp}/shop/partnerCollect?mid=${vo.mid}'">
 				    <img src="${ctp}/logo/${logo}" alt="${vo.company}" class="author-logo">
 				    <div class="author-details">
 				      <div class="company">${vo.company}</div>
@@ -1095,8 +1095,9 @@
 						  <button type="button" onclick="buy()" class="btn btn-outline-secondary mt-3">구매하기</button>
 					  	<button type="button" onclick="cartCheck()" class="btn btn-outline-secondary mt-3">장바구니 담기</button>
 					  	<c:if test="${sLevel == 0 && vo.accept == 'NO'}"><button type="button" onclick="accept()" class="btn btn-outline-success mt-3 ms-4">승인</button></c:if>
-				    	<c:if test="${sLevel == 0}"><button type="button" onclick="shopClaimNo(${shopVO.idx})" class="btn btn-outline-warning mt-3 ms-1">신고해제</button></c:if>
+				    	<c:if test="${sLevel == 0 && vo.claim == 'YES'}"><button type="button" onclick="shopClaimNo(${shopVO.idx})" class="btn btn-outline-warning mt-3 ms-1">신고해제</button></c:if>
 				    	<c:if test="${sLevel == 0 || vo.mid == sMid}"><button type="button" onclick="shopDelete(${vo.idx})" class="btn btn-outline-danger mt-3 ms-1">삭제</button></c:if>
+				    	<c:if test="${sLevel == 0 || vo.mid == sMid}"><button type="button" onclick="location.href='${ctp}/shop/shopUpdate?idx=${vo.idx}'" class="btn btn-dark mt-3 ms-1">수정</button></c:if>
 						</form>
 					</div>
 				</div>

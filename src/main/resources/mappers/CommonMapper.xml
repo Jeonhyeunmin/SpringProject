@@ -18,6 +18,29 @@
 		select * from customer where email = #{email} limit 1;
 	</select>
 	
+	<select id="getShopRankList" resultType="com.spring.javaGroupS6.vo.ShopVO">
+    SELECT *
+		FROM (
+		    SELECT
+		        s.*,
+		        @rank := IF(@currentSubCategory = s.subCategory, @rank + 1, 1) AS rank,
+		        @currentSubCategory := s.subCategory AS currentSubCategory
+		    FROM shop s
+		    CROSS JOIN (SELECT @rank := 0, @currentSubCategory := NULL) AS vars
+		    WHERE s.subCategory IN (#{category1}, #{category2}, #{category3}, #{category4}, #{category5})
+		    ORDER BY s.subCategory, s.idx
+		) AS ranked
+		WHERE rank &lt;= 5
+		ORDER BY subCategory, rank;
+	</select>
+	
+	<select id="getSubCategory" resultType="String">
+		select distinct subCategory from shop order by idx limit 5
+	</select>
+	
+	<select id="getNewShopList" resultType="com.spring.javaGroupS6.vo.ShopVO">
+		select * from shop limit 30;
+	</select>
 	
 	<insert id="setMemberJoin">
 	  INSERT INTO customer 
@@ -36,6 +59,10 @@
 	
 	<update id="setLastDateUpdate">
 		update ${table} set lastDate = #{today} where mid = #{mid};
+	</update>
+	
+	<update id="initializeVariables">
+		SET @rank := 0, @currentSubCategory := NULL;
 	</update>
 	
 </mapper>

@@ -3,6 +3,7 @@ package com.spring.javaGroupS6.service;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
@@ -34,7 +35,7 @@ public interface ShopService {
 
 	int getPostCount(String mid);
 
-	int setShopDelete(int idx);
+	int setShopDelete(int idx, HttpSession session);
 
 	ArrayList<MainCategoryVO> getMainCategoryList(String category);
 
@@ -87,5 +88,9 @@ public interface ShopService {
 	void setUseCoupon(ShopOrderVO vo);
 
 	void setReviewOk(int idx);
+
+	ArrayList<ShopVO> getPartnerShopList(String mid);
+
+	ArrayList<ShopVO> getSearch(String query);
 
 }

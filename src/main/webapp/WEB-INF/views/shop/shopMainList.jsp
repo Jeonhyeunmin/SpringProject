@@ -220,7 +220,6 @@
 	        <img src="${ctp}/category/${vo.thumbnail}" alt="Thumbnail">
 	        <div class="overlay-buttons">
 	          <button type="button" onclick="window.open('${ctp}/shop/shopContent?idx=${vo.idx}')" ><i class="fa-solid fa-eye"></i>새창</button>
-	          <button type="button"><i class="fa-solid fa-heart"></i>찜</button>
         </div>
 	      </div>
 	      <div class="info">

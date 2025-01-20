@@ -210,4 +210,9 @@ public class AdminServiceImpl implements AdminService {
 	public List<EventVO> getFilterEvents(String keyword, String status) {
 		return adminDAO.getFilterEvents(keyword, status);
 	}
+	
+	@Override
+	public List<CouponVO> searchCoupons(String startDate, String endDate, String keyword) {
+		return adminDAO.searchCoupons(startDate, endDate, keyword);
+	}
 }

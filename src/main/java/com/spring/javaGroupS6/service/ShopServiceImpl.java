@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -194,7 +195,15 @@ public class ShopServiceImpl implements ShopService {
 	}
 	
 	@Override
-	public int setShopDelete(int idx) {
+	public int setShopDelete(int idx, HttpSession session) {
+		ShopVO vo = shopDAO.getShopContent(idx);
+		String realPath = session.getServletContext().getRealPath("/resources/data/category/");
+		provide.fileDelete(realPath + vo.getTitleImg());
+		provide.fileDelete(realPath + vo.getThumbnail());
+		if(vo.getContent().contains("<img")) {
+			provide.imgDelete(vo.getContent(), "category");
+		}
+		
 		return shopDAO.setShopDelete(idx);
 	}
 
@@ -326,5 +335,15 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public void setReviewOk(int idx) {
 		shopDAO.setReviewOk(idx);
+	}
+
+	@Override
+	public ArrayList<ShopVO> getPartnerShopList(String mid) {
+		return shopDAO.getPartnerShopList(mid);
+	}
+	
+	@Override
+	public ArrayList<ShopVO> getSearch(String query) {
+		return shopDAO.getSearch(query);
 	}
 }

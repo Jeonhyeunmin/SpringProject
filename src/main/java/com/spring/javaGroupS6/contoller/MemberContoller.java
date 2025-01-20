@@ -1,7 +1,11 @@
 package com.spring.javaGroupS6.contoller;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +21,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.spring.javaGroupS6.common.JavaProvide;
 import com.spring.javaGroupS6.service.CommonService;
 import com.spring.javaGroupS6.service.MemberService;
+import com.spring.javaGroupS6.service.ShopService;
 import com.spring.javaGroupS6.vo.CouponVO;
 import com.spring.javaGroupS6.vo.MemberVO;
 import com.spring.javaGroupS6.vo.ShopOrderVO;
+import com.spring.javaGroupS6.vo.ShopReviewVO;
+import com.spring.javaGroupS6.vo.ShopVO;
 
 @Controller
 @RequestMapping("/member")
@@ -32,6 +39,9 @@ public class MemberContoller {
 	
 	@Autowired
 	CommonService commonService;
+	
+	@Autowired
+	ShopService shopService;
 	
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
@@ -207,4 +217,106 @@ public class MemberContoller {
 		return res; 
 	}
 	
+	@GetMapping("/myReviewList")
+	public String myReviewGet(Model model, HttpSession session) {
+		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		ArrayList<ShopReviewVO> reviewVOS = memberService.getMyReviewList(mid);
+		
+		model.addAttribute("reviewVOS", reviewVOS);
+		
+		return "/member/myReviewList";
+	}
+	
+	@PostMapping("/loadReviews")
+	public String loadReviewsPost(Model model, int shopIdx, int reviewIdx) {
+		ShopVO shopVO = shopService.getShopContent(shopIdx);
+		ShopReviewVO reviewVO = shopService.getMyReview(reviewIdx);
+		System.out.println("shopVO : " + shopVO);
+		System.out.println("reviewVO : " + reviewVO);
+		model.addAttribute("reviewVO", reviewVO);
+		model.addAttribute("shopVO", shopVO);
+		return "/member/loadReviews";
+	}
+	
+	@GetMapping("/recentView")
+	public String recentViewGet(Model model, HttpServletRequest request) {
+		Cookie[] cookies = request.getCookies();
+		String productList = "";
+		if(cookies != null) {
+			for(int i=0; i<cookies.length; i++) {
+				if(cookies[i].getName().equals("cShop")) {
+					productList = cookies[i].getValue();
+					if(productList.indexOf(":") != -1) productList = productList.substring(0, productList.length()-1);
+					break;
+				}
+			}
+		}
+		List<ShopVO> cookieVos = new ArrayList<ShopVO>();
+		
+		if (productList != null && !productList.isEmpty()) {
+	    String[] cookieArr = productList.split(":");
+	    for (int i = 0; i < cookieArr.length; i++) {
+	        if (cookieArr[i] != null && !cookieArr[i].isEmpty()) { // 값 검증
+	            try {
+	                int productId = Integer.parseInt(cookieArr[i]);
+	                if (cookieVos.size() < 3) {
+	                    ShopVO vo = shopService.getShopContent(productId);
+	                    cookieVos.add(vo);
+	                }
+	            } catch (NumberFormatException e) {
+	                System.err.println("Invalid number format: " + cookieArr[i]);
+	            }
+	        }
+	    }
+		}
+		
+		model.addAttribute("cookieVOS", cookieVos);
+		return "/member/recentView";
+	}
+	
+	@ResponseBody
+	@PostMapping("/cookieShopDelete")
+	public void cookieShopDeletePost(HttpServletRequest request, HttpServletResponse response, int idx) {
+		Cookie[] cookies = request.getCookies();
+		String productList = "";
+		if(cookies != null) {
+			for(int i=0; i<cookies.length; i++) {
+				if(cookies[i].getName().equals("cShop")) {
+					productList = cookies[i].getValue();
+					
+					productList= productList.replace(idx+":", "");
+					Cookie cookieProduct = new Cookie("cShop", productList);
+					cookieProduct.setPath("/");
+					cookieProduct.setMaxAge(60*60*24*7);
+					response.addCookie(cookieProduct);
+					
+					break;
+				}
+			}
+		}
+	}
+	
+	@ResponseBody
+	@PostMapping("/selectCookitDelete")
+	public void selectCookitDeletePost(HttpServletRequest request, HttpServletResponse response, String idxArr) {
+		String idx[] = idxArr.split("/");
+		Cookie[] cookies = request.getCookies();
+		String productList = "";
+		if(cookies != null) {
+			for(int i=0; i<cookies.length; i++) {
+				if(cookies[i].getName().equals("cShop")) {
+					productList = cookies[i].getValue();
+					for(String index : idx) {
+						productList= productList.replace(index+":", "");
+					}
+					Cookie cookieProduct = new Cookie("cShop", productList);
+					cookieProduct.setPath("/");
+					cookieProduct.setMaxAge(60*60*24*7);
+					response.addCookie(cookieProduct);
+					
+					break;
+				}
+			}
+		}
+	}
 }
