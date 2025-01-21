@@ -25,9 +25,6 @@ public class Interceptor extends HandlerInterceptorAdapter{
 		
 //		관리자 : 0 | 고객 : 1 | 업체 : 2 | 탈퇴 예정 99
 		
-		HttpSession session = request.getSession();
-		int level = session.getAttribute("sLevel") == null ? 999 : (int)session.getAttribute("sLevel");
-		
 		Cookie[] cookies = request.getCookies();
 		String productList = "";
 		if(cookies != null) {

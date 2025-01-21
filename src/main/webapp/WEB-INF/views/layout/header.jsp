@@ -148,6 +148,31 @@
 	        }
 		    });
 			});
+			
+			$(document).ready(function () {
+        $('#keyword').on('keyup', function (event) {
+          if (event.keyCode === 13) {
+            const query = $(this).val().trim();
+            if (query) {
+              var searchUrl = "${ctp}/shop/search?query=" + encodeURIComponent(query);
+              window.location.href = searchUrl;
+            } else {
+              alert("검색어를 입력해주세요.");
+            }
+          }
+        });
+	    });
+			
+			function searchKeyword() {
+				let query = document.getElementById("keyword").value.trim();
+				if(query == ""){
+					alert("검색어를 입력해주세요.");
+					return false;
+				}
+				else{
+					location.href='${ctp}/shop/search?query=' + encodeURIComponent(query);
+				}
+			}
  	  </script>
     <style>
 	    body {
@@ -521,11 +546,9 @@
             <!-- 액션 -->
             <div class="actions">
                 <div class="search-bar">
-                    <input type="text" placeholder="Search">
-                    <i class="fas fa-search"></i>
+                  <input type="search" id="keyword" placeholder="Search" value="${query}">
+                  <i class="fas fa-search" onclick="searchKeyword()" style="cursor: pointer;"></i>
                 </div>
-                <a href="#" class="action-link"><i class="fas fa-heart"></i></a>
-                <a href="${ctp}/shop/shopCart" class="action-link"><i class="fas fa-shopping-cart"></i></a>
                 <ul class="nav">
                   <li class="nav-item">
                     <c:if test="${empty sMid && sLevel != 0}"><a href="#" class="nav-link login" style="padding-left: 0 !important; padding-right: 0 !important;"><i class="fas fa-user"></i></a></c:if>
@@ -538,6 +561,7 @@
                         <c:if test="${sLevel == 1 || sLevel > 3 || empty sLevel}"><li><a href="#" class="partner">파트너신청</a></li></c:if>
                     </ul>
                 </li>
+                <li><a href="${ctp}/shop/shopCart" class="nav-link" style="padding-left: 0 !important; padding-right: 0 !important;"><i class="fas fa-shopping-cart"></i></a></li>
                 <li class="nav-item menuBtn">
 							    <a href="#" class="nav-link" style="padding-left: 0 !important; padding-right: 0 !important;">
 							        <i class="fa-solid fa-bars"></i>

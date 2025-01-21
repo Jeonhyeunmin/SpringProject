@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.javaGroupS6.vo.PartnerVO;
 import com.spring.javaGroupS6.vo.ShopOrderVO;
+import com.spring.javaGroupS6.vo.ShopReviewVO;
 import com.spring.javaGroupS6.vo.ShopVO;
 
 public interface PartnerService {
@@ -39,6 +40,10 @@ public interface PartnerService {
 	int setPartnerUpdate(MultipartFile file, PartnerVO vo, HttpSession session);
 
 	int setAllApplication(String mid);
+
+	ArrayList<ShopVO> getShopReviewList(String mid);
+
+	ArrayList<ShopReviewVO> getReview(String mid);
 
 
 

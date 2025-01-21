@@ -16,6 +16,7 @@ import com.spring.javaGroupS6.dao.MemberDAO;
 import com.spring.javaGroupS6.vo.CouponVO;
 import com.spring.javaGroupS6.vo.MemberVO;
 import com.spring.javaGroupS6.vo.ShopOrderVO;
+import com.spring.javaGroupS6.vo.ShopReviewVO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -97,5 +98,10 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int setorderExchange(int idx) {
 		return memberDAO.setorderExchange(idx);
+	}
+	
+	@Override
+	public ArrayList<ShopReviewVO> getMyReviewList(String mid) {
+		return memberDAO.getMyReviewList(mid);
 	}
 }

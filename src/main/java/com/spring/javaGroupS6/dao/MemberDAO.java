@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.spring.javaGroupS6.vo.CouponVO;
 import com.spring.javaGroupS6.vo.MemberVO;
 import com.spring.javaGroupS6.vo.ShopOrderVO;
+import com.spring.javaGroupS6.vo.ShopReviewVO;
 
 public interface MemberDAO {
 
@@ -25,6 +26,8 @@ public interface MemberDAO {
 	int setBuyDecide(@Param("idx") int idx);
 
 	int setorderExchange(@Param("idx") int idx);
+
+	ArrayList<ShopReviewVO> getMyReviewList(@Param("mid") String mid);
 
 
 }

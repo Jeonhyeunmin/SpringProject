@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
@@ -17,78 +19,45 @@
 	<!-- Swiper JS -->
 	<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 
-<style>
-	<!-- Custom CSS for Scrollbar Position -->
-	/* swiper-container에 상대 위치 설정 */
-	.swiper {
-	    position: relative;
-	}
-	
-	
-	.swiper-interior {
-    overflow-x: hidden;  /* 가로 스크롤 숨기기 */
-	}
-	
-	.swiper-wrapper {
-	    width: 100%;  /* swiper-wrapper 너비를 100%로 설정 */
-	}
-	
-	a:hover{
-		text-decoration: none;
-	}
-	.mainImgCrop img {
-	  width: 100%;
-	  height: 800px;
-	}
-	
-	.interiorImgCrop {
-      background: #fff;
-      overflow: hidden;
-      text-align: center;
-      text-decoration: none;
-      position: relative;
-      width: 100%;
-      height: 400px; /* 원하는 높이 설정 */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-  }
-
-  .interiorImgCrop img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover; /* 이미지 크기에 따라 자르기 */
-      transition: transform 0.2s ease-in-out; /* 부드러운 확대 효과 */
-  }
-
-  .interiorImgCrop img:hover {
-      transform: scale(1.1); /* 마우스를 올렸을 때 확대 */
-  }
-	.interiorImgCrop{
-		background: #fff;
-      overflow: hidden;
-      text-align: center;
-      text-decoration: none;
-	}
-	.mainImgText {
-		position: absolute;
-		bottom: 40%;
-		left: 4.5%;
-		color: white;
-	}
-	.titleEng{
-	  font-family: 'TTBookendBatangR';
-	  font-size: 25px;
-	}
-	
-	.titleKor{
-	  font-family: 'Chosunilbo_myungjo';
-	  font-weight: 400;
-	  font-size: 40px;
-	}
-	
-	/*tobBtn*/
-	h6 {
+	<style>
+		<!-- Custom CSS for Scrollbar Position -->
+		/* swiper-container에 상대 위치 설정 */
+		.swiper {
+		    position: relative;
+		}
+		
+		
+		.swiper-wrapper {
+		    width: 100%;  /* swiper-wrapper 너비를 100%로 설정 */
+		}
+		
+		a:hover{
+			text-decoration: none;
+		}
+		.mainImgCrop img {
+		  width: 100%;
+		  height: 800px;
+		}
+		
+		.mainImgText {
+			position: absolute;
+			bottom: 40%;
+			left: 4.5%;
+			color: white;
+		}
+		.titleEng{
+		  font-family: 'TTBookendBatangR';
+		  font-size: 25px;
+		}
+		
+		.titleKor{
+		  font-family: 'Chosunilbo_myungjo';
+		  font-weight: 400;
+		  font-size: 40px;
+		}
+		
+		/*tobBtn*/
+		h6 {
 			position: fixed;
 			right: 1rem;
 			bottom: -50px;
@@ -100,25 +69,191 @@
 			bottom: 0;
 		}
 		
+	  .best-container {
+	    display: flex;
+	    gap: 20px;
+	    margin: 100px 2%;
+		}
 		
+		.sidebar {
+	    width: 200px;
+		}
 		
-</style>
-<script>
-	'use strict'
-//화살표클릭시 화면 상단이동(부드럽게)
-	$(window).scroll(function(){
-  	if($(this).scrollTop() > 100){
-     $("#topBtn").addClass("on");
-  }
-  else{
-     $("#topBtn").removeClass("on");
-  }
-  $("#topBtn").click(function() {
-			window.scrollTo({top:0, behavior: "smooth"});	
-		});
-	});
+		.sidebar ul {
+	    list-style: none;
+	    padding: 0;
+	    margin: 0;
+		}
+		
+		.sidebar ul li {
+	    padding: 12px;
+	    cursor: pointer;
+	    color: #333;
+	    font-weight: bold;
+	    border-left: 4px solid transparent;
+	    transition: all 0.3s;
+		}
+		
+		.sidebar ul li.active,
+		.sidebar ul li:hover {
+	    color: #e74c3c;
+	    border-left: 4px solid #e74c3c;
+		}
+		
+		.content {
+	    flex-grow: 1;
+	    display: grid;
+	    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	    gap: 20px;
+		}
+		
+		.item {
+	    border: 1px solid #ddd;
+	    border-radius: 4px;
+	    padding: 10px;
+	    text-align: left;
+	    cursor: pointer;
+		}
+		
+		.item img {
+	    width: 100%;
+	    height: auto;
+	    border-bottom: 1px solid #ddd;
+	    margin-bottom: 10px;
+		}
+		
+		.item .title {
+	    font-size: 14px;
+	    color: #333;
+	    margin-bottom: 5px;
+		}
+		
+		.item .price {
+	    color: #e74c3c;
+	    font-weight: bold;
+	    margin-bottom: 5px;
+		}
+		
+		.item .discount {
+	    font-size: 12px;
+	    color: #888;
+	    text-decoration: line-through;
+		}
+		
+	  .new-container {
+	    display: grid;
+	    grid-template-columns: repeat(3, 1fr); /* 3개의 열로 구성 */
+	    gap: 30px; /* 카드 간의 간격 */
+	    padding: 20px 10%; /* 여백 조정 */
+	    margin: 0 auto;
+	  }
 	
-</script>
+	  .new-item {
+	    overflow: hidden;
+	    text-align: left;
+	    transition: transform 0.3s, box-shadow 0.3s;
+	    background-color: #fff;
+	    margin-top: 50px;
+	    cursor: pointer;
+	  }
+	
+	  .new-item img {
+	    width: 100%;
+	    height: 500px; /* 이미지 크기를 동일하게 설정 */
+	    object-fit: cover;
+	    margin-bottom: 10px;
+	  }
+	
+	  .new-item .title {
+	    font-size: 18px;
+	    font-weight: bold;
+	    color: #333;
+	    margin-bottom: 10px;
+	  }
+	
+	  .new-item .price {
+	    font-size: 16px;
+	    color: #e74c3c;
+	    font-weight: bold;
+	    margin-bottom: 10px;
+	  }
+	
+	  .new-item .discount {
+	    font-size: 14px;
+	    color: #888;
+	    text-decoration: line-through;
+	    margin-bottom: 10px;
+	  }
+	
+	  /* NEW 및 BEST 태그 스타일 */
+	  .new-item .tag {
+	    display: inline-block;
+	    background-color: #f8f8f8;
+	    color: #e74c3c;
+	    font-size: 12px;
+	    font-weight: bold;
+	    padding: 5px 0px;
+	    margin-right: 5px;
+	    border-radius: 3px;
+	  }
+	</style>
+	<script>
+		'use strict'
+	//화살표클릭시 화면 상단이동(부드럽게)
+		$(window).scroll(function(){
+	  	if($(this).scrollTop() > 100){
+	     $("#topBtn").addClass("on");
+	  }
+	  else{
+	     $("#topBtn").removeClass("on");
+	  }
+	  $("#topBtn").click(function() {
+				window.scrollTo({top:0, behavior: "smooth"});	
+			});
+		});
+		
+		document.addEventListener("DOMContentLoaded", function () {
+	    const categories = document.querySelectorAll(".category");
+	    const items = document.querySelectorAll(".item");
+
+	    // 첫 번째 카테고리를 활성화하고 해당 제품 표시
+	    if (categories.length > 0) {
+        categories[0].classList.add("active");
+        const firstCategory = categories[0].getAttribute("data-category");
+        
+        items.forEach(function (item) {
+          if (item.getAttribute("data-category") === firstCategory) {
+            item.style.display = "block";
+          } else {
+            item.style.display = "none";
+          }
+        });
+	    }
+
+	    // 카테고리 클릭 이벤트
+	    categories.forEach(function (category) {
+        category.addEventListener("click", function () {
+            // 카테고리 활성화 표시
+          categories.forEach(function (cat) {
+              cat.classList.remove("active");
+          });
+          category.classList.add("active");
+
+          // 선택된 카테고리 가져오기
+          const selectedCategory = category.getAttribute("data-category");
+
+          // 해당 카테고리 아이템만 표시
+          items.forEach(function (item) {
+            if (item.getAttribute("data-category") === selectedCategory || selectedCategory === "all") {
+              item.style.display = "block";
+            } else {
+              item.style.display = "none";
+            }
+          });
+        });
+	    });
+		});
+	</script>
 </head>
 <!-- <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false"> -->
 <body>
@@ -236,8 +371,8 @@
 				<div class="titleKor">인기브랜드 UO TO 80%</div>
 			</div>
 		</div>
+ 	</div>
  </div>
-</div>
 
 
 <!-- Swiper 초기화 스크립트 -->
@@ -255,11 +390,53 @@
 		});
 </script>
 
+<div class="best-container">
+	<div class="sidebar">
+    <div><h3 style="font-weight: bold;">WEEKLY BEST</h3></div>
+    <ul>
+      <c:forEach var="subCategory" items="${subCategory}" varStatus="st">
+        <li class="category ${st.first ? 'active' : ''}" data-category="${subCategory}">
+          ${subCategory}
+        </li>
+      </c:forEach>
+    </ul>
+	</div>
+	
+	<!-- Content -->
+	<div class="content">
+	  <c:forEach var="vo" items="${bestVOS}" varStatus="st">
+	    <div class="item" onclick="location.href='${ctp}/shop/shopContent?idx=${vo.idx}'" data-category="${vo.subCategory}" style="${vo.subCategory == subCategory[0] ? 'display: block;' : 'display: none;'}">
+	      <img src="${ctp}/category/${vo.thumbnail}" alt="${vo.subCategory}${st.count}">
+	      <div class="title">${vo.title}</div>
+	      <div class="price"><fmt:formatNumber pattern="#,##0" value="${vo.price}"/></div>
+	      <c:if test="${vo.discount != 0}"><div class="discount">${vo.discount}%</div></c:if>
+	    </div>
+	  </c:forEach>
+	</div>
+</div>
+
+<div class="mt-4"><h2 style="font-weight: bold; margin-left: 10%;">Redefining Luxury</h2></div>
+<div class="new-container">
+  <c:forEach var="vo" items="${shopVOS}">
+    <div class="new-item" onclick="location.href='${ctp}/shop/shopContent?idx=${vo.idx}'">
+      <img src="${ctp}/category/${vo.thumbnail}" alt="${vo.title}">
+      <div class="tag">
+        NEW
+      </div>
+      <div class="title">${vo.title}</div>
+      <div class="price"><fmt:formatNumber pattern="#,##0" value="${vo.price}"/></div>
+      <c:if test="${vo.discount != 0}">
+        <div class="discount">${vo.discount}%</div>
+      </c:if>
+    </div>
+  </c:forEach>
+</div>
+
+
 	<!-- 위로가기 버튼 -->
 	<h6 id="topBtn" class="text-right">
 		<img src="${ctp}/login/top.png" title="위로이동" width="50px" />
 	</h6>					
-<div style="height: 1100px;"></div>
 
 </body>
 </html>

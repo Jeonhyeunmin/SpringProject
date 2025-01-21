@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.spring.javaGroupS6.vo.CouponVO;
 import com.spring.javaGroupS6.vo.MemberVO;
 import com.spring.javaGroupS6.vo.ShopOrderVO;
+import com.spring.javaGroupS6.vo.ShopReviewVO;
 
 public interface MemberService {
 
@@ -27,6 +28,8 @@ public interface MemberService {
 	int setBuyDecide(int idx);
 
 	int setorderExchange(int idx);
+
+	ArrayList<ShopReviewVO> getMyReviewList(String mid);
 
 
 }

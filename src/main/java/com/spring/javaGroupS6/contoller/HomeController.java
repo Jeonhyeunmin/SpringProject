@@ -5,21 +5,39 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.spring.javaGroupS6.service.CommonService;
+import com.spring.javaGroupS6.vo.ShopVO;
+
 @Controller
 public class HomeController {
 	
+	@Autowired
+	CommonService commonService;
+	
 	@RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
-	public String home() {
+	public String home(Model model) {
+		ArrayList<String> subCategory = commonService.getSubCategory();
+		ArrayList<ShopVO> bestVOS = commonService.getShopRankList(subCategory.get(0), subCategory.get(1), subCategory.get(2), subCategory.get(3), subCategory.get(4));
+		ArrayList<ShopVO> shopVOS = commonService.getNewShopList();
+		
+		model.addAttribute("shopVOS", shopVOS);
+		model.addAttribute("bestVOS", bestVOS);
+		model.addAttribute("subCategory", subCategory);
+		
+		
 		return "home";
 	}
 	@RequestMapping(value = "/login", method = RequestMethod.GET)

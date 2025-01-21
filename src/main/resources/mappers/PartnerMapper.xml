@@ -27,6 +27,14 @@
 		select * from shop where mid = #{mid} and claim = 'YES';
 	</select>
 	
+	<select id="getShopReviewList" resultType="com.spring.javaGroupS6.vo.ShopVO">
+		select s.* from shop s, shopReview sr where s.mid = #{mid} and s.idx = sr.shopIdx group by s.idx;
+	</select>
+	
+	<select id="getReview" resultType="com.spring.javaGroupS6.vo.ShopVO">
+		select * from shopReview where mid = #{mid};
+	</select>
+	
 	<update id="setPartnerLeave">
 		update partner set userDel = 'YES', level = 99 where mid = #{mid};
 	</update>

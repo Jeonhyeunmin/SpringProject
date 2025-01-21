@@ -154,6 +154,7 @@ public class JavaProvide {
 		
 		for(int i = 0; i < img.size(); i++) {
 			String origFilePath = realPath +  folderName + "/" + img.get(i);
+			System.out.println("origFilePath : " + origFilePath);
 			fileDelete(origFilePath);
 		}
 	}

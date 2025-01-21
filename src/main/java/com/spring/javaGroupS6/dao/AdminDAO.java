@@ -91,5 +91,7 @@ public interface AdminDAO {
 
 	List<EventVO> getFilterEvents(@Param("keyword") String keyword, @Param("status") String status);
 
+	List<CouponVO> searchCoupons(@Param("startDate") String startDate, @Param("endDate") String endDate, @Param("keyword") String keyword);
+
 
 }

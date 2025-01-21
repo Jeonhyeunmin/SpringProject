@@ -220,108 +220,108 @@
 	<div class="grey-bg container-fluid">
 	  <section id="stats-subtitle">
 		  <div class="row">
-	    <div class="col-xl-6 col-md-12">
-	      <div class="card overflow-hidden">
-	        <div class="card-content">
-	          <div class="card-body cleartfix">
-	            <div class="media align-items-stretch">
-	              <div class="align-self-center">
-	                <i class="icon-speech warning font-large-2 mr-2"></i>
-	              </div>
-	              <div class="media-body align-self-center">
-	                <h4 class="m-0">리뷰</h4>
-	              </div>
-	              <div class="align-self-center"> 
-	                <h1><fmt:formatNumber pattern="#,##0" value="${fn: length(reviewVOS)}"/>건</h1>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	      </div>
-	    </div>
-	
-	    <div class="col-xl-6 col-md-12">
-	      <div class="card">
-	        <div class="card-content">
-	          <div class="card-body cleartfix">
-	            <div class="media align-items-stretch">
-	              <div class="align-self-center">
-	                <i class="fas fa-exclamation-circle danger font-large-2 mr-2"></i>
-	              </div>
-	              <div class="media-body align-self-center">
-	                <h4 class="m-0">신고 리뷰</h4>
-	              </div>
-	              <div class="align-self-center">
-	                <h1><fmt:formatNumber pattern="#,##0" value="${fn: length(ClaimReviewIdx)}"/>건</h1>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-  </section>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>게시물 사진</th>
-        <th>업체명</th>
-        <th>상품명</th>
-        <th>옵션명</th>
-        <th>가격</th>
-        <th>올린 날짜</th>
-      </tr>
-    </thead>
-    <tbody>
-      <c:forEach var="shopVO" items="${reviewShopVOS}" varStatus="st">
-    		<c:set var="option" value="${fn: split(shopVO.optionName, '/')}"/>
-      	<c:if test="${fn: contains(ClaimReviewIdx, shopVO.idx)}">
-				  <tr onclick="reviewLoad(${shopVO.idx})">
-				    <td><img src="${ctp}/category/${shopVO.thumbnail}" width="50px"></td>
-				    <td>${shopVO.company}</td>
-				    <td>${shopVO.title}<font color="red" size="2px"> * 신고된 리뷰가 있습니다.</font></td>
-				    <td>
-				      <c:if test="${empty option[0]}">
-				        X
-				      </c:if>
-				      <c:if test="${!empty option[0]}">
-				        <c:forEach var="i" begin="0" end="${fn: length(option)-1}">
-				          [${option[i]}]
-				        </c:forEach>
-				      </c:if>
-				    </td>
-				    <td><fmt:formatNumber pattern="#,##0" value="${shopVO.price}"/></td>
-				    <td>${fn: substring(shopVO.WDate, 0, 10)}</td>
-				  </tr>
-				  <tr>
-				    <td colspan="6" class="review-container review-container${shopVO.idx}"></td>
-				  </tr>
-      	</c:if>
-      	<c:if test="${!fn: contains(claimReviewVOS, shopVO.idx)}">
-				  <tr onclick="reviewLoad(${shopVO.idx})">
-				    <td><img src="${ctp}/category/${shopVO.thumbnail}" width="50px"></td>
-				    <td>${shopVO.company}</td>
-				    <td>${shopVO.title}</td>
-				    <td>
-				      <c:if test="${empty option[0]}">
-				        X
-				      </c:if>
-				      <c:if test="${!empty option[0]}">
-				        <c:forEach var="i" begin="0" end="${fn: length(option)-1}">
-				          [${option[i]}]
-				        </c:forEach>
-				      </c:if>
-				    </td>
-				    <td><fmt:formatNumber pattern="#,##0" value="${shopVO.price}"/></td>
-				    <td>${fn: substring(shopVO.WDate, 0, 10)}</td>
-				  </tr>
-				  <tr>
-				    <td colspan="6" class="review-container review-container${shopVO.idx}"></td>
-				  </tr>
-			  </c:if>
-			</c:forEach>
-    </tbody>
-  </table>
+		    <div class="col-xl-6 col-md-12">
+		      <div class="card overflow-hidden">
+		        <div class="card-content">
+		          <div class="card-body cleartfix">
+		            <div class="media align-items-stretch">
+		              <div class="align-self-center">
+		                <i class="icon-speech warning font-large-2 mr-2"></i>
+		              </div>
+		              <div class="media-body align-self-center">
+		                <h4 class="m-0">리뷰</h4>
+		              </div>
+		              <div class="align-self-center"> 
+		                <h1><fmt:formatNumber pattern="#,##0" value="${fn: length(reviewVOS)}"/>건</h1>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		
+		    <div class="col-xl-6 col-md-12">
+		      <div class="card">
+		        <div class="card-content">
+		          <div class="card-body cleartfix">
+		            <div class="media align-items-stretch">
+		              <div class="align-self-center">
+		                <i class="fas fa-exclamation-circle danger font-large-2 mr-2"></i>
+		              </div>
+		              <div class="media-body align-self-center">
+		                <h4 class="m-0">신고 리뷰</h4>
+		              </div>
+		              <div class="align-self-center">
+		                <h1><fmt:formatNumber pattern="#,##0" value="${fn: length(ClaimReviewIdx)}"/>건</h1>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+	  </section>
+	  <table class="table table-bordered">
+	    <thead>
+	      <tr>
+	        <th>게시물 사진</th>
+	        <th>업체명</th>
+	        <th>상품명</th>
+	        <th>옵션명</th>
+	        <th>가격</th>
+	        <th>올린 날짜</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <c:forEach var="shopVO" items="${reviewShopVOS}" varStatus="st">
+	    		<c:set var="option" value="${fn: split(shopVO.optionName, '/')}"/>
+	      	<c:if test="${fn: contains(ClaimReviewIdx, shopVO.idx)}">
+					  <tr onclick="reviewLoad(${shopVO.idx})">
+					    <td><img src="${ctp}/category/${shopVO.thumbnail}" width="50px"></td>
+					    <td>${shopVO.company}</td>
+					    <td>${shopVO.title}<font color="red" size="2px"> * 신고된 리뷰가 있습니다.</font></td>
+					    <td>
+					      <c:if test="${empty option[0]}">
+					        X
+					      </c:if>
+					      <c:if test="${!empty option[0]}">
+					        <c:forEach var="i" begin="0" end="${fn: length(option)-1}">
+					          [${option[i]}]
+					        </c:forEach>
+					      </c:if>
+					    </td>
+					    <td><fmt:formatNumber pattern="#,##0" value="${shopVO.price}"/></td>
+					    <td>${fn: substring(shopVO.WDate, 0, 10)}</td>
+					  </tr>
+					  <tr>
+					    <td colspan="6" class="review-container review-container${shopVO.idx}"></td>
+					  </tr>
+	      	</c:if>
+	      	<c:if test="${!fn: contains(claimReviewVOS, shopVO.idx)}">
+					  <tr onclick="reviewLoad(${shopVO.idx})">
+					    <td><img src="${ctp}/category/${shopVO.thumbnail}" width="50px"></td>
+					    <td>${shopVO.company}</td>
+					    <td>${shopVO.title}</td>
+					    <td>
+					      <c:if test="${empty option[0]}">
+					        X
+					      </c:if>
+					      <c:if test="${!empty option[0]}">
+					        <c:forEach var="i" begin="0" end="${fn: length(option)-1}">
+					          [${option[i]}]
+					        </c:forEach>
+					      </c:if>
+					    </td>
+					    <td><fmt:formatNumber pattern="#,##0" value="${shopVO.price}"/></td>
+					    <td>${fn: substring(shopVO.WDate, 0, 10)}</td>
+					  </tr>
+					  <tr>
+					    <td colspan="6" class="review-container review-container${shopVO.idx}"></td>
+					  </tr>
+				  </c:if>
+				</c:forEach>
+	    </tbody>
+	  </table>
   </div>
 </body>
 </html>

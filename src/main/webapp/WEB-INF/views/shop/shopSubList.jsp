@@ -209,18 +209,11 @@
   
   <div class="button-group">
   	<ul class="button-group-ul">
-  		<c:forEach var="BrandList" items="${BrandList}" varStatus="st">
-  			<li><button type="button" onclick="location.href='${ctp}/shop/shopSubList?subCategory=${subCategory}&company=${BrandList}'">${BrandList}(${BrandCnt[st.index]})</button></li>
-			</c:forEach>
-  	</ul>
-	</div>
-  <div class="button-group">
-  	<ul class="button-group-ul">
-			<li><button type="button" onclick="location.href='${ctp}/shop/shopSubList?subCategory=${subCategory}&company=${param.company}">많이팔린순</button></li>
-			<li><button type="button" onclick="location.href='${ctp}/shop/shopSubList?subCategory=${subCategory}&company=${param.company}">최근등록순</button></li>
-			<li><button type="button" onclick="location.href='${ctp}/shop/shopSubList?subCategory=${subCategory}&company=${param.company}">낮은가격순</button></li>
-			<li><button type="button" onclick="location.href='${ctp}/shop/shopSubList?subCategory=${subCategory}&company=${param.company}'">높은가격순</button></li>
-			<li><button type="button" onclick="location.href='${ctp}/shop/shopSubList?subCategory=${subCategory}&company=${param.company}">상품평개수순</button></li>
+			<li><button type="button" onclick="">많이팔린순</button></li>
+			<li><button type="button" onclick="">최근등록순</button></li>
+			<li><button type="button" onclick="">낮은가격순</button></li>
+			<li><button type="button" onclick="'">높은가격순</button></li>
+			<li><button type="button" onclick="">상품평개수순</button></li>
   	</ul>
 	</div>
 	
@@ -234,7 +227,6 @@
 	        <img src="${ctp}/category/${vo.thumbnail}" alt="Thumbnail">
 	        <div class="overlay-buttons">
 	          <button type="button" onclick="window.open('${ctp}/shop/shopContent?idx=${vo.idx}')" ><i class="fa-solid fa-eye"></i>새창</button>
-	          <button type="button"><i class="fa-solid fa-heart"></i>찜</button>
         </div>
 	      </div>
 	      <div class="info">

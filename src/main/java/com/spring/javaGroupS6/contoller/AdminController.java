@@ -509,4 +509,25 @@ public class AdminController {
 		return adminService.getFilterEvents(keyword, status);
 	}
 	
+	@GetMapping("/couponManage")
+	public String couponManageGet(Model model) {
+		ArrayList<CouponVO> couponVOS = adminService.getCouponList();
+		
+		model.addAttribute("couponVOS", couponVOS);
+		
+		return "admin/couponManage";
+	}
+	
+  @GetMapping("/searchCoupons")
+  @ResponseBody
+  public List<CouponVO> searchCoupons(
+    @RequestParam(required = false) String startDate,
+    @RequestParam(required = false) String endDate,
+    @RequestParam(required = false) String keyword
+  ) {
+    List<CouponVO> filteredCoupons = adminService.searchCoupons(startDate, endDate, keyword);
+    return filteredCoupons;
+  }
+
+	
 }

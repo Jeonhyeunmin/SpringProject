@@ -183,13 +183,9 @@
 		  <a href="${ctp}/admin/eveneManage">이벤트 관리</a>
 		  <a href="${ctp}/event/eventInput">이벤트 등록</a>
 		</div>
-    <a href="#">
+    <a href="${ctp}/admin/couponManage">
       <i class="fas fa-ticket-alt"></i> <!-- 쿠폰관리 아이콘 -->
       쿠폰관리
-    </a>
-    <a href="#">
-      <i class="fa-solid fa-ranking-star"></i>
-      마케팅
     </a>
     <div class="bottom-link" onclick="location.href='${ctp}'">
       <i class="fas fa-sign-out-alt"></i> <!-- 로그아웃 아이콘 -->

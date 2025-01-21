@@ -135,33 +135,34 @@
 <body>
 	<h3 class="text-start mt-4" style="font-weight: bold;">신고된 글 <font color="red" size="2px"> * 신고된 글은 고객에게 보이지 않습니다 수정 후 관리자에게 문의 바랍니다.</font></h3>
 	<div class="grid-container">
-	  <c:forEach var="vo" items="${vos}" varStatus="st">
-	    <div class="grid-item">
-	      <c:if test="${vo.discount != 0}">
-	      	<div class="discount-badge">${vo.company} ${vo.discount}%</div>
-	      </c:if>
-	      <div class="moveContent">
-	        <img src="${ctp}/category/${vo.thumbnail}" alt="Thumbnail">
-	        <div class="overlay-buttons">
-	          <a href="${ctp}/shop/shopUpdate?idx=${vo.idx}" target="partner" ><i class="fa-solid fa-pencil-alt"></i>게시물 수정</a>
-        	</div>
-	      </div>
-	      <div class="info">
-	        <div class="title" onclick="window.open('${ctp}/shop/shopContent?idx=${vo.idx}')">${vo.title}</div>
-	        <div class="price"><fmt:formatNumber value="${vo.price}" pattern="#,##0"/>원</div>
-	        <div class="company-category">${vo.company} | ${fn:toUpperCase(vo.category)}</div>
-	        <c:if test="${vo.reviewCnt != 0}">
-		        <div class="rating">
-		          <i class="fa-solid fa-star"></i>
-		          ${vo.star}점 | ${vo.reviewCnt}개
-		        </div>
-	        </c:if>
-	      </div>
-	    </div>
-	  </c:forEach>
+  	<c:if test="${empty vos}">신고된 게시글이 없습니다.</c:if>
+  	<c:if test="${!empty vos}">
+		  <c:forEach var="vo" items="${vos}" varStatus="st">
+		    <div class="grid-item">
+		      <c:if test="${vo.discount != 0}">
+		      	<div class="discount-badge">${vo.company} ${vo.discount}%</div>
+		      </c:if>
+		      <div class="moveContent">
+		        <img src="${ctp}/category/${vo.thumbnail}" alt="Thumbnail">
+		        <div class="overlay-buttons">
+		          <a href="${ctp}/shop/shopUpdate?idx=${vo.idx}" target="partner" ><i class="fa-solid fa-pencil-alt"></i>게시물 수정</a>
+	        	</div>
+		      </div>
+		      <div class="info">
+		        <div class="title" onclick="window.open('${ctp}/shop/shopContent?idx=${vo.idx}')">${vo.title}</div>
+		        <div class="price"><fmt:formatNumber value="${vo.price}" pattern="#,##0"/>원</div>
+		        <div class="company-category">${vo.company} | ${fn:toUpperCase(vo.category)}</div>
+		        <c:if test="${vo.reviewCnt != 0}">
+			        <div class="rating">
+			          <i class="fa-solid fa-star"></i>
+			          ${vo.star}점 | ${vo.reviewCnt}개
+			        </div>
+		        </c:if>
+		      </div>
+		    </div>
+		  </c:forEach>
+	  </c:if>
 	</div>
-  
-  
   
 </body>
 </html>

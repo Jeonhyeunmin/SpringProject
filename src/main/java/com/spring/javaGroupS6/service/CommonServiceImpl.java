@@ -2,6 +2,7 @@ package com.spring.javaGroupS6.service;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import com.spring.javaGroupS6.common.JavaProvide;
 import com.spring.javaGroupS6.dao.CommonDAO;
 import com.spring.javaGroupS6.vo.MemberVO;
 import com.spring.javaGroupS6.vo.PartnerVO;
+import com.spring.javaGroupS6.vo.ShopVO;
 
 @Service
 public class CommonServiceImpl implements CommonService {
@@ -110,5 +112,21 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public void setLastDateUpdate(String table, String today, String mid) {
 		commonDAO.setLastDateUpdate(table, today, mid);
+	}
+
+	@Override
+	public ArrayList<ShopVO> getShopRankList(String category1, String category2, String category3, String category4, String category5) {
+		commonDAO.initializeVariables();
+		return commonDAO.getShopRankList(category1, category2, category3, category4, category5);
+	}
+	
+	@Override
+	public ArrayList<String> getSubCategory() {
+		return commonDAO.getSubCategory();
+	}
+	
+	@Override
+	public ArrayList<ShopVO> getNewShopList() {
+		return commonDAO.getNewShopList();
 	}
 }

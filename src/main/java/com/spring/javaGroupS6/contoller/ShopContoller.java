@@ -200,6 +200,9 @@ public class ShopContoller {
 		model.addAttribute("reviewVOS", reviewVOS);
 		model.addAttribute("reviewAvg", reviewAvg);
 		
+		model.addAttribute("category", vo.getCategory());
+		model.addAttribute("mainCategory", vo.getMainCategory());
+		model.addAttribute("subCategory", vo.getSubCategory());
 		model.addAttribute("postCount", postCount);
 		model.addAttribute("logo", logo);
 		model.addAttribute("titleImgs", titleImgs);
@@ -290,8 +293,8 @@ public class ShopContoller {
 	
 	@ResponseBody
 	@PostMapping("/shopDelete")
-	public int shopDeletePost(int idx) {
-		int res = shopService.setShopDelete(idx);
+	public int shopDeletePost(int idx, HttpSession session) {
+		int res = shopService.setShopDelete(idx, session);
 			return res;
 	}
 	
@@ -353,7 +356,7 @@ public class ShopContoller {
 	public String reviewListPost(Model model, HttpSession session, int idx) {
 		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
 		
-		ArrayList<ShopReviewVO> reviewVOS = shopService.getReview(idx, "");
+		ArrayList<ShopReviewVO> reviewVOS = shopService.getReview(idx, "user");
 		Double reviewAvg = shopService.getReviewAverage(idx);
 		
 		ArrayList<Integer> likeVOS = shopService.getMyLikes(idx, mid);
@@ -509,28 +512,6 @@ public class ShopContoller {
 		return res;
 	}
 	
-	@ResponseBody
-	@PostMapping("/cookieShopDelete")
-	public void cookieShopDeletePost(HttpServletRequest request, HttpServletResponse response, int idx) {
-		Cookie[] cookies = request.getCookies();
-		String productList = "";
-		if(cookies != null) {
-			for(int i=0; i<cookies.length; i++) {
-				if(cookies[i].getName().equals("cShop")) {
-					productList = cookies[i].getValue();
-					
-					productList= productList.replace(idx+":", "");
-					Cookie cookieProduct = new Cookie("cShop", productList);
-					cookieProduct.setPath("/");
-					cookieProduct.setMaxAge(60*60*24*7);
-					response.addCookie(cookieProduct);
-					
-					break;
-				}
-			}
-		}
-	}
-	
 	@GetMapping("/couponSelect")
 	public String couponSelectGet(HttpSession session, Model model) {
 		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
@@ -603,7 +584,27 @@ public class ShopContoller {
 		model.addAttribute("orderVos", orderVos);
 		model.addAttribute("title", "구매내역");
 		
-		
 		return "shop/paymentResult";
+	}
+	
+	@GetMapping("/partnerCollect")
+	public String partnerCollectGet(Model model, String mid) {
+		PartnerVO vo = commonService.getPartnerIdSearch(mid);
+		
+		ArrayList<ShopVO> shopVOS = shopService.getPartnerShopList(mid);
+		
+		model.addAttribute("shopVOS", shopVOS);
+		model.addAttribute("vo", vo);
+		model.addAttribute("title", vo.getCompany());
+		return "shop/partnerCollect";
+	}
+	
+	@GetMapping("/search")
+	public String searchGet(Model model, String query) {
+		ArrayList<ShopVO> vos = shopService.getSearch(query);
+		model.addAttribute("vos", vos);
+		model.addAttribute("title", query + " 검색");
+		model.addAttribute("query", query);
+		return "shop/search";
 	}
 }

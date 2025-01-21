@@ -25,7 +25,7 @@
 	</select>
 
 	<select id="getCouponList" resultType="com.spring.javaGroupS6.vo.CouponVO">
-		select * from coupon
+		select * from coupon	ORDER BY  createDate DESC
 	</select>
 
 	<select id="getShopReviewList" resultType="com.spring.javaGroupS6.vo.ShopVO">
@@ -192,6 +192,22 @@
 	  <if test="status != null and status != ''">
 	    AND status = #{status}
 	  </if>
+	</select>
+
+	<select id="searchCoupons" resultType="com.spring.javaGroupS6.vo.CouponVO">
+		select * from coupon 
+		WHERE 1=1
+	  <if test="startDate != null and startDate != ''">
+	    AND startDate &gt;= #{startDate}
+	  </if>
+	  <if test="endDate != null and endDate != ''">
+	    AND endDate &lt;= #{endDate}
+	  </if>
+	  <if test="keyword != null and keyword != ''">
+	    AND couponName like concat('%', #{keyword}, '%')
+	  </if>
+	  ORDER BY 
+            createDate DESC
 	</select>
 	
 	<update id="setPartnerAllAccpet">
