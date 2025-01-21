@@ -1,6 +1,8 @@
 package com.spring.javaGroupS6.dao;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -90,6 +92,16 @@ public interface ShopDAO {
 	ArrayList<ShopVO> getPartnerShopList(@Param("mid") String mid);
 
 	ArrayList<ShopVO> getSearch(@Param("query") String query);
+
+	ArrayList<ShopVO> getBestShopTop3();
+
+	ArrayList<ShopVO> getdateShopTop3();
+
+	ArrayList<ShopVO> getNewShop();
+
+	List<ShopVO> filterProducts(@Param("search") String search, @Param("category") String category, @Param("price") String price);
+
+	void createView();
 
 
 }

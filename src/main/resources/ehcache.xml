@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.ehcache.org/ehcache.xsd">
+
+    <!-- 기본 캐시 설정 -->
+    <defaultCache 
+        maxEntriesLocalHeap="1000" 
+        timeToLiveSeconds="600" 
+        eternal="false">
+        <persistence strategy="none" />
+    </defaultCache>
+
+    <!-- 개별 캐시 설정 -->
+    <cache name="defaultCache"
+           maxEntriesLocalHeap="1000"
+           timeToLiveSeconds="600">
+        <persistence strategy="none" />
+    </cache>
+
+</ehcache>

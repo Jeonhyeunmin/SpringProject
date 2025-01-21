@@ -16,6 +16,9 @@
 			<!-- 최근 본 목록 -->
 			<interceptor>
 				<mapping path="/shop/**"/>
+				<mapping path="/*/**"/>
+				<exclude-mapping path="/common/login"/>
+				<exclude-mapping path="/common/partnerJoin"/>
 				<beans:ref bean="Interceptor"/>
 			</interceptor>
 			
@@ -29,6 +32,8 @@
 				<mapping path="/common/myPage"/> 
 				<exclude-mapping path="/event/event"/>
 				<exclude-mapping path="/event/eventContent"/>
+				<exclude-mapping path="/shop/search"/>
+				<exclude-mapping path="/shop/newShop"/>
 				<exclude-mapping path="/shop/shopList"/>
 				<exclude-mapping path="/shop/shopMainList"/>
 				<exclude-mapping path="/shop/shopSubList"/>

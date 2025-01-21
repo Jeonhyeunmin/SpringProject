@@ -607,4 +607,29 @@ public class ShopContoller {
 		model.addAttribute("query", query);
 		return "shop/search";
 	}
+	
+	@GetMapping("/newShop")
+	public String newShopGet(Model model) {
+		ArrayList<ShopVO> vos = shopService.getNewShop();
+		ArrayList<String> category = new ArrayList<String>();
+		for(ShopVO vo : vos) {
+			if(!category.contains(vo.getCategory())) {
+				category.add(vo.getCategory());
+			}
+		}
+		model.addAttribute("category", category);
+		model.addAttribute("vos", vos);
+		model.addAttribute("title", "NEW ARRIVAL");
+		return "shop/newShop";
+	}
+	
+	@ResponseBody
+	@GetMapping("/filterProducts")
+	public List<ShopVO> filterProducts(
+			@RequestParam(required = false) String search,
+			@RequestParam(required = false) String category,
+			@RequestParam(required = false) String price
+	) {
+    return shopService.filterProducts(search, category, price);
+	}
 }

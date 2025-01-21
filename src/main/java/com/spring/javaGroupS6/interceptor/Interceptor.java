@@ -25,6 +25,11 @@ public class Interceptor extends HandlerInterceptorAdapter{
 		
 //		관리자 : 0 | 고객 : 1 | 업체 : 2 | 탈퇴 예정 99
 		
+	  String uri = request.getRequestURI();
+    if (uri.matches(".*\\.(png|jpg|jpeg|gif|svg|webp)$")) {
+        return true; // 이미지 요청은 바로 통과
+    }
+		
 		Cookie[] cookies = request.getCookies();
 		String productList = "";
 		if(cookies != null) {
@@ -42,19 +47,24 @@ public class Interceptor extends HandlerInterceptorAdapter{
 	    String[] cookieArr = productList.split(":");
 	    for (int i = 0; i < cookieArr.length; i++) {
 	        if (cookieArr[i] != null && !cookieArr[i].isEmpty()) { // 값 검증
-	            try {
-	                int productId = Integer.parseInt(cookieArr[i]);
-	                if (cookieVos.size() < 3) {
-	                    ShopVO vo = shopService.getShopContent(productId);
-	                    cookieVos.add(vo);
-	                }
-	            } catch (NumberFormatException e) {
-	                System.err.println("Invalid number format: " + cookieArr[i]);
-	            }
+            try {
+              int productId = Integer.parseInt(cookieArr[i]);
+              if (cookieVos.size() < 3) {
+                ShopVO vo = shopService.getShopContent(productId);
+                cookieVos.add(vo);
+              }
+            } catch (NumberFormatException e) {
+              System.err.println("Invalid number format: " + cookieArr[i]);
+            }
 	        }
 	    }
 		}
 		
+		ArrayList<ShopVO> BestVosTop3 = shopService.getBestShopTop3();
+		ArrayList<ShopVO> dateVosTop3 = shopService.getdateShopTop3();
+		
+		request.setAttribute("dateVosTop3", dateVosTop3);
+		request.setAttribute("BestVosTop3", BestVosTop3);
 		request.setAttribute("cookieVos", cookieVos);
 		
 		return true;

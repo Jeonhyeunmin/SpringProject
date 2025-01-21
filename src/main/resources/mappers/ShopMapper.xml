@@ -102,6 +102,65 @@
 			group by s.idx;
 	</select>
 	
+	<select id="getBestShopTop3" resultType="com.spring.javaGroupS6.vo.ShopVO">
+		SELECT 
+    s.*,
+    COUNT(o.shopIdx) AS purchase_count
+		FROM 
+		    shop AS s
+		LEFT JOIN 
+		    shopOrder AS o
+		ON 
+		    s.idx = o.shopIdx
+		GROUP BY 
+		    s.idx, s.title
+		ORDER BY 
+		    purchase_count DESC
+		LIMIT 4;
+	</select>
+	
+	<select id="getdateShopTop3" resultType="com.spring.javaGroupS6.vo.ShopVO">
+		SELECT *
+		FROM shop
+		ORDER BY wDate DESC
+		LIMIT 4;
+	</select>
+	
+	<select id="getNewShop" resultType="com.spring.javaGroupS6.vo.ShopVO">
+		SELECT *
+		FROM shop
+		WHERE wDate >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+		  AND wDate &lt;= NOW()
+		  limit 100;
+	</select>
+	
+	<select id="filterProducts" resultType="com.spring.javaGroupS6.vo.ShopVO">
+    SELECT *
+    FROM shop
+    <where>
+        <!-- 검색어 필터 -->
+        <if test="search != null and search != ''">
+            LOWER(title) LIKE CONCAT('%', #{search}, '%')
+        </if>
+
+        <!-- 카테고리 필터 -->
+        <if test="category != null and category != ''">
+            AND category = #{category}
+        </if>
+
+        <!-- 가격 필터 -->
+        <if test="price != null and price != ''">
+            AND (
+                (#{price} = 'low' AND price &lt;= 50000) OR
+                (#{price} = 'mid' AND price BETWEEN 50001 AND 100000) OR
+                (#{price} = 'high' AND price > 100000)
+            )
+        </if>
+    </where>
+    ORDER BY idx DESC
+	</select>
+
+	
 	<insert id="shopInput">
 		insert into shop values (default, #{vo.mid}, #{vo.company}, #{vo.category}, #{vo.mainCategory}, #{vo.subCategory}, #{vo.title}, #{vo.discount}, #{vo.price}, #{vo.optionName}, #{vo.optionPrice}, #{vo.thumbnail}, #{vo.titleImg}, #{vo.content}, #{vo.fSize}, default, default, default);
 	</insert>

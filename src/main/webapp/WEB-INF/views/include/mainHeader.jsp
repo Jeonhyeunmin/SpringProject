@@ -248,7 +248,7 @@
 				}
 
         .submenu li a {
-            text-decoration: none;
+            text-decoration: none !important;
             color: #333;
             font-size: 14px;
             padding: 20px;
@@ -277,7 +277,7 @@
 				}
 
         .myPage li a {
-            text-decoration: none;
+            text-decoration: none !important;
             color: #333;
             font-size: 14px;
             padding: 10px;
@@ -494,7 +494,50 @@
 				text-decoration: none;
 			}
 			
-			
+			@media (max-width: 768px) {
+	    .header-container {
+	        flex-direction: column;
+	        align-items: flex-start;
+	    }
+	
+	    .nav {
+	        display: none; /* 기본적으로 숨김 */
+	        flex-direction: column;
+	        width: 100%;
+	        background-color: #fff;
+	        position: absolute;
+	        top: 100%;
+	        left: 0;
+	        border-top: 1px solid #e1c699;
+	        z-index: 999;
+	    }
+	
+	    .nav-item {
+	        width: 100%;
+	    }
+	
+	    .nav-link {
+	        padding: 15px;
+	        display: block;
+	        width: 100%;
+	        text-align: left;
+	    }
+	
+	    .hamburger {
+	        display: block;
+	        font-size: 24px;
+	        cursor: pointer;
+	        color: #333;
+	    }
+	
+	    .hamburger.active + .nav {
+	        display: flex; /* 햄버거 메뉴 클릭 시 표시 */
+	    }
+	
+	    .search-bar input {
+	        width: 150px;
+	    }
+		}
     </style>
 </head>
 <body>
@@ -510,29 +553,31 @@
             <!-- 내비게이션 -->
             <ul class="nav">
                 <li class="nav-item">
-							    <a href="#" class="nav-link">NEW</a>
+							    <a href="${ctp}/shop/newShop" class="nav-link">NEW</a>
 							    <ul class="submenu" style="flex-wrap: wrap; justify-content: center; gap: 20px;">
-							        <c:forEach begin="1" end="3">
-							            <li style="list-style: none; text-align: center;">
-							                <a href="#" style="display: block;">
-							                    <img src="${ctp}/main/main1.jpg" width="400px" style="display: block; margin: 0 auto;">
-							                    <p style="margin-top: 10px; font-size: 14px; color: #333;">브랜드 이름 ${index}</p>
-							                </a>
-							            </li>
-							        </c:forEach>
+						        <c:forEach var="dateVO" items="${dateVosTop3}">
+					            <li style="list-style: none; text-align: center;">
+				                <a href="${ctp}/shop/shopContent?idx=${dateVO.idx}" style="display: block;">
+			                    <img src="${ctp}/category/${dateVO.thumbnail}" width="200px" style="display: block; margin: 0 auto;">
+			                    <p style="margin-top: 10px; font-size: 14px; color: #333;">${dateVO.title}</p>
+			                    <p style="margin-top: 10px; font-size: 14px; color: #333;">${dateVO.company} | ${dateVO.category}</p>
+				                </a>
+					            </li>
+						        </c:forEach>
 							    </ul>
 								</li>
                 <li class="nav-item">
 							    <a href="#" class="nav-link">BEST</a>
 							    <ul class="submenu" style="flex-wrap: wrap; justify-content: center; gap: 20px;">
-							        <c:forEach begin="1" end="3">
-							            <li style="list-style: none; text-align: center;">
-							                <a href="#" style="display: block;">
-							                    <img src="${ctp}/main/main1.jpg" width="400px" style="display: block; margin: 0 auto;">
-							                    <p style="margin-top: 10px; font-size: 14px; color: #333;">브랜드 이름 ${index}</p>
-							                </a>
-							            </li>
-							        </c:forEach>
+						        <c:forEach var="bestVO" items="${BestVosTop3}">
+					            <li style="list-style: none; text-align: center;">
+				                <a href="${ctp}/shop/shopContent?idx=${bestVO.idx}" style="display: block;">
+			                    <img src="${ctp}/category/${bestVO.thumbnail}" width="200px" style="display: block; margin: 0 auto;">
+			                    <p style="margin-top: 10px; font-size: 14px; color: #333;">${bestVO.title}</p>
+			                    <p style="margin-top: 10px; font-size: 14px; color: #333;">${bestVO.company} | ${bestVO.category}</p>
+				                </a>
+					            </li>
+						        </c:forEach>
 							    </ul>
 								</li>
                 <li class="nav-item">
@@ -692,8 +737,6 @@
 									            <li><a href="${ctp}/shop/shopSubList?category=luxury&mainCategory=악세서리&subCategory=브룻지">브룻지</a></li>
 									            <li><a href="${ctp}/shop/shopSubList?category=luxury&mainCategory=악세서리&subCategory=헤어악세서리">헤어악세서리</a></li>
 									            <li><a href="${ctp}/shop/shopSubList?category=luxury&mainCategory=악세서리&subCategory=세트상품">세트상품</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=luxury&mainCategory=악세서리&subCategory=금/골드바/귀금속">금/골드바/귀금속</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=luxury&mainCategory=악세서리&subCategory=나석">나석</a></li>
 									            <li><a href="${ctp}/shop/shopSubList?category=luxury&mainCategory=악세서리&subCategory=기타 소품">기타 소품</a></li>
 									        </ul>
 									    </li>
@@ -1024,63 +1067,6 @@
 									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=디지털/오디오&subCategory=오디오">오디오</a></li>
 									        </ul>
 									    </li>
-									    <li data-category="food" class="sub-category-item">
-									        <h3><a>산지스토리관</a></h3>
-									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&mainCategory=산지스토리관&subCategory=산지직송">산지직송</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&mainCategory=산지스토리관&subCategory=지역명물">지역명물</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&mainCategory=산지스토리관&subCategory=쉐프 초이스">쉐프 초이스</a></li>
-									        </ul>
-									    </li>
-									    <li data-category="food" class="sub-category-item">
-									        <h3><a>신선식품</a></h3>
-									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&mainCategory=신선식품&subCategory=정육">정육</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&mainCategory=신선식품&subCategory=수산/건어물">수산/건어물</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&mainCategory=신선식품&subCategory=쌀/잡곡/혼합">쌀/잡곡/혼합곡</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&mainCategory=신선식품&subCategory=청과/야채">청과/야채</a></li>
-									        </ul>
-									    </li>
-									    <li data-category="food" class="sub-category-item">
-									        <h3><a>디저트</a></h3>
-									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&mainCategory=디저트&subCategory=베이커리/쿠키">베이커리/쿠키</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&mainCategory=디저트&subCategory=초콜렛/젤리/캔디">초콜렛/젤리/캔디</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&mainCategory=디저트&subCategory=간식/스낵">간식/스낵</a></li>
-									        </ul>
-									    </li>
-									    <li data-category="food" class="sub-category-item">
-									        <h3><a>그로서리</a></h3>
-									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&mainCategory=그로서리&subCategory=수입오일/소스">수입오일/소스</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&mainCategory=그로서리&subCategory=장/양념">장/양념</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&mainCategory=그로서리&subCategory=간편식/안주">간편식/안주</a></li>
-									        </ul>
-									    </li>
-									    <li data-category="food" class="sub-category-item">
-									        <h3><a>차/커피/음료</a></h3>
-									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&mainCategory=차/커피/음료&subCategory=차">차</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&mainCategory=차/커피/음료&subCategory=과일차/청">과일차/청</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&mainCategory=차/커피/음료&subCategory=선물세트">선물세트</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&mainCategory=차/커피/음료&subCategory=커피">커피</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&mainCategory=차/커피/음료&subCategory=음료">음료</a></li>
-									        </ul>
-									    </li>
-									    <li data-category="food" class="sub-category-item">
-									        <h3><a>홍삼/건강식품</a></h3>
-									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&matinCategory=홍삼/건강식품&subCategory=홍삼/인삼/수삼">홍삼/인삼/수삼</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&matinCategory=홍삼/건강식품&subCategory=비타민">비타민</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&matinCategory=홍삼/건강식품&subCategory=오메가/루테인">오메가/루테인</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&matinCategory=홍삼/건강식품&subCategory=칼슘/마그네슘/철분">칼슘/마그네슘/철분</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&matinCategory=홍삼/건강식품&subCategory=유산균">유산균</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&matinCategory=홍삼/건강식품&subCategory=콜라겐/다이어트">콜라겐/다이어트</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&matinCategory=홍삼/건강식품&subCategory=초유/산양유">초유/산양유</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&matinCategory=홍삼/건강식품&subCategory=꿀/프로폴리스">꿀/프로폴리스</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=food&matinCategory=홍삼/건강식품&subCategory=기타 건강식품">기타 건강식품</a></li>
-									        </ul>
-									    </li>
 										</ul>
 						        <div class="divider"></div>
 						        <ul class="main-category">
@@ -1092,7 +1078,6 @@
 					            <li class="category-item" data-target="sports" onclick="location.href='${ctp}/shop/shopList?category=SPORTS'">스포츠/레저</li>
 					            <li class="category-item" data-target="children" onclick="location.href='${ctp}/shop/shopList?category=CHILDREN'">유아동</li>
 					            <li class="category-item" data-target="living" onclick="location.href='${ctp}/shop/shopList?category=LIVING'">리빙/가전</li>
-					            <li class="category-item" data-target="food" onclick="location.href='${ctp}/shop/shopList?category=FOOD'">식품</li>
 						        </ul>
 							    </div>
 							</li>
@@ -1102,6 +1087,6 @@
     </header>
 		<!-- 하얀색 애니메이션 창 -->
 		<div class="white-box"></div>
-    <div style="height: 110px;"></div>
+    <div id="blank" style="height: 110px;"></div>
 </body>
 </html>

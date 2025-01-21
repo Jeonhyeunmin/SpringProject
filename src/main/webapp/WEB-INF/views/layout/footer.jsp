@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
   <meta charset="UTF-8">
   <style type="text/css">
   	#footer {
@@ -37,7 +36,7 @@
 	    fireCanvas.width = window.innerWidth;
 	    fireCanvas.height = 220;
 
-	    const amount = 100; // Number of sparks
+	    const amount = 200; // Number of sparks
 	    const sizeRate = 0.99; // Rate at which sparks shrink
 	    const speedRate = 1.5; // Speed of sparks
 	    const windSpeed = 0.1; // Wind speed
@@ -110,7 +109,7 @@
 	    </div>
 	
 	    <div style="text-align: center; margin-bottom: 20px;">
-	      <a href="#" style="margin: 0 10px; color: #666; text-decoration: none;">회사소개</a>
+	      <a href="${ctp}/common/info" style="margin: 0 10px; color: #666; text-decoration: none;">회사소개</a>
 	      <a href="#" style="margin: 0 10px; color: #666; text-decoration: none;">공시사항</a>
 	      <a href="#" style="margin: 0 10px; color: #666; text-decoration: none;">윤리경영</a>
 	      <a href="#" style="margin: 0 10px; color: #666; text-decoration: none;">이용약관</a>

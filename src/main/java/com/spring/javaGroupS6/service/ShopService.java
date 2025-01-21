@@ -1,6 +1,7 @@
 package com.spring.javaGroupS6.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -92,5 +93,13 @@ public interface ShopService {
 	ArrayList<ShopVO> getPartnerShopList(String mid);
 
 	ArrayList<ShopVO> getSearch(String query);
+
+	ArrayList<ShopVO> getBestShopTop3();
+
+	ArrayList<ShopVO> getdateShopTop3();
+
+	ArrayList<ShopVO> getNewShop();
+
+	List<ShopVO> filterProducts(String search, String category, String price);
 
 }

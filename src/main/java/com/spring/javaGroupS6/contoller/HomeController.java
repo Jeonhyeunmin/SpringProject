@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.javaGroupS6.service.CommonService;
+import com.spring.javaGroupS6.service.ShopService;
 import com.spring.javaGroupS6.vo.ShopVO;
 
 @Controller
@@ -27,12 +28,20 @@ public class HomeController {
 	@Autowired
 	CommonService commonService;
 	
+	@Autowired
+	ShopService shopService;
+	
 	@RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
 	public String home(Model model) {
 		ArrayList<String> subCategory = commonService.getSubCategory();
 		ArrayList<ShopVO> bestVOS = commonService.getShopRankList(subCategory.get(0), subCategory.get(1), subCategory.get(2), subCategory.get(3), subCategory.get(4));
 		ArrayList<ShopVO> shopVOS = commonService.getNewShopList();
 		
+		ArrayList<ShopVO> BestVosTop3 = shopService.getBestShopTop3();
+		ArrayList<ShopVO> dateVosTop3 = shopService.getdateShopTop3();
+		
+		model.addAttribute("dateVosTop3", dateVosTop3);
+		model.addAttribute("BestVosTop3", BestVosTop3);
 		model.addAttribute("shopVOS", shopVOS);
 		model.addAttribute("bestVOS", bestVOS);
 		model.addAttribute("subCategory", subCategory);

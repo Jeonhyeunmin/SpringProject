@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -346,4 +348,25 @@ public class ShopServiceImpl implements ShopService {
 	public ArrayList<ShopVO> getSearch(String query) {
 		return shopDAO.getSearch(query);
 	}
+	
+	@Override
+	public ArrayList<ShopVO> getBestShopTop3() {
+		return shopDAO.getBestShopTop3();
+	}
+	
+	@Override
+	public ArrayList<ShopVO> getdateShopTop3() {
+		return shopDAO.getdateShopTop3();
+	}
+	
+	@Override
+	public ArrayList<ShopVO> getNewShop() {
+		return shopDAO.getNewShop();
+	}
+	
+	@Override
+	public List<ShopVO> filterProducts(String search, String category, String price) {
+    return shopDAO.filterProducts(search, category, price);
+	}
+
 }

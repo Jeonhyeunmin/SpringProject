@@ -153,7 +153,6 @@
 	    text-align: left;
 	    transition: transform 0.3s, box-shadow 0.3s;
 	    background-color: #fff;
-	    margin-top: 50px;
 	    cursor: pointer;
 	  }
 	
@@ -437,6 +436,6 @@
 	<h6 id="topBtn" class="text-right">
 		<img src="${ctp}/login/top.png" title="위로이동" width="50px" />
 	</h6>					
-
+	<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 </body>
 </html>

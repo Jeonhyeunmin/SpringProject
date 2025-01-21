@@ -113,7 +113,7 @@
 			</div>
 			<div class="col text-left middle-col">
 				<div class="title-link">회사정보</div>
-				<div><a href="" class="menu-link">회사소개</a></div>
+				<div><a href="${ctp}/comnmon/info" class="menu-link">회사소개</a></div>
 				<div><a href="" class="menu-link">이용약관</a></div>
 				<div><a href="" class="menu-link">공지사항</a></div>
 				<div><a href="" class="menu-link">개인정보처리방침</a></div>
