@@ -22,6 +22,6 @@ CouponVO getEventCoupon(int idx);
 
 int setCoupon(HttpServletRequest request, CouponVO vo, MemberVO userInfo);
 
-CouponVO getCouponDuplication(int idx);
+CouponVO getCouponDuplication(int idx, String mid);
 
 }

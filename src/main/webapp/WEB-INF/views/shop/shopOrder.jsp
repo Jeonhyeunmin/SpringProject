@@ -448,13 +448,11 @@
 	        const discount = parseFloat(item.getAttribute("data-discount")) || 0;
 	        const price = parseFloat(item.getAttribute("data-price")) || 0;
 	        const quantity = parseInt(item.getAttribute("data-quantity")) || 0;
-
-	        const discountAmount = (price * quantity) * (discount / 100);
+					
+	        const discountAmount = price * (discount / 100) * quantity;
 	        totalDiscountSum += discountAmount;
 	    });
-
-	    document.querySelector(".totalDiscount .value").textContent = '-' + totalDiscountSum.toLocaleString() + '원';
-
+	    document.querySelector(".totalDiscount").innerHTML = '-' + totalDiscountSum.toLocaleString() + '원';
 	    // 쿠폰 할인 금액 계산
 	    const couponElement = document.querySelector(".couponDiscount");
 	    const couponText = couponElement ? couponElement.textContent.trim() : "";
@@ -497,8 +495,6 @@
 	    document.getElementById("usePoint").value = Number(usedPoints);
 	    document.getElementById("addPoint").value = Number(pointEarned);
 	    
-	    console.log("변환 후 Used Points:", document.getElementById("usePoint").value);
-	    console.log("값 넣고 Point Earned:",  document.getElementById("addPoint").value);
 		}
 
 

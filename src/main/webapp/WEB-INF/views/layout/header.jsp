@@ -11,83 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script type="text/javascript">
-	    $(document).ready(function() {
-		    const menuButton = $(".login");
-		    const whiteBox = $(".white-box");
-		    const demo = $("#demo");
-	
-		    menuButton.on("click", function() {
-		        whiteBox.css({
-		            "display": "block", 
-		            "z-index": "1000"
-		        });
-	
-		        setTimeout(function() {
-		            $.ajax({
-		                url: "${ctp}/common/login",
-		                type: "GET",
-		                success: function(data) {
-		                		$("body > *").not("#demo, .white-box").hide();
-		                    demo.html(data);
-		                    demo.css({
-		                        "display": "block",
-		                        "opacity": "0",
-		                        "z-index": "999"
-		                    });
-		                },
-		                error: function(xhr, status, error) {
-		                    console.error("Error loading content:", error);
-		                }
-		            });
-		        }, 500);
-	
-		        whiteBox.on("animationend", function(event) {
-		            if (event.originalEvent.animationName === "slideWhiteBox") {
-		                demo.animate({ opacity: 1 }, 100, function() {
-		                });
-		            }
-		        });
-		    });
-		});
-	    
-	    $(document).ready(function() {
-		    const menuButton = $(".partner");
-		    const whiteBox = $(".white-box");
-		    const demo = $("#demo");
-	
-		    menuButton.on("click", function() {
-		        whiteBox.css({
-		            "display": "block",
-		            "z-index": "1000"
-		        });
-	
-		        setTimeout(function() {
-		            $.ajax({
-		                url: "${ctp}/common/partnerJoin",
-		                type: "GET",
-		                success: function(data) {
-		                		$("header > *").not("#demo, .white-box").hide();
-		                    demo.html(data);
-		                    demo.css({
-		                        "display": "block",
-		                        "opacity": "0",
-		                        "z-index": "999"
-		                    });
-		                },
-		                error: function(xhr, status, error) {
-		                    console.error("Error loading content:", error);
-		                }
-		            });
-		        }, 500);
-	
-		        whiteBox.on("animationend", function(event) {
-		            if (event.originalEvent.animationName === "slideWhiteBox") {
-		                demo.animate({ opacity: 1 }, 100, function() {
-		                });
-		            }
-		        });
-		    });
-		});
 		
 			document.querySelectorAll(".nav_menu").forEach(menu => {
 			    menu.addEventListener("mouseenter", () => {
@@ -172,6 +95,29 @@
 				else{
 					location.href='${ctp}/shop/search?query=' + encodeURIComponent(query);
 				}
+			}
+			
+			function windowMypage() {
+				if("${sMid}" == ""){
+					let url = "${ctp}/common/mobieLogin";
+					window.open(url, "mobieLogin", "width=650px, height=700px, top=150px, left=500px;");
+					
+					 window.onLoginSuccess = function () {
+						 location.href = '${ctp}/common/myPage';
+	        };
+				}
+				else{
+					location.href = '${ctp}/common/myPage';
+				}
+			}
+			
+			function windowLogin(){
+				let url = "${ctp}/common/mobieLogin";
+				window.open(url, "mobieLogin", "width=650px, height=700px, top=150px, left=500px;");
+				
+				 window.onLoginSuccess = function () {
+					 location.href = '${ctp}/common/myPage';
+        };
 			}
  	  </script>
     <style>
@@ -571,7 +517,7 @@
 							    </ul>
 								</li>
                 <li class="nav-item">
-							    <a href="#" class="nav-link">BEST</a>
+							    <a href="${ctp}/shop/shopBest" class="nav-link">BEST</a>
 							    <ul class="submenu" style="flex-wrap: wrap; justify-content: center; gap: 20px;">
 						        <c:forEach var="bestVO" items="${BestVosTop3}">
 					            <li style="list-style: none; text-align: center;">
@@ -598,12 +544,11 @@
                 </div>
                 <ul class="nav">
                   <li class="nav-item">
-                    <c:if test="${empty sMid && sLevel != 0}"><a href="#" class="nav-link login" style="padding-left: 0 !important; padding-right: 0 !important;"><i class="fas fa-user"></i></a></c:if>
-                    <c:if test="${!empty sMid && sLevel != 0}"><a href="${ctp}/common/myPage" class="nav-link" style="padding-left: 0 !important; padding-right: 0 !important;"><i class="fas fa-user"></i></a></c:if>
+                    <c:if test="${sLevel != 0}"><a href="javascript:windowMypage()" class="nav-link" style="padding-left: 0 !important; padding-right: 0 !important;"><i class="fas fa-user"></i></a></c:if>
                     <c:if test="${sLevel == 0}"><a href="${ctp}/admin/admin" class="nav-link" style="padding-left: 0 !important; padding-right: 0 !important;"><i class="fas fa-user"></i></a></c:if>
                     <ul class="myPage">
-                        <c:if test="${empty sMid}"><li><a href="#" class="login">로그인</a></li></c:if>
-                        <c:if test="${!empty sMid && sLevel > 0 && sLevel <= 3}"><li><a href="${ctp}/common/myPage">마이페이지</a></li></c:if>
+                        <c:if test="${empty sMid}"><li><a href="javascript:windowLogin()" class="login">로그인</a></li></c:if>
+                        <c:if test="${!empty sMid && sLevel > 0 && sLevel <= 3}"><li><a href="javascript:windowMypage()">마이페이지</a></li></c:if>
                         <c:if test="${!empty sMid}"><li><a href="${ctp}/common/logout">로그아웃</a></li></c:if>
                         <c:if test="${sLevel == 1 || sLevel > 3 || empty sLevel}"><li><a href="#" class="partner">파트너신청</a></li></c:if>
                     </ul>

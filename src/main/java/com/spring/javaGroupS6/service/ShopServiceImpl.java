@@ -215,8 +215,8 @@ public class ShopServiceImpl implements ShopService {
 	}
 	
 	@Override
-	public ArrayList<SubCategoryVO> getSubCategoryList(String mainCategory) {
-		return shopDAO.getSubCategoryList(mainCategory);
+	public ArrayList<SubCategoryVO> getSubCategoryList(String category, String mainCategory) {
+		return shopDAO.getSubCategoryList(category, mainCategory);
 	}
 
 	@Override

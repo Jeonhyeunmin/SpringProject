@@ -567,7 +567,7 @@
 							    </ul>
 								</li>
                 <li class="nav-item">
-							    <a href="#" class="nav-link">BEST</a>
+							    <a href="${ctp}/shop/shopBest" class="nav-link">BEST</a>
 							    <ul class="submenu" style="flex-wrap: wrap; justify-content: center; gap: 20px;">
 						        <c:forEach var="bestVO" items="${BestVosTop3}">
 					            <li style="list-style: none; text-align: center;">

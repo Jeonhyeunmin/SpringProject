@@ -1,6 +1,7 @@
 package com.spring.javaGroupS6.contoller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +33,7 @@ import com.spring.javaGroupS6.service.EventService;
 import com.spring.javaGroupS6.service.MemberService;
 import com.spring.javaGroupS6.service.ShopService;
 import com.spring.javaGroupS6.vo.CouponVO;
+import com.spring.javaGroupS6.vo.CrawlingVO;
 import com.spring.javaGroupS6.vo.MainCategoryVO;
 import com.spring.javaGroupS6.vo.MemberVO;
 import com.spring.javaGroupS6.vo.PartnerVO;
@@ -223,9 +230,9 @@ public class ShopContoller {
 	
 	@ResponseBody
 	@PostMapping("/subCategoryLoad")
-	public ArrayList<SubCategoryVO> subCategoryLoadPost(String mainCategory) {
+	public ArrayList<SubCategoryVO> subCategoryLoadPost(String category, String mainCategory) {
 		
-		ArrayList<SubCategoryVO> vos = shopService.getSubCategoryList(mainCategory);
+		ArrayList<SubCategoryVO> vos = shopService.getSubCategoryList(category, mainCategory);
 		return vos;
 	}
 	
@@ -631,5 +638,116 @@ public class ShopContoller {
 			@RequestParam(required = false) String price
 	) {
     return shopService.filterProducts(search, category, price);
+	}
+	
+	
+	@GetMapping("/shopBest")
+	public String shopBestGet(Model model) throws IOException {
+		Connection conn = Jsoup.connect("https://thehyundai.com/front/dpd/bestItemCtgr.thd?bestItemCtgrGbCd=00");
+		
+		Document document = conn.get();
+		
+		Elements selectors = null;
+		
+		ArrayList<String> buttonVOS = new ArrayList<String>();
+		
+		selectors = document.select(".swiper-wrapper a");
+		
+		for(Element select : selectors) {
+			buttonVOS.add(select.html());
+		}
+
+		
+		CrawlingVO vo = null;
+    // 상품 목록 가져오기
+    Elements items = document.select(".goods-list > li");
+    ArrayList<CrawlingVO> vos = new ArrayList<CrawlingVO>();
+    // 각 상품 정보 추출
+    for (Element item : items) {
+    	vo = new CrawlingVO();
+      // 순위
+      String rank = item.selectFirst(".rank") != null ? item.selectFirst(".rank").text() : null;
+      
+      // 순위 변화 (rank-status)
+      String rankStatus = item.selectFirst(".rank-status") != null ? item.selectFirst(".rank-status").text() : null;
+      String rankStatusClass = item.selectFirst(".rank-status") != null ? item.selectFirst(".rank-status").className() : null;
+
+      // 상품명
+      String name = item.selectFirst(".info-box .name") != null ? item.selectFirst(".info-box .name").text() : null;
+
+      // 가격
+      String price = item.selectFirst(".sales-price") != null ? item.selectFirst(".sales-price").text() : null;
+
+      // 이미지 URL
+      String imgUrl = item.selectFirst(".img-box img") != null ? item.selectFirst(".img-box img").attr("src") : null;
+
+      // 출력
+      vo.setItem1(rank);
+      vo.setItem2(rankStatus);
+      vo.setItem3(rankStatusClass);
+      vo.setItem4(name);
+      vo.setItem5(price);
+      vo.setItem6(imgUrl);
+      vos.add(vo);
+    }
+		
+		model.addAttribute("vos", vos);
+		model.addAttribute("buttonVOS", buttonVOS);
+		model.addAttribute("title", "BEST");
+		return "shop/shopBest";
+	}
+	
+	@ResponseBody
+	@PostMapping("/filterItem")
+	public ArrayList<CrawlingVO> filterItemPost(String category) throws IOException {
+		Connection conn = Jsoup.connect("https://thehyundai.com/front/dpd/bestItemCtgr.thd?bestItemCtgrGbCd=" + category);
+		
+		Document document = conn.get();
+		
+		Elements selectors = null;
+		
+		ArrayList<String> buttonVOS = new ArrayList<String>();
+		
+		selectors = document.select(".swiper-wrapper a");
+		
+		for(Element select : selectors) {
+			buttonVOS.add(select.html());
+		}
+		
+		
+		CrawlingVO vo = null;
+		// 상품 목록 가져오기
+		Elements items = document.select(".goods-list > li");
+		ArrayList<CrawlingVO> vos = new ArrayList<CrawlingVO>();
+		// 각 상품 정보 추출
+		for (Element item : items) {
+			vo = new CrawlingVO();
+			// 순위
+			String rank = item.selectFirst(".rank") != null ? item.selectFirst(".rank").text() : null;
+			
+			// 순위 변화 (rank-status)
+			String rankStatus = item.selectFirst(".rank-status") != null ? item.selectFirst(".rank-status").text() : null;
+			String rankStatusClass = item.selectFirst(".rank-status") != null ? item.selectFirst(".rank-status").className() : null;
+			
+			// 상품명
+			String name = item.selectFirst(".info-box .name") != null ? item.selectFirst(".info-box .name").text() : null;
+			
+			// 가격
+			String price = item.selectFirst(".sales-price") != null ? item.selectFirst(".sales-price").text() : null;
+			
+			// 이미지 URL
+			String imgUrl = item.selectFirst(".img-box img") != null ? item.selectFirst(".img-box img").attr("src") : null;
+			
+			// 출력
+			vo.setItem1(rank);
+			vo.setItem2(rankStatus);
+			vo.setItem3(rankStatusClass);
+			vo.setItem4(name);
+			vo.setItem5(price);
+			vo.setItem6(imgUrl);
+			vos.add(vo);
+		}
+		
+		return vos;
 	}
 }

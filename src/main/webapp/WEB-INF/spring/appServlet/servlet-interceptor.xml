@@ -34,6 +34,9 @@
 				<exclude-mapping path="/event/eventContent"/>
 				<exclude-mapping path="/shop/search"/>
 				<exclude-mapping path="/shop/newShop"/>
+				<exclude-mapping path="/shop/partnerCollect"/>
+				<exclude-mapping path="/shop/filterProducts"/>
+				<exclude-mapping path="/shop/shopBest"/>
 				<exclude-mapping path="/shop/shopList"/>
 				<exclude-mapping path="/shop/shopMainList"/>
 				<exclude-mapping path="/shop/shopSubList"/>

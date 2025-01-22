@@ -157,7 +157,6 @@
           </div>
         </div>
         <div class="order-actions">
-          <button class="track-btn">배송조회</button>
           <button type="button" class="reorder-btn" onclick="location.href='${ctp}/shop/shopContent?idx=${vo.shopIdx}'">재구매</button>
         </div>
       </div>

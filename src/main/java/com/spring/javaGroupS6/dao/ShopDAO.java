@@ -37,7 +37,7 @@ public interface ShopDAO {
 
 	ArrayList<MainCategoryVO> getMainCategoryList(@Param("category") String category);
 
-	ArrayList<SubCategoryVO> getSubCategoryList(@Param("mainCategory") String mainCategory);
+	ArrayList<SubCategoryVO> getSubCategoryList(@Param("category") String category, @Param("mainCategory") String mainCategory);
 
 	ArrayList<String> getCategoryList();
 

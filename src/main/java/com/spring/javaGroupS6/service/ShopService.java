@@ -40,7 +40,7 @@ public interface ShopService {
 
 	ArrayList<MainCategoryVO> getMainCategoryList(String category);
 
-	ArrayList<SubCategoryVO> getSubCategoryList(String mainCategory);
+	ArrayList<SubCategoryVO> getSubCategoryList(String category, String mainCategory);
 
 	Double getReviewAverage(int idx);
 

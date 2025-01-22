@@ -15,7 +15,7 @@
 	</select>
 	
 	<select id="getCouponDuplication" resultType="com.spring.javaGroupS6.vo.CouponVO">
-		select * from coupon where eventIdx = #{eventIdx};
+		select * from coupon where eventIdx = #{eventIdx} and mid = #{mid};
 	</select>
 	
 	<insert id="setEventInput">

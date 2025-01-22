@@ -223,8 +223,8 @@
 				          	<td>${orderVO.couponDiscount}%</td>
 				          </c:if>
 				          <td><fmt:formatNumber pattern="#,##0" value="${orderVO.totalPrice}"/>원</td>
-				          <td>${orderVO.addPoint}원 사용</td>
-				          <td>${orderVO.usePoint}원 적립</td>
+				          <td>${orderVO.addPoint}원 적립</td>
+				          <td>${orderVO.usePoint}원 사용</td>
 				          <td>${fn: substring(orderVO.orderDate, 0, 10)}</td>
 				        </tr>
 			          <c:if test="${orderVO.review == 'no'}">

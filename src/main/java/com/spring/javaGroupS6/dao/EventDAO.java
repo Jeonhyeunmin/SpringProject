@@ -19,7 +19,7 @@ public interface EventDAO {
 
 	int setCoupon(@Param("vo") CouponVO vo);
 
-	CouponVO getCouponDuplication(@Param("eventIdx") int eventIdx);
+	CouponVO getCouponDuplication(@Param("eventIdx") int eventIdx, @Param("mid") String mid);
 
 
 }

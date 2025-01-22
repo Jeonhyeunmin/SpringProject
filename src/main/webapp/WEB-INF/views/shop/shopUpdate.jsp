@@ -242,12 +242,14 @@
 		}
     
     function subCategoryLoad() {
+    	let category = myform.category.value;
 			let mainCategory = myform.mainCategory.value;
 			
 			$.ajax({
 				type : "post",
 				url : "${ctp}/shop/subCategoryLoad",
 				data : {
+					category : category,
 					mainCategory : mainCategory
 				},
 				success: function(res) {

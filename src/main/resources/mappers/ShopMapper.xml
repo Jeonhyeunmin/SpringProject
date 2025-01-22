@@ -45,7 +45,7 @@
 	</select>
 
 	<select id="getSubCategoryList" resultType="com.spring.javaGroupS6.vo.SubCategoryVO">
-		select * from subCategory where mainCategory = #{mainCategory} order by mainCategory;
+		select * from subCategory where category = #{category} and mainCategory = #{mainCategory} order by mainCategory;
 	</select>
 
 	<select id="getReviewAverage" resultType="Double">

@@ -37,10 +37,10 @@
 				  var msg = "결재에 실패하였습니다.";
 				  msg += "에러내용 : " + res.error_msg;
 			  }
-			  alert(msg);
+			  console.log(msg);
 		    if(paySw == 'no') {
-			    alert("다시 주문구매창으로 이동합니다.");
-		    	location.href='${ctp}/shop/shopOrder';
+			    alert("결제를 취소하셨습니다");
+		    	location.href='${ctp}/';
 		    }
 		    else {
 					var temp = "";

@@ -37,7 +37,7 @@ public class MessageController {
 			model.addAttribute("url", "");
 		}
 		else if(msgFlag.equals("loginNo")) {
-			model.addAttribute("message", "회원님 로그인 실패");
+			model.addAttribute("message", "비밀번호를 다시 확인 후 로그인해주세요");
 			model.addAttribute("url", "");
 		}
 		else if(msgFlag.equals("joinOk")) {

@@ -139,8 +139,8 @@ public class EventServiceImpl implements EventService{
 	}
 	
 	@Override
-	public CouponVO getCouponDuplication(int idx) {
-		return eventDAO.getCouponDuplication(idx);
+	public CouponVO getCouponDuplication(int idx, String mid) {
+		return eventDAO.getCouponDuplication(idx, mid);
 	}
 	
 }

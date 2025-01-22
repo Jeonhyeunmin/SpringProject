@@ -75,7 +75,7 @@ public class EventContoller {
 		
 		vo.setMid(mid);
 		vo.setEventIdx(idx);
-		CouponVO couponVO = eventService.getCouponDuplication(idx);
+		CouponVO couponVO = eventService.getCouponDuplication(idx, mid);
 		model.addAttribute("idx", idx);
 		if(couponVO != null) {
 			return 3;
