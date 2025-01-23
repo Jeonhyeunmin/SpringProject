@@ -50,12 +50,27 @@
           list-style: none;
           padding: 10px;
           margin: 0;
-          text-align: center;
+          text-align: left;
         }
         .category-menu ul li {
           margin-bottom: 20px;
         }
+    		@font-face {
+			    font-family: 'Freesentation-9Black';
+			    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2') format('woff2');
+			    font-weight: 900;
+			    font-style: normal;
+				}	
+				
+				@font-face { /*눈누 기초고딕 - 두꺼운 네모 딱딱 고딕*/
+			    font-family: 'NoonnuBasicGothicRegular';
+			    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+			    font-weight: normal;
+			    font-style: normal;
+				}
         .category-menu ul li a {
+        	font-family: 'NoonnuBasicGothicRegular';
+        	font-weight: 400;
           text-decoration: none;
           font-size: 14px;
         }
@@ -96,10 +111,18 @@
 			    background-color: rgba(0, 0, 0, 0.5); /* 버튼 배경에 반투명 효과 추가 (선택사항) */
 				}
 				
+				@font-face { /*수트 - 네모 딱딱 고딕*/
+			    font-family: 'SUIT-Regular';
+			    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+			    font-weight: normal;
+			    font-style: normal;
+				}
+				
 				.control-button {
+					font-family: 'SUIT-Regular';
 			    flex: 1;
 			    padding: 30px;
-			    font-size: 18px;
+			    font-size: 20px;
 			    font-weight: bold;
 			    text-align: center;
 			    background-color: #333;
@@ -107,6 +130,8 @@
 			    border: none;
 			    cursor: pointer;
 			    transition: background-color 0.3s ease;
+			    font-weight: light;
+			    white-space: nowrap;
 				}
 				
 				.control-button:hover {
@@ -126,7 +151,7 @@
 				}
 		
 		    .page-header h2 {
-		      font-size: 24px;
+		      font-size: 30px;
 		      font-weight: bold;
 		      margin: 0;
 		    }
@@ -136,6 +161,7 @@
 		      color: #555;
 		      margin-top: 2%;
 		      margin-left: 19.5%;
+		      font-family: 'Tenada';
 		    }
 		    .breadcrumb a{
 		    	text-decoration: none;
@@ -164,6 +190,13 @@
 			    margin: 0;
 				}
 				
+						
+				@font-face { /*눈누 기초고딕 - 두꺼운 네모 딱딱 고딕*/
+			    font-family: 'NoonnuBasicGothicRegular';
+			    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+			    font-weight: normal;
+			    font-style: normal;
+				}
 				
 				.product-display {
 			    width: 100%;
@@ -173,6 +206,8 @@
 			    justify-content: center;
 			    overflow: hidden;
 			    margin-left: 10px;
+			    font-family: 'NoonnuBasicGothicRegular';
+			    cursor: pointer;
 				}
 				
 				.product-display .swiper-container {
@@ -228,22 +263,29 @@
 			    margin-top: 5px;
 				}
 				
+				@font-face {
+			    font-family: 'Tenada';
+			    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
+			    font-weight: normal;
+			    font-style: normal;
+				}
+				
 				.new-arrivals-title{
-					font-size: 22px;
+					font-size: 30px;
           font-weight: bold;
-          margin-bottom: 10px;
+          margin-top: 30px;
           text-align: center;
           top: 10px;
-          border-bottom: 1px solid #eee;
           padding: 25px;
           padding-top: 10px;
 					
 				}
+				
 				.discount-badge {
 				  position: absolute;
 				  top: 10px;
 				  left: 10px;
-				  background-color: #e1c699;
+				  background-color: #A31D1D;
 				  color: #fff;
 				  font-size: 12px;
 				  padding: 5px 8px;
@@ -274,8 +316,8 @@
 				  cursor: pointer;
 				  text-align: center;
 				  font-size: 18px;
-				  font-weight: bold;
 				  transition: all 0.3s;
+				  font-family: 'NoonnuBasicGothicRegular';
 				}
 				
 				.brand-buttons .brand-button:hover {
@@ -298,7 +340,7 @@
 <body>
 	 <!-- 상단 제목 및 경로 -->
   <div class="page-header">
-    <div class="breadcrumb">HOME > <a href="${ctp}/shop/shopList?category=${fn: toUpperCase(category)}">${fn: toUpperCase(category)}</a></div>
+    <div class="breadcrumb"><a href="${ctp}">HOME</a> > <a href="${ctp}/shop/shopList?category=${fn: toUpperCase(category)}">${fn: toUpperCase(category)}</a></div>
     <h2>${fn: toUpperCase(category)}</h2>
   </div>
   
@@ -351,7 +393,7 @@
     }
   </script>
   
-  <h3 class="new-arrivals-title">New Arrivals</h3>
+  <h3 class="new-arrivals-title">Best Product</h3>
   <div class="new-arrivals-container">
     <!-- 왼쪽 브랜드 버튼 -->
     <div class="brand-buttons">
@@ -394,9 +436,9 @@
 		                  </p>
 		                </c:when>
 		                <c:otherwise>
-		                  <p class="discounted-price">
+		                  <span class="discounted-price">
 		                    <fmt:formatNumber value="${product.price}" pattern="#,##0"/>원
-		                  </p>
+		                  </span>
 		                </c:otherwise>
 		              </c:choose>
 		            </div>
@@ -406,7 +448,6 @@
 		    </div>
 		  </div>
 		</div>
-		<div><input type="button" value="등록" class="btn btn-outline-success" onclick="location.href='${ctp}/shop/shopInput'" /></div>
 	</div>
 
   

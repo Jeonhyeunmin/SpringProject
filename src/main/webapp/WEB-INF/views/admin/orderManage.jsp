@@ -297,7 +297,7 @@
 		    </select>
 		  </div>
 		  <div class="col-md-2">
-		    <input type="date" id="dateFilter" class="form-control">
+		    <input type="datetime-local" id="dateFilter" class="form-control">
 		  </div>
 		  <div class="col-md-3">
 		    <button class="btn btn-primary w-100" onclick="applyFilters()">검색</button>

@@ -176,7 +176,7 @@
     <style>
         body {
             margin: 0;
-            font-family: 'Georgia', serif;
+            font-family: 'Georgia', serif !important;
             color: #333;
         }
         .header {
@@ -227,19 +227,27 @@
             text-decoration: underline;
         }
 				
+				@font-face {
+			    font-family: 'Freesentation-9Black';
+			    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2') format('woff2');
+			    font-weight: 900;
+			    font-style: normal;
+				}			
+				
 				.submenu {
-				    display: none;
-				    position: fixed;
-				    top: 100px;
-				    left: 0;
-				    right: 0;
-				    background-color: #fff;
-				    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-				    list-style: none;
-				    margin: 0;
-				    padding: 20px 0;
-				    z-index: 998;
-				    border-top: 1px solid #e1c699;
+					font-family: 'Freesentation-9Black';
+			    display: none;
+			    position: fixed;
+			    top: 100px;
+			    left: 0;
+			    right: 0;
+			    background-color: #fff;
+			    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			    list-style: none;
+			    margin: 0;
+			    padding: 20px 0;
+			    z-index: 998;
+			    border-top: 1px solid #e1c699;
 				}
 				.submenu li {
 				    padding: 10px 20px;
@@ -257,30 +265,31 @@
             color: #e1c699;
         }
 				.myPage {
-        	  display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0; /* 페이지 오른쪽 끝 */
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            list-style: none;
-            margin: 0;
-            padding: 20px 0;
-            z-index: 1000;
-				    border-top: 1px solid #e1c699;
-				    width: 200px;
+					font-family: 'NoonnuBasicGothicRegular';
+      	  display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0; /* 페이지 오른쪽 끝 */
+          background-color: #fff;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          list-style: none;
+          margin: 0;
+          padding: 20px 0;
+          z-index: 1000;
+			    border-top: 1px solid #e1c699;
+			    width: 200px;
 				}
 				.myPage li {
-				    padding: 10px 20px;
-				    width: 200px;
+			    padding: 10px 20px;
+			    width: 200px;
 				}
 
         .myPage li a {
-            text-decoration: none !important;
-            color: #333;
-            font-size: 14px;
-            padding: 10px;
+          text-decoration: none !important;
+          color: #333;
+          font-size: 14px;
+          padding: 10px;
         }
         .myPage li a:hover {
             color: #e1c699;
@@ -307,12 +316,13 @@
             color: #e1c699;
         }
         .search-bar {
-            display: flex;
-            align-items: center;
-            border: 1px solid #e1c699;
-            padding: 5px 10px;
-            border-radius: 20px;
-            background-color: #fff;
+        	font-family: 'NoonnuBasicGothicRegular';
+          display: flex;
+          align-items: center;
+          border: 1px solid #e1c699;
+          padding: 5px 10px;
+          border-radius: 20px;
+          background-color: #fff;
         }
         .search-bar input {
             border: none;
@@ -401,12 +411,13 @@
 			}
 			
 			.category-item {
-			    padding: 15px 15px;
-			    cursor: pointer;
-			    font-size: 16px;
-			    font-weight: bold;
-			    color: #333;
-			    transition: background-color 0.3s ease, color 0.3s ease;
+				font-family: 'NoonnuBasicGothicRegular';
+		    padding: 15px 15px;
+		    cursor: pointer;
+		    font-size: 16px;
+		    font-weight: bold;
+		    color: #333;
+		    transition: background-color 0.3s ease, color 0.3s ease;
 			}
 			
 			.category-item:hover {
@@ -421,8 +432,16 @@
 			    margin: 0 20px;
 			}
 			
+			@font-face { /*눈누 기초고딕 - 두꺼운 네모 딱딱 고딕*/
+		    font-family: 'NoonnuBasicGothicRegular';
+		    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+		    font-weight: normal;
+		    font-style: normal;
+			}
+			
 			/* 서브 카테고리 스타일 */
 			.sub-category {
+				font-family: 'NoonnuBasicGothicRegular';
 		    max-height: 500px; /* 최대 높이 설정 */
     		overflow-y: auto; /* 항목이 넘칠 경우 스크롤 표시 */
 		    flex-direction: column;
@@ -559,8 +578,8 @@
 					            <li style="list-style: none; text-align: center;">
 				                <a href="${ctp}/shop/shopContent?idx=${dateVO.idx}" style="display: block;">
 			                    <img src="${ctp}/category/${dateVO.thumbnail}" width="200px" style="display: block; margin: 0 auto;">
-			                    <p style="margin-top: 10px; font-size: 14px; color: #333;">${dateVO.title}</p>
-			                    <p style="margin-top: 10px; font-size: 14px; color: #333;">${dateVO.company} | ${dateVO.category}</p>
+			                    <p style="margin-top: 10px; margin-bottom: 0;  font-size: 14px; color: #333;">${dateVO.title}</p>
+			                    <p style="font-size: 12px; color: #333;">${dateVO.company} | ${dateVO.category}</p>
 				                </a>
 					            </li>
 						        </c:forEach>
@@ -573,8 +592,8 @@
 					            <li style="list-style: none; text-align: center;">
 				                <a href="${ctp}/shop/shopContent?idx=${bestVO.idx}" style="display: block;">
 			                    <img src="${ctp}/category/${bestVO.thumbnail}" width="200px" style="display: block; margin: 0 auto;">
-			                    <p style="margin-top: 10px; font-size: 14px; color: #333;">${bestVO.title}</p>
-			                    <p style="margin-top: 10px; font-size: 14px; color: #333;">${bestVO.company} | ${bestVO.category}</p>
+			                    <p style="margin-top: 10px; margin-bottom: 0;  font-size: 14px; color: #333;">${bestVO.title}</p>
+			                    <p style="font-size: 12px; color: #333;">${bestVO.company} | ${bestVO.category}</p>
 				                </a>
 					            </li>
 						        </c:forEach>
@@ -813,18 +832,9 @@
 									        </ul>
 									    </li>
 									    <li data-category="menFashion" class="sub-category-item">
-									        <h3><a>정장/세트</a></h3>
-									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?category=menFashion&mainCategory=정장/세트&subCategory=정장/수트세트">정장/수트세트</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=menFashion&mainCategory=정장/세트&subCategory=맞춤정장">맞춤정장</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=menFashion&mainCategory=정장/세트&subCategory=상의">상의</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=menFashion&mainCategory=정장/세트&subCategory=팬츠">팬츠</a></li>
-									        </ul>
-									    </li>
-									    <li data-category="menFashion" class="sub-category-item">
 									        <h3><a>남성 이지/언더웨어</a></h3>
 									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?category=menFashion&mainCategory=남성 이지/언더웨어&subCategory=남성 런닝&팬티세트">남성 런닝&팬티세트</a></li>
+									            <li><a href="${ctp}/shop/shopSubList?category=menFashion&mainCategory=남성 이지/언더웨어&subCategory=남성 런닝/팬티세트">남성 런닝/팬티세트</a></li>
 									            <li><a href="${ctp}/shop/shopSubList?category=menFashion&mainCategory=남성 이지/언더웨어&subCategory=남성 내의/이지웨어">남성 내의/이지웨어</a></li>
 									        </ul>
 									    </li>

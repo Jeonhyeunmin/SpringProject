@@ -337,8 +337,14 @@
     	
   </script>
   <style>
+		@font-face { /*눈누 기초고딕 - 두꺼운 네모 딱딱 고딕*/
+	    font-family: 'NoonnuBasicGothicRegular';
+	    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+	    font-weight: normal;
+	    font-style: normal;
+		}
     body {
-      font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+      font-family: 'NoonnuBasicGothicRegular';
       justify-content: center;
       align-items: center;
       margin: 0;
@@ -706,7 +712,7 @@
       <!-- 생년월일 -->
       <div class="form-group">
         <label for="birthday"><font color="red">*</font> 생년월일</label>
-        <input type="date" id="birthday" name="birthday" value="${fn: substring(vo.birthday, 0, 10)}" required>
+        <input type="datetime-local" id="birthday" name="birthday" value="${fn: substring(vo.birthday, 0, 10)}" required>
       </div>
       
       <!-- 성별 -->

@@ -9,14 +9,20 @@
   <title>회원정보 확인</title>
   <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
   <style>
+  	@font-face { /*눈누 기초고딕 - 두꺼운 네모 딱딱 고딕*/
+	    font-family: 'NoonnuBasicGothicRegular';
+	    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+	    font-weight: normal;
+	    font-style: normal;
+		}
+		
     body {
       background-color: #f9f9f9;
-      font-family: 'Arial', sans-serif;
     }
     .container {
-      max-width: 600px;
-      margin: 50px auto;
-      background: #fff;
+    	font-family: 'NoonnuBasicGothicRegular';
+      max-width: 1000px;
+      margin: 20% auto;
       padding: 20px;
       height: 575px;
     }

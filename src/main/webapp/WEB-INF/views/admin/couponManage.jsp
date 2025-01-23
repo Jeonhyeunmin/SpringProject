@@ -267,7 +267,7 @@
 		          <div class="card-body cleartfix">
 		            <div class="media align-items-stretch">
 		              <div class="align-self-center">
-		                <i class="fa-solid fa-user primary font-large-2 mr-2"></i>
+		                <i class="fas fa-ticket-alt font-large-2 mr-2"></i>
 		              </div>
 		              <div class="media-body align-self-center">
 		                <h4 class="m-0">쿠폰 발급 수</h4>
@@ -283,9 +283,9 @@
 		  </div>
 	  </section>
 	
-		<div class="search-container">
-		  <input type="date" id="startDate" class="form-control" placeholder="시작일">
-		  <input type="date" id="endDate" class="form-control" placeholder="종료일">
+		<div class="search-container input-group">
+		  <input type="datetime-local" id="startDate" class="form-control" placeholder="시작일">
+		  <input type="datetime-local" id="endDate" class="form-control" placeholder="종료일">
 		  <input type="text" id="searchKeyword" class="form-control" placeholder="쿠폰명 검색">
 		  <button class="btn btn-success" onclick="searchItems()">검색</button>
 		</div>

@@ -6,7 +6,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>.jsp</title>
   <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
 	<style>
 		body {
@@ -116,22 +115,22 @@
 	</script>
 </head>
 <div class="container">
-    <h3>아이디 중복 체크</h3>
-    <hr>
-    <div>
-        <c:if test="${companyCheck == 'Yes'}">
-            <div class="success">${company}는 사용 가능합니다.</div>
-            <button class="btn btn-primary" onclick="wClose()">창 닫기</button>
-        </c:if>
-        <c:if test="${companyCheck == 'No'}">
-            <div class="error">${company}는 사용 불가능합니다.</div>
-            <form name="childForm" method="get" action="${ctp}/common/companyCheck">
-                <input type="text" name="company" id="company" placeholder="업체명을 입력하세요">
-                <button type="button" class="btn btn-primary" onclick="companyCheck()">업체명 검색</button>
-                <button type="button" class="btn btn-secondary" onclick="window.close()">취소</button>
-            </form>
-        </c:if>
-    </div>
+  <h3>아이디 중복 체크</h3>
+  <hr>
+  <div>
+    <c:if test="${companyCheck == 'Yes'}">
+      <div class="success">${company}는 사용 가능합니다.</div>
+      <button class="btn btn-primary" onclick="wClose()">창 닫기</button>
+    </c:if>
+    <c:if test="${companyCheck == 'No'}">
+      <div class="error">${company}는 사용 불가능합니다.</div>
+      <form name="childForm" method="get" action="${ctp}/common/companyCheck">
+        <input type="text" name="company" id="company" placeholder="업체명을 입력하세요">
+        <button type="button" class="btn btn-primary" onclick="companyCheck()">업체명 검색</button>
+        <button type="button" class="btn btn-secondary" onclick="window.close()">취소</button>
+      </form>
+    </c:if>
+  </div>
 </div>
 </body>
 </html>

@@ -319,7 +319,6 @@ public class PartnerContoller {
 				ClaimReviewIdx.add(vo.getShopIdx());
 			}
 		}
-		
 		model.addAttribute("reviewShopVOS", reviewShopVOS);
 		model.addAttribute("reviewVOS", reviewVOS);
 		model.addAttribute("ClaimReviewIdx", ClaimReviewIdx);

@@ -31,8 +31,8 @@
 		select s.* from shop s, shopReview sr where s.mid = #{mid} and s.idx = sr.shopIdx group by s.idx;
 	</select>
 	
-	<select id="getReview" resultType="com.spring.javaGroupS6.vo.ShopVO">
-		select * from shopReview where mid = #{mid};
+	<select id="getReview" resultType="com.spring.javaGroupS6.vo.ShopReviewVO">
+		select sr.* from shopReview sr, shop s where s.mid = #{mid} and s.idx = sr.shopIdx group by sr.idx;
 	</select>
 	
 	<update id="setPartnerLeave">

@@ -7,69 +7,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Event Page</title>
   <style type="text/css">
-  	/* styles.css */
+  	@font-face {
+	    font-family: 'NoonnuBasicGothicRegular';
+	    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+	    font-weight: normal;
+	    font-style: normal;
+		}
 		body {
-	    font-family: Arial, sans-serif;
 	    margin: 0;
 	    padding: 0;
-	    background-color: #f9f9f9;
+	    background-color: #fafafa;
+	    color: #333;
 		}
 		
 		.event-container {
+	    font-family: 'NoonnuBasicGothicRegular', Arial, sans-serif;
 	    width: 90%;
 	    max-width: 1200px;
 	    margin: 0 auto;
 	    padding: 20px;
-	    margin-top: 2%;
+	    min-height: 51vh;
+	    margin-top: 50px;
 		}
 		
 		h1 {
 	    text-align: left;
+	    font-weight: bold;
 	    margin-bottom: 20px;
-		}
-		
-		.event-section {
-	    margin-top: 40px;
-	    margin-bottom: 40px;
-		}
-		
-		.event-section h2 {
-	    font-size: 1.5em;
-	    margin-bottom: 30px;
+	    font-size: 1.8em;
 		}
 		
 		.card-container {
 	    display: flex;
 	    gap: 20px;
 	    flex-wrap: wrap;
+	    justify-content: space-between;
 		}
 		
 		.card {
 	    background-color: #ffffff;
-	    border-radius: 10px;
-	    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	    padding: 20px;
-	    flex: 1 1 calc(33.333% - 20px);
-	    max-width: calc(33.333% - 20px);
-	    box-sizing: border-box;
+	    border-radius: 15px;
+	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	    overflow: hidden;
 	    transition: transform 0.2s, box-shadow 0.2s;
+	    width: calc(33% - 20px);
+	    min-width: 280px;
+	    cursor: pointer;
+	    text-align: left;
+	    position: relative;
 		}
 		
 		.card:hover {
-	    transform: translateY(-5px);
-	    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+	    transform: translateY(-10px);
+	    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+		}
+		
+		.card img {
+	    width: 100%;
+	    height: 150px;
+	    object-fit: cover;
+		}
+		
+		.card-content {
+	    padding: 20px;
 		}
 		
 		.card h3 {
-	    font-size: 1.2em;
+	    font-size: 1.4em;
 	    margin-bottom: 10px;
+	    font-weight: bold;
+	    color: #222;
 		}
 		
 		.card p {
 	    font-size: 1em;
-	    margin-bottom: 10px;
+	    margin-bottom: 15px;
 	    color: #555;
 		}
 		
@@ -77,25 +90,35 @@
 	    font-size: 0.9em;
 	    color: #888;
 		}
-		    	
+		
+		@media screen and (max-width: 768px) {
+	    .card {
+	      width: calc(48% - 20px);
+	    }
+		}
+		
+		@media screen and (max-width: 576px) {
+	    .card {
+	      width: 100%;
+	    }
+		}
   </style>
 </head>
 <body>
   <div class="event-container">
-    <h1>이벤트</h1>
-    <section class="event-section">
-      <h2>쿠폰</h2>
-      <div class="card-container">
-      	<c:forEach var="vo" items="${vos}">
-	        <div class="card" onclick="location.href='${ctp}/event/eventContent?idx=${vo.idx}'">
-	        <img alt="event" src="${ctp}/event/${vo.thumbnail}">
-	          <h3>${vo.title}</h3>
-	          <p>${vo.subTitle}</p>
-	          <span>${fn: substring(vo.startDate, 0, 10)} ~ ${fn: substring(vo.endDate, 0, 10)}</span>
-	        </div>
-	      </c:forEach>
-      </div>
-    </section>
+    <h1>진행중인 이벤트</h1>
+    <div class="card-container">
+      <c:forEach var="vo" items="${vos}">
+        <div class="card" onclick="location.href='${ctp}/event/eventContent?idx=${vo.idx}'">
+          <img alt="event" src="${ctp}/event/${vo.thumbnail}">
+          <div class="card-content">
+            <h3>${vo.title}</h3>
+            <p>${vo.subTitle}</p>
+            <span>${fn: substring(vo.startDate, 0, 10)} ~ ${fn: substring(vo.endDate, 0, 10)}</span>
+          </div>
+        </div>
+      </c:forEach>
+    </div>
   </div>
 </body>
 </html>

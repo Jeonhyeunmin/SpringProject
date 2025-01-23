@@ -10,7 +10,6 @@
   <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
   <style type="text/css">
 		body {
-		  font-family: 'Arial', sans-serif;
 		  margin: 0;
 		  padding: 0;
 		  background-color: #f4f4f9;
@@ -123,12 +122,20 @@
 		  justify-content: start; /* 왼쪽 정렬 (필요 시 변경 가능) */
 		}
 			
+		@font-face {
+	    font-family: 'Tenada';
+	    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
+	    font-weight: normal;
+	    font-style: normal;
+		}
 			
 		.breadcrumb {
       font-size: 14px;
       color: #555;
-      margin-top: 2%;
+      margin-top: 3%;
       margin-left: 19.5%;
+	    background-color: #fff;
+	    font-family: 'Tenada';
 		}
 		
 		.breadcrumb a {
@@ -145,7 +152,7 @@
 		  font-weight: bold;
 		  color: #2c3e50;
 		  margin-bottom: 10px;
-		  margin-top: 45px;
+		  margin-top: 35px;
 		}
 		
 		.product-info .price {
@@ -171,7 +178,7 @@
 		  background-color: #fff;
 		  border-radius: 10px;
 		  margin-left: 1%;
-		  margin-top: 70px;
+		  margin-top: 50px;
 		}
 		
 		.additional-info h3 {
@@ -207,7 +214,15 @@
 		  gap: 5px;
 		}
 		
+		@font-face { /*눈누 기초고딕 - 두꺼운 네모 딱딱 고딕*/
+	    font-family: 'NoonnuBasicGothicRegular';
+	    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+	    font-weight: normal;
+	    font-style: normal;
+		}
+		
 		.author-details .company {
+			font-family: 'NoonnuBasicGothicRegular';
 		  font-size: 16px;
 		  font-weight: bold;
 		  color: #2c3e50;
@@ -215,6 +230,7 @@
 		}
 		
 		.author-details .post-count {
+			font-family: 'NoonnuBasicGothicRegular';
 		  font-size: 14px;
 		  color: #555;
 		}
@@ -310,6 +326,7 @@
 		}
 		
 		.counter-container {
+			font-family: 'NoonnuBasicGothicRegular';
 		  display: none;
 		  transition: opacity 0.3s ease, visibility 0.3s ease;
 		}
@@ -549,6 +566,45 @@
 		  opacity: 1;
 		}
 		
+		.inquiry {
+		  padding: 20px;
+		  background-color: #ffffff;
+		  border-radius: 10px;
+		  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+		  margin-top: 30px;
+		  text-align: center;
+		  transition: all 0.3s ease;
+		}
+		
+		.inquiry button {
+		  margin: 10px;
+		  padding: 10px 20px;
+		  font-size: 16px;
+		  border: 1px solid #ddd;
+		  background-color: #f9f9f9;
+		  cursor: pointer;
+		  transition: background-color 0.3s ease, transform 0.3s ease;
+		}
+		
+		.inquiry div {
+		  margin-top: 20px;
+		  padding: 15px;
+		  border: 1px solid #ddd;
+		  border-radius: 10px;
+		  background-color: #fafafa;
+		  text-align: center;
+		  font-size: 16px;
+		  color: #555;
+		}
+		
+		#buyForm button {
+			font-family: 'NoonnuBasicGothicRegular';
+		}
+		
+		#content-table{
+			font-family: 'NoonnuBasicGothicRegular';
+		}
+		
   </style>
   <script type="text/javascript">
   	document.addEventListener("DOMContentLoaded", function () {
@@ -685,13 +741,32 @@
   	      // 클릭한 버튼에 따라 콘텐츠 변경 (선택 사항)
   	      const content = document.querySelector(".content");
   	      const review = document.querySelector(".review");
+  	      const exchange = document.querySelector(".exchange");
+  	      const inquiry = document.querySelector(".inquiry");
 
   	      if (this.textContent === "상품상세") {
   	        content.style.display = "block";
   	        review.style.display = "none";
-  	      } else if (this.textContent === "상품평") {
+  	      	exchange.style.display = "none";
+  	      	inquiry.style.display = "none";
+  	      }
+  	      else if (this.textContent === "상품평") {
   	        content.style.display = "none";
   	        review.style.display = "block";
+  	      	exchange.style.display = "none";
+  	      	inquiry.style.display = "none";
+  	      }
+  	    	else if (this.textContent === "교환/반품/환불") {
+  	    		review.style.display = "none";
+  	    		inquiry.style.display = "none";
+  	        content.style.display = "none";
+  	      	exchange.style.display = "block";
+  	      }
+  	    	else if (this.textContent === "Q & A") {
+  	    		review.style.display = "none";
+  	    		inquiry.style.display = "block";
+  	        content.style.display = "none";
+  	      	exchange.style.display = "none";
   	      }
   	    });
   	  });
@@ -1057,7 +1132,7 @@
 					  <c:set var="optionPrice" value="${fn: split(vo.optionPrice, '/')}"/>
 					  <c:choose>
 						  <c:when test="${fn: length(optionName) > 1}">
-						    <select id="optionSelect" class="form-control" onchange="selectOption()">
+						    <select id="optionSelect" class="form-control" onchange="selectOption()" style="font-family: 'NoonnuBasicGothicRegular';">
 								  <option value="" data-price="0">옵션을 선택하세요</option>
 								  <c:forEach var="i" begin="0" end="${fn: length(optionName) -1}">
 								    <option value="${optionName[i]}" data-price="${optionPrice[i]}">
@@ -1189,6 +1264,21 @@
 			      </div>
 				  </div>
 				</c:if>
+				<hr>
+				<div class="inquiry">
+				  <div class="button-group">
+				    <button>전체</button>
+				    <button>내 질문</button>
+				    <button>질문하기</button>
+				  </div>
+				  <div>
+				    등록된 질문이 없습니다.
+				  </div>
+				</div>
+				<hr>
+				<div class="exchange">
+					<img alt="" src="${ctp}/main/exchange.png">
+				</div>
 				<div id="modalOverlay" class="modal-overlay" onclick="closeReviewUpdateForm()"></div>
 					<div id="reviewUpdateForm" class="reviewUpdateForm">
 				</div>

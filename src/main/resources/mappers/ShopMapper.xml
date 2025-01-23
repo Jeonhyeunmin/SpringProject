@@ -116,14 +116,14 @@
 		    s.idx, s.title
 		ORDER BY 
 		    purchase_count DESC
-		LIMIT 4;
+		LIMIT 5;
 	</select>
 	
 	<select id="getdateShopTop3" resultType="com.spring.javaGroupS6.vo.ShopVO">
 		SELECT *
 		FROM shop
 		ORDER BY wDate DESC
-		LIMIT 4;
+		LIMIT 5;
 	</select>
 	
 	<select id="getNewShop" resultType="com.spring.javaGroupS6.vo.ShopVO">

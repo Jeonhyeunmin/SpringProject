@@ -11,7 +11,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     .cart-container {
-      margin: 0 15% 0 16.8%;
+    	font-family: 'NoonnuBasicGothicRegular';
+      margin: 0 auto;
+      max-width: 1180px;
     }
     
     .cart-body {
@@ -269,6 +271,13 @@
 		
 		.empty-cart .shopping:hover {
 		  background-color: #555;
+		}
+		
+		@font-face { /*눈누 기초고딕 - 두꺼운 네모 딱딱 고딕*/
+	    font-family: 'NoonnuBasicGothicRegular';
+	    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+	    font-weight: normal;
+	    font-style: normal;
 		}
 
     

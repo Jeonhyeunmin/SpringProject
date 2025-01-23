@@ -10,6 +10,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
   <style type="text/css">
+  	@font-face { /*눈누 기초고딕 - 두꺼운 네모 딱딱 고딕*/
+	    font-family: 'NoonnuBasicGothicRegular';
+	    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+	    font-weight: normal;
+	    font-style: normal;
+		}
+		
   	html, body {
 		  height: 100%;
 		  overflow-y: hidden;
@@ -17,6 +24,7 @@
 		  padding: 0;
 		}
 	  .info {
+	  	font-family: 'NoonnuBasicGothicRegular';
 	    display: flex;
 	    align-items: center;
 	    margin-bottom: 30px;

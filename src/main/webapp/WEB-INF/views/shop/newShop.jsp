@@ -32,12 +32,31 @@
         font-weight: bold;
         margin: 0;
       }
+      
+  		@font-face {
+		    font-family: 'Tenada';
+		    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
+		    font-weight: normal;
+		    font-style: normal;
+			}
+			
+			@font-face { /*눈누 기초고딕 - 두꺼운 네모 딱딱 고딕*/
+		    font-family: 'NoonnuBasicGothicRegular';
+		    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+		    font-weight: normal;
+		    font-style: normal;
+			}
+			
+			.filter-section{
+			  font-family: 'NoonnuBasicGothicRegular';
+			}
       .page-header .breadcrumb {
-        font-size: 14px;
-        color: #555;
-        margin-top: 2%;
-        margin-left: 19.5%;
-        background-color: #fff;
+      	font-size: 14px;
+	      color: #555;
+	      margin-top: 2%;
+	      margin-left: 19.5%;
+		    background-color: #fff;
+		    font-family: 'Tenada';
       }
       .breadcrumb a {
         text-decoration: none;
@@ -65,6 +84,7 @@
         display: inline;
       }
       .grid-container {
+      	font-family: 'NoonnuBasicGothicRegular';
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 20px;
@@ -93,6 +113,9 @@
         font-weight: bold;
         color: #333;
         margin-bottom: 10px;
+		    white-space: nowrap;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
       }
       .grid-item .price {
         font-size: 18px;
@@ -216,7 +239,7 @@
 </head>
 <body>
   <div class="page-header">
-    <div class="breadcrumb">HOME > NEW ARRIVAL</div>
+    <div class="breadcrumb"><a href="${ctp}">HOME</a> > NEW ARRIVAL</div>
   </div>
 	<div class="new-container">
     <!-- 상단 제목 및 경로 -->

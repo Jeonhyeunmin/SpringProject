@@ -11,6 +11,12 @@
   <link rel="icon" href="${ctp}/main/favicon.png">
   <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
   <style type="text/css">
+  	@font-face { /*눈누 기초고딕 - 두꺼운 네모 딱딱 고딕*/
+	    font-family: 'NoonnuBasicGothicRegular';
+	    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+	    font-weight: normal;
+	    font-style: normal;
+		}
     body {
       font-family: Arial, sans-serif;
       line-height: 1.6;
@@ -31,6 +37,7 @@
     }
     
     .info-container {
+    	font-family: 'NoonnuBasicGothicRegular';
 		  padding: 50px;
 		  background-color: #f9f9f9;
 		  text-align: center;
@@ -162,6 +169,7 @@
 	  <hr>
 	  <p>앞으로도 많은 관심과 성원 부탁드립니다!</p>
 	</div>
+	
 	<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 </body>
 

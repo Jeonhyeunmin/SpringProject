@@ -7,6 +7,7 @@
   <meta charset="UTF-8">
   <style type="text/css">
   	#footer {
+  		font-family: 'NoonnuBasicGothicRegular';
 	    position: relative;
 	    background-color: transparent;
 	  }
@@ -110,7 +111,7 @@
 	
 	    <div style="text-align: center; margin-bottom: 20px;">
 	      <a href="${ctp}/common/info" style="margin: 0 10px; color: #666; text-decoration: none;">회사소개</a>
-	      <a href="#" style="margin: 0 10px; color: #666; text-decoration: none;">공시사항</a>
+	      <a href="#" style="margin: 0 10px; color: #666; text-decoration: none;">공지사항</a>
 	      <a href="#" style="margin: 0 10px; color: #666; text-decoration: none;">윤리경영</a>
 	      <a href="#" style="margin: 0 10px; color: #666; text-decoration: none;">이용약관</a>
 	      <a href="#" style="margin: 0 10px; color: #666; text-decoration: none;">개인정보 처리방침</a>

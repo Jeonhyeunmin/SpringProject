@@ -12,7 +12,7 @@
     body, html {
       margin: 0;
       padding: 0;
-      height: 2000px;
+      height: 2200px;
     }
     #header {
       height: 350px;

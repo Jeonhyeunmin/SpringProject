@@ -28,10 +28,17 @@
 				}
 		
 		    .page-header h2 {
-		      font-size: 24px;
+		      font-size: 30px;
 		      font-weight: bold;
 		      margin: 0;
 		    }
+		    
+    		@font-face {
+			    font-family: 'Tenada';
+			    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
+			    font-weight: normal;
+			    font-style: normal;
+				}
 		
 		    .page-header .breadcrumb {
 		      font-size: 14px;
@@ -39,6 +46,7 @@
 		      margin-top: 2%;
 		      margin-left: 19.5%;
 			    background-color: #fff;
+			    font-family: 'Tenada';
 		    }
 		    
 		    .breadcrumb a{
@@ -59,14 +67,23 @@
 					padding-left: 30px;
 				  margin: auto 19%;
 				}
+				
+				@font-face { /*눈누 기초고딕 - 두꺼운 네모 딱딱 고딕*/
+			    font-family: 'NoonnuBasicGothicRegular';
+			    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+			    font-weight: normal;
+			    font-style: normal;
+				}
+				
 				.button-group button{
+					font-family: 'NoonnuBasicGothicRegular';
 					background-color: transparent;
 					padding: 30px;
 					border: none;
 					transition: all 0.3s;
 				}
 				.button-group button:hover{
-					background-color: #eee;
+					background-color: #E5D0AC;
 					transform: scale(1.05);
 					
 				}
@@ -82,12 +99,14 @@
 				}
 				
 				.grid-container {
+					font-family: 'NoonnuBasicGothicRegular';
 			    display: grid;
 			    grid-template-columns: repeat(4, 1fr);
 			    gap: 20px;
 			    margin: 20px 15% 0 18.5%;
 			    padding: 10px;
 			    max-width: 1350px;
+			    cursor: pointer;
 			  }
 			
 			  .grid-item {
@@ -139,15 +158,17 @@
 			  }
 			
 			  .discount-badge {
-			    position: absolute;
-			    top: 10px;
-			    left: 10px;
-			    background-color: #e1c699;
-			    color: #fff;
-			    font-size: 12px;
-			    padding: 5px 8px;
-			    border-radius: 5px;
-			  }
+				  position: absolute;
+				  top: 10px;
+				  left: 10px;
+				  background-color: #A31D1D;
+				  color: #fff;
+				  font-size: 12px;
+				  padding: 5px 8px;
+				  border-radius: 5px;
+				  font-weight: bold;
+				  z-index: 2;
+				}
 			
 			  .grid-item .info {
 			    padding: 15px;
@@ -198,7 +219,7 @@
 <body>
 	 <!-- 상단 제목 및 경로 -->
   <div class="page-header">
-    <div class="breadcrumb">HOME > <a href="${ctp}/shop/shopList?category=${fn: toUpperCase(category)}">${fn: toUpperCase(category)}</a> > <a href="${ctp}/shop/shopMainList?category=${category}&mainCategory=${mainCategory}">${fn: toUpperCase(mainCategory)}</a></div>
+    <div class="breadcrumb"><a href="${ctp}">HOME</a> > <a href="${ctp}/shop/shopList?category=${fn: toUpperCase(category)}">${fn: toUpperCase(category)}</a> > <a href="${ctp}/shop/shopMainList?category=${category}&mainCategory=${mainCategory}">${fn: toUpperCase(mainCategory)}</a></div>
     <h2>${fn: toUpperCase(mainCategory)}</h2>
   </div>
   

@@ -9,15 +9,22 @@
   <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
   
   <style type="text/css">
+  	@font-face { /*눈누 기초고딕 - 두꺼운 네모 딱딱 고딕*/
+	    font-family: 'NoonnuBasicGothicRegular';
+	    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+	    font-weight: normal;
+	    font-style: normal;
+		}
+		
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
-      font-family: 'Arial', sans-serif;
       overflow: hidden; 
     }
 
     .menu-container {
+    	font-family: 'NoonnuBasicGothicRegular';
       width: 250px;
       background: #f8f9fa;
       padding: 20px;

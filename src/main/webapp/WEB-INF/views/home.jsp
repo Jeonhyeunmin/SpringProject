@@ -11,7 +11,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
-
 	<!-- Swiper CSS -->
 	<link rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
@@ -41,18 +40,40 @@
 		
 		.mainImgText {
 			position: absolute;
-			bottom: 40%;
+			bottom: 35%;
 			left: 4.5%;
 			color: white;
 		}
+		
+		@font-face {
+	    font-family: 'Paperlogy-8ExtraBold';
+	    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+	    font-weight: 800;
+	    font-style: normal;
+		}
+		
+		@font-face { /*북엔드 바탕 - 영문*/
+	    font-family: 'TTBookendBatangR';
+	    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-2@1.0/TTBookendBatangR.woff2') format('woff2');
+	    font-weight: 400;
+	    font-style: normal;
+		}
+		
+		@font-face { /*눈누 기초고딕 - 두꺼운 네모 딱딱 고딕*/
+	    font-family: 'NoonnuBasicGothicRegular';
+	    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+	    font-weight: normal;
+	    font-style: normal;
+		}
+		
 		.titleEng{
 		  font-family: 'TTBookendBatangR';
-		  font-size: 25px;
+		  font-size: 30px;
 		}
 		
 		.titleKor{
-		  font-family: 'Chosunilbo_myungjo';
-		  font-weight: 400;
+		  font-family: 'NoonnuBasicGothicRegular';
+		  font-weight: 200;
 		  font-size: 40px;
 		}
 		
@@ -73,6 +94,7 @@
 	    display: flex;
 	    gap: 20px;
 	    margin: 100px 2%;
+	    font-family: 'Paperlogy-8ExtraBold';
 		}
 		
 		.sidebar {
@@ -126,6 +148,10 @@
 	    font-size: 14px;
 	    color: #333;
 	    margin-bottom: 5px;
+	    width: 200px;
+	    white-space: nowrap;       /* 줄바꿈 방지 */
+      overflow: hidden;          /* 넘치는 텍스트 숨김 */
+      text-overflow: ellipsis;
 		}
 		
 		.item .price {
@@ -142,10 +168,12 @@
 		
 	  .new-container {
 	    display: grid;
-	    grid-template-columns: repeat(3, 1fr); /* 3개의 열로 구성 */
+	    grid-template-columns: repeat(3, 1fr);
 	    gap: 30px; /* 카드 간의 간격 */
 	    padding: 20px 10%; /* 여백 조정 */
 	    margin: 0 auto;
+	    font-family: 'Paperlogy-8ExtraBold';
+	    max-width: 1750px;
 	  }
 	
 	  .new-item {
@@ -154,6 +182,8 @@
 	    transition: transform 0.3s, box-shadow 0.3s;
 	    background-color: #fff;
 	    cursor: pointer;
+	    padding: 0 10px;
+	    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 	  }
 	
 	  .new-item img {
@@ -168,6 +198,9 @@
 	    font-weight: bold;
 	    color: #333;
 	    margin-bottom: 10px;
+	    white-space: nowrap;       /* 줄바꿈 방지 */
+      overflow: hidden;          /* 넘치는 텍스트 숨김 */
+      text-overflow: ellipsis;
 	  }
 	
 	  .new-item .price {
@@ -423,10 +456,11 @@
         NEW
       </div>
       <div class="title">${vo.title}</div>
-      <div class="price"><fmt:formatNumber pattern="#,##0" value="${vo.price}"/></div>
-      <c:if test="${vo.discount != 0}">
-        <div class="discount">${vo.discount}%</div>
-      </c:if>
+      <div class="price"><fmt:formatNumber pattern="#,##0" value="${vo.price}"/>
+      	<c:if test="${vo.discount != 0}">
+        	<span class="discount">${vo.discount}%</span>
+      	</c:if>
+    	</div>
     </div>
   </c:forEach>
 </div>

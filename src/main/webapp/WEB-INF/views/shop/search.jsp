@@ -12,214 +12,217 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <style>
-        body {
-				    font-family: Arial, sans-serif;
-				    margin: 0;
-				    padding: 0;
-				    background-color: #f9f9f9;
-				}
-	    	/* 상단 제목 및 경로 */
-		    .page-header {
-				    width: 100%;
-				    padding: 20px 0;
-				    text-align: center;
-				    margin: auto;
-				    margin-bottom: 20px; /* 브랜드 컨테이너와의 간격 */
-				}
-		
-		    .page-header h2 {
-		      font-size: 24px;
-		      font-weight: bold;
-		      margin: 0;
-		    }
-		
-		    .page-header .breadcrumb {
-		      font-size: 14px;
-		      color: #555;
-		      margin-top: 2%;
-		      margin-left: 19.5%;
-			    background-color: #fff;
-		    }
-		    
-		    .breadcrumb a{
-		    	text-decoration: none;
-		    	padding: 0 5px;
-		    }
-				.button-group {
-				  display: flex;
-				  justify-content: center;
-				  gap: 10px;
-				  font-family: 'ChosunGu';
-				  font-weight: light;
-				  text-align: center;
-			    margin: auto 19%;
-				  border-top: 1px solid black;
-				  border-bottom: 1px solid #ddd;
-					width: 70%;
-					justify-content: flex-start;
-					padding-left: 30px;
-					margin-bottom: 50px;
-				}
-				.button-group button{
-					background-color: transparent;
-					padding: 30px;
-					border: none;
-					transition: all 0.3s;
-				}
-				.button-group button:hover{
-					background-color: #eee;
-					transform: scale(1.05);
-					
-				}
-				.button-group-ul{
-					list-style: none;
-					padding: 0;
-					margin: 0;
-					text-align: left;
-				}
-				.button-group-ul li{
-					display: inline;
-					width: 100px;
-				}
+      body {
+		    font-family: Arial, sans-serif;
+		    margin: 0;
+		    padding: 0;
+		    background-color: #f9f9f9;
+			}
+    	/* 상단 제목 및 경로 */
+	    .page-header {
+		    width: 100%;
+		    padding: 20px 0;
+		    text-align: center;
+		    margin: auto;
+		    margin-bottom: 20px; /* 브랜드 컨테이너와의 간격 */
+			}
+	
+	    .page-header h2 {
+	      font-size: 30px;
+	      font-weight: bold;
+	      margin: 0;
+	    }
+	
+  		@font-face {
+		    font-family: 'Tenada';
+		    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
+		    font-weight: normal;
+		    font-style: normal;
+			}
+	
+	    .page-header .breadcrumb {
+	      font-size: 14px;
+	      color: #555;
+	      margin-top: 2%;
+	      margin-left: 19.5%;
+		    background-color: #fff;
+		    font-family: 'Tenada';
+	    }
+	    
+	    .breadcrumb a{
+	    	text-decoration: none;
+	    	padding: 0 5px;
+	    }
+			.button-group {
+			  display: flex;
+			  justify-content: center;
+			  gap: 10px;
+			  font-family: 'ChosunGu';
+			  font-weight: light;
+			  text-align: center;
+		    margin: auto 19%;
+			  border-top: 1px solid black;
+			  border-bottom: 1px solid #ddd;
+				width: 70%;
+				justify-content: flex-start;
+				padding-left: 30px;
+				margin-bottom: 50px;
+			}
+			
+			@font-face { /*눈누 기초고딕 - 두꺼운 네모 딱딱 고딕*/
+		    font-family: 'NoonnuBasicGothicRegular';
+		    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+		    font-weight: normal;
+		    font-style: normal;
+			}
+			
+			.button-group button{
+				font-family: 'NoonnuBasicGothicRegular';
+				background-color: transparent;
+				padding: 30px;
+				border: none;
+				transition: all 0.3s;
+			}
+			.button-group button:hover{
+				background-color: #E5D0AC;
+				transform: scale(1.05);
 				
-				.grid-container {
-			    display: grid;
-			    grid-template-columns: repeat(4, 1fr);
-			    gap: 20px;
-			    margin: 20px 15% 0 18.5%;
-			    padding: 10px;
-			    max-width: 1350px;
-			  }
+			}
+			.button-group-ul{
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				text-align: left;
+			}
+			.button-group-ul li{
+				display: inline;
+				width: 100px;
+			}
 			
-			  .grid-item {
-			    position: relative;
-			    overflow: hidden;
-			    text-align: center;
-			  }
-			  
-			  .grid-item:hover {
-			    cursor: pointer;
-			  }
-			
-			
-			  .grid-item img {
-			    width: 100%;
-			    height: auto;
-			    object-fit: cover;
-			  }
-			  
-		    .grid-item:hover img {
-			    opacity: 0.3;
-			  }
-			  
-			  .grid-item .overlay-buttons {
-			    position: absolute;
-			    top: 50%;
-			    left: 50%;
-			    transform: translate(-50%, -50%);
-			    display: none;
-			    gap: 10px;
-			    z-index: 2;
-			  }
-			
-			  .grid-item:hover .overlay-buttons {
-			    display: flex;
-			  }
-			
-			  .overlay-buttons button {
-			    background-color: #fff;
-			    color: #333;
-			    border: 1px solid #ddd;
-			    padding: 10px 15px;
-			    font-size: 14px;
-			    border-radius: 5px;
-			    cursor: pointer;
-			    transition: background-color 0.3s, transform 0.3s;
-			  }
-			
-			  .overlay-buttons button:hover {
-			    background-color: #e74c3c;
-			    color: #fff;
-			    transform: scale(1.1);
-			  }
-			
-			  .discount-badge {
-			    position: absolute;
-			    top: 10px;
-			    left: 10px;
-			    background-color: #e1c699;
-			    color: #fff;
-			    font-size: 12px;
-			    padding: 5px 8px;
-			    border-radius: 5px;
-			  }
-			
-			  .grid-item .info {
-			    padding: 15px;
-			  }
-			
-			  .grid-item .title {
-			    font-size: 16px;
-			    font-weight: bold;
-			    color: #333;
-			    margin-bottom: 10px;
-			    white-space: nowrap;
-			    overflow: hidden;
-			    text-overflow: ellipsis;
-			  }
-			  .grid-item .title:hover {
-			    text-decoration: underline;
-			  }
-			
-			  .grid-item .price {
-			    font-size: 18px;
-			    font-weight: bold;
-			    color: #e74c3c;
-			    margin: 5px 0;
-			  }
-			
-			  .grid-item .company-category {
-			    font-size: 14px;
-			    color: #555;
-			    margin-top: 5px;
-			  }
-			
-			  .grid-item .rating {
-			    display: flex;
-			    align-items: center;
-			    justify-content: center;
-			    gap: 5px;
-			    font-size: 14px;
-			    margin-top: 10px;
-			    color: #777;
-			  }
-			
-			  .grid-item .rating i {
-			    color: #f1c40f;
-			  }
-			  
-	      .empty-cart {
-				  text-align: center;
-				  padding: 50px 20px;
-				  color: #555;
-				  border: 1px solid #ddd;
-				  border-radius: 10px;
-				  background-color: #f9f9f9;
-				  margin: 50px auto;
-				  max-width: 600px;
-				}
-				
-				.empty-cart h3 {
-				  font-size: 24px;
-				  margin-bottom: 20px;
-				}
-
+			.grid-container {
+				font-family: 'NoonnuBasicGothicRegular';
+		    display: grid;
+		    grid-template-columns: repeat(4, 1fr);
+		    gap: 20px;
+		    margin: 20px 15% 0 18.5%;
+		    padding: 10px;
+		    max-width: 1350px;
+		  }
+		
+		  .grid-item {
+		    position: relative;
+		    overflow: hidden;
+		    text-align: center;
+		  }
+		  
+		  .grid-item:hover {
+		    cursor: pointer;
+		  }
+		
+		
+		  .grid-item img {
+		    width: 100%;
+		    height: auto;
+		    object-fit: cover;
+		  }
+		  
+	    .grid-item:hover img {
+		    opacity: 0.3;
+		  }
+		  
+		  .grid-item .overlay-buttons {
+		    position: absolute;
+		    top: 50%;
+		    left: 50%;
+		    transform: translate(-50%, -50%);
+		    display: none;
+		    gap: 10px;
+		    z-index: 2;
+		  }
+		
+		  .grid-item:hover .overlay-buttons {
+		    display: flex;
+		  }
+		
+		  .overlay-buttons button {
+		    background-color: #fff;
+		    color: #333;
+		    border: 1px solid #ddd;
+		    padding: 10px 15px;
+		    font-size: 14px;
+		    border-radius: 5px;
+		    cursor: pointer;
+		    transition: background-color 0.3s, transform 0.3s;
+		  }
+		
+		  .overlay-buttons button:hover {
+		    background-color: #e74c3c;
+		    color: #fff;
+		    transform: scale(1.1);
+		  }
+		
+		  .discount-badge {
+			  position: absolute;
+			  top: 10px;
+			  left: 10px;
+			  background-color: #A31D1D;
+			  color: #fff;
+			  font-size: 12px;
+			  padding: 5px 8px;
+			  border-radius: 5px;
+			  font-weight: bold;
+			  z-index: 2;
+			}
+		
+		  .grid-item .info {
+		    padding: 15px;
+		  }
+		
+		  .grid-item .title {
+		    font-size: 16px;
+		    font-weight: bold;
+		    color: #333;
+		    margin-bottom: 10px;
+		    white-space: nowrap;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		  }
+		  .grid-item .title:hover {
+		    text-decoration: underline;
+		  }
+		
+		  .grid-item .price {
+		    font-size: 18px;
+		    font-weight: bold;
+		    color: #e74c3c;
+		    margin: 5px 0;
+		  }
+		
+		  .grid-item .company-category {
+		    font-size: 14px;
+		    color: #555;
+		    margin-top: 5px;
+		  }
+		
+		  .grid-item .rating {
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    gap: 5px;
+		    font-size: 14px;
+		    margin-top: 10px;
+		    color: #777;
+		  }
+		
+		  .grid-item .rating i {
+		    color: #f1c40f;
+		  }
     </style>
 </head>
 <body>
 	 <!-- 상단 제목 및 경로 -->
   <div class="page-header">
-    <div class="breadcrumb">HOME > ${fn: toUpperCase(query)}</div>
+    <div class="breadcrumb"><a href="${ctp}">HOME</a> > ${fn: toUpperCase(query)}</div>
     <h2>${fn: toUpperCase(mainCategory)}</h2>
   </div>
   <div style="text-align: center; margin-bottom: 20px;"><h2 style="font-weight: bold;">${query} 검색결과</h2></div>

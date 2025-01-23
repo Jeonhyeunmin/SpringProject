@@ -127,7 +127,7 @@ public class MessageController {
 		}
 		else if(msgFlag.equals("eventInputOk")) {
 			model.addAttribute("message", "이벤트를 등록하였습니다.");
-			model.addAttribute("url", "event/event");
+			model.addAttribute("url", "admin/eveneManage");
 		}
 		else if(msgFlag.equals("eventInputNo")) {
 			model.addAttribute("message", "실패");

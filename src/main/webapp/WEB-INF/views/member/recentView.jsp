@@ -10,14 +10,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
   <style>
+  	@font-face { /*눈누 기초고딕 - 두꺼운 네모 딱딱 고딕*/
+	    font-family: 'NoonnuBasicGothicRegular';
+	    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+	    font-weight: normal;
+	    font-style: normal;
+		}
+		
     body {
-      font-family: Arial, sans-serif;
       background-color: #f9f9f9;
       margin: 0;
       padding: 20px;
     }
 
     .container {
+    	font-family: 'NoonnuBasicGothicRegular';
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -124,6 +131,10 @@
 		.empty-cart h3 {
 		  font-size: 24px;
 		  margin-bottom: 20px;
+		}
+		
+		.cart-list-check{
+			margin-bottom: 15px;
 		}
   </style>
   <script type="text/javascript">

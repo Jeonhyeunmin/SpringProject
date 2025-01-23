@@ -75,6 +75,7 @@
 		* {
 		  box-sizing: border-box;
 		}
+		
 		html, body {
 		  margin: 0;
 		  width: 100%;

@@ -388,14 +388,14 @@
       <div class="form-group">
 		    <div class="section-title">이벤트 시작일</div>
 		    <div class="date-input-wrapper">
-	        <input type="date" value="" id="startDate" name="startDate" class="date-input" />
+	        <input type="datetime-local" value="" id="startDate" name="startDate" class="date-input" />
 		    </div>
 			</div>
 			
 			<div class="form-group">
 		    <div class="section-title">이벤트 종료일</div>
 		    <div class="date-input-wrapper">
-	        <input type="date" value="" id="endDate" name="endDate" class="date-input" />
+	        <input type="datetime-local" value="" id="endDate" name="endDate" class="date-input" />
 		    </div>
 			</div>
 

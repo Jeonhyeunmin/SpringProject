@@ -173,8 +173,14 @@
         color: #e1c699 !important;
         text-decoration: underline !important;
 	    }
-	            				
+    	@font-face {
+		    font-family: 'Freesentation-9Black';
+		    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2') format('woff2');
+		    font-weight: 900;
+		    font-style: normal;
+			}		
 	    .submenu {
+	    	font-family: 'Freesentation-9Black';
         display: none !important;
         position: fixed !important;
         top: 100px !important;
@@ -187,6 +193,7 @@
         padding: 20px 0 !important;
         z-index: 998 !important;
         border-top: 1px solid #e1c699 !important;
+        font-weight: 200;
 	    }
 	    .submenu li {
         padding: 10px 20px !important;
@@ -204,6 +211,7 @@
         color: #e1c699 !important;
 	    }
       .myPage {
+      	font-family: 'NoonnuBasicGothicRegular';
         display: none !important;
         position: absolute !important;
         top: 100% !important;
@@ -254,6 +262,7 @@
         color: #e1c699 !important;
 	    }
 	    .search-bar {
+	    	font-family: 'NoonnuBasicGothicRegular';
         display: flex !important;
         align-items: center !important;
         border: 1px solid #e1c699 !important;
@@ -348,6 +357,7 @@
       }
       				
 	    .category-item {
+	    	font-family: 'NoonnuBasicGothicRegular';
         padding: 15px 15px !important;
         cursor: pointer !important;
         font-size: 16px !important;
@@ -367,9 +377,17 @@
         background-color: #ccc !important;
         margin: 0 20px !important;
       }
+      
+			@font-face { /*눈누 기초고딕 - 두꺼운 네모 딱딱 고딕*/
+		    font-family: 'NoonnuBasicGothicRegular';
+		    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+		    font-weight: normal;
+		    font-style: normal;
+			}
 	            				
       /* 서브 카테고리 스타일 */
       .sub-category {
+      	font-family: 'NoonnuBasicGothicRegular';
 	      max-height: 500px !important; /* 최대 높이 설정 */
 	      overflow-y: auto !important; /* 항목이 넘칠 경우 스크롤 표시 */
 	      flex-direction: column !important;
@@ -382,7 +400,7 @@
 	      background-color: #fff !important;
 	      list-style: none !important;
       }
-	            				
+      
       .sub-category-item {
         flex: 1 1 calc(33.33% - 20px) !important; /* 세 항목씩 한 줄에 배치 */
         background-color: #f9f9f9 !important;
@@ -390,6 +408,7 @@
         border-radius: 8px !important;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
         text-align: left !important;
+        font-weight: 100 !important;
       }
 	            				
       .sub-category-item h3 {
@@ -467,25 +486,25 @@
 	    }
 	
 	    .nav-link {
-	        padding: 15px;
-	        display: block;
-	        width: 100%;
-	        text-align: left;
+        padding: 15px;
+        display: block;
+        width: 100%;
+        text-align: left;
 	    }
 	
 	    .hamburger {
-	        display: block;
-	        font-size: 24px;
-	        cursor: pointer;
-	        color: #333;
+        display: block;
+        font-size: 24px;
+        cursor: pointer;
+        color: #333;
 	    }
 	
 	    .hamburger.active + .nav {
-	        display: flex; /* 햄버거 메뉴 클릭 시 표시 */
+        display: flex; /* 햄버거 메뉴 클릭 시 표시 */
 	    }
 	
 	    .search-bar input {
-	        width: 150px;
+        width: 150px;
 	    }
 		}
   </style>
@@ -509,8 +528,8 @@
 					            <li style="list-style: none; text-align: center;">
 				                <a href="${ctp}/shop/shopContent?idx=${dateVO.idx}" style="display: block;">
 			                    <img src="${ctp}/category/${dateVO.thumbnail}" width="200px" style="display: block; margin: 0 auto;">
-			                    <p style="margin-top: 10px; font-size: 14px; color: #333;">${dateVO.title}</p>
-			                    <p style="margin-top: 10px; font-size: 14px; color: #333;">${dateVO.company} | ${dateVO.category}</p>
+			                    <p style="margin-top: 10px; margin-bottom: 0;  font-size: 14px; color: #333;">${dateVO.title}</p>
+			                    <p style="font-size: 12px; color: #333;">${dateVO.company} | ${dateVO.category}</p>
 				                </a>
 					            </li>
 						        </c:forEach>
@@ -523,8 +542,8 @@
 					            <li style="list-style: none; text-align: center;">
 				                <a href="${ctp}/shop/shopContent?idx=${bestVO.idx}" style="display: block;">
 			                    <img src="${ctp}/category/${bestVO.thumbnail}" width="200px" style="display: block; margin: 0 auto;">
-			                    <p style="margin-top: 10px; font-size: 14px; color: #333;">${bestVO.title}</p>
-			                    <p style="margin-top: 10px; font-size: 14px; color: #333;">${bestVO.company} | ${bestVO.category}</p>
+			                    <p style="margin-top: 10px; font-weight: light; margin-bottom: 0; font-size: 14px; color: #333;">${bestVO.title}</p>
+			                    <p style="font-size: 12px; color: #333;">${bestVO.company} | ${bestVO.category}</p>
 				                </a>
 					            </li>
 						        </c:forEach>
@@ -762,18 +781,9 @@
 									        </ul>
 									    </li>
 									    <li data-category="menFashion" class="sub-category-item">
-									        <h3><a>정장/세트</a></h3>
-									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?category=menFashion&mainCategory=정장/세트&subCategory=정장/수트세트">정장/수트세트</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=menFashion&mainCategory=정장/세트&subCategory=맞춤정장">맞춤정장</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=menFashion&mainCategory=정장/세트&subCategory=상의">상의</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=menFashion&mainCategory=정장/세트&subCategory=팬츠">팬츠</a></li>
-									        </ul>
-									    </li>
-									    <li data-category="menFashion" class="sub-category-item">
 									        <h3><a>남성 이지/언더웨어</a></h3>
 									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?category=menFashion&mainCategory=남성 이지/언더웨어&subCategory=남성 런닝&팬티세트">남성 런닝&팬티세트</a></li>
+									            <li><a href="${ctp}/shop/shopSubList?category=menFashion&mainCategory=남성 이지/언더웨어&subCategory=남성 런닝/팬티세트">남성 런닝/팬티세트</a></li>
 									            <li><a href="${ctp}/shop/shopSubList?category=menFashion&mainCategory=남성 이지/언더웨어&subCategory=남성 내의/이지웨어">남성 내의/이지웨어</a></li>
 									        </ul>
 									    </li>
