@@ -381,9 +381,7 @@
 					return false;
 				}
 				else if(discount.trim() == ""){
-					alert("할인율을 입력해주세요 \n할인을 원하지 않으시면 0을 입력해주세요.");
-					document.getElementById("discount").focus();
-					return false;
+					discount = 0;
 				}
 				else if(pay.trim() == ""){
 					alert("가격을 다시 한번 확인해주세요");

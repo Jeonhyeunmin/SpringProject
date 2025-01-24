@@ -147,7 +147,7 @@
 	  <div class="features">
 	    <div class="feature-item">
 	      <h2>🌟 프로젝트 목표</h2>
-	      <p>고객의 쇼핑 경험을 극대화하고, 반응형 UI로 어디서나 쉽게 사용할 수 있는 플랫폼을 제공하는 것입니다.</p>
+	      <p>고객의 쇼핑 경험을 극대화하고 누구나 쉽게 사용할 수 있는 플랫폼을 제공하는 것입니다.</p>
 	    </div>
 	    <div class="feature-item">
 	      <h2>📌 주요 기술</h2>

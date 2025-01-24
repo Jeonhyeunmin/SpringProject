@@ -231,7 +231,6 @@ public class ShopContoller {
 	@ResponseBody
 	@PostMapping("/subCategoryLoad")
 	public ArrayList<SubCategoryVO> subCategoryLoadPost(String category, String mainCategory) {
-		
 		ArrayList<SubCategoryVO> vos = shopService.getSubCategoryList(category, mainCategory);
 		return vos;
 	}
@@ -321,10 +320,10 @@ public class ShopContoller {
 		shopService.setReviewOk(orderIdx);
 		model.addAttribute("idx", idx);
 		if(res != 0) {
-			return "redirect:/message/reviewInputOk";
+			return "redirect:/common/myPage";
 		}
 		else {
-			return "redirect:/message/reviewInputNo";
+			return "redirect:/common/myPage";
 		}
 	}
 	
@@ -543,7 +542,6 @@ public class ShopContoller {
 			@RequestParam(name = "couponIdx", defaultValue = "0", required = false) String couponIdx,
 			@RequestParam(name = "usePoint", defaultValue = "0", required = false)  int usePoint,
 			int addPoint) {
-		
 		List<ShopOrderVO> orderVos = (List<ShopOrderVO>) session.getAttribute("sOrderVOS");
 		CouponVO couponVO = shopService.getCouponInfo(Integer.parseInt(couponIdx));
 		int tot = 0;
@@ -552,7 +550,7 @@ public class ShopContoller {
 				vo.setCouponDiscount(couponVO.getDiscount());
 				vo.setCoupon(couponVO.getCouponName());
 				vo.setCouponIdx(Integer.parseInt(couponIdx));
-				tot = (vo.getTotalPrice() * couponVO.getDiscount()) / 100;
+				tot = (((vo.getTotalPrice() * couponVO.getDiscount()) / 100) + (vo.getTotalPrice() * vo.getDiscount()) / 100) + usePoint;
 				vo.setTotalPrice(vo.getTotalPrice() - tot);
 			}
 			vo.setAddPoint(addPoint);
@@ -561,7 +559,7 @@ public class ShopContoller {
 		
 		model.addAttribute("payMentVO", paymentVO);
 		model.addAttribute("title", "결제");
-		
+		session.setAttribute("sOrderVOS", orderVos);
 		session.setAttribute("sPaymentVO", paymentVO);
 		return "/shop/payment";
 	}

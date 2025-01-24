@@ -6,7 +6,13 @@
 <head>
   <meta charset="UTF-8">
   <style type="text/css">
-  	#footer {
+  	@font-face { /*눈누 기초고딕 - 두꺼운 네모 딱딱 고딕*/
+	    font-family: 'NoonnuBasicGothicRegular';
+	    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+	    font-weight: normal;
+	    font-style: normal;
+		}
+  	footer {
   		font-family: 'NoonnuBasicGothicRegular';
 	    position: relative;
 	    background-color: transparent;

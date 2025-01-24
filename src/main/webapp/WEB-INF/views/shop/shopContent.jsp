@@ -12,7 +12,6 @@
 		body {
 		  margin: 0;
 		  padding: 0;
-		  background-color: #f4f4f9;
 		  color: #333;
 		}
 		#content-form {

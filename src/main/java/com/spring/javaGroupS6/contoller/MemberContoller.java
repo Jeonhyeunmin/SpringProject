@@ -231,8 +231,6 @@ public class MemberContoller {
 	public String loadReviewsPost(Model model, int shopIdx, int reviewIdx) {
 		ShopVO shopVO = shopService.getShopContent(shopIdx);
 		ShopReviewVO reviewVO = shopService.getMyReview(reviewIdx);
-		System.out.println("shopVO : " + shopVO);
-		System.out.println("reviewVO : " + reviewVO);
 		model.addAttribute("reviewVO", reviewVO);
 		model.addAttribute("shopVO", shopVO);
 		return "/member/loadReviews";

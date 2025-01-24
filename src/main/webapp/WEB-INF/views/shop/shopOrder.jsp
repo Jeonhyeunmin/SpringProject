@@ -446,7 +446,7 @@
 	        totalSum += price;
 	    });
 
-	    document.querySelector(".totalPrice").textContent = totalSum.toLocaleString() + "원";
+	    document.querySelector(".totPrice").textContent = totalSum.toLocaleString() + "원";
 
 	    // 즉시 할인 금액 계산
 	    const itemDiscounts = document.querySelectorAll(".itemDiscount");
@@ -679,7 +679,7 @@
 			    <div class="discount-right">
 	  				<div class="row total-row">
 					    <span class="label">주문금액</span>
-					    <div class="value totalPrice"></div>
+					    <div class="value totPrice"></div>
 					  </div>
 					  <div class="row total-row totalDiscount">
 					    <span class="label">할인</span>
@@ -691,7 +691,7 @@
 					  </div>
 					  <div class="horizontal-line"></div>
 					  <div class="row total-row">
-					    <span class="label total-text">결제금액</span>
+					    <span class="label total-text totalPrice">결제금액</span>
 					    <div class="value"></div>
 					  </div>
 					</div>
