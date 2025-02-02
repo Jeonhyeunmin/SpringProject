@@ -828,8 +828,8 @@
 				  <div class="relative-container">
 					  <input type="text" id="mid" name="mid" placeholder="Min's" required>
 					  <button type="button" class="btn-inside" onclick="idCheck()">중복체크</button>
+					  <span id="midError" style="font-size: 13px; color: #5e0000; text-align: center; margin: 0 auto;"></span>
 					</div>
-				  <span id="midError" style="font-size: 13px; color: #5e0000;"></span>
 				</div>
 				<div class="input-group">
 		      <label style="width: 30%; margin-right: 0;">

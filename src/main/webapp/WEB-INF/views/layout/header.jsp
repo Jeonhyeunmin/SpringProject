@@ -103,7 +103,7 @@
 					window.open(url, "mobieLogin", "width=650px, height=700px, top=150px, left=500px;");
 					
 					 window.onLoginSuccess = function () {
-						 location.href = '${ctp}/common/myPage';
+						 location.reload();
 	        };
 				}
 				else{
@@ -116,7 +116,7 @@
 				window.open(url, "mobieLogin", "width=650px, height=700px, top=150px, left=500px;");
 				
 				 window.onLoginSuccess = function () {
-					 location.href = '${ctp}/common/myPage';
+					 location.reload();
         };
 			}
  	  </script>

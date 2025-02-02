@@ -125,6 +125,10 @@
             <p><strong>구매확정완료</strong></p>
             <p><c:if test="${!empty vo.optionSelect}">[옵션: ${vo.optionSelect}] </c:if>${vo.shopTitle}</p>
             <table class="order-details-table">
+              <tr>
+                <th>제품 가격:</th>
+                <td><fmt:formatNumber value="${vo.price}"/>원</td>
+              </tr>
             	<c:if test="${vo.discount != 0}">
 	              <tr>
 	                <th>즉시할인:</th>
@@ -142,12 +146,8 @@
                 <td><font color="red"><fmt:formatNumber value="${(vo.price * vo.quantity) - vo.totalPrice}"/>원</font></td>
               </tr>
               <tr>
-                <th>단가:</th>
-                <td><fmt:formatNumber value="${vo.price}"/>원 × ${vo.quantity}개</td>
-              </tr>
-              <tr>
-                <th>결제 금액:</th>
-                <td><fmt:formatNumber value="${vo.pay}"/>원</td>
+                <th>수량:</th>
+                <td><fmt:formatNumber value="${vo.quantity}"/>개</td>
               </tr>
               <tr>
                 <th>적립 예정:</th>

@@ -275,50 +275,31 @@
 	    <tbody>
 	      <c:forEach var="shopVO" items="${reviewShopVOS}" varStatus="st">
 	    		<c:set var="option" value="${fn: split(shopVO.optionName, '/')}"/>
-	      	<c:if test="${fn: contains(ClaimReviewIdx, shopVO.idx)}">
-					  <tr onclick="reviewLoad(${shopVO.idx})">
-					    <td><img src="${ctp}/category/${shopVO.thumbnail}" width="50px"></td>
-					    <td>${shopVO.company}</td>
-					    <td>${shopVO.title}<font color="red" size="2px"> * 신고된 리뷰가 있습니다.</font></td>
-					    <td>
-					      <c:if test="${empty option[0]}">
-					        X
-					      </c:if>
-					      <c:if test="${!empty option[0]}">
-					        <c:forEach var="i" begin="0" end="${fn: length(option)-1}">
-					          [${option[i]}]
-					        </c:forEach>
-					      </c:if>
-					    </td>
-					    <td><fmt:formatNumber pattern="#,##0" value="${shopVO.price}"/></td>
-					    <td>${fn: substring(shopVO.WDate, 0, 10)}</td>
-					  </tr>
-					  <tr>
-					    <td colspan="6" class="review-container review-container${shopVO.idx}"></td>
-					  </tr>
-	      	</c:if>
-	      	<c:if test="${!fn: contains(claimReviewVOS, shopVO.idx)}">
-					  <tr onclick="reviewLoad(${shopVO.idx})">
-					    <td><img src="${ctp}/category/${shopVO.thumbnail}" width="50px"></td>
-					    <td>${shopVO.company}</td>
-					    <td>${shopVO.title}</td>
-					    <td>
-					      <c:if test="${empty option[0]}">
-					        X
-					      </c:if>
-					      <c:if test="${!empty option[0]}">
-					        <c:forEach var="i" begin="0" end="${fn: length(option)-1}">
-					          [${option[i]}]
-					        </c:forEach>
-					      </c:if>
-					    </td>
-					    <td><fmt:formatNumber pattern="#,##0" value="${shopVO.price}"/></td>
-					    <td>${fn: substring(shopVO.WDate, 0, 10)}</td>
-					  </tr>
-					  <tr>
-					    <td colspan="6" class="review-container review-container${shopVO.idx}"></td>
-					  </tr>
-				  </c:if>
+				  <tr onclick="reviewLoad(${shopVO.idx})">
+				    <td><img src="${ctp}/category/${shopVO.thumbnail}" width="50px"></td>
+				    <td>${shopVO.company}</td>
+				    <td>
+				    	${shopVO.title}
+			      	<c:if test="${fn: contains(ClaimReviewIdx, shopVO.idx)}">
+					    	<font color="red" size="2px"> * 신고된 리뷰가 있습니다.</font>
+			      	</c:if>
+			    	</td>
+				    <td>
+				      <c:if test="${empty option[0]}">
+				        X
+				      </c:if>
+				      <c:if test="${!empty option[0]}">
+				        <c:forEach var="i" begin="0" end="${fn: length(option)-1}">
+				          [${option[i]}]
+				        </c:forEach>
+				      </c:if>
+				    </td>
+				    <td><fmt:formatNumber pattern="#,##0" value="${shopVO.price}"/></td>
+				    <td>${fn: substring(shopVO.WDate, 0, 10)}</td>
+				  </tr>
+				  <tr>
+				    <td colspan="6" class="review-container review-container${shopVO.idx}"></td>
+				  </tr>
 				</c:forEach>
 	    </tbody>
 	  </table>

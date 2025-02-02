@@ -207,50 +207,52 @@
 
   	  // 데이터 순회하며 테이블 행 생성
   	  events.forEach(function(event) {
-  	    var row = '<tr>';
+  		  if(event.status != "종료"){
+	  	    var row = '<tr>';
+	
+	  	    // 체크박스 열
+	  	    row += '<td><input type="checkbox" id="check' + event.idx + '" class="eventCheck" name="check" value="' + event.idx + '"></td>';
+	
+	  	    // 이벤트 사진
+	  	    row += '<td><img src="${ctp}/event/' + event.thumbnail + '" width="20px"></td>';
+	
+	  	    // 이벤트 제목
+	  	    row += '<td>' + event.title + '</td>';
+	
+	  	    // 이벤트 설명
+	  	    row += '<td>' + event.subTitle + '</td>';
+	
+	  	    // 쿠폰 이름
+	  	    row += '<td>' + event.couponName + '</td>';
+	
+	  	    // 쿠폰 할인률
+	  	    row += '<td>' + event.discount + event.saleUnit + '</td>';
+	
+	  	    // 이벤트 기간
+	  	    row += '<td>' + event.startDate.substring(0, 10) + ' ~ ' + event.endDate.substring(0, 10) + '</td>';
+	
+	  	    // 업로드 날짜
+	  	    row += '<td>' + event.uploadDate.substring(0, 10) + '</td>';
+	
+	  	    // 상태
+	  	    var statusClass = event.status === 'active' ? 'bg-success' : (event.status === '종료' ? 'bg-danger' : 'bg-secondary');
+	  	    var statusLabel = event.status === 'active' ? '진행중' : (event.status === '종료' ? '종료' : '비활성화');
+	  	    row += '<td><span class="badge ' + statusClass + '">' + statusLabel + '</span></td>';
+	
+	  	    // 관리 버튼
+	  	    row += '<td>';
+	  	    if (event.status === 'active') {
+	  	      row += '<button class="btn btn-sm btn-warning" onclick="deactiveEvent(' + event.idx + ')">비활성화</button>';
+	  	    } else if (event.status === 'deactive') {
+	  	      row += '<button class="btn btn-sm btn-activate" onclick="activeEvent(' + event.idx + ')">활성화</button>';
+	  	    }
+	  	    row += '</td>';
+	
+	  	    row += '</tr>';
 
-  	    // 체크박스 열
-  	    row += '<td><input type="checkbox" id="check' + event.idx + '" class="eventCheck" name="check" value="' + event.idx + '"></td>';
-
-  	    // 이벤트 사진
-  	    row += '<td><img src="${ctp}/event/' + event.thumbnail + '" width="20px"></td>';
-
-  	    // 이벤트 제목
-  	    row += '<td>' + event.title + '</td>';
-
-  	    // 이벤트 설명
-  	    row += '<td>' + event.subTitle + '</td>';
-
-  	    // 쿠폰 이름
-  	    row += '<td>' + event.couponName + '</td>';
-
-  	    // 쿠폰 할인률
-  	    row += '<td>' + event.discount + event.saleUnit + '</td>';
-
-  	    // 이벤트 기간
-  	    row += '<td>' + event.startDate.substring(0, 10) + ' ~ ' + event.endDate.substring(0, 10) + '</td>';
-
-  	    // 업로드 날짜
-  	    row += '<td>' + event.uploadDate.substring(0, 10) + '</td>';
-
-  	    // 상태
-  	    var statusClass = event.status === 'active' ? 'bg-success' : (event.status === '종료' ? 'bg-danger' : 'bg-secondary');
-  	    var statusLabel = event.status === 'active' ? '진행중' : (event.status === '종료' ? '종료' : '비활성화');
-  	    row += '<td><span class="badge ' + statusClass + '">' + statusLabel + '</span></td>';
-
-  	    // 관리 버튼
-  	    row += '<td>';
-  	    if (event.status === 'active') {
-  	      row += '<button class="btn btn-sm btn-warning" onclick="deactiveEvent(' + event.idx + ')">비활성화</button>';
-  	    } else if (event.status === 'deactive') {
-  	      row += '<button class="btn btn-sm btn-activate" onclick="activeEvent(' + event.idx + ')">활성화</button>';
-  	    }
-  	    row += '</td>';
-
-  	    row += '</tr>';
-
-  	    // 생성된 행 추가
-  	    tbody.innerHTML += row;
+  	    	// 생성된 행 추가
+  	    	tbody.innerHTML += row;
+  		  }
   	  });
   	}
 
@@ -413,7 +415,7 @@
 	                <h4 class="m-0">등록된 이벤트</h4>
 	              </div>
 	              <div class="align-self-center"> 
-	                <h1><fmt:formatNumber pattern="#,##0" value="${fn: length(orderVOS)}"/>건</h1>
+	                <h1><fmt:formatNumber pattern="#,##0" value="${fn: length(eventVOS)}"/>건</h1>
 	              </div>
 	            </div>
 	          </div>

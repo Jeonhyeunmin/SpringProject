@@ -129,7 +129,7 @@
             <input type="text" class="control" id="mid" name="mid" value="${vo.mid}" readonly>
           </div>
           <button type="submit" class="nextBtn" style="margin-bottom: 5px;">홈으로</button>
-          <input type="button" style="background: gray;" onclick="location.href='${ctp}/common/findAccount'" class="nextBtn" value="비밀번호 찾기"/>
+          <input type="button" style="background: gray;" onclick="location.href='${ctp}/common/idAccount'" class="nextBtn" value="비밀번호 찾기"/>
       </form>
     </div>
   </div>

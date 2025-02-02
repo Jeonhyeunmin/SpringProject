@@ -16,7 +16,6 @@
 			    font-family: Arial, sans-serif;
 			    margin: 0;
 			    padding: 0;
-			    background-color: #f9f9f9;
 				}
         .brand-container {
 			    display: flex;
@@ -393,7 +392,7 @@
     }
   </script>
   
-  <h3 class="new-arrivals-title">Best Product</h3>
+  <h3 class="new-arrivals-title">Recommended Product</h3>
   <div class="new-arrivals-container">
     <!-- 왼쪽 브랜드 버튼 -->
     <div class="brand-buttons">

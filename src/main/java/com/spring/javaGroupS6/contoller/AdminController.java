@@ -506,7 +506,18 @@ public class AdminController {
 	@ResponseBody
 	@PostMapping("/filterEvents")
 	public List<EventVO> filterEventsPost(String keyword, String status) {
-		return adminService.getFilterEvents(keyword, status);
+		List<EventVO> eventVOS = adminService.getFilterEvents(keyword, status);
+		for (EventVO vo : eventVOS) {
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+
+	    LocalDate endDate = LocalDate.parse(vo.getEndDate(), formatter);
+
+	    LocalDate currentDate = LocalDate.now();
+	    if (currentDate.isAfter(endDate)) {
+        vo.setStatus("종료");
+	    }
+		}
+		return eventVOS;
 	}
 	
 	@GetMapping("/couponManage")

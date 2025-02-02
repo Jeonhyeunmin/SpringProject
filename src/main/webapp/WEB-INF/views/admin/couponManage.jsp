@@ -295,18 +295,20 @@
 	      <thead>
 				  <tr>
 				  	<th><input type="checkbox" id="allcheck" onclick="allCheck()" class="allCheckBox"></th>
-				    <th onclick="sortTable(1, 'text')">쿠폰명 <i class="fas fa-sort sort-icon"></i></th>
-				    <th onclick="sortTable(2, 'text')">할인률 <i class="fas fa-sort sort-icon"></i></th>
-				    <th onclick="sortTable(3, 'text')">기간 <i class="fas fa-sort sort-icon"></i></th>
-				    <th onclick="sortTable(4, 'text')">사용여부 <i class="fas fa-sort sort-icon"></i></th>
-				    <th onclick="sortTable(5, 'text')">발급일자 <i class="fas fa-sort sort-icon"></i></th>
-				    <th onclick="sortTable(6, 'text')">사용일자 <i class="fas fa-sort sort-icon"></i></th>
+				    <th onclick="sortTable(1, 'text')">고객 ID <i class="fas fa-sort sort-icon"></i></th>
+				    <th onclick="sortTable(2, 'text')">쿠폰명 <i class="fas fa-sort sort-icon"></i></th>
+				    <th onclick="sortTable(3, 'text')">할인률 <i class="fas fa-sort sort-icon"></i></th>
+				    <th onclick="sortTable(4, 'text')">기간 <i class="fas fa-sort sort-icon"></i></th>
+				    <th onclick="sortTable(5, 'text')">사용여부 <i class="fas fa-sort sort-icon"></i></th>
+				    <th onclick="sortTable(6, 'text')">발급일자 <i class="fas fa-sort sort-icon"></i></th>
+				    <th onclick="sortTable(7, 'text')">사용일자 <i class="fas fa-sort sort-icon"></i></th>
 				  </tr>
 				</thead>
 	      <tbody id="orderList">
 	        <c:forEach var="vo" items="${couponVOS}">
 	          <tr>
 	            <td><input type="checkbox" id="check${vo.idx}" name="check" value="${vo.idx}" onClick="stopPropagation(event); onCheck()"></td>
+	            <td>${vo.mid}</td>
 	            <td>${vo.couponName}</td>
 	            <td>${vo.discount} ${vo.saleUnit}</td>
 	            <td>${fn: substring(vo.startDate, 0, 10)} ~ ${fn: substring(vo.endDate, 0, 10)}</td>

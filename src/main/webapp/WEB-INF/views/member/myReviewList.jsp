@@ -145,7 +145,7 @@
 		
 		/* 수정 폼 활성화 */
 		.review.show {
-		  bottom: 40%;
+		  bottom: 60%;
 		  opacity: 1;
 		}
   </style>

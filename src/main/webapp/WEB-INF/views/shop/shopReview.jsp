@@ -97,6 +97,7 @@
     		alert("상세 리뷰를 입력해주세요");
     		return false;
     	}
+    	alert("리뷰가 등록되었습니다.");
     	reviewForm.submit();
 		}
   </script>

@@ -19,6 +19,8 @@
 				<mapping path="/*/**"/>
 				<exclude-mapping path="/common/login"/>
 				<exclude-mapping path="/common/partnerJoin"/>
+				<exclude-mapping path="/event/event"/>
+				<exclude-mapping path="/shop/filterItem"/>
 				<beans:ref bean="Interceptor"/>
 			</interceptor>
 			
@@ -30,6 +32,7 @@
 				<mapping path="/partner/**"/>
 				<mapping path="/event/**"/> 
 				<mapping path="/common/myPage"/> 
+				<exclude-mapping path="/shop/filterItem"/>
 				<exclude-mapping path="/event/event"/>
 				<exclude-mapping path="/event/eventContent"/>
 				<exclude-mapping path="/shop/search"/>

@@ -55,7 +55,6 @@
 	      color: #555;
 	      margin-top: 2%;
 	      margin-left: 19.5%;
-		    background-color: #fff;
 		    font-family: 'Tenada';
       }
       .breadcrumb a {

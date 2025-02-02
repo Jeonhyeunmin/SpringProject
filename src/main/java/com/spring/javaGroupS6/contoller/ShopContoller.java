@@ -67,6 +67,7 @@ public class ShopContoller {
 
 	@GetMapping("/shopList")
 	public String shopListGet(Model model, HttpServletRequest request, String category) {
+		
 		String realPath = request.getSession().getServletContext().getRealPath("/resources/images/shop/" + category + "/");
 		String files[] = new File(realPath).list();
 		
@@ -231,7 +232,6 @@ public class ShopContoller {
 	@ResponseBody
 	@PostMapping("/subCategoryLoad")
 	public ArrayList<SubCategoryVO> subCategoryLoadPost(String category, String mainCategory) {
-		
 		ArrayList<SubCategoryVO> vos = shopService.getSubCategoryList(category, mainCategory);
 		return vos;
 	}
@@ -285,8 +285,10 @@ public class ShopContoller {
 		vo.setMid(mid);
 		String optionName = vo.getOptionName();
 		String optionPrice= vo.getOptionPrice();
-		vo.setOptionName(optionName.substring(0, optionName.length()-1));
-		vo.setOptionPrice(optionPrice.substring(0, optionPrice.length()-1));
+		if (optionName != null && !optionName.isEmpty() && optionPrice != null && !optionPrice.isEmpty()) {
+	    vo.setOptionName(optionName.substring(0, optionName.length() - 1));
+	    vo.setOptionPrice(optionPrice.substring(0, optionPrice.length() - 1));
+		}
 		int res = shopService.shopInput(vo, titleImg, request);
 		
 		
@@ -317,14 +319,14 @@ public class ShopContoller {
 	@PostMapping("/shopReviewInput")
 	public String shopReviewInputPost(Model model, ShopReviewVO vo, int idx, String mid, int orderIdx) {
 		int res = shopService.setReviewInput(vo, idx, mid);
-		shopService.setPointUp(mid, "10");
+		shopService.setPointUp(mid, "500");
 		shopService.setReviewOk(orderIdx);
 		model.addAttribute("idx", idx);
 		if(res != 0) {
-			return "redirect:/message/reviewInputOk";
+			return "redirect:/common/myPage";
 		}
 		else {
-			return "redirect:/message/reviewInputNo";
+			return "redirect:/common/myPage";
 		}
 	}
 	
@@ -543,7 +545,6 @@ public class ShopContoller {
 			@RequestParam(name = "couponIdx", defaultValue = "0", required = false) String couponIdx,
 			@RequestParam(name = "usePoint", defaultValue = "0", required = false)  int usePoint,
 			int addPoint) {
-		
 		List<ShopOrderVO> orderVos = (List<ShopOrderVO>) session.getAttribute("sOrderVOS");
 		CouponVO couponVO = shopService.getCouponInfo(Integer.parseInt(couponIdx));
 		int tot = 0;
@@ -552,7 +553,7 @@ public class ShopContoller {
 				vo.setCouponDiscount(couponVO.getDiscount());
 				vo.setCoupon(couponVO.getCouponName());
 				vo.setCouponIdx(Integer.parseInt(couponIdx));
-				tot = (vo.getTotalPrice() * couponVO.getDiscount()) / 100;
+				tot = (((vo.getTotalPrice() * couponVO.getDiscount()) / 100) + (vo.getTotalPrice() * vo.getDiscount()) / 100) + usePoint;
 				vo.setTotalPrice(vo.getTotalPrice() - tot);
 			}
 			vo.setAddPoint(addPoint);
@@ -561,7 +562,7 @@ public class ShopContoller {
 		
 		model.addAttribute("payMentVO", paymentVO);
 		model.addAttribute("title", "결제");
-		
+		session.setAttribute("sOrderVOS", orderVos);
 		session.setAttribute("sPaymentVO", paymentVO);
 		return "/shop/payment";
 	}
@@ -590,7 +591,6 @@ public class ShopContoller {
 		List<ShopOrderVO> orderVos = (List<ShopOrderVO>) session.getAttribute("sOrderVOS");
 		model.addAttribute("orderVos", orderVos);
 		model.addAttribute("title", "구매내역");
-		
 		return "shop/paymentResult";
 	}
 	

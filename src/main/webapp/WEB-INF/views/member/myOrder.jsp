@@ -176,7 +176,6 @@
 </head>
 <body>
   <div class="container">
-    <h3 class="text-start mt-4" style="font-weight: bold;">주문 내역</h3>
     <c:if test="${empty orderVOS}">최근 주문 내역이 없습니다</c:if>
     <c:if test="${!empty orderVOS}">
 	    <c:forEach var="vo" items="${orderVOS}">
@@ -190,7 +189,7 @@
 	            <img src="${ctp}/category/${vo.thumbnail}" alt="상품 이미지">
 	          </div>
 	          <div class="order-details">
-	            <p><strong>${vo.decide == 'no' ? '구매 확정 전' : vo.decide}</strong></p>
+	            <p><strong style="${vo.decide == '교환 및 환불' ? 'color: red;' : ''}">${vo.decide == 'NO' ? '구매 확정 전' : vo.decide}</strong></p>
 	            <p><c:if test="${!empty vo.optionSelect}">[옵션: ${vo.optionSelect}] </c:if>${vo.shopTitle}</p>
 	            <table class="order-details-table">
 	              <tr>
@@ -209,7 +208,7 @@
 	          </div>
 	        </div>
 	        <div class="order-actions">
-	          <c:if test="${vo.decide == 'no'}"><button type="button" onclick="buyDecide(${vo.idx})" class="track-btn">구매확정</button></c:if>
+	          <c:if test="${vo.decide == 'NO'}"><button type="button" onclick="buyDecide(${vo.idx})" class="track-btn">구매확정</button></c:if>
 	          <button type="button" class="reorder-btn" onclick="window.open('${ctp}/shop/shopContent?idx=${vo.shopIdx}')"><i class="fas fa-redo"></i> 재구매</button>
 	          <c:if test="${vo.review == 'NO' && vo.decide != '교환 및 환불'}">
 	          	<button type="button" class="review-btn" onclick="location.href='${ctp}/shop/shopReview?idx=${vo.shopIdx}&orderIdx=${vo.idx}'">리뷰쓰기</button>

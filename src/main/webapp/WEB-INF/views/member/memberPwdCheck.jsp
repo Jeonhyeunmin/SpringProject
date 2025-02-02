@@ -15,9 +15,6 @@
 	    font-weight: normal;
 	    font-style: normal;
 		}
-    body {
-      background-color: #f9f9f9;
-    }
     .container {
     	font-family: 'NoonnuBasicGothicRegular';
       max-width: 600px;

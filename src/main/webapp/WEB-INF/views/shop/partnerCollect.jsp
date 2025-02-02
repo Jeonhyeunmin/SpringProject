@@ -237,6 +237,7 @@
 		  display: block;
 		  border-radius: 50%;
 		  z-index: 12;
+		  border: 1px solid gray;
 		}
 		.user-header-inner {
 		  z-index: 5;

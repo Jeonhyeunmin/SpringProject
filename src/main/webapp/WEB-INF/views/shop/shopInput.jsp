@@ -249,12 +249,14 @@
 		}
     
     function subCategoryLoad() {
+    	let category = myform.category.value;
 			let mainCategory = myform.mainCategory.value;
 			
 			$.ajax({
 				type : "post",
 				url : "${ctp}/shop/subCategoryLoad",
 				data : {
+					category : category,
 					mainCategory : mainCategory
 				},
 				success: function(res) {
@@ -414,6 +416,7 @@
 			  optionPrice.type = "number";
 			  optionPrice.name = "optionPrices[]";
 			  optionPrice.placeholder = "옵션 가격";
+			  optionPrice.value = "0";
 			  optionPrice.classList.add("form-control");
 			  
 			  const removeBtn = document.createElement("button");

@@ -12,7 +12,6 @@
 		body {
 		  margin: 0;
 		  padding: 0;
-		  background-color: #f4f4f9;
 		  color: #333;
 		}
 		#content-form {
@@ -865,7 +864,7 @@
 						}
 					},
 					error: function() {
-						alert("전송오류");
+						alert("로그인 후 이용 가능한 서비스입니다");
 					}
 				});
 			}

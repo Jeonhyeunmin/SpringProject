@@ -299,13 +299,13 @@
 
     	  let currentValue = parseInt(input.value) || 1;
     	  currentValue += delta;
-    	  if (currentValue < 1) currentValue = 1; // 최소 1개
-    	  if (currentValue > 5) { // 최대 5개 제한
+    	  if (currentValue > 5) {
     	    alert("5개까지 구매가능한 상품입니다.");
     	    return false;
     	  }
     	  let totalPrice =  priceElement.value / input.value * currentValue;
      		if(currentValue < 1){
+    		  currentValue = 1;
      			alert("장바구니 삭제 버튼을 눌러주세요");
      			return false;
      		}

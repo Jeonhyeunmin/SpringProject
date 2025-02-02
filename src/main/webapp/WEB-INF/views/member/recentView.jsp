@@ -18,7 +18,6 @@
 		}
 		
     body {
-      background-color: #f9f9f9;
       margin: 0;
       padding: 20px;
     }
@@ -225,9 +224,6 @@
   </script>
 </head>
 <body>
-  <div class="header">
-    <h4>최근 본 상품</h4>
-  </div>
   <div class="cart-list-check">
     <input type="checkbox" id="allcheck" onclick="allCheck()" class="allCheckBox">
     <button type="button" class="selectDelete" onclick="selectCookieDelete()">선택삭제</button>

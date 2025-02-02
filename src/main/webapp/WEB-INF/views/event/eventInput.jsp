@@ -13,7 +13,6 @@
   <style>
     body {
       font-family: 'Roboto', sans-serif;
-      background-color: #f5f7fa;
       color: #333;
       margin: 0;
       padding: 0;
@@ -21,12 +20,8 @@
 
     .container {
       width: 90%;
-      max-width: 900px;
-      margin: 50px auto;
       background-color: #fff;
       padding: 40px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
