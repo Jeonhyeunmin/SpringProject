@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.spring.javaGroupS6.common.PageProcess;
 import com.spring.javaGroupS6.service.AdminService;
 import com.spring.javaGroupS6.service.CommonService;
 import com.spring.javaGroupS6.service.MemberService;
@@ -39,6 +40,9 @@ public class AdminController {
 	
 	@Autowired
 	CommonService commonService;
+	
+	@Autowired
+	PageProcess pageProcess;
 	
 	@GetMapping("/admin")
 	public String adminGet(Model model) {
@@ -106,10 +110,13 @@ public class AdminController {
 	
 	@GetMapping("/userManage")
 	public String userManageGet(Model model,
-			@RequestParam(name = "userDel", defaultValue = "all", required = false) String userDel
+			@RequestParam(name = "userDel", defaultValue = "all", required = false) String userDel,
+			@RequestParam(name="pag", defaultValue = "1", required = false) int pag,
+			@RequestParam(name="pageSize", defaultValue = "5", required = false) int pageSize
 	) {
+		pageProcess.totRecCnt(model, pag, pageSize, "customer", "admin", userDel);
 		ArrayList<MemberVO> customerVOS = adminService.getCutomerList(userDel);
-		model.addAttribute("customerVOS", customerVOS);
+		model.addAttribute("customerCnt", customerVOS.size());
 		return "admin/userManage";
 	}
 	
@@ -129,10 +136,13 @@ public class AdminController {
 	
 	@GetMapping("/partnerManage")
 	public String partnerManageGet(Model model,
-			@RequestParam(name = "accept", defaultValue = "all", required = false) String accept
+			@RequestParam(name = "accept", defaultValue = "all", required = false) String accept,
+			@RequestParam(name="pag", defaultValue = "1", required = false) int pag,
+			@RequestParam(name="pageSize", defaultValue = "5", required = false) int pageSize
 	) {
+		pageProcess.totRecCnt(model, pag, pageSize, "partner", "admin", accept);
 		ArrayList<PartnerVO> partnerVOS = adminService.getPartnerList(accept);
-		model.addAttribute("partnerVOS", partnerVOS);
+		model.addAttribute("partnerCnt", partnerVOS.size());
 		return "admin/partnerManage";
 	}
 	
@@ -144,7 +154,11 @@ public class AdminController {
 	}
 	
 	@GetMapping("/orderManage")
-	public String orderManageGet(Model model) {
+	public String orderManageGet(Model model,
+			@RequestParam(name="pag", defaultValue = "1", required = false) int pag,
+			@RequestParam(name="pageSize", defaultValue = "5", required = false) int pageSize
+	) {
+		pageProcess.totRecCnt(model, pag, pageSize, "shopOrder", "admin", "");
 		int totalSell = 0;
 		
 		ArrayList<ShopOrderVO> orderVOS = adminService.getOrderList();
@@ -160,19 +174,25 @@ public class AdminController {
 	
 	@GetMapping("/acceptPost")
 	public String acceptPostGet(Model model,
-			@RequestParam(name = "accept", defaultValue = "NO", required = false) String accept
+			@RequestParam(name = "accept", defaultValue = "NO", required = false) String accept,
+			@RequestParam(name="pag", defaultValue = "1", required = false) int pag,
+			@RequestParam(name="pageSize", defaultValue = "5", required = false) int pageSize
 	) {
+		pageProcess.totRecCnt(model, pag, pageSize, "shop", "adminAccept", accept);
 		ArrayList<ShopVO> shopVOS = adminService.getShopList(accept, "");
-		model.addAttribute("shopVOS", shopVOS);
+		model.addAttribute("shopCnt", shopVOS.size());
 		return "admin/acceptPost";
 	}
 	
 	@GetMapping("/claimPost")
 	public String claimPostGet(Model model,
-			@RequestParam(name = "claim", defaultValue = "YES", required = false) String claim
+			@RequestParam(name = "claim", defaultValue = "YES", required = false) String claim,
+			@RequestParam(name="pag", defaultValue = "1", required = false) int pag,
+			@RequestParam(name="pageSize", defaultValue = "5", required = false) int pageSize
 	) {
+		pageProcess.totRecCnt(model, pag, pageSize, "shop", "adminClaim", claim);
 		ArrayList<ShopVO> shopVOS = adminService.getShopList("", claim);
-		model.addAttribute("shopVOS", shopVOS);
+		model.addAttribute("shopCnt", shopVOS.size());
 		return "admin/claimPost";
 	}
 	
@@ -187,7 +207,6 @@ public class AdminController {
 				ClaimReviewIdx.add(vo.getShopIdx());
 			}
 		}
-		
 		
 		model.addAttribute("reviewShopVOS", reviewShopVOS);
 		model.addAttribute("reviewVOS", reviewVOS);
@@ -396,7 +415,10 @@ public class AdminController {
 	}
 	
 	@GetMapping("/adjustmentManage")
-	public String adjustmentManageGet(Model model) {
+	public String adjustmentManageGet(Model model,
+			@RequestParam(name="pag", defaultValue = "1", required = false) int pag,
+			@RequestParam(name="pageSize", defaultValue = "5", required = false) int pageSize
+	) {
 		int totalSell = 0;
 		int adjustment = 0;
 		ArrayList<ShopOrderVO> vos = adminService.getAdjustMentList();
@@ -408,10 +430,9 @@ public class AdminController {
 				orderVOS.add(vo);
 			}
 		}
-		
+		pageProcess.totRecCnt(model, pag, pageSize, "shopOrder", "adminAdjustment", "");
 		model.addAttribute("totalSell", totalSell);
 		model.addAttribute("adjustment", adjustment);
-		model.addAttribute("orderVOS", orderVOS);
 		return "admin/adjustmentManage";
 	}
 	
@@ -521,10 +542,14 @@ public class AdminController {
 	}
 	
 	@GetMapping("/couponManage")
-	public String couponManageGet(Model model) {
+	public String couponManageGet(Model model,
+			@RequestParam(name="pag", defaultValue = "1", required = false) int pag,
+			@RequestParam(name="pageSize", defaultValue = "7", required = false) int pageSize
+	) {
+		pageProcess.totRecCnt(model, pag, pageSize, "coupon", "adminCoupon", "");
 		ArrayList<CouponVO> couponVOS = adminService.getCouponList();
 		
-		model.addAttribute("couponVOS", couponVOS);
+		model.addAttribute("couponCnt", couponVOS.size());
 		
 		return "admin/couponManage";
 	}

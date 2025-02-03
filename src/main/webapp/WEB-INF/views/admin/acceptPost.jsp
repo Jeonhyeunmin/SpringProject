@@ -310,7 +310,7 @@
 		                <h4 class="m-0">게시물 승인</h4>
 		              </div>
 		              <div class="align-self-center">
-		                <h1>${fn: length(shopVOS)}건</h1>
+		                <h1>${shopCnt}건</h1>
 		              </div>
 		            </div>
 		          </div>
@@ -340,7 +340,7 @@
 		      </tr>
 		    </thead>
 		    <tbody>
-		      <c:forEach var="shopVO" items="${shopVOS}" varStatus="st">
+		      <c:forEach var="shopVO" items="${vos}" varStatus="st">
 		        <c:set var="option" value="${fn: split(shopVO.optionName, '/')}"/>
 		        <c:set var="optionPrice" value="${fn: split(shopVO.optionPrice, '/')}"/>
 		        <tr onclick="location.href='${ctp}/shop/shopContent?idx=${shopVO.idx}'">
@@ -380,9 +380,23 @@
 		    </tbody>
 		  </table>
 		</div>
-	  <c:set var="minIdx" value="${shopVOS[0].idx}"/>
-	  <c:set var="maxSize" value="${fn:length(shopVOS)-1}"/>
-	  <c:set var="maxIdx" value="${shopVOS[maxSize].idx}"/>
+		<!-- 블록페이지 시작 -->
+		<div class="text-center">
+		  <ul class="pagination justify-content-center">
+			  <c:if test="${pag > 1}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/admin/accpetPost?part=${part}&pag=1&pageSize=${pageSize}">첫페이지</a></li></c:if>
+			  <c:if test="${curBlock > 0}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/admin/accpetPost?part=${part}&pag=${(curBlock-1)*blockSize + 1}&pageSize=${pageSize}">이전블록</a></li></c:if>
+			  <c:forEach var="i" begin="${(curBlock*blockSize)+1}" end="${(curBlock*blockSize) + blockSize}" varStatus="st">
+			    <c:if test="${i <= totPage && i == pag}"><li class="page-item active"><a class="page-link bg-secondary border-secondary" href="${ctp}/admin/accpetPost?part=${part}&pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if>
+			    <c:if test="${i <= totPage && i != pag}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/admin/accpetPost?part=${part}&pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if>
+			  </c:forEach>
+			  <c:if test="${curBlock < lastBlock}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/admin/accpetPost?part=${part}&pag=${(curBlock+1)*blockSize+1}&pageSize=${pageSize}">다음블록</a></li></c:if>
+			  <c:if test="${pag < totPage}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/admin/accpetPost?part=${part}&pag=${totPage}&pageSize=${pageSize}">마지막페이지</a></li></c:if>
+		  </ul>
+		</div>
+		<!-- 블록페이지 끝 -->
+	  <c:set var="minIdx" value="${vos[0].idx}"/>
+	  <c:set var="maxSize" value="${fn:length(vos)-1}"/>
+	  <c:set var="maxIdx" value="${vos[maxSize].idx}"/>
 	  <input type="hidden" id="minIdx" name="minIdx" value="${minIdx}"/>
 	  <input type="hidden" id="maxIdx" name="maxIdx" value="${maxIdx}"/>
   </div>

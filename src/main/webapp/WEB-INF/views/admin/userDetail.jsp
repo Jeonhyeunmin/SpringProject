@@ -167,7 +167,7 @@
 					success: function(res) {
 						if(res != "0"){
 							alert("회원 정보가 삭제되었습니다.");
-							location.reload();
+							location.href='${ctp}/admin/userManage';
 						}
 					},
 					error: function() {

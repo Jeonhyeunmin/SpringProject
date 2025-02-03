@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.spring.javaGroupS6.common.PageProcess;
 import com.spring.javaGroupS6.service.CommonService;
 import com.spring.javaGroupS6.service.PartnerService;
 import com.spring.javaGroupS6.service.ShopService;
@@ -39,6 +40,9 @@ public class PartnerContoller {
 	
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+	PageProcess pageProcess;
 	
 	@GetMapping("/myPage")
 	public String myPageGet(Model model, HttpSession session) {
@@ -96,11 +100,18 @@ public class PartnerContoller {
 	}
 	
 	@GetMapping("/shopList")
-	public String shopListGet(Model model, HttpSession session) {
+	public String shopListGet(Model model, HttpSession session,
+			@RequestParam(name="pag", defaultValue = "1", required = false) int pag,
+			@RequestParam(name="pageSize", defaultValue = "15", required = false) int pageSize
+	) {
 		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
+		pageProcess.totRecCnt(model, pag, pageSize, "shop", "partner", mid);
+		
+		
 		ArrayList<ShopVO> shopVOS = partnerService.getShopList(mid);
 		
-		model.addAttribute("shopVOS", shopVOS);
+		model.addAttribute("shopCnt", shopVOS.size());
+		
 		return "/partner/myShopList";
 	}
 	

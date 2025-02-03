@@ -267,7 +267,7 @@
 		                <h4 class="m-0">${param.userDel == 'YES' ? '탈퇴신청 고객' : '고객'}</h4>
 		              </div>
 		              <div class="align-self-center">
-		                <h1><fmt:formatNumber pattern="#,##0" value="${fn: length(customerVOS)}"/>명</h1>
+		                <h1><fmt:formatNumber pattern="#,##0" value="${customerCnt}"/>명</h1>
 		              </div>
 		            </div>
 		          </div>
@@ -282,7 +282,7 @@
 		</div>
 		<div class="row">
 		  <div class="col-md-4">
-		    <input type="text" id="searchKeyword" class="form-control" placeholder="상품명, 업체명 검색">
+		    <input type="text" id="searchKeyword" class="form-control" placeholder="고객명, 아이디 검색">
 		  </div>
 		  <div class="col-md-3">
 		    <button class="btn btn-primary w-100" onclick="nameSerch()">검색</button>
@@ -304,7 +304,7 @@
         </tr>
 	    </thead>
 	    <tbody>
-        <c:forEach var="vo" items="${customerVOS}">
+        <c:forEach var="vo" items="${vos}">
           <c:if test="${vo.level != 0}">
             <tr onclick="location.href='${ctp}/admin/userDetail?idx=${vo.idx}'">
               <td><img src="${ctp}/member/${vo.photo}" class="img-thumbnail" width="50px"></td>
@@ -331,6 +331,20 @@
         </c:forEach>
 	    </tbody>
 	</table>
+	<!-- 블록페이지 시작 -->
+	<div class="text-center">
+	  <ul class="pagination justify-content-center">
+		  <c:if test="${pag > 1}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/admin/userManage?part=${part}&pag=1&pageSize=${pageSize}">첫페이지</a></li></c:if>
+		  <c:if test="${curBlock > 0}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/admin/userManage?part=${part}&pag=${(curBlock-1)*blockSize + 1}&pageSize=${pageSize}">이전블록</a></li></c:if>
+		  <c:forEach var="i" begin="${(curBlock*blockSize)+1}" end="${(curBlock*blockSize) + blockSize}" varStatus="st">
+		    <c:if test="${i <= totPage && i == pag}"><li class="page-item active"><a class="page-link bg-secondary border-secondary" href="${ctp}/admin/userManage?part=${part}&pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if>
+		    <c:if test="${i <= totPage && i != pag}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/admin/userManage?part=${part}&pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if>
+		  </c:forEach>
+		  <c:if test="${curBlock < lastBlock}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/admin/userManage?part=${part}&pag=${(curBlock+1)*blockSize+1}&pageSize=${pageSize}">다음블록</a></li></c:if>
+		  <c:if test="${pag < totPage}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/admin/userManage?part=${part}&pag=${totPage}&pageSize=${pageSize}">마지막페이지</a></li></c:if>
+	  </ul>
+	</div>
+	<!-- 블록페이지 끝 -->
 
   </div>
   <c:set var="minIdx" value="${customerVOS[0].idx}"/>

@@ -25,7 +25,7 @@
 			}
 			.grid-container {
 		    display: grid;
-		    grid-template-columns: repeat(4, 1fr);
+		    grid-template-columns: repeat(5, 1fr);
 		    gap: 20px;
 		    padding: 10px;
 		  }
@@ -165,9 +165,9 @@
     </script>
 </head>
 <body>
-	<h3 class="text-start mt-4" style="font-weight: bold;">게시물 리스트</h3>
+	<h3 class="text-start mt-4" style="font-weight: bold;">게시물 리스트 (${shopCnt}건)</h3>
 	<div class="grid-container">
-	  <c:forEach var="vo" items="${shopVOS}" varStatus="st">
+	  <c:forEach var="vo" items="${vos}" varStatus="st">
 	    <div class="grid-item">
 	      <c:if test="${vo.discount != 0}">
 	      	<div class="discount-badge">${vo.company} ${vo.discount}%</div>
@@ -183,16 +183,24 @@
 	        <div class="title" onclick="window.open('${ctp}/shop/shopContent?idx=${vo.idx}')">${vo.title}</div>
 	        <div class="price"><fmt:formatNumber value="${vo.price}" pattern="#,##0"/>원</div>
 	        <div class="company-category">${vo.company} | ${fn:toUpperCase(vo.category)}</div>
-	        <c:if test="${vo.reviewCnt != 0}">
-		        <div class="rating">
-		          <i class="fa-solid fa-star"></i>
-		          ${vo.star}점 | ${vo.reviewCnt}개
-		        </div>
-	        </c:if>
 	      </div>
 	    </div>
 	  </c:forEach>
 	</div>
+	<!-- 블록페이지 시작 -->
+	<div class="text-center">
+	  <ul class="pagination justify-content-center">
+		  <c:if test="${pag > 1}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/partner/shopList?part=${part}&pag=1&pageSize=${pageSize}">첫페이지</a></li></c:if>
+		  <c:if test="${curBlock > 0}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/partner/shopList?part=${part}&pag=${(curBlock-1)*blockSize + 1}&pageSize=${pageSize}">이전블록</a></li></c:if>
+		  <c:forEach var="i" begin="${(curBlock*blockSize)+1}" end="${(curBlock*blockSize) + blockSize}" varStatus="st">
+		    <c:if test="${i <= totPage && i == pag}"><li class="page-item active"><a class="page-link bg-secondary border-secondary" href="${ctp}/partner/shopList?part=${part}&pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if>
+		    <c:if test="${i <= totPage && i != pag}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/partner/shopList?part=${part}&pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if>
+		  </c:forEach>
+		  <c:if test="${curBlock < lastBlock}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/partner/shopList?part=${part}&pag=${(curBlock+1)*blockSize+1}&pageSize=${pageSize}">다음블록</a></li></c:if>
+		  <c:if test="${pag < totPage}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/partner/shopList?part=${part}&pag=${totPage}&pageSize=${pageSize}">마지막페이지</a></li></c:if>
+	  </ul>
+	</div>
+	<!-- 블록페이지 끝 -->
   
   
   

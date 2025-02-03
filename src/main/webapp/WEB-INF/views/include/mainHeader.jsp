@@ -946,38 +946,10 @@
 									            <li><a href="${ctp}/shop/shopSubList?category=sports&mainCategory=골프&subCategory=골프용품">골프용품</a></li>
 									        </ul>
 									    </li>
-									    <li data-category="sports" class="sub-category-item">
-									        <h3><a>수영/스키/시즌</a></h3>
-									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?category=sports&mainCategory=수영/스키/시즌&subCategory=여성 수영복">여성 수영복</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=sports&mainCategory=수영/스키/시즌&subCategory=여성 래쉬가드">여성 래쉬가드</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=sports&mainCategory=수영/스키/시즌&subCategory=남성 수영복">남성 수영복</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=sports&mainCategory=수영/스키/시즌&subCategory=남성 래쉬가드">남성 래쉬가드</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=sports&mainCategory=수영/스키/시즌&subCategory=아동 수영복">아동 수영복</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=sports&mainCategory=수영/스키/시즌&subCategory=아동 래쉬가드">아동 래쉬가드</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=sports&mainCategory=수영/스키/시즌&subCategory=수경/수영모/수영용품">수경/수영모/수영용품</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=sports&mainCategory=수영/스키/시즌&subCategory=비치백/수영가방">비치백/수영가방</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=sports&mainCategory=수영/스키/시즌&subCategory=물놀이 용품">물놀이 용품</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=sports&mainCategory=수영/스키/시즌&subCategory=요트">요트</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=sports&mainCategory=수영/스키/시즌&subCategory=스키/보드복">스키/보드복</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=sports&mainCategory=수영/스키/시즌&subCategory=스키/보드 용품">스키/보드 용품</a></li>
-									        </ul>
-									    </li>
 									    <li data-category="children" class="sub-category-item">
 									        <h3><a>신생아 의류</a></h3>
 									        <ul>
 									            <li><a href="${ctp}/shop/shopSubList?category=children&mainCategory=신생아 의류&subCategory=실내복">실내복</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=children&mainCategory=신생아 의류&subCategory=실외복">실외복</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=children&mainCategory=신생아 의류&subCategory=세트">세트</a></li>
-									        </ul>
-									    </li>
-									    <li data-category="children" class="sub-category-item">
-									        <h3><a>교구/완구</a></h3>
-									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?category=children&mainCategory=교구/완구&subCategory=아동/유아 장난감">아동/유아 장난감</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=children&mainCategory=교구/완구&subCategory=피규어">피규어</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=children&mainCategory=교구/완구&subCategory=미술용품/악기">미술용품/악기</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=children&mainCategory=교구/완구&subCategory=서적">서적</a></li>
 									        </ul>
 									    </li>
 									    <li data-category="children" class="sub-category-item">
@@ -993,90 +965,6 @@
 									            <li><a href="${ctp}/shop/shopSubList?category=children&mainCategory=유아의류&subCategory=우주복">우주복</a></li>
 									        </ul>
 									    </li>
-									    <li data-category="living" class="sub-category-item">
-									        <h3><a>거실/침실 가구</a></h3>
-									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=거실/침실 가구&subCategory=소파">소파</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=거실/침실 가구&subCategory=거실장/서랍장">거실장/서랍장</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=거실/침실 가구&subCategory=테이블">테이블</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=거실/침실 가구&subCategory=스톰/의자">스톰/의자</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=거실/침실 가구&subCategory=침대">침대</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=거실/침실 가구&subCategory=장롱/옷장">장롱/옷장</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=거실/침실 가구&subCategory=협탁/콘솔/화장대">협탁/콘솔/화장대</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=거실/침실 가구&subCategory=책상/의자/세트">책상/의자/세트</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=거실/침실 가구&subCategory=식탁/의자/세트">식탁/의자/세트</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=거실/침실 가구&subCategory=리바트 세계가구">리바트 세계가구</a></li>
-									        </ul>
-									    </li>
-									    <li data-category="living" class="sub-category-item">
-									        <h3><a>침구/패브릭</a></h3>
-									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=침구/패브릭&subCategory=침구단품/세트">침구단품/세트</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=침구/패브릭&subCategory=카페트/러그/대자리">카페트/러그/대자리</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=침구/패브릭&subCategory=베개/베개솜/베개커버">베개/베개솜/베개커버</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=침구/패브릭&subCategory=쿠션/방석/커튼">쿠션/방석/커튼</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=침구/패브릭&subCategory=기타/패브릭">기타/패브릭</a></li>
-									        </ul>
-									    </li>
-									    <li data-category="living" class="sub-category-item">
-									        <h3><a>홈데코/소품</a></h3>
-									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=홈데코/소품&subCategory=조명">조명</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=홈데코/소품&subCategory=주방조명/데코">주방조명/데코</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=홈데코/소품&subCategory=수납/정리">수납/정리</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=홈데코/소품&subCategory=캔들/방향제/디퓨저">캔들/방향제/디퓨저</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=홈데코/소품&subCategory=액자/시계/거울">액자/시계/거울</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=홈데코/소품&subCategory=디자인소품">디자인소품</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=홈데코/소품&subCategory=생활소품">생활소품</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=홈데코/소품&subCategory=화병">화병</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=홈데코/소품&subCategory=손/발 관리용품">손/발 관리용품</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=홈데코/소품&subCategory=기타 생활용품">기타 생활용품</a></li>
-									        </ul>
-									    </li>
-									    <li data-category="living" class="sub-category-item">
-									        <h3><a>바디/욕실용품</a></h3>
-									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=바디/욕실용품&subCategory=바디용품">바디용품</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=바디/욕실용품&subCategory=비누/세정제">비누/세정제</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=바디/욕실용품&subCategory=방향제/습기제거제">방향제/습기제거제</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=바디/욕실용품&subCategory=욕실/목욕용품">욕실/목욕용품</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=바디/욕실용품&subCategory=기타 욕실잡화">기타 욕실잡화</a></li>
-									        </ul>
-									    </li>
-									    <li data-category="living" class="sub-category-item">
-									        <h3><a>주방용품/식기</a></h3>
-									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=주방용품/식기&subCategory=냄비">냄비</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=주방용품/식기&subCategory=후라이팬">후라이팬</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=주방용품/식기&subCategory=압력솥/주전자">압력솥/주전자</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=주방용품/식기&subCategory=칼/조리기구">칼/조리기구</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=주방용품/식기&subCategory=주방잡화">주방잡화</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=주방용품/식기&subCategory=컵/머그/잔">컵/머그/잔</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=주방용품/식기&subCategory=보관용기">보관용기</a></li>
-									        </ul>
-									    </li>
-									    <li data-category="living" class="sub-category-item">
-									        <h3><a>종합/생활가전</a></h3>
-									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=종합/생활가전&subCategory=주방가전">주방가전</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=종합/생활가전&subCategory=생활가전">생활가전</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=종합/생활가전&subCategory=TV">TV</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=종합/생활가전&subCategory=냉장고">냉장고</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=종합/생활가전&subCategory=세탁기">세탁기</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=종합/생활가전&subCategory=계절가전">계절가전</a></li>
-									        </ul>
-									    </li>
-									    <li data-category="living" class="sub-category-item">
-									        <h3><a>디지털/오디오</a></h3>
-									        <ul>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=디지털/오디오&subCategory=스마트폰/휴대폰">스마트폰/휴대폰</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=디지털/오디오&subCategory=컴퓨터/주변기기">컴퓨터/주변기기</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=디지털/오디오&subCategory=디지털카메라">디지털카메라</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=디지털/오디오&subCategory=카메라 주변기기">카메라 주변기기</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=디지털/오디오&subCategory=모바일 악세서리">모바일 악세서리</a></li>
-									            <li><a href="${ctp}/shop/shopSubList?category=living&mainCategory=디지털/오디오&subCategory=오디오">오디오</a></li>
-									        </ul>
-									    </li>
 										</ul>
 						        <div class="divider"></div>
 						        <ul class="main-category">
@@ -1087,7 +975,6 @@
 					            <li class="category-item" data-target="casual" onclick="location.href='${ctp}/shop/shopList?category=CASUAL'">진/캐주얼</li>
 					            <li class="category-item" data-target="sports" onclick="location.href='${ctp}/shop/shopList?category=SPORTS'">스포츠/레저</li>
 					            <li class="category-item" data-target="children" onclick="location.href='${ctp}/shop/shopList?category=CHILDREN'">유아동</li>
-					            <li class="category-item" data-target="living" onclick="location.href='${ctp}/shop/shopList?category=LIVING'">리빙/가전</li>
 						        </ul>
 							    </div>
 							</li>

@@ -10,6 +10,7 @@
   <style>
     /* 로고 섹션 */
     .sidebar .logo {
+    	font-family: Arial, sans-serif;
       font-size: 22px;
       font-weight: bold;
       margin-bottom: 30px;

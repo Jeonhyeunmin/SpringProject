@@ -106,43 +106,6 @@
 	  }
   </style>
   <script type="text/javascript">
-		function allCheck(){
-    	let minIdx = parseInt(document.getElementById("minIdx").value);
-      let maxIdx = parseInt(document.getElementById("maxIdx").value);
-      if(document.getElementById("allcheck").checked){
-        for(let i=minIdx;i<=maxIdx;i++){
-          if($("#check"+i).length != 0){
-            document.getElementById("check"+i).checked=true;
-          }
-        }
-      }
-      else {
-        for(let i=minIdx;i<=maxIdx;i++){
-          if($("#check"+i).length != 0){
-            document.getElementById("check"+i).checked=false;
-          }
-        }
-      }
-    }
-  	
-  	function onCheck() {
-      let minIdx = parseInt(document.getElementById("minIdx").value);
-      let maxIdx = parseInt(document.getElementById("maxIdx").value);
-      
-      let emptyCnt=0;
-      for(let i=minIdx;i<=maxIdx;i++){
-        if($("#check"+i).length != 0 && document.getElementById("check"+i).checked==false){
-          emptyCnt++;
-          break;
-        }
-      }
-      if(emptyCnt!=0){
-        document.getElementById("allcheck").checked=false;
-      } 
-      else {
-        document.getElementById("allcheck").checked=true;
-      }
-    }
   	
   	function stopPropagation(event) {
 	    event.stopPropagation(); // 이벤트 버블링을 중단
@@ -273,7 +236,7 @@
 		                <h4 class="m-0">쿠폰 발급 수</h4>
 		              </div>
 		              <div class="align-self-center">
-		                <h1><fmt:formatNumber pattern="#,##0" value="${fn: length(couponVOS)}"/>개</h1>
+		                <h1><fmt:formatNumber pattern="#,##0" value="${couponCnt}"/>개</h1>
 		              </div>
 		            </div>
 		          </div>
@@ -294,7 +257,6 @@
 	    <table class="table table-striped">
 	      <thead>
 				  <tr>
-				  	<th><input type="checkbox" id="allcheck" onclick="allCheck()" class="allCheckBox"></th>
 				    <th onclick="sortTable(1, 'text')">고객 ID <i class="fas fa-sort sort-icon"></i></th>
 				    <th onclick="sortTable(2, 'text')">쿠폰명 <i class="fas fa-sort sort-icon"></i></th>
 				    <th onclick="sortTable(3, 'text')">할인률 <i class="fas fa-sort sort-icon"></i></th>
@@ -305,9 +267,8 @@
 				  </tr>
 				</thead>
 	      <tbody id="orderList">
-	        <c:forEach var="vo" items="${couponVOS}">
+	        <c:forEach var="vo" items="${vos}">
 	          <tr>
-	            <td><input type="checkbox" id="check${vo.idx}" name="check" value="${vo.idx}" onClick="stopPropagation(event); onCheck()"></td>
 	            <td>${vo.mid}</td>
 	            <td>${vo.couponName}</td>
 	            <td>${vo.discount} ${vo.saleUnit}</td>
@@ -322,9 +283,23 @@
 	        </c:forEach>
 	      </tbody>
 	    </table>
-	    <c:set var="maxIdx" value="${couponVOS[0].idx}"/>
-		  <c:set var="maxSize" value="${fn:length(couponVOS)-1}"/>
-		  <c:set var="minIdx" value="${couponVOS[maxSize].idx}"/>
+	    <!-- 블록페이지 시작 -->
+			<div class="text-center">
+			  <ul class="pagination justify-content-center">
+				  <c:if test="${pag > 1}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/admin/couponManage?part=${part}&pag=1&pageSize=${pageSize}">첫페이지</a></li></c:if>
+				  <c:if test="${curBlock > 0}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/admin/couponManage?part=${part}&pag=${(curBlock-1)*blockSize + 1}&pageSize=${pageSize}">이전블록</a></li></c:if>
+				  <c:forEach var="i" begin="${(curBlock*blockSize)+1}" end="${(curBlock*blockSize) + blockSize}" varStatus="st">
+				    <c:if test="${i <= totPage && i == pag}"><li class="page-item active"><a class="page-link bg-secondary border-secondary" href="${ctp}/admin/couponManage?part=${part}&pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if>
+				    <c:if test="${i <= totPage && i != pag}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/admin/couponManage?part=${part}&pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if>
+				  </c:forEach>
+				  <c:if test="${curBlock < lastBlock}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/admin/couponManage?part=${part}&pag=${(curBlock+1)*blockSize+1}&pageSize=${pageSize}">다음블록</a></li></c:if>
+				  <c:if test="${pag < totPage}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/admin/couponManage?part=${part}&pag=${totPage}&pageSize=${pageSize}">마지막페이지</a></li></c:if>
+			  </ul>
+			</div>
+			<!-- 블록페이지 끝 -->
+	    <c:set var="maxIdx" value="${vos[0].idx}"/>
+		  <c:set var="maxSize" value="${fn:length(vos)-1}"/>
+		  <c:set var="minIdx" value="${vos[maxSize].idx}"/>
 		  <input type="hidden" id="minIdx" name="minIdx" value="${minIdx}"/>
 		  <input type="hidden" id="maxIdx" name="maxIdx" value="${maxIdx}"/>
 	  </div>
