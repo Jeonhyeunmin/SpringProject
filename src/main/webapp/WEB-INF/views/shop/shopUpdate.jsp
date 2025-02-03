@@ -449,7 +449,7 @@
     <form name="myform" enctype="multipart/form-data" method="post" action="${ctp}/shop/shopUpdate">
       <div class="form-group">
         <div class="section-title">업체명</div>
-        <input type="text" name="company" id="company" class="form-control" value="${sCompany}">
+        <input type="text" name="company" id="company" class="form-control" value="${vo.company}" readonly>
       </div>
 
       <div class="form-group">

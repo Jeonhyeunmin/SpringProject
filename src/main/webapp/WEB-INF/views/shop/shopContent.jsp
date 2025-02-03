@@ -1171,7 +1171,7 @@
 					  	<c:if test="${sLevel == 0 && vo.accept == 'NO'}"><button type="button" onclick="accept()" class="btn btn-outline-success mt-3 ms-4">승인</button></c:if>
 				    	<c:if test="${sLevel == 0 && vo.claim == 'YES'}"><button type="button" onclick="shopClaimNo(${shopVO.idx})" class="btn btn-outline-warning mt-3 ms-1">신고해제</button></c:if>
 				    	<c:if test="${sLevel == 0 || vo.mid == sMid}"><button type="button" onclick="shopDelete(${vo.idx})" class="btn btn-outline-danger mt-3 ms-1">삭제</button></c:if>
-				    	<c:if test="${sLevel == 0 || vo.mid == sMid}"><button type="button" onclick="location.href='${ctp}/shop/shopUpdate?idx=${vo.idx}'" class="btn btn-dark mt-3 ms-1">수정</button></c:if>
+				    	<c:if test="${vo.mid == sMid}"><button type="button" onclick="location.href='${ctp}/shop/shopUpdate?idx=${vo.idx}'" class="btn btn-dark mt-3 ms-1">수정</button></c:if>
 						</form>
 					</div>
 				</div>
