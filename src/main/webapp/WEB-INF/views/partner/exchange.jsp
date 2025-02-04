@@ -47,7 +47,7 @@
 	  
   </style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 	<form name="myform">
 	  <div class="list-container">
 		  <h4 class="text-start mt-4" style="font-weight: bold;">교환 및 환불 <font color="red" size="2px"> * 담당자는 3일 이내로 구매자에게 연락 부탁 후 처리 부탁드립니다.</font></h4>
@@ -69,7 +69,7 @@
 		        </tr>
 		      </thead>
 		      <tbody>
-		      	<c:if test="${empty orderVos}">
+		      	<c:if test="${empty orderVOS}">
 		      		<tr><td colspan="11">교환 및 환불 내역이 없습니다.</td></tr>
 		      	</c:if>
 					  <c:forEach var="vo" items="${orderVOS}" varStatus="status">

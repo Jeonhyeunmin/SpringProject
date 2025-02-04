@@ -13,6 +13,7 @@
 		<if test='user == "adminAccept" and condition == "NO" and type =="shop"'>where accept = 'NO'</if>
 	  <if test='user == "adminClaim" and condition == "YES" and type =="shop"'>where claim = 'YES'</if>
 	  <if test='user == "adminAdjustment" and type =="shopOrder"'>where adjustment != 'NO' order by adjustment</if>
+	  <if test='user == "partnerClaimPost" and type =="shop"'>where mid = #{condition} and claim = 'YES'</if>
 	  <if test='user == "adminCoupon" and type =="coupon"'>order by createDate DESC</if>
 		;
 	</select>
@@ -27,6 +28,7 @@
 	   <if test='user == "admin" and condition == "NO" and type =="partner"'>where accept = 'NO'</if>
 	   <if test='user == "adminAccept" and condition == "NO" and type =="shop"'>where accept = 'NO'</if>
 	   <if test='user == "adminClaim" and condition == "YES" and type =="shop"'>where claim = 'YES'</if>
+	   <if test='user == "partnerClaimPost" and type =="shop"'>where mid = #{condition} and claim = 'YES'</if>
 	   <if test='user == "adminAdjustment" and type =="shopOrder"'>where adjustment != 'NO' order by adjustment</if>
 	   <if test='user == "adminCoupon" and type =="coupon"'>order by createDate DESC</if>
 	   limit #{startIndexNo}, #{pageSize};

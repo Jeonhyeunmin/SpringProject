@@ -133,6 +133,7 @@
 		}
 	</script>
 </head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 <div class="container">
     <h3>아이디 중복 체크</h3>
     <hr>

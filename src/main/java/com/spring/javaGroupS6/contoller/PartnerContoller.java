@@ -212,11 +212,12 @@ public class PartnerContoller {
 	}
 	
 	@GetMapping("/claimPost")
-	public String claimPostGet(HttpSession session, Model model) {
+	public String claimPostGet(HttpSession session, Model model,
+			@RequestParam(name="pag", defaultValue = "1", required = false) int pag,
+			@RequestParam(name="pageSize", defaultValue = "15", required = false) int pageSize
+	) {
 		String mid = session.getAttribute("sMid") == null ? "" : (String)session.getAttribute("sMid");
-		ArrayList<ShopVO> vos = partnerService.getClaimPostList(mid);
-		
-		model.addAttribute("vos", vos);
+		pageProcess.totRecCnt(model, pag, pageSize, "shop", "partnerClaimPost", mid);
 		
 		return "/partner/claimPost";
 	}

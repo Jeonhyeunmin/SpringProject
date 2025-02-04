@@ -87,7 +87,7 @@
 		
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="menu-container">
 		<div class="logo"><a href="${ctp}/partner/content" target="partner">Min's</a></div>
     <div class="menu-section">
@@ -103,7 +103,7 @@
       <ul>
         <li><a href="${ctp}/partner/orderList" target="partner">주문목록</a></li>
         <li><a href="${ctp}/partner/adjustment" target="partner">정산</a></li>
-        <li><a href="${ctp}/partner/exchange" target="partner">환불 및 반품</a></li>
+        <li><a href="${ctp}/partner/exchange" target="partner">교환 및 환불</a></li>
       </ul>
     </div>
     
@@ -119,7 +119,6 @@
       <div class="menu-title">계정관리</div>
       <ul>
         <li><a href="${ctp}/partner/partnerUpdate" target="partner">계정 정보</a></li>
-        <li><a href="">정산 계좌 관리</a></li>
       </ul>
     </div>
   </div>

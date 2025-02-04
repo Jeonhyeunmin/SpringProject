@@ -6,7 +6,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>회원정보 확인</title>
   <jsp:include page="/WEB-INF/views/include/bs5.jsp" />
   <style>
   	@font-face { /*눈누 기초고딕 - 두꺼운 네모 딱딱 고딕*/
@@ -82,9 +81,9 @@
 				  
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="container">
-    <h2>회원정보 확인</h2>
+    <h2>파트너 정보 확인</h2>
   	<form name="myform" method="post" action="${ctp}/partner/pwdCheck">
 	    <div class="form-group">
 	      <label for="mid">Min's 아이디</label>
@@ -98,7 +97,7 @@
 	    <button type="submit" onclick="fCheck()" class="btn">확인</button>
 	    <hr>
 	    <p class="text-muted" style="font-size: 14px;">
-	      * 고객님의 개인정보 보호를 위해 비밀번호를 다시 확인합니다.<br>
+	      * 파트너님의 개인정보 보호를 위해 비밀번호를 다시 확인합니다.<br>
 	      * 비밀번호가 타인에게 노출되지 않도록 항상 주의해 주세요.
 	    </p>
     </form>

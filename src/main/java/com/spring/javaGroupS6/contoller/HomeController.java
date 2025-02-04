@@ -85,4 +85,14 @@ public class HomeController {
 		
 	}
 	
+	@RequestMapping(value = "/atom/login", method = RequestMethod.GET)
+	public String atom() {
+		return "atom/login";
+	}
+	
+	@RequestMapping(value = "/atom", method = RequestMethod.GET)
+	public String atomindex() {
+		return "atom/index";
+	}
+	
 }

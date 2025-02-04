@@ -180,7 +180,7 @@
 	  
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="container-fluid">
     <div class="row">
       <!-- 좌측 컨테이너 -->

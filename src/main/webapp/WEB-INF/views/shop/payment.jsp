@@ -62,7 +62,7 @@
 		);
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   
 </body>
 </html>

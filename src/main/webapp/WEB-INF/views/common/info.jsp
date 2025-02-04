@@ -126,7 +126,7 @@
 	  });
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <jsp:include page="/WEB-INF/views/include/mainHeader.jsp" />
   <div class="video-container">
     <video autoplay loop muted playsinline loading="lazy">

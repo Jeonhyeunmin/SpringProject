@@ -164,7 +164,7 @@
 		  }
     </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 	<h3 class="text-start mt-4" style="font-weight: bold;">게시물 리스트 (${shopCnt}건)</h3>
 	<div class="grid-container">
 	  <c:forEach var="vo" items="${vos}" varStatus="st">

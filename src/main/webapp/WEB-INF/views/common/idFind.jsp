@@ -95,7 +95,7 @@
 	  }
   </style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 	<div class="line-drawing-demo logo">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 100%;">
 		  <g class="lines" fill="none" stroke="#f2d8b1" stroke-width="7">

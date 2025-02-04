@@ -436,7 +436,7 @@
 		}
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="container">
     <h1>상품 등록</h1>
     <form name="myform" enctype="multipart/form-data" method="post" action="${ctp}/shop/shopInput">

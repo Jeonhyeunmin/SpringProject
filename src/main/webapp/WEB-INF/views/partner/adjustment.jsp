@@ -275,7 +275,7 @@
 		}
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="list-container">
     <h4>정산 상태</h4>
     <div class="table-responsive">

@@ -366,7 +366,7 @@
 		}
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 	<form name="myform">
 	  <div class="list-container">
 		  <h4 class="text-start mt-4" style="font-weight: bold;">주문 목록</h4>
@@ -376,7 +376,9 @@
 			  <button type="button" class="btn-delivery-finish" onclick="deliveryFinish()">전체 배송 완료</button>
 			</div>
 		  <p>
-		  	<input type="checkbox" id="deliveryReady" ${status != '' ? 'checked' : ''} onclick="location.href='${ctp}/partner/orderList?${status == '' ? 'status=ready' : ''}'"/><label for="deliveryReady" style="padding: 10px;">배송준비 목록 보기</label>
+		  	<input type="checkbox" id="deliveryReady" ${status != '' ? 'checked' : ''} 
+		  	onclick="location.href='${ctp}/partner/orderList?${status == '' ? 'status=ready' : ''}'"/>
+		  	<label for="deliveryReady" style="padding: 10px;">배송준비 목록 보기</label>
 		  </p>
 		  <div class="table-responsive">
 		    <table class="table table-striped table-bordered table-hover">

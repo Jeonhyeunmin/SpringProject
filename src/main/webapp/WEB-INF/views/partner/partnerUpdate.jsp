@@ -669,7 +669,7 @@
     	
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="container-fluid">
     <form name="joinForm" method="post" enctype="multipart/form-data" action="${ctp}/partner/partnerUpdate">
       <div class="form-group nowImg">

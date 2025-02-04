@@ -141,7 +141,7 @@
 	</script>
   
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="sidebar">
     <div class="logo" onclick="location.href='${ctp}/admin/admin'">Min's ADMIN</div>
     <a href="${ctp}/admin/admin" class="active">

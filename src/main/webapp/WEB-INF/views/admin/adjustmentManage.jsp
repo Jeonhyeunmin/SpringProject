@@ -411,7 +411,7 @@
 
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 	<div class="grey-bg pe-3">
 	  <section id="stats-subtitle">
 			<div class="row mb-4">

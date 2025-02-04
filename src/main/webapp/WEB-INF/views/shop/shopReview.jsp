@@ -102,7 +102,7 @@
 		}
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="container">
     <form method="post" name="reviewForm" action="${ctp}/shop/shopReviewInput">
 	    <div class="review-card">

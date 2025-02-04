@@ -77,7 +77,6 @@
 	    border: 1px solid #ddd;
 	    border-radius: 5px;
 	    margin-bottom: 10px;
-	    background-color: #f9f9f9;
 		}
 	
 	  .review-container .review-item .review-header {
@@ -220,7 +219,7 @@
 		}
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 	<div class="grey-bg container-fluid">
   <table class="table table-bordered">
     <thead>

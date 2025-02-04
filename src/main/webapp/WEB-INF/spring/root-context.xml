@@ -23,6 +23,9 @@
 		<property name="url" value="jdbc:mysql://localhost:3306/javagroup6?allowMultiQueries=true"/>
 		<property name="username" value="root"/>
 		<property name="password" value="1234"/>
+		<!-- <property name="url" value="jdbc:mysql://localhost:3306/jhm714?allowMultiQueries=true"/>
+		<property name="username" value="jhm714"/>
+		<property name="password" value="gusals1435"/> -->
 	</bean>
 	
 	<!-- MyBatis 템플릿(SqlSessionFactory) 스프링 컨테이너에 등록 -->

@@ -526,7 +526,7 @@
 		}
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 	<div class="order-container">
 		<form name="orderForm" method="post" action="${ctp}/shop/payment">
 			<div class="order-header">

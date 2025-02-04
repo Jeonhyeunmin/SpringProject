@@ -165,7 +165,7 @@
 		}
   </style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="content">
     <div class="status-section">
       <h3>주문 현황</h3>

@@ -30,7 +30,7 @@
 <script type="text/javascript">
 
 </script>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 	<form name="" action="">
 		<div class="modal-body">
 		  <!-- 현재 비밀번호 -->

@@ -188,7 +188,7 @@
 	  
 	</style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 	<div class="grey-bg container-fluid">
 		<div id="linechart_material"></div>
 	  <section id="stats-subtitle">

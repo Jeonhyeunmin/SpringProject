@@ -100,7 +100,7 @@
 		}
   </style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 	<footer	>
 		<div class="row">
 			<div class="col left-col">
