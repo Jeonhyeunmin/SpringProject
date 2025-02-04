@@ -148,7 +148,7 @@
 		}
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="container">
     <h4 class="text-start mt-4" style="font-weight: bold;">주문 목록</h4>
     <div class="order-card">

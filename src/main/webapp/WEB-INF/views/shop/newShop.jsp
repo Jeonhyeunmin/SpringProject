@@ -14,7 +14,6 @@
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #f9f9f9;
       }
       .new-container{
       	max-width: 2500px;
@@ -236,7 +235,7 @@
 	    });
     </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="page-header">
     <div class="breadcrumb"><a href="${ctp}">HOME</a> > NEW ARRIVAL</div>
   </div>

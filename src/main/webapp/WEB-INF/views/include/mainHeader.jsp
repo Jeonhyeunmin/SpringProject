@@ -559,7 +559,7 @@
 		}
     </style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 <div id="demo"></div>
     <header class="header">
         <div class="header-container">

@@ -400,7 +400,7 @@
 		}
 	</script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 	<div class="grey-bg container-fluid">
 	  <div class="row">
 	    <div class="col-xl-12 col-md-12">

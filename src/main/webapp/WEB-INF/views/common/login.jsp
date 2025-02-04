@@ -773,7 +773,7 @@
 
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 <div class="cont">
 	<a class="back-arrow" href="${ctp}/">
     <i class="fa-solid fa-arrow-left"></i>

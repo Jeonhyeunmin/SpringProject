@@ -108,7 +108,7 @@
     }
   </style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="container">
     <h4 class="text-center mt-4" style="font-weight: bold;">주문 내역</h4>
     <c:forEach var="vo" items="${orderVos}">

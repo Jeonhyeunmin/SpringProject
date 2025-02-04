@@ -208,7 +208,7 @@
 
 	</script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="best-container">
   	<div style="margin-bottom: 50px; font-size: 40px; font-weight: bold;">Best <span style="font-size: 20px; margin-left: 5px; font-weight: light;">Min's의 베스트 상품을 만나보세요.</span></div>
 		<p style="color: red; font-size: 12px;">* 본 페이지는 현대백화점의 BEST 페이지를 크롤링해온 페이지입니다.</p>  	

@@ -93,7 +93,7 @@
 	<select id="getSearch" resultType="com.spring.javaGroupS6.vo.ShopVO">
 		select s.*, avg(sr.star) as star, count(sr.idx) as reviewCnt 
 			from shop s
-			left join shopreview sr on s.idx = sr.shopIdx
+			left join shopReview sr on s.idx = sr.shopIdx
 			where 
 			    (s.title like concat('%', #{query}, '%') 
 			     or s.company like concat('%', #{query}, '%') 

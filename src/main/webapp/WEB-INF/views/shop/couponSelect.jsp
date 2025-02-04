@@ -37,7 +37,7 @@
 		
   </style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <table class="couponTable">
   	<tr>
   		<th>쿠폰명</th>

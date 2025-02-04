@@ -737,7 +737,7 @@
 	  });
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 	<div style="height: 150px;"></div>
 	<main>
 	  <div class="user-header-wrapper flexbox">

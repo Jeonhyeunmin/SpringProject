@@ -670,7 +670,7 @@
 
   </style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="container-fluid">
     <form name="joinForm" method="post" enctype="multipart/form-data" action="${ctp}/member/memberUpdate">
       <div class="form-group nowImg">

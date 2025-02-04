@@ -174,7 +174,7 @@
 		}
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="container">
     <c:if test="${empty orderVOS}">최근 주문 내역이 없습니다</c:if>
     <c:if test="${!empty orderVOS}">

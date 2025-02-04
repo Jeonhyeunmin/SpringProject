@@ -223,7 +223,7 @@
 		}
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="cart-list-check">
     <input type="checkbox" id="allcheck" onclick="allCheck()" class="allCheckBox">
     <button type="button" class="selectDelete" onclick="selectCookieDelete()">선택삭제</button>

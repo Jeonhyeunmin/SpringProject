@@ -82,7 +82,7 @@
 				  
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="container">
     <h2>회원정보 확인</h2>
   	<form name="myform" method="post" action="${ctp}/partner/pwdCheck">

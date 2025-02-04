@@ -98,7 +98,7 @@
 		}
   </style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="info">
     <a href="${ctp}/partner/content" target="partner"><div class="profile"><img src="${ctp}/logo/${vo.logo}"/></div></a>
 	  	<a href="${ctp}/partner/content" target="partner">

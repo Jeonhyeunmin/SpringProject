@@ -87,7 +87,7 @@
 		
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="menu-container">
 		<div class="logo"><a href="${ctp}/partner/content" target="partner">Min's</a></div>
     <div class="menu-section">

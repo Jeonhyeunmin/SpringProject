@@ -336,7 +336,7 @@
     	
     </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 	 <!-- 상단 제목 및 경로 -->
   <div class="page-header">
     <div class="breadcrumb"><a href="${ctp}">HOME</a> > <a href="${ctp}/shop/shopList?category=${fn: toUpperCase(category)}">${fn: toUpperCase(category)}</a></div>

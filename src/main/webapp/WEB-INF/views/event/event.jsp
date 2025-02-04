@@ -104,7 +104,7 @@
 		}
   </style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="event-container">
     <h1>진행중인 이벤트</h1>
     <div class="card-container">

@@ -219,7 +219,7 @@
 
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 <div class="cont">
 	<form method="post" name="myform">
 	  <div class="form sign-in align-middle">

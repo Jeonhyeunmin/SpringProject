@@ -138,7 +138,7 @@
 
     </style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 	<h3 class="text-start mt-4" style="font-weight: bold;">신고된 글 <font color="red" size="2px"> * 신고된 글은 고객에게 보이지 않습니다 수정 후 관리자에게 문의 바랍니다.</font></h3>
 	<div class="grid-container">
   	<c:if test="${empty vos}">신고된 게시글이 없습니다.</c:if>

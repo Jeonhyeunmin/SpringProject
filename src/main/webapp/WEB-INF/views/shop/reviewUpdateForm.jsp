@@ -82,7 +82,7 @@
     }
   </style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="container">
     <form method="post" name="reviewForm">
 	    <div class="review-card">

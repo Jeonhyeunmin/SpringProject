@@ -142,7 +142,7 @@ public class ShopServiceImpl implements ShopService {
 		if(vo.getContent().contains("src=\"/")) {
 			provide.imgCheck(vo.getContent(), "category");
 		}
-		vo.setContent(vo.getContent().replace("/data/ckeditor/", "/data/board/"));
+		vo.setContent(vo.getContent().replace("/data/ckeditor/", "/data/category/"));
 		
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
@@ -185,9 +185,6 @@ public class ShopServiceImpl implements ShopService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-			
-		
-		
 		return shopDAO.shopInput(vo);
 	}
 	

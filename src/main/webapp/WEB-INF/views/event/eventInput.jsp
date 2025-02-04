@@ -346,7 +346,7 @@
     	});
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="container">
     <h1>이벤트 등록</h1>
     <form name="myform" enctype="multipart/form-data" method="post" action="${ctp}/event/eventInput">

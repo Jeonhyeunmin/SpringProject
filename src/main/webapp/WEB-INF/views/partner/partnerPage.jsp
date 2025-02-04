@@ -43,7 +43,7 @@
 	  
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 		<div id="header">
 			<div style="margin-top: 3%;"></div>
 	    <iframe src="${ctp}/partner/header" name="partnerPageHeader"></iframe>

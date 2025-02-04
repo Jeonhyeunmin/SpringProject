@@ -465,7 +465,7 @@
   	
   </script>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <form name="myform" method="post" action="${ctp}/shop/shopOrder">
     <div class="cart-container">
       <div class="cart-header">

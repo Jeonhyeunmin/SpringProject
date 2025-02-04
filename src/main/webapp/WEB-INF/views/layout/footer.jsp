@@ -108,7 +108,7 @@
 	  });
   </script>
 </head>
-<body id="footer">
+<body id="footer" oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 	<footer style="background-color: transparent; padding: 20px 0; font-size: 12px; color: #666; border-top: 1px solid #ddd;">
 	  <div style="max-width: 1200px; margin: 0 auto; padding: 0 15px;">
 	    <div class="logo" style="text-align: center; margin-bottom: 20px;">

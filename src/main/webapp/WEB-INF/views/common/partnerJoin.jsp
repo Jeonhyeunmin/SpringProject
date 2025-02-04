@@ -530,7 +530,7 @@
 	  }
   </style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
   <div class="container">
     <form name="joinForm" method="post" enctype="multipart/form-data" action="${ctp}/common/partnerJoin">
       <h2>파트너 신청</h2>
