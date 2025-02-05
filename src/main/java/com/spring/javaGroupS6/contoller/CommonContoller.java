@@ -264,7 +264,7 @@ public class CommonContoller {
 		}
 		else {
 			model.addAttribute("companyCheck", "No");
-			model.addAttribute("mid", company);
+			model.addAttribute("company", company);
 		}
 		return "common/companyCheck";
 	}

@@ -114,6 +114,8 @@
 		    shopOrder AS o
 		ON 
 		    s.idx = o.shopIdx
+   	where claim = 'NO'
+   	and accept = 'YES'
 		GROUP BY 
 		    s.idx, s.title
 		ORDER BY 
@@ -124,6 +126,8 @@
 	<select id="getdateShopTop3" resultType="com.spring.javaGroupS6.vo.ShopVO">
 		SELECT *
 		FROM shop
+		where claim = 'NO'
+   	and accept = 'YES'
 		ORDER BY wDate DESC
 		LIMIT 5;
 	</select>

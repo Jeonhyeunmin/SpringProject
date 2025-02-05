@@ -30,7 +30,7 @@ public class MessageController {
 		}
 		else if((level == 1 || level == 0) && msgFlag.equals("loginOk")) {
 			model.addAttribute("message", name + "님 반갑습니다.");
-			model.addAttribute("url", "/");
+			model.addAttribute("url", "");
 		}
 		else if((level == 2 || level == 3) && msgFlag.equals("loginOk")) {
 			model.addAttribute("message", company + "님 반갑습니다.");
@@ -58,15 +58,18 @@ public class MessageController {
 		}
 		else if(msgFlag.equals("myPageNo")) {
 			model.addAttribute("message", "로그인 후 이용해주세요.");
+			model.addAttribute("top", "on");
 			model.addAttribute("url", "");
 		}
 		else if(msgFlag.equals("shopUpdateOk")) {
 			model.addAttribute("message", "게시물 업데이트 완료");
 			model.addAttribute("url", "shop/shopContent?idx=" + idx);
+			model.addAttribute("top", "on");
 		}
 		else if(msgFlag.equals("shopUpdateNo")) {
 			model.addAttribute("message", "게시물 업데이트 실패");
 			model.addAttribute("url", "shop/shopUpdate?idx=" + idx);
+			model.addAttribute("top", "on");
 		}
 		else if(msgFlag.equals("shopInputOk")) {
 			model.addAttribute("message", "게시물 등록이 완료되었습니다. 관리자 승인 후 게시물이 노출됩니다.");
@@ -115,6 +118,7 @@ public class MessageController {
 		}
 		else if(msgFlag.equals("loginError")) {
 			model.addAttribute("message", "로그인 후 이용가능한 서비스 입니다.");
+			model.addAttribute("top", "on");
 			model.addAttribute("url", "");
 		}
 		else if(msgFlag.equals("leaveUser")) {

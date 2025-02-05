@@ -636,13 +636,6 @@
 			</div>
       <input type="hidden" id="address" name="address">
 			
-
-      <!-- 소개 -->
-      <div class="form-group">
-        <label for="description">업체 소개</label>
-        <textarea id="description" name="description" rows="3" placeholder="업체를 소개해주세요."></textarea>
-      </div>
-
       <!-- 제출 버튼 -->
       <div class="form-actions">
         <button type="button" class="btn btn-cancel" onclick="location.href='${ctp}/'">취소</button>

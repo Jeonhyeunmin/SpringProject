@@ -188,7 +188,7 @@
       <i class="fas fa-ticket-alt"></i> <!-- 쿠폰관리 아이콘 -->
       쿠폰관리
     </a>
-    <div class="bottom-link" onclick="location.href='${ctp}'">
+    <div class="bottom-link" onclick="location.href='${ctp}/'">
       <i class="fas fa-sign-out-alt"></i> <!-- 로그아웃 아이콘 -->
       Exit
     </div>

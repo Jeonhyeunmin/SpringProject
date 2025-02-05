@@ -261,26 +261,6 @@
 	    	}
 	  }
 
-	  function filterByStatus() {
-		  const status = document.getElementById('statusFilter').value; // 선택한 상태값
-		  const rows = document.querySelectorAll('#orderList tr');
-
-		  rows.forEach((row) => {
-		    const rowStatusElement = row.querySelector('td:last-child button, span');
-		    const rowStatus = rowStatusElement ? rowStatusElement.innerText.trim() : '';
-
-		    if (status === 'all') {
-		      row.style.display = ''; // 모든 상태 표시
-		    } else if (status === 'YES' && rowStatus === '정산 완료') {
-		      row.style.display = ''; // 정산 완료 상태만 표시
-		    } else if (status === 'ING' && row.querySelector('button')?.innerText === '정산') {
-		      row.style.display = ''; // 정산 대기 상태만 표시
-		    } else {
-		      row.style.display = 'none'; // 그 외는 숨김
-		    }
-		  });
-		}
-
 	  
 	  function sortTable(columnIndex, type) {
 	    const table = document.querySelector('table');
@@ -485,14 +465,7 @@
   </div>
 
 	<div class="row mb-2">
-    <div class="col-md-3">
-      <select id="statusFilter" class="form-control" onchange="filterByStatus()">
-        <option value="all">모든 상태</option>
-        <option value="ING">정산 대기</option>
-        <option value="YES">정산 완료</option>
-      </select>
-    </div>
-    <div class="col-md-3">
+    <div class="col-md-6">
       <input type="text" id="searchKeyword" class="form-control" placeholder="업체명 또는 상품명 검색">
     </div>
     <div class="col-md-2">
