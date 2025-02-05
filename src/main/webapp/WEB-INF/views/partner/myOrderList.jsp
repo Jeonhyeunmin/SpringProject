@@ -419,7 +419,7 @@
 						      	<font color="red">교환 및 환불</font>
 						      </c:if>
 					      	<c:if test="${vo.decide != '교환 및 환불'}">
-					      		${vo.decide == 'no' ? '구매 확정 전' : '구매확정'}
+					      		${vo.decide == 'NO' ? '구매 확정 전' : '구매확정'}
 				      		</c:if>
 				      	</td>
 					      <td>${vo.delivery}</td>

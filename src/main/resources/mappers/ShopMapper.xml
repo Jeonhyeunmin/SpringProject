@@ -99,6 +99,8 @@
 			     or s.company like concat('%', #{query}, '%') 
 			     or s.mid like concat('%', #{query}, '%') 
 			     or s.subCategory like concat('%', #{query}, '%'))
+			     and s.claim = 'NO'
+			     and s.accept = 'YES'
 			group by s.idx;
 	</select>
 	

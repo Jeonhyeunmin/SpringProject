@@ -135,15 +135,13 @@
   </script>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
-  <!-- Header -->
-  <header>
-      <tiles:insertAttribute name="header" />
-  </header>
-
-  <!-- Main Body -->
-<tiles:insertAttribute name="body" />
-
+	<!-- Header -->
+	<header>
+	    <tiles:insertAttribute name="header" />
+	</header>
 	
+	<!-- Main Body -->
+	<tiles:insertAttribute name="body" />
 	<div class="fixed-sidebar on" id="mainSidevar">
 	  <div class="sidebar-item">
 	    <h4>

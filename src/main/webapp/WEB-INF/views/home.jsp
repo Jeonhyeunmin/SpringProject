@@ -288,7 +288,7 @@
 	</script>
 </head>
 <!-- <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false"> -->
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 <!-- header -->
 <jsp:include page="/WEB-INF/views/include/mainHeader.jsp" />
 	<!-- 본문 영역 -->

@@ -332,7 +332,7 @@
 								        <button class="btn btn-apply" onclick="adjustment(${vo.idx})">정산 신청</button>
 									    </c:if>
 									    <c:if test="${vo.adjustment == 'ING'}">
-								        <button class="btn btn-progress" disabled>정산 진행 중</button>
+								        <button class="btn btn-progress" disabled>${vo.adjustment}</button>
 									    </c:if>
 									    <c:if test="${vo.adjustment == 'YES'}">
 								        <span class="text-success">정산완료</span>

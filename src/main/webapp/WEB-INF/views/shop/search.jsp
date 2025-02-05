@@ -216,6 +216,17 @@
 		  .grid-item .rating i {
 		    color: #f1c40f;
 		  }
+		  
+      .empty-cart {
+			  text-align: center;
+			  padding: 50px 20px;
+			  color: #555;
+			  border: 1px solid #ddd;
+			  border-radius: 10px;
+			  background-color: #f9f9f9;
+			  margin: 50px auto;
+			  max-width: 600px;
+			}
     </style>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">

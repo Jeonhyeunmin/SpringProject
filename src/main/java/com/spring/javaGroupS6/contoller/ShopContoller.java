@@ -189,7 +189,6 @@ public class ShopContoller {
 			}
 		}
 		
-		
 		if(productList.contains(idx + ":")) {
 			productList = productList.replace(idx + ":", "");
 		}
