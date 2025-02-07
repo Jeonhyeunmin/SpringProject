@@ -18,8 +18,7 @@
 ## 프로젝트 소개
 
 <p align="center">
-  <a href="http://49.142.157.251:9090/javaGroupS6/"><strong>Spring 프로젝트 [Min's]</strong></a> •
-  <a href="http://49.142.157.251:9090/javaGroupJ7/"><strong>JSP 프로젝트 [GRINTERIOR]</strong></a>
+  <a href="http://49.142.157.251:9090/javaGroupS6/"><strong>Spring 프로젝트 [Min's]</strong></a>
 </p>
 
 ---
