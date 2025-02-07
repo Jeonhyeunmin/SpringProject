@@ -783,11 +783,11 @@
 	    <h2>LOGIN</h2>
 	    <label>
 	      <span>ID</span>
-	      <input type="text" id="mid" name="mid" value="${cMid}" />
+	      <input type="text" id="mid" name="mid" value="${cMid}" required/>
 	    </label>
 	    <label>
 	      <span>Password</span>
-	      <input type="password" id="pwd" name="pwd" />
+	      <input type="password" id="pwd" name="pwd" required/>
 	    </label>
 	    <div class="idSave-group">
 		    <input type="checkbox" id="idSave" name="idSave" class="idSave-checkbox" ${!empty cMid ? 'checked' : ''}>

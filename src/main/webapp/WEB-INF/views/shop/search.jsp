@@ -228,6 +228,11 @@
 			  max-width: 600px;
 			}
     </style>
+    <script type="text/javascript">
+	    function stopPropagation(event) {
+		    event.stopPropagation(); // 이벤트 버블링을 중단
+		  }
+    </script>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydownn="return false">
 	 <!-- 상단 제목 및 경로 -->
@@ -260,8 +265,7 @@
 		      <div class="moveContent">
 		        <img src="${ctp}/category/${vo.thumbnail}" alt="Thumbnail">
 		        <div class="overlay-buttons">
-		          <button type="button" onclick="window.open('${ctp}/shop/shopContent?idx=${vo.idx}')" ><i class="fa-solid fa-eye"></i>새창</button>
-		          <button type="button"><i class="fa-solid fa-heart"></i>찜</button>
+		          <button type="button" onclick="stopPropagation(event); window.open('${ctp}/shop/shopContent?idx=${vo.idx}')" ><i class="fa-solid fa-eye"></i>새창</button>
 	        </div>
 		      </div>
 		      <div class="info">
