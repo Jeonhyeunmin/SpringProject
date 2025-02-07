@@ -1,3 +1,6 @@
+<img src="https://capsule-render.vercel.app/api?type=waving&color=BDBDC8&height=150&section=header" />
+
+
 <h1 align="center">안녕하세요 👋, 저는 전현민입니다.</h1>
 <h3 align="center">프로젝트</h3>
 
@@ -27,3 +30,5 @@ p align="left">
 alt="전현민" /></p> <p> <img align="center" src="https://github-readme-stats.vercel.app/api?username=jeonhyeunmin&show_icons=true&locale=ko" alt="전현민" /></p>
 
 <p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=jeonhyeunmin&" alt="전현민" /></p>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=BDBDC8&height=150&section=footer" />
