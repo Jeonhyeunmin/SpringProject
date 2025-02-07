@@ -13,7 +13,7 @@
   <script type="text/javascript">	
   'use strict';
 	
-		window.Kakao.init("41b76d7b84daeebbb95cced817199ddc");
+		window.Kakao.init("");
 		
 		document.addEventListener("DOMContentLoaded", function () {
 			window.Kakao.Auth.login({
